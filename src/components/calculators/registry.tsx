@@ -55,6 +55,7 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   // BigKidMath
   "caffeine-half-life": CaffeineCalculatorPremium,
   "car-vs-uber": CarVsUberCalculator,
+  "cost-of-war": CostOfWar,
   "generational-timeline": GenerationalTimelineCalculator,
   "lightning-life": LightningLifeCalculator,
   "power-footprint": PowerFootprintCalculator,

@@ -67,6 +67,17 @@ export const calculators: Calculator[] = [
     tips: ["Nuclear energy has the smallest land footprint per megawatt.", "Solar farms require vast open spaces but are getting more efficient every year.", "Wind farms can 'double up' on land by allowing farming beneath the turbines."]
   },
   {
+    id: "cost-of-war",
+    title: "The Cost of War",
+    description: "Contrast military munitions with societal opportunity costs.",
+    category: "BigKidMath",
+    slug: "cost-of-war",
+    icon: "⚔️",
+    origin: "Inspired by the 'Opportunity Cost' economic principle. Every dollar spent on munitions is a dollar not spent on hospitals, schools, or social infrastructure.",
+    howTo: "Select a piece of military hardware to see its procurement cost. We'll automatically convert that price tag into societal equivalents like teacher salaries, surgeons, or school buildings.",
+    tips: ["A single Stinger missile costs as much as a surgeon's annual salary.", "F-35 jets are the most expensive weapons program in history.", "The Global military spend is now over $2.4 Trillion annually."]
+  },
+  {
     id: "caesar-cipher",
     title: "Caesar Cipher",
     description: "Encrypt messages with the ancient Roman shift cipher.",
