@@ -9,13 +9,36 @@ import { toast } from "sonner"
 
 export default function BugReportPage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        location: "",
+        browser: "",
+        description: ""
+    })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        toast.success("Report submitted! Thanks for helping us squash bugs.")
-        setIsSubmitting(false)
+        
+        try {
+            const response = await fetch("/api/mail-relay.php?type=bug", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            })
+
+            if (response.ok) {
+                toast.success("Report submitted! Thanks for helping us squash bugs.")
+                setFormData({ name: "", email: "", location: "", browser: "", description: "" })
+            } else {
+                toast.error("Failed to deliver report. Please try again.")
+            }
+        } catch (error) {
+            toast.error("Portal connection error.")
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -35,22 +58,39 @@ export default function BugReportPage() {
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium">Your Name (Optional)</label>
-                                <Input placeholder="John Doe" className="bg-background/50 border-input/50" />
+                                <Input 
+                                    placeholder="John Doe" 
+                                    className="bg-background/50 border-input/50" 
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium">Email Address (Optional)</label>
-                                <Input type="email" placeholder="In case we need more info" className="bg-background/50 border-input/50" />
+                                <Input 
+                                    type="email" 
+                                    placeholder="In case we need more info" 
+                                    className="bg-background/50 border-input/50" 
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                />
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Where did you find the bug?</label>
-                            <Input placeholder="e.g. Caffeine Calculator, Homepage, Footer" required className="bg-background/50 border-input/50" />
+                            <Input 
+                                placeholder="e.g. Caffeine Calculator, Homepage, Footer" 
+                                required 
+                                className="bg-background/50 border-input/50" 
+                                value={formData.location}
+                                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                            />
                         </div>
 
                          <div className="space-y-2">
                             <label className="text-sm font-medium">Browser / Device</label>
-                            <Select>
+                            <Select onValueChange={(v) => setFormData({ ...formData, browser: v })} value={formData.browser}>
                                 <SelectTrigger className="bg-background/50 border-input/50">
                                     <SelectValue placeholder="What are you using?" />
                                 </SelectTrigger>
@@ -71,6 +111,8 @@ export default function BugReportPage() {
                                 placeholder="What happened? What did you expect to happen? Steps to reproduce?" 
                                 required 
                                 className="bg-background/50 border-input/50 min-h-[150px]" 
+                                value={formData.description}
+                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             />
                         </div>
 

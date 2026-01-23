@@ -9,15 +9,37 @@ import { toast } from "sonner"
 
 export default function RequestCalculatorPage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        type: "new",
+        title: "",
+        description: "",
+        priority: "medium"
+    })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        toast.success("Request sent! We'll review your awesome idea.")
-        setIsSubmitting(false)
-        // Reset form logic would go here
+        
+        try {
+            const response = await fetch("/api/mail-relay.php?type=request", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            })
+
+            if (response.ok) {
+                toast.success("Request sent! We'll review your awesome idea.")
+                setFormData({ name: "", email: "", type: "new", title: "", description: "", priority: "medium" })
+            } else {
+                toast.error("Failed to send request. Please try again.")
+            }
+        } catch (error) {
+            toast.error("Portal malfunction.")
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -37,17 +59,30 @@ export default function RequestCalculatorPage() {
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium">Your Name</label>
-                                <Input placeholder="What should we call you?" required className="bg-background/50 border-input/50" />
+                                <Input 
+                                    placeholder="What should we call you?" 
+                                    required 
+                                    className="bg-background/50 border-input/50" 
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium">Email Address</label>
-                                <Input type="email" placeholder="your@email.com" required className="bg-background/50 border-input/50" />
+                                <Input 
+                                    type="email" 
+                                    placeholder="your@email.com" 
+                                    required 
+                                    className="bg-background/50 border-input/50" 
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                />
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Request Type</label>
-                            <Select>
+                            <Select onValueChange={(v) => setFormData({ ...formData, type: v })} value={formData.type}>
                                 <SelectTrigger className="bg-background/50 border-input/50">
                                     <SelectValue placeholder="Choose type..." />
                                 </SelectTrigger>
@@ -61,7 +96,13 @@ export default function RequestCalculatorPage() {
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Calculator Title</label>
-                            <Input placeholder="e.g. 'Pizza vs Ramen Budget Optimizer'" required className="bg-background/50 border-input/50" />
+                            <Input 
+                                placeholder="e.g. 'Pizza vs Ramen Budget Optimizer'" 
+                                required 
+                                className="bg-background/50 border-input/50" 
+                                value={formData.title}
+                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                            />
                         </div>
 
                         <div className="space-y-2">
@@ -70,12 +111,14 @@ export default function RequestCalculatorPage() {
                                 placeholder="Describe your idea! What are the inputs? What's the output? get creative!" 
                                 required 
                                 className="bg-background/50 border-input/50 min-h-[150px]" 
+                                value={formData.description}
+                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             />
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Priority Level</label>
-                            <Select>
+                            <Select onValueChange={(v) => setFormData({ ...formData, priority: v })} value={formData.priority}>
                                 <SelectTrigger className="bg-background/50 border-input/50">
                                     <SelectValue placeholder="How much do you want this?" />
                                 </SelectTrigger>
