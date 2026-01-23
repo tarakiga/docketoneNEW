@@ -1,6 +1,7 @@
 import { CaffeineCalculatorPremium } from "@/components/organisms/caffeine-calculator"
 
 import { CarVsUberCalculator } from "./bigkidmath/car-vs-uber"
+import { CostOfWar } from "./bigkidmath/cost-of-war"
 import { GenerationalTimelineCalculator } from "./bigkidmath/generational-timeline"
 
 import { LightningLifeCalculator } from "./bigkidmath/lightning-life"
