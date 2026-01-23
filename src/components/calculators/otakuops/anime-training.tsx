@@ -3,6 +3,7 @@
 import { ShareResult } from "@/components/molecules/share-result"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { Flame, Music } from "lucide-react"
@@ -22,7 +23,6 @@ export function AnimeTrainingCalculator() {
     setTrainingState('training')
     setProgress(0)
     
-    // Simulate training progress
     const interval = setInterval(() => {
       setProgress(p => {
         if (p >= 100) {
@@ -36,175 +36,186 @@ export function AnimeTrainingCalculator() {
   }
 
   const results = (() => {
-    // Logic from legacy
     let basePushups = 10000 - (currentPower * 10)
-    
-    // Intensity mult
     const intMult = { 'casual': 0.8, 'shounen': 1.0, 'demon slayer': 1.5 }
     basePushups *= intMult[intensity as keyof typeof intMult]
-    
-    // Music reduction
     basePushups *= (1 - (musicBonus / 400))
-    
-    // Rival
     const rivalMult = { 'none': 1.0, 'occasional': 0.9, 'constant': 0.8, 'trauma': 0.7 }
     basePushups *= rivalMult[rivalTaunts as keyof typeof rivalMult]
-
-    // Flashback
     if (rivalTaunts !== 'none') {
        basePushups *= (1 - (flashback / 500))
     }
-
     const pushups = Math.max(100, Math.round(basePushups))
-    
-    // Power Mult
     let pm = (intMult[intensity as keyof typeof intMult] * 0.5) + (musicBonus/100 * 0.3) + (rivalTaunts !== 'none' ? 0.4 : 0)
     
     return {
       pushups,
       powerMult: pm.toFixed(1),
-      finalPower: 'OVER 9000', // Simplified for fun
+      finalPower: 'OVER 9000',
       mainCharacterStatus: true
     }
   })()
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-slate-50 border-red-500 border-4 shadow-[10px_10px_0px_0px_rgba(239,68,68,1)] overflow-hidden relative">
-        {/* Anime Speed Lines Background */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" 
+      <Card className="white-glass-card shadow-xl shadow-red-500/5 relative overflow-hidden">
+        {/* Subtle Manga Speed Lines */}
+        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
              style={{ 
-               backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 40px, #ef4444 40px, #ef4444 42px)' 
+               backgroundImage: 'repeating-linear-gradient(135deg, transparent, transparent 30px, #000 30px, #000 31px)' 
              }}>
         </div>
 
-        <CardHeader className="bg-red-600 text-white transform -skew-x-12 mx-8 mt-6 mb-4 py-6 border-b-4 border-black shadow-lg relative z-10">
-           <CardTitle className="text-4xl font-black text-center italic uppercase transform skew-x-12 drop-shadow-md">
-             Anime Training Arc
-           </CardTitle>
-           <CardDescription className="text-center text-red-100 font-bold transform skew-x-12 opacity-90">
-             From NPC to Protagonist in one montage!
-           </CardDescription>
+        <CardHeader className="border-b border-slate-100 bg-white/50 relative z-10 p-8">
+           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="space-y-2 text-center md:text-left">
+                <CardTitle className="text-4xl font-black italic uppercase tracking-tighter text-slate-900 drop-shadow-sm flex items-center justify-center md:justify-start gap-4">
+                  <span className="bg-red-600 text-white px-4 py-1 skew-x-[-12deg] shadow-lg shadow-red-200">ANIME</span>
+                  <span>TRAINING ARC</span>
+                </CardTitle>
+                <CardDescription className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">
+                  Calculate the physical toll of your next protagonist montage
+                </CardDescription>
+              </div>
+              <div className="shrink-0">
+                <div className="bg-slate-900 text-white px-6 py-2 rounded-full font-black italic text-xs tracking-widest border-2 border-slate-800 shadow-xl">
+                    STATUS: {currentPower < 200 ? "SIDE CHARACTER" : "PROTAGONIST"}
+                </div>
+              </div>
+           </div>
         </CardHeader>
         
-        <CardContent className="space-y-8 p-8 relative z-10">
+        <CardContent className="grid gap-10 md:grid-cols-2 p-10 relative z-10">
            
-           <div className="bg-white p-6 border-2 border-black rounded-xl shadow-lg space-y-6">
-              <h3 className="font-black text-xl flex items-center gap-2">
-                <Flame className="text-orange-500 fill-orange-500"/> CONFIGURATION
-              </h3>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                 <div className="space-y-4">
-                    <label className="font-bold text-sm uppercase text-slate-500">Training Intensity</label>
-                    <div className="flex gap-2">
-                       {['casual', 'shounen', 'demon slayer'].map(i => (
-                         <button 
-                           key={i}
-                           onClick={() => setIntensity(i)}
-                           className={`flex-1 py-3 font-black uppercase text-sm border-2 rounded transition-all ${intensity === i ? 'bg-red-100 border-red-500 text-red-600 -translate-y-1 shadow-md' : 'bg-slate-100 border-slate-300 text-slate-400'}`}
-                         >
-                           {i}
-                         </button>
-                       ))}
-                    </div>
-                 </div>
-
-                 <div className="space-y-4">
-                    <label className="font-bold text-sm uppercase text-slate-500">Current Power Level: {currentPower}</label>
-                    <Slider value={[currentPower]} onValueChange={([v]) => setCurrentPower(v)} max={1000} className="[&_.range-thumb]:bg-red-500 [&_.range-thumb]:border-black" />
-                    <p className="text-xs text-slate-400 text-right font-mono">
-                      {currentPower < 200 ? "Background NPC" : currentPower < 600 ? "Side Character" : "Protagonist"}
-                    </p>
-                 </div>
+           <div className="space-y-8">
+              <div className="space-y-4">
+                <Label className="flex items-center gap-2 text-red-600 font-black uppercase tracking-widest text-[10px]">
+                    <Flame className="h-4 w-4 fill-red-500 text-red-500"/> Sequence Intensity
+                </Label>
+                <div className="flex gap-3">
+                   {['casual', 'shounen', 'demon slayer'].map(i => (
+                     <button 
+                       key={i}
+                       onClick={() => setIntensity(i)}
+                       className={`flex-1 py-4 font-black uppercase text-[10px] tracking-widest border-2 rounded-2xl transition-all ${intensity === i ? 'bg-red-600 border-red-600 text-white shadow-xl shadow-red-200 -translate-y-1' : 'bg-slate-50 border-slate-100 text-slate-400 hover:bg-white'}`}
+                     >
+                       {i}
+                     </button>
+                   ))}
+                </div>
               </div>
 
               <div className="space-y-4">
-                  <div className="flex justify-between font-bold text-sm uppercase text-slate-500">
-                     <span className="flex items-center gap-2"><Music className="w-4 h-4"/> Dramatic Music Bonus</span>
-                     <span>{musicBonus}%</span>
-                  </div>
-                  <Slider value={[musicBonus]} onValueChange={([v]) => setMusicBonus(v)} max={100} className="[&_.range-thumb]:bg-purple-500" />
+                <Label className="flex justify-between font-black uppercase tracking-widest text-[10px] text-slate-500">
+                    <span>Current Vitality</span>
+                    <span className="text-slate-900">{currentPower}</span>
+                </Label>
+                <Slider value={[currentPower]} onValueChange={([v]) => setCurrentPower(v)} max={1000} className="[&_.range-thumb]:bg-red-600 [&_.range-thumb]:border-red-600" />
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                 <div className="space-y-2">
-                    <label className="font-bold text-sm uppercase text-slate-500">Rival Taunts</label>
+              <div className="space-y-4">
+                  <div className="flex justify-between font-black uppercase tracking-widest text-[10px] text-slate-500">
+                     <span className="flex items-center gap-2"><Music className="w-4 h-4 text-purple-600"/> OST Hype Bonus</span>
+                     <span className="text-purple-600">{musicBonus}%</span>
+                  </div>
+                  <Slider value={[musicBonus]} onValueChange={([v]) => setMusicBonus(v)} max={100} className="[&_.range-thumb]:bg-purple-600" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-6">
+                 <div className="space-y-3">
+                    <Label className="font-black uppercase tracking-widest text-[10px] text-slate-500">Rival Dynamics</Label>
                     <Select value={rivalTaunts} onValueChange={setRivalTaunts}>
-                       <SelectTrigger className="font-bold border-2 border-slate-300 bg-slate-50"><SelectValue/></SelectTrigger>
-                       <SelectContent>
+                       <SelectTrigger className="font-bold border-slate-200 bg-white shadow-sm h-11 rounded-2xl"><SelectValue/></SelectTrigger>
+                       <SelectContent className="rounded-2xl">
                           <SelectItem value="none">None (Boring)</SelectItem>
                           <SelectItem value="occasional">Occasional Insults</SelectItem>
                           <SelectItem value="constant">Constant Mockery</SelectItem>
-                          <SelectItem value="trauma">Tragic Backstory Link</SelectItem>
+                          <SelectItem value="trauma">Ancient Bloodrival</SelectItem>
                        </SelectContent>
                     </Select>
                  </div>
 
                  {rivalTaunts !== 'none' && (
-                    <div className="space-y-2">
-                       <label className="font-bold text-sm uppercase text-slate-500">Flashback Potential: {flashback}%</label>
-                       <Slider value={[flashback]} onValueChange={([v]) => setFlashback(v)} max={100} className="[&_.range-thumb]:bg-blue-500" />
+                    <div className="space-y-3">
+                       <Label className="font-black uppercase tracking-widest text-[10px] text-slate-500 flex justify-between">
+                         <span>Flashback</span>
+                         <span>{flashback}%</span>
+                       </Label>
+                       <Slider value={[flashback]} onValueChange={([v]) => setFlashback(v)} max={100} className="[&_.range-thumb]:bg-blue-600" />
                     </div>
                  )}
               </div>
 
               {trainingState === 'idle' && (
-                 <Button onClick={calculatePlan} className="w-full h-16 text-xl font-black italic bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 border-b-8 border-red-800 active:border-b-0 active:translate-y-2 transition-all">
-                    BEGIN MONTAGE SEQUENCE!
+                 <Button onClick={calculatePlan} className="w-full h-16 text-xl font-black italic bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white shadow-2xl shadow-red-200 rounded-[2rem] border-b-8 border-red-800 active:border-b-0 active:translate-y-2 transition-all tracking-tighter uppercase">
+                    Unleash Potential!
                  </Button>
               )}
            </div>
 
            {/* Results Area */}
-           {(trainingState === 'training' || trainingState === 'complete') && (
-              <div className="bg-slate-900 text-white p-6 rounded-xl border-4 border-black relative overflow-hidden animate-in zoom-in-95">
-                 
-                 {trainingState === 'training' && (
-                    <div className="space-y-4 text-center py-12">
-                       <h3 className="text-4xl font-black italic text-yellow-400 animate-pulse">TRAINING...</h3>
-                       <div className="w-full bg-slate-800 h-8 rounded-full overflow-hidden border-2 border-white">
-                          <div className="h-full bg-gradient-to-r from-yellow-400 to-red-500" style={{ width: `${progress}%` }}></div>
-                       </div>
-                       <p className="font-mono text-green-400">Push-ups: {Math.round(results.pushups * (progress/100))}</p>
-                    </div>
-                 )}
+           <div className="rounded-[2rem] bg-slate-900 text-white p-10 border-4 border-slate-800 relative overflow-hidden flex flex-col justify-center min-h-[400px]">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent pointer-events-none" />
+              
+              {trainingState === 'training' && (
+                <div className="space-y-6 text-center animate-in zoom-in-95 py-12 relative z-10">
+                   <h3 className="text-5xl font-black italic text-yellow-400 animate-pulse tracking-tighter">SURGING...</h3>
+                   <div className="w-full bg-slate-800 h-10 rounded-full overflow-hidden border-2 border-slate-700 p-1.5">
+                      <div className="h-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 rounded-full shadow-[0_0_20px_rgba(239,68,68,0.5)]" style={{ width: `${progress}%` }}></div>
+                   </div>
+                   <div className="flex justify-between font-mono text-emerald-400 text-xs px-2">
+                       <span>SYNERGY: {progress}%</span>
+                       <span>EST. REPS: {Math.round(results.pushups * (progress/100))}</span>
+                   </div>
+                </div>
+              )}
 
-                 {trainingState === 'complete' && (
-                    <div className="space-y-6 text-center animate-in slide-in-from-bottom duration-500">
-                       <h3 className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-t from-yellow-400 to-white drop-shadow-[0_4px_0_rgba(0,0,0,1)]">
-                          TRAINING COMPLETE!
-                       </h3>
-                       
-                       <div className="grid grid-cols-2 gap-4">
-                          <div className="bg-red-600 p-4 rounded-lg border-b-4 border-red-900 transform rotate-2">
-                             <div className="font-bold text-red-200 text-xs">PUSH-UPS COMPLETED</div>
-                             <div className="text-3xl font-black">{results.pushups.toLocaleString()}</div>
-                          </div>
-                          <div className="bg-blue-600 p-4 rounded-lg border-b-4 border-blue-900 transform -rotate-1">
-                             <div className="font-bold text-blue-200 text-xs">POWER MULTIPLIER</div>
-                             <div className="text-3xl font-black">{results.powerMult}x</div>
-                          </div>
-                       </div>
+              {trainingState === 'complete' && (
+                <div className="space-y-8 text-center animate-in slide-in-from-bottom-8 duration-700 relative z-10">
+                   <h3 className="text-6xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-yellow-600 tracking-tighter uppercase drop-shadow-2xl">
+                      EVOLVED!
+                   </h3>
+                   
+                   <div className="grid grid-ols-1 sm:grid-cols-2 gap-4">
+                      <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl group hover:bg-white/20 transition-all">
+                         <div className="font-black text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-2">Arc Workload</div>
+                         <div className="text-4xl font-black text-white">{results.pushups.toLocaleString()}</div>
+                         <div className="text-[10px] text-red-400 font-bold mt-1 uppercase">Total Push-ups</div>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl group hover:bg-white/20 transition-all">
+                         <div className="font-black text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-2">Divergence Mult</div>
+                         <div className="text-4xl font-black text-white">{results.powerMult}x</div>
+                         <div className="text-[10px] text-blue-400 font-bold mt-1 uppercase">Multiplier Active</div>
+                      </div>
+                   </div>
 
-                       <div className="bg-yellow-500 text-black p-4 font-black text-xl italic border-4 border-black transform skew-x-[-10deg]">
-                          NEW STATUS: MAIN CHARACTER
-                       </div>
+                   <div className="bg-yellow-400 text-slate-900 p-4 font-black text-2xl italic border-4 border-slate-900 rounded-2xl transform shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                      STATUS: ASCENDED
+                   </div>
 
-                       <div className="flex justify-center gap-4">
-                          <Button variant="outline" className="text-black border-2 border-white hover:bg-white/10" onClick={() => setTrainingState('idle')}>Reset Arc</Button>
-                          <div className="text-left w-full max-w-xs">
-                            <ShareResult 
-                              title="Anime Training Results" 
-                              text={`I completed my training arc! ${results.pushups} push-ups and a ${results.powerMult}x power boost. I am now the Main Character!`}
-                            />
-                          </div>
-                       </div>
-                    </div>
-                 )}
+                   <div className="flex flex-col gap-4 pt-4">
+                      <ShareResult 
+                        title="Anime Training Arc Complete" 
+                        text={`I've reached 9000! Finished my arc with ${results.pushups} push-ups. I am the Chosen One!`}
+                        className="w-full"
+                      />
+                      <button 
+                        onClick={() => setTrainingState('idle')}
+                        className="text-slate-500 font-black uppercase text-[10px] tracking-widest hover:text-white transition-colors"
+                      >
+                         Restart Arc Montage
+                      </button>
+                   </div>
+                </div>
+              )}
 
-              </div>
-           )}
+              {trainingState === 'idle' && (
+                <div className="text-center space-y-4 py-12 opacity-40">
+                    <div className="text-8xl">🥋</div>
+                    <div className="font-black uppercase tracking-widest text-xs">Waiting for Montage Activation</div>
+                </div>
+              )}
+           </div>
 
         </CardContent>
       </Card>

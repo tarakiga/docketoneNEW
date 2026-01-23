@@ -131,22 +131,22 @@ export function ZombieSurvivalCalculator() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      <Card className="border-red-900/50 bg-black/40 backdrop-blur-md">
-        <CardHeader>
-          <CardTitle className="text-3xl font-display text-red-500 flex items-center gap-2">
-            <Biohazard className="h-8 w-8 animate-pulse" />
-            Survival Analysis
+      <Card className="white-glass-card shadow-xl shadow-red-500/5">
+        <CardHeader className="border-b border-slate-100 bg-white/50">
+          <CardTitle className="text-3xl font-display text-red-600 flex items-center gap-2">
+            <Biohazard className="h-8 w-8 animate-pulse text-red-500" />
+            Outbreak Analysis
           </CardTitle>
-          <CardDescription>Configure your survivor profile and threat level.</CardDescription>
+          <CardDescription className="text-slate-500 font-medium">Configure your survivor profile and calculated threat level.</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-6 md:grid-cols-2">
+        <CardContent className="grid gap-10 md:grid-cols-2 p-8">
           
           {/* Controls */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             
             <div className="space-y-3">
-              <Label className="flex items-center gap-2 text-red-400"><HeartPulse className="h-4 w-4" /> Physical Condition</Label>
-              <div className="grid grid-cols-3 gap-2">
+              <Label className="flex items-center gap-2 text-red-600 font-bold uppercase tracking-widest text-[10px]"><HeartPulse className="h-4 w-4" /> Physical Condition</Label>
+              <div className="grid grid-cols-3 gap-3">
                 {[
                   { val: "1", label: "Couch Potato", icon: "🛋️" },
                   { val: "2", label: "Average", icon: "🚶" },
@@ -155,97 +155,89 @@ export function ZombieSurvivalCalculator() {
                   <Button
                     key={opt.val}
                     variant={fitness === opt.val ? "destructive" : "outline"}
-                    className="h-auto flex-col py-3 gap-2 border-red-900/30 hover:bg-red-900/20"
+                    className={`h-auto flex-col py-4 gap-2 border-slate-200 hover:bg-red-50 transition-all ${fitness === opt.val ? "shadow-md shadow-red-100 ring-1 ring-red-500" : ""}`}
                     onClick={() => setFitness(opt.val)}
                   >
                     <span className="text-2xl">{opt.icon}</span>
-                    <span className="text-xs">{opt.label}</span>
+                    <span className="text-xs font-bold">{opt.label}</span>
                   </Button>
                 ))}
               </div>
             </div>
 
             <div className="space-y-3">
-              <Label className="flex items-center gap-2 text-yellow-400"><Dumbbell className="h-4 w-4" /> Acquired Skills</Label>
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant={skills.melee ? "default" : "outline"}
-                  className={`justify-start gap-2 ${skills.melee ? "bg-yellow-600 hover:bg-yellow-700 text-white" : ""}`}
-                  onClick={() => setSkills(s => ({...s, melee: !s.melee}))}
-                >
-                  <Swords className="h-4 w-4" /> Melee Combat
-                </Button>
-                <Button
-                  variant={skills.ranged ? "default" : "outline"}
-                  className={`justify-start gap-2 ${skills.ranged ? "bg-yellow-600 hover:bg-yellow-700 text-white" : ""}`}
-                  onClick={() => setSkills(s => ({...s, ranged: !s.ranged}))}
-                >
-                  <Target className="h-4 w-4" /> Ranged Weapons
-                </Button>
-                <Button
-                  variant={skills.firstAid ? "default" : "outline"}
-                  className={`justify-start gap-2 ${skills.firstAid ? "bg-yellow-600 hover:bg-yellow-700 text-white" : ""}`}
-                  onClick={() => setSkills(s => ({...s, firstAid: !s.firstAid}))}
-                >
-                  <Bandage className="h-4 w-4" /> First Aid
-                </Button>
-                <Button
-                  variant={skills.foraging ? "default" : "outline"}
-                  className={`justify-start gap-2 ${skills.foraging ? "bg-yellow-600 hover:bg-yellow-700 text-white" : ""}`}
-                  onClick={() => setSkills(s => ({...s, foraging: !s.foraging}))}
-                >
-                  <Leaf className="h-4 w-4" /> Foraging
-                </Button>
+              <Label className="flex items-center gap-2 text-amber-600 font-bold uppercase tracking-widest text-[10px]"><Dumbbell className="h-4 w-4" /> Survival Skillset</Label>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { key: 'melee', label: 'Melee Combat', icon: Swords },
+                  { key: 'ranged', label: 'Ranged Weapons', icon: Target },
+                  { key: 'firstAid', label: 'First Aid', icon: Bandage },
+                  { key: 'foraging', label: 'Foraging', icon: Leaf }
+                ].map((skill) => {
+                  const Icon = skill.icon;
+                  const isActive = (skills as any)[skill.key];
+                  return (
+                    <Button
+                      key={skill.key}
+                      variant={isActive ? "default" : "outline"}
+                      className={`justify-start gap-3 py-6 rounded-xl border-slate-200 transition-all ${isActive ? "bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-100 border-amber-600" : "bg-white hover:bg-amber-50"}`}
+                      onClick={() => setSkills(s => ({...s, [skill.key]: !isActive}))}
+                    >
+                      <Icon className={`h-4 w-4 ${isActive ? "text-white" : "text-amber-500"}`} /> 
+                      <span className="font-bold text-xs">{skill.label}</span>
+                    </Button>
+                  )
+                })}
               </div>
             </div>
 
             <div className="space-y-3">
-              <Label className="flex items-center gap-2 text-blue-400"><Users className="h-4 w-4" /> Group Size</Label>
-              <div className="grid grid-cols-3 gap-2">
+              <Label className="flex items-center gap-2 text-blue-600 font-bold uppercase tracking-widest text-[10px]"><Users className="h-4 w-4" /> Social Strategy</Label>
+              <div className="grid grid-cols-3 gap-3">
                 {[
-                  { val: "alone", label: "Alone", icon: <User className="h-5 w-5"/> },
-                  { val: "small", label: "Small Team", icon: <Users className="h-5 w-5"/> },
-                  { val: "large", label: "Large Colony", icon: <Box className="h-5 w-5"/> }
+                  { val: "alone", label: "Solo", icon: <User className="h-5 w-5"/> },
+                  { val: "small", label: "Tactical Cell", icon: <Users className="h-5 w-5"/> },
+                  { val: "large", label: "Colony", icon: <Box className="h-5 w-5"/> }
                 ].map((opt) => (
                   <Button
                     key={opt.val}
                     variant={groupSize === opt.val ? "secondary" : "outline"}
-                    className={`h-auto flex-col py-3 gap-2 ${groupSize === opt.val ? "bg-blue-900/50 text-blue-100 border-blue-500" : ""}`}
+                    className={`h-auto flex-col py-4 gap-2 border-slate-200 hover:bg-blue-50 transition-all ${groupSize === opt.val ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-100 ring-1 ring-blue-600" : "bg-white"}`}
                     onClick={() => setGroupSize(opt.val)}
                   >
                     {opt.icon}
-                    <span className="text-xs">{opt.label}</span>
+                    <span className="text-xs font-bold">{opt.label}</span>
                   </Button>
                 ))}
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-green-400">Outbreak Type</Label>
+              <div className="space-y-3">
+                <Label className="text-emerald-600 font-bold uppercase tracking-widest text-[10px]">Zombie Variant</Label>
                 <Select value={zombieType} onValueChange={setZombieType}>
-                  <SelectTrigger className="border-green-800/50 bg-black/20">
+                  <SelectTrigger className="bg-white border-slate-200 h-10 rounded-xl font-bold text-xs">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="slow">Slow Shamblers</SelectItem>
-                    <SelectItem value="fast">Fast Runners (Rage)</SelectItem>
-                    <SelectItem value="smart">Smart Hunters</SelectItem>
-                    <SelectItem value="mutated">Mutated</SelectItem>
+                  <SelectContent className="rounded-xl border-slate-100">
+                    <SelectItem value="slow" className="font-medium">Slow Shamblers</SelectItem>
+                    <SelectItem value="fast" className="font-medium">Fast Runners (Rage)</SelectItem>
+                    <SelectItem value="smart" className="font-medium">Smart Hunters</SelectItem>
+                    <SelectItem value="mutated" className="font-medium">Mutated Abominations</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-2">
-                <Label className="text-purple-400">Shelter</Label>
+              <div className="space-y-3">
+                <Label className="text-purple-600 font-bold uppercase tracking-widest text-[10px]">Safe Zone Type</Label>
                 <Select value={location} onValueChange={setLocation}>
-                  <SelectTrigger className="border-purple-800/50 bg-black/20">
+                  <SelectTrigger className="bg-white border-slate-200 h-10 rounded-xl font-bold text-xs">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="city">Urban Apartment</SelectItem>
-                    <SelectItem value="suburb">Suburban House</SelectItem>
-                    <SelectItem value="rural">Isolated Farm</SelectItem>
-                    <SelectItem value="bunker">Fortified Bunker</SelectItem>
+                  <SelectContent className="rounded-xl border-slate-100">
+                    <SelectItem value="city" className="font-medium">Urban Apartment</SelectItem>
+                    <SelectItem value="suburb" className="font-medium">Suburban House</SelectItem>
+                    <SelectItem value="rural" className="font-medium">Isolated Farm</SelectItem>
+                    <SelectItem value="bunker" className="font-medium">Fortified Bunker</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -254,64 +246,68 @@ export function ZombieSurvivalCalculator() {
           </div>
 
           {/* Results */}
-          <div className="space-y-6 rounded-xl bg-gray-900/50 p-6 border border-white/10">
+          <div className="space-y-8 rounded-2xl bg-slate-50 p-8 border border-slate-100 relative overflow-hidden flex flex-col justify-center">
+            <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent pointer-events-none" />
+            
             {result && (
               <>
-                <div className="text-center space-y-2">
-                  <h3 className="text-gray-400 uppercase text-xs tracking-widest">Calculated Survival Probability</h3>
-                  <div className="text-6xl font-black text-white flex items-center justify-center gap-2">
-                    <span className={result.chance > 60 ? "text-green-500" : result.chance > 30 ? "text-yellow-500" : "text-red-600"}>
+                <div className="text-center space-y-3 relative z-10">
+                  <h3 className="text-slate-500 uppercase text-[10px] font-black tracking-[0.2em]">Causal Probability</h3>
+                  <div className="text-7xl font-black flex items-center justify-center gap-2 tracking-tighter">
+                    <span className={result.chance > 60 ? "text-emerald-600" : result.chance > 30 ? "text-amber-500" : "text-rose-600"}>
                       {result.chance}%
                     </span>
                   </div>
-                  <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500">
+                  <div className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-rose-600 uppercase tracking-tight">
                     {result.profile}
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-xs uppercase tracking-wider text-red-400">
+                <div className="space-y-5 relative z-10">
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-red-600">
                       <span>Combat Readiness</span>
                       <span>{result.subScores.combat}%</span>
                     </div>
-                    <Progress value={result.subScores.combat} className="h-2 bg-red-950" indicatorClassName="bg-red-600" />
+                    <Progress value={result.subScores.combat} className="h-2.5 bg-red-100 rounded-full" indicatorClassName="bg-red-600" />
                   </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-xs uppercase tracking-wider text-yellow-400">
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-amber-600">
                       <span>Resourcefulness</span>
                       <span>{result.subScores.resource}%</span>
                     </div>
-                    <Progress value={result.subScores.resource} className="h-2 bg-yellow-950" indicatorClassName="bg-yellow-600" />
+                    <Progress value={result.subScores.resource} className="h-2.5 bg-amber-100 rounded-full" indicatorClassName="bg-amber-600" />
                   </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between text-xs uppercase tracking-wider text-blue-400">
-                      <span>Security</span>
+                  <div className="space-y-1.5">
+                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-blue-600">
+                      <span>Security Density</span>
                       <span>{result.subScores.security}%</span>
                     </div>
-                    <Progress value={result.subScores.security} className="h-2 bg-blue-950" indicatorClassName="bg-blue-600" />
+                    <Progress value={result.subScores.security} className="h-2.5 bg-blue-100 rounded-full" indicatorClassName="bg-blue-600" />
                   </div>
                 </div>
 
-                <div className="grid gap-4 text-sm">
-                  <div className="p-3 rounded bg-green-950/30 border-l-2 border-green-500">
-                    <h4 className="font-bold text-green-400 mb-1 flex items-center gap-2"><Brain className="h-3 w-3"/> Strategic Advice</h4>
-                     <ul className="space-y-1 text-green-100/80 list-disc pl-4">
+                <div className="grid gap-4 text-sm relative z-10">
+                  <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-100 shadow-sm">
+                    <h4 className="font-black text-emerald-700 mb-2 flex items-center gap-2 text-[10px] uppercase tracking-widest"><Brain className="h-3 w-3"/> Mission Logistics</h4>
+                     <ul className="space-y-1.5 text-slate-600 font-bold text-xs list-disc pl-4 leading-relaxed">
                        {result.strategies.map((s: string, i: number) => <li key={i}>{s}</li>)}
                      </ul>
                   </div>
-                  <div className="p-3 rounded bg-red-950/30 border-l-2 border-red-500">
-                    <h4 className="font-bold text-red-400 mb-1 flex items-center gap-2"><ShieldAlert className="h-3 w-3"/> Critical Weaknesses</h4>
-                     <ul className="space-y-1 text-red-100/80 list-disc pl-4">
+                  <div className="p-4 rounded-xl bg-rose-50 border border-rose-100 shadow-sm">
+                    <h4 className="font-black text-rose-700 mb-2 flex items-center gap-2 text-[10px] uppercase tracking-widest"><ShieldAlert className="h-3 w-3"/> Tactical Deficit</h4>
+                     <ul className="space-y-1.5 text-slate-600 font-bold text-xs list-disc pl-4 leading-relaxed">
                        {result.weaknesses.map((s: string, i: number) => <li key={i}>{s}</li>)}
                      </ul>
                   </div>
                 </div>
 
-                <ShareResult 
-                  title="Zombie Survival Profile"
-                  text={`I have a ${result.chance}% chance of surviving the zombie apocalypse as a ${result.profile}. Beat that!`}
-                />
+                <div className="pt-4 relative z-10">
+                  <ShareResult 
+                    title="Zombie Survival Profile"
+                    text={`I have a ${result.chance}% chance of surviving the zombie apocalypse as a ${result.profile}. Can you survive better?`}
+                  />
+                </div>
               </>
             )}
           </div>

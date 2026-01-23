@@ -32,7 +32,6 @@ import { ZombieSurvivalCalculator } from "./geekgalaxy/zombie-survival"
 import { AnimeTrainingCalculator } from "./otakuops/anime-training"
 import { ConspiracyTheoryCalculator } from "./otakuops/conspiracy-theory"
 import { MinecraftPortalPlanner } from "./otakuops/minecraft-portal"
-import { WaifuCompatibilityMatrix } from "./otakuops/waifu-compatibility"
 
 // Math Magik Imports
 import { ChaosExplorer } from "./mathmagik/chaos-explorer"
@@ -84,7 +83,6 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
 
   // Otaku_Ops
   "anime-training": AnimeTrainingCalculator,
-  "waifu-compatibility": WaifuCompatibilityMatrix,
   "minecraft-portal": MinecraftPortalPlanner,
   "conspiracy-theory": ConspiracyTheoryCalculator,
 

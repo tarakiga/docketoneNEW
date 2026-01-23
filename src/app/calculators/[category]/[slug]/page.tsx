@@ -47,8 +47,10 @@ export default async function CalculatorPage({ params }: PageProps) {
             title={calculatorData.title}
             description={calculatorData.description}
             slug={calculatorData.slug}
-            understanding={<p>This calculator helps you understand {calculatorData.title.toLowerCase()} using standard models.</p>}
-            tips={tips}
+            category={calculatorData.category}
+            origin={calculatorData.origin}
+            howTo={calculatorData.howTo}
+            tips={calculatorData.tips || tips}
             faq={faq}
         >
             <Component />
