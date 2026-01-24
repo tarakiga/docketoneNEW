@@ -191,6 +191,55 @@ export function useUnitConverter(initialCategory: Category = "length") {
 
     const newValues: Record<string, string> = { [fromUnit]: value }
 
+    // Temperature
+    if (category === "temperature") {
+      // @ts-ignore
+      const converters = TEMP_CONVERTERS[fromUnit]
+      if (converters) {
+        Object.keys(converters).forEach(toUnit => {
+          newValues[toUnit] = converters[toUnit as keyof typeof converters](val).toFixed(2)
+        })
+      }
+    }
+    // Fuel
+    else if (category === "fuel") {
+        // @ts-ignore
+        const converters = FUEL_CONVERTERS[fromUnit]
+        if (converters) {
+            Object.keys(converters).forEach(toUnit => {
+                newValues[toUnit] = converters[toUnit as keyof typeof converters](val).toFixed(2)
+            })
+        }
+    }
+    // Currency
+    else if (category === "currency" && rates) {
+        const rate = rates[fromUnit]
+        if (rate) {
+            const baseVal = val / rate
+            Object.keys(rates).forEach(toUnit => {
+                if (toUnit !== fromUnit) {
+                    newValues[toUnit] = (baseVal * rates[toUnit]).toFixed(2)
+                }
+            })
+        }
+    }
+    // Standard (Length, Weight, etc)
+    else {
+        // @ts-ignore
+        const factors = CONVERSION_RATES[category]
+        if (factors) {
+            const factor = factors[fromUnit as keyof typeof factors]
+            const baseVal = val * factor // Convert to base unit
+
+            Object.keys(factors).forEach(toUnit => {
+                if (toUnit !== fromUnit) {
+                    const toFactor = factors[toUnit as keyof typeof factors]
+                    // Convert from base unit to target unit
+                    newValues[toUnit] = (baseVal / toFactor).toString().match(/^-?\d+(?:\.\d{0,6})?/)![0] 
+                }
+            })
+        }
+    }
     
     setValues(prev => ({ ...prev, ...newValues }))
   }, [category, rates])
