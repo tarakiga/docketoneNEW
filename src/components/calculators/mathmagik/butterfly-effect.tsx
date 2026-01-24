@@ -123,13 +123,13 @@ export function ButterflyEffect() {
                       </div>
 
                       <div className="space-y-6">
-                         <div className="inline-block px-4 py-1.5 rounded-full bg-cyan-100/50 border border-cyan-200 text-[10px] font-black text-cyan-700 uppercase tracking-[0.4em] mb-4">
+                         <div className="inline-block px-4 py-1.5 rounded-full bg-cyan-100/50 border border-cyan-200 text-[9px] md:text-[10px] font-black text-cyan-700 uppercase tracking-[0.4em] mb-4">
                             Phase Shift Detected
                          </div>
-                         <h2 className="text-6xl font-black text-slate-950 tracking-tighter drop-shadow-sm leading-tight">
+                         <h2 className="text-3xl md:text-6xl font-black text-slate-950 tracking-tighter drop-shadow-sm leading-tight">
                             {choice.consequence}
                          </h2>
-                         <div className="text-xl font-black text-cyan-600 italic underline decoration-cyan-400/30 underline-offset-8">
+                         <div className="text-sm md:text-xl font-black text-cyan-600 italic underline decoration-cyan-400/30 underline-offset-8">
                             Global Impact: {choice.branch}
                          </div>
                       </div>

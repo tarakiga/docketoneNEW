@@ -142,10 +142,10 @@ export function GachaDespair() {
                      >
                         <div className="text-center space-y-2">
                            <div className="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em] mb-4">Outcome Forecast</div>
-                           <div className="text-8xl font-black text-white tracking-tighter drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]">
+                           <div className="text-6xl md:text-8xl font-black text-white tracking-tighter drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]">
                               {stats.successChance}%
                            </div>
-                           <div className="text-xs font-black text-purple-400 uppercase tracking-widest">Total Success Probability</div>
+                           <div className="text-[9px] md:text-xs font-black text-purple-400 uppercase tracking-widest">Total Success Probability</div>
                         </div>
 
                         <div className="space-y-6">

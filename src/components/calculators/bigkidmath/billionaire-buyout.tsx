@@ -137,14 +137,14 @@ export function BillionaireBuyout() {
       </div>
 
       {/* Shopping Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
          {SHOP_ITEMS.map((item, idx) => (
            <motion.button
              whileHover={{ y: -5 }}
              whileTap={{ scale: 0.98 }}
              key={idx}
              onClick={() => buy(item.price)}
-             className="white-glass-card p-6 border-slate-100 hover:border-slate-300 transition-all text-left flex flex-col justify-between h-[220px] group relative overflow-hidden"
+             className="white-glass-card p-5 md:p-6 border-slate-100 hover:border-slate-300 transition-all text-left flex flex-col justify-between h-[180px] md:h-[220px] group relative overflow-hidden"
            >
               <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
                  <div className="bg-indigo-600 text-white rounded-full p-1"><DollarSign className="h-3 w-3" /></div>

@@ -139,20 +139,20 @@ export function CostOfWar() {
                          <button
                            key={m.id}
                            onClick={() => setSelectedIndex(idx)}
-                           className={`flex items-center justify-between p-5 rounded-3xl border-2 transition-all group ${
+                           className={`flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl border-2 transition-all group gap-4 ${
                              selectedIndex === idx 
                                ? "bg-slate-950 border-slate-950 text-white shadow-xl -translate-y-1" 
                                : "bg-white border-slate-100 text-slate-600 hover:border-slate-300"
                            }`}
                          >
-                            <div className="text-left">
-                               <div className={`font-black text-sm uppercase tracking-tight ${selectedIndex === idx ? 'text-white' : 'text-slate-900 group-hover:text-black'}`}>
+                            <div className="text-left flex-1 min-w-0">
+                               <div className={`font-black text-[12px] md:text-sm uppercase tracking-tight truncate ${selectedIndex === idx ? 'text-white' : 'text-slate-900 group-hover:text-black'}`}>
                                   {m.name}
                                </div>
-                               <div className={`text-[10px] font-medium opacity-60`}>{m.desc}</div>
+                               <div className={`text-[9px] md:text-[10px] font-medium opacity-60 truncate`}>{m.desc}</div>
                             </div>
-                            <div className="text-right">
-                               <div className={`font-mono text-lg font-bold ${selectedIndex === idx ? 'text-rose-400' : 'text-slate-400'}`}>
+                            <div className="text-right shrink-0">
+                               <div className={`font-mono text-sm md:text-lg font-bold ${selectedIndex === idx ? 'text-rose-400' : 'text-slate-400'}`}>
                                   ${(m.cost / 1000).toLocaleString()}k
                                </div>
                             </div>
@@ -197,19 +197,19 @@ export function CostOfWar() {
                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] to-indigo-500/[0.03] pointer-events-none" />
                  
                  <div className="text-center space-y-2 relative z-10">
-                    <div className="text-rose-600 font-black uppercase text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
+                    <div className="text-rose-600 font-black uppercase text-[10px] md:text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
                        <Flame className="h-4 w-4 animate-bounce" /> The Destruction
                     </div>
-                    <div className="text-7xl font-black text-slate-950 tracking-tighter drop-shadow-sm">
+                    <div className="text-5xl md:text-7xl font-black text-slate-950 tracking-tighter drop-shadow-sm">
                        ${(activeMunition.cost).toLocaleString()}
                     </div>
-                    <div className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Per unit procurement cost</div>
+                    <div className="text-slate-400 font-bold uppercase text-[9px] md:text-[10px] tracking-widest">Per unit procurement cost</div>
                  </div>
 
                  <div className="grid gap-4 relative z-10">
                     <div className="flex items-center gap-4 px-2">
                        <div className="h-px flex-1 bg-slate-100" />
-                       <div className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">Equivalent Socio-Economic Value</div>
+                       <div className="text-[9px] md:text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">Socio-Economic Value</div>
                        <div className="h-px flex-1 bg-slate-100" />
                     </div>
 
@@ -222,15 +222,15 @@ export function CostOfWar() {
                          className="grid gap-4"
                        >
                           {activeMunition.equivalents.map((eq, i) => (
-                             <div key={i} className="flex items-center gap-6 p-6 rounded-[2.5rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/20 group hover:scale-[1.02] transition-transform">
-                                <div className="bg-emerald-50 p-4 rounded-3xl group-hover:bg-emerald-100 transition-colors">
-                                   <eq.icon className="h-8 w-8 text-emerald-600" />
+                             <div key={i} className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/20 group hover:scale-[1.02] transition-transform">
+                                <div className="bg-emerald-50 p-3 md:p-4 rounded-xl md:rounded-3xl group-hover:bg-emerald-100 transition-colors shrink-0">
+                                   <eq.icon className="h-6 w-6 md:h-8 md:w-8 text-emerald-600" />
                                 </div>
-                                <div>
-                                   <div className="text-4xl font-black text-slate-900 tracking-tighter">
+                                <div className="min-w-0">
+                                   <div className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter">
                                       {eq.val}x
                                    </div>
-                                   <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+                                   <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest truncate">
                                       {eq.label}
                                    </div>
                                 </div>

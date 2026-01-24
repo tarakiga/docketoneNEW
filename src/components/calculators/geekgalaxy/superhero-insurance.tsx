@@ -76,14 +76,14 @@ export function SuperheroInsuranceQuote() {
           )}
         </AnimatePresence>
 
-        <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-8">
+        <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-6 md:p-8">
            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="space-y-1">
-                <CardTitle className="text-3xl font-display flex items-center gap-3">
-                  <ShieldCheck className="h-8 w-8 text-blue-600" />
-                  Hero-Liability Insurance Quote
+                <CardTitle className="text-xl md:text-3xl font-display flex items-center gap-3">
+                  <ShieldCheck className="h-6 w-6 md:h-8 md:w-8 text-blue-600" />
+                  Hero-Liability Quote
                 </CardTitle>
-                <CardDescription className="text-slate-500 font-medium">Protecting your assets in the world of legends.</CardDescription>
+                <CardDescription className="text-[10px] md:text-sm text-slate-500 font-medium">Protecting assets in the world of legends.</CardDescription>
               </div>
               <div className="bg-rose-50 border border-rose-200 rounded-xl px-4 py-2 flex items-center gap-3">
                  <ShieldAlert className="h-4 w-4 text-rose-500 animate-bounce" />

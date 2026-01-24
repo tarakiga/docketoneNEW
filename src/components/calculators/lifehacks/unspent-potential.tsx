@@ -57,14 +57,14 @@ export function UnspentPotentialTax() {
                   <CardDescription className="text-slate-500 font-medium">Quantifying the hidden cost of "doing it later."</CardDescription>
                </CardHeader>
 
-               <CardContent className="p-8 space-y-10">
-                  <div className="grid md:grid-cols-2 gap-12">
+               <CardContent className="p-4 md:p-8 space-y-10">
+                  <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                      <div className="space-y-8">
                         <div className="space-y-3">
                            <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">The Looming Task</Label>
                            <Input 
                              placeholder="e.g. Tax Returns, Gym Session, Ending a War..." 
-                             className="bg-white/50 border-slate-200 h-14 text-lg font-bold"
+                             className="bg-white/50 border-slate-200 h-12 md:h-14 text-base md:text-lg font-bold"
                              value={taskName}
                              onChange={(e) => setTaskName(e.target.value)}
                            />
