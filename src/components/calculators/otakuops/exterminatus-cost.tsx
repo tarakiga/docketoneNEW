@@ -173,7 +173,7 @@ export function ExterminatusCostCalculator() {
                                     <RechartsTooltip 
                                         contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', border: '1px solid #334155' }}
                                         itemStyle={{ color: '#e2e8f0' }}
-                                        formatter={(value: number) => formatCurrency(value)}
+                                        formatter={(value: any) => formatCurrency(value)}
                                     />
                                     <Legend />
                                 </PieChart>
