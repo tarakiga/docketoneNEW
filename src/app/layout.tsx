@@ -63,6 +63,7 @@ import { BackgroundBlobs } from "@/components/atoms/background-blobs";
 import { CookieConsent } from "@/components/molecules/cookie-consent";
 import { Footer } from "@/components/organisms/footer";
 import { NavBar } from "@/components/organisms/navbar";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -72,12 +73,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016949439291956"
-          crossOrigin="anonymous"></script>
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground font-sans min-h-screen flex flex-col relative`}
       >
+        <Script 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016949439291956"
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        />
         <BackgroundBlobs />
         <div className="fixed inset-0 -z-30 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
         
