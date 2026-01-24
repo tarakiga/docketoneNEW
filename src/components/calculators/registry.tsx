@@ -38,6 +38,17 @@ import { ConspiracyTheoryCalculator } from "./otakuops/conspiracy-theory"
 import { GachaDespair } from "./otakuops/gacha-despair"
 import { MinecraftPortalPlanner } from "./otakuops/minecraft-portal"
 
+import { ExterminatusCostCalculator } from "./otakuops/exterminatus-cost"
+import { FloodInfectionCalculator } from "./otakuops/flood-infection"
+import { GoldenThroneTitheCalculator } from "./otakuops/golden-throne-tithe"
+import { MACRoundImpactCalculator } from "./otakuops/mac-round-impact"
+import { MjolnirArmorCostCalculator } from "./otakuops/mjolnir-cost"
+import { OrkWAAAGHEnergyCalculator } from "./otakuops/ork-waaagh-energy"
+import { SlipspaceDebtCalculator } from "./otakuops/slipspace-debt"
+import { SpaceMarineSurvivalCalculator } from "./otakuops/space-marine-survival"
+import { SpartanAugmentationCalculator } from "./otakuops/spartan-augmentation"
+import { WarpTravelCalculator } from "./otakuops/warp-travel"
+
 // Math Magik Imports
 import { ButterflyEffect } from "./mathmagik/butterfly-effect"
 import { ChaosExplorer } from "./mathmagik/chaos-explorer"
@@ -97,6 +108,16 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "minecraft-portal": MinecraftPortalPlanner,
   "gacha-despair": GachaDespair,
   "conspiracy-theory": ConspiracyTheoryCalculator,
+  "exterminatus-cost": ExterminatusCostCalculator,
+  "space-marine-survival": SpaceMarineSurvivalCalculator,
+  "warp-travel": WarpTravelCalculator,
+  "golden-throne-tithe": GoldenThroneTitheCalculator,
+  "ork-waaagh-energy": OrkWAAAGHEnergyCalculator,
+  "slipspace-debt": SlipspaceDebtCalculator,
+  "mjolnir-cost": MjolnirArmorCostCalculator,
+  "flood-infection": FloodInfectionCalculator,
+  "spartan-augmentation": SpartanAugmentationCalculator,
+  "mac-round-impact": MACRoundImpactCalculator,
 
   // mathmagik
   "fire-number": FireCalculator,
