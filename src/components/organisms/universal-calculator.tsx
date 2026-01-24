@@ -8,7 +8,10 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Category, UNIT_LABELS, useUnitConverter } from "@/hooks/use-unit-converter"
 
-const CATEGORIES: Category[] = ["length", "weight", "area", "volume", "speed", "data", "energy", "power", "pressure", "angle", "cooking", "time", "temperature", "fuel", "currency", "density"]
+const CATEGORIES: Category[] = [
+    "length", "weight", "area", "volume", "speed", "data", "energy", "power", "pressure", "angle", "cooking", "time", "temperature", "fuel", "currency", "density",
+    "typography", "force", "torque", "flow", "frequency"
+]
 
 export function UniversalCalculator() {
   const { category, setCategory, values, convert, units } = useUnitConverter()

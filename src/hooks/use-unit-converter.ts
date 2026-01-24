@@ -3,7 +3,28 @@
 import { useCallback, useEffect, useState } from "react"
 
 // Types
+
 export type Category = keyof typeof CONVERSION_RATES | "temperature" | "fuel" | "currency"
+
+// ... (keep existing lines)
+
+export const UNIT_LABELS: Record<string, string> = {
+  mm: "Millimeters", cm: "Centimeters", meters: "Meters", km: "Kilometers",
+  inches: "Inches", feet: "Feet", yards: "Yards", miles: "Miles",
+  mg: "Milligrams", g: "Grams", kg: "Kilograms", tonnes: "Tonnes",
+  celsius: "Celsius (°C)", fahrenheit: "Fahrenheit (°F)", kelvin: "Kelvin (K)", rankine: "Rankine (°R)",
+  seconds: "Seconds", minutes: "Minutes", hours: "Hours", days: "Days", weeks: "Weeks", months: "Months", years: "Years",
+  mpg: "Miles/Gallon (US)", l100km: "Liters/100km", kml: "Km/Liter",
+  kgm3: "kg/m³", gcm3: "g/cm³", lbft3: "lb/ft³",
+  USD: "US Dollar (Base)", EUR: "Euro", GBP: "British Pound", JPY: "Japanese Yen", AUD: "Australian Dollar", CAD: "Canadian Dollar", CHF: "Swiss Franc", CNY: "Chinese Yuan", INR: "Indian Rupee",
+  
+  // New Categories
+  px: "Pixels (px)", rem: "Root EM (rem)", em: "EM (em)", pt: "Points (pt)", pica: "Picas (pc)", inch: "Inches (in)",
+  newtons: "Newtons (N)", dyne: "Dynes (dyn)", poundforce: "Pound-force (lbf)", kilogramforce: "Kilogram-force (kgf)", kilonewtons: "Kilonewtons (kN)",
+  newton_meters: "Newton-Meters (N⋅m)", foot_pounds: "Foot-Pounds (ft⋅lb)", inch_pounds: "Inch-Pounds (in⋅lb)", kilogram_meters: "Kilogram-Meters (kg⋅m)",
+  lpm: "Liters/Minute (L/min)", gpm: "Gallons/Minute (GPM)", cubic_meters_per_second: "Cubic Meters/Sec (m³/s)", cubic_feet_per_minute: "CFM (ft³/min)", milliliters_per_second: "Milliliters/Sec (mL/s)",
+  hertz: "Hertz (Hz)", kilohertz: "Kilohertz (kHz)", megahertz: "Megahertz (MHz)", gigahertz: "Gigahertz (GHz)", rpm: "RPM (rev/min)"
+}
 type Rates = Record<string, number>
 
 // Conversion Factors (Base unit varies per category)
@@ -111,6 +132,41 @@ const CONVERSION_RATES = {
      kgm3: 1,
      gcm3: 1000,
      lbft3: 16.0185
+  },
+  typography: {
+    px: 1,
+    rem: 16, // Assumes 16px base
+    em: 16,  // Assumes 16px base
+    pt: 1.333333, // 1pt = 1/72in, 1px = 1/96in
+    pica: 16,
+    inch: 96,
+  },
+  force: {
+    newtons: 1,
+    dyne: 0.00001,
+    poundforce: 4.44822,
+    kilogramforce: 9.80665,
+    kilonewtons: 1000,
+  },
+  torque: {
+    newton_meters: 1,
+    foot_pounds: 1.35582,
+    inch_pounds: 0.112985,
+    kilogram_meters: 9.80665,
+  },
+  flow: {
+    lpm: 1, // Liters per minute
+    gpm: 3.78541, // US Gallons per minute
+    cubic_meters_per_second: 60000,
+    cubic_feet_per_minute: 28.3168,
+    milliliters_per_second: 0.06,
+  },
+  frequency: {
+    hertz: 1,
+    kilohertz: 1000,
+    megahertz: 1000000,
+    gigahertz: 1000000000,
+    rpm: 0.0166667, // 1/60 Hz
   }
 } as const
 
@@ -259,13 +315,4 @@ export function useUnitConverter(initialCategory: Category = "length") {
   }
 }
 
-export const UNIT_LABELS: Record<string, string> = {
-  mm: "Millimeters", cm: "Centimeters", meters: "Meters", km: "Kilometers",
-  inches: "Inches", feet: "Feet", yards: "Yards", miles: "Miles",
-  mg: "Milligrams", g: "Grams", kg: "Kilograms", tonnes: "Tonnes",
-  celsius: "Celsius (°C)", fahrenheit: "Fahrenheit (°F)", kelvin: "Kelvin (K)", rankine: "Rankine (°R)",
-  seconds: "Seconds", minutes: "Minutes", hours: "Hours", days: "Days", weeks: "Weeks", months: "Months", years: "Years",
-  mpg: "Miles/Gallon (US)", l100km: "Liters/100km", kml: "Km/Liter",
-  kgm3: "kg/m³", gcm3: "g/cm³", lbft3: "lb/ft³",
-  USD: "US Dollar (Base)", EUR: "Euro", GBP: "British Pound", JPY: "Japanese Yen", AUD: "Australian Dollar", CAD: "Canadian Dollar", CHF: "Swiss Franc", CNY: "Chinese Yuan", INR: "Indian Rupee"
-}
+
