@@ -11,8 +11,10 @@ import {
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Binary, Calculator, Gamepad2, GraduationCap, Home, Lightbulb, Menu, Newspaper, Sparkles, Zap } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 
 export function NavBar() {
+  const [open, setOpen] = useState(false)
   const categories = [
     { name: "BigKidMath", icon: GraduationCap, color: "text-blue-500", bg: "bg-blue-500/10" },
     { name: "CipherLab", icon: Binary, color: "text-emerald-500", bg: "bg-emerald-500/10" },
@@ -62,7 +64,7 @@ export function NavBar() {
           <Search />
           
           {/* Mobile Menu */}
-          <Sheet>
+          <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
@@ -87,11 +89,19 @@ export function NavBar() {
                   <div className="flex flex-col gap-8 flex-1 overflow-y-auto pr-2 scrollbar-hide">
                     <div className="space-y-2">
                         <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4 font-mono">Navigation</div>
-                        <Link href="/" className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group">
+                        <Link 
+                           href="/" 
+                           onClick={() => setOpen(false)}
+                           className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group"
+                        >
                            <Home className="h-5 w-5 text-slate-400 group-hover:text-primary transition-colors" />
                            <span className="font-bold text-slate-200">Dashboard Home</span>
                         </Link>
-                        <Link href="https://blog.docket.one" className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group">
+                        <Link 
+                           href="https://blog.docket.one" 
+                           onClick={() => setOpen(false)}
+                           className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all group"
+                        >
                            <Newspaper className="h-5 w-5 text-slate-400 group-hover:text-primary transition-colors" />
                            <span className="font-bold text-slate-200">The Calculator Blog</span>
                         </Link>
@@ -104,6 +114,7 @@ export function NavBar() {
                               <Link 
                                 key={cat.name} 
                                 href={`/calculators/${cat.name}`} 
+                                onClick={() => setOpen(false)}
                                 className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all group"
                               >
                                 <div className={`p-2.5 rounded-xl ${cat.bg} border border-white/5 transition-transform group-active:scale-90`}>
