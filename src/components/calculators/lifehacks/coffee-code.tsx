@@ -46,9 +46,9 @@ export function CoffeeToCode() {
               Real-time caffeine conversion and productivity analysis.
            </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-10 p-10">
+        <CardContent className="space-y-8 sm:space-y-10 p-5 sm:p-10">
            
-           <div className="grid md:grid-cols-2 gap-10 items-center">
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 items-center">
               <div className="space-y-8">
                  <div className="space-y-4">
                     <div className="flex justify-between font-black uppercase text-[10px] tracking-widest text-amber-700">
@@ -77,13 +77,13 @@ export function CoffeeToCode() {
                  </div>
               </div>
 
-              <div className="bg-slate-950 p-8 rounded-[2rem] border-4 border-slate-900 font-mono text-sm shadow-2xl relative overflow-hidden group">
+              <div className="bg-slate-950 p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border-4 border-slate-900 font-mono text-sm shadow-2xl relative overflow-hidden group">
                  {/* Decorative code scan line */}
                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent h-1/2 w-full animate-pulse top-0" />
                  
                  {result.isBallmerPeak && (
                     <div className="absolute inset-0 bg-emerald-500/10 z-0 animate-pulse flex items-center justify-center pointer-events-none">
-                       <span className="text-7xl font-black text-emerald-500 opacity-20 rotate-12 uppercase tracking-tighter">Peak State</span>
+                       <span className="text-4xl sm:text-7xl font-black text-emerald-500 opacity-20 rotate-12 uppercase tracking-tighter">Peak State</span>
                     </div>
                  )}
 
@@ -95,7 +95,7 @@ export function CoffeeToCode() {
                     
                     <div className="py-6 space-y-6 text-center">
                        <div className="space-y-1">
-                          <div className="text-6xl font-black text-white tracking-tighter group-hover:scale-110 transition-transform duration-500">{result.lines}</div>
+                          <div className="text-4xl sm:text-6xl font-black text-white tracking-tighter group-hover:scale-110 transition-transform duration-500">{result.lines}</div>
                           <div className="text-[10px] uppercase text-slate-500 font-black tracking-[0.2em]">Synthesized LOC</div>
                        </div>
                        

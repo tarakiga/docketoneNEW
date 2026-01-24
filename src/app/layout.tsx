@@ -41,6 +41,22 @@ export const metadata: Metadata = {
   verification: {
     google: 'verification_token', // User to replace later
   },
+  other: {
+    'json-ld': JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      'name': 'Docket One',
+      'url': 'https://docket.one',
+      'description': 'Premium calculators for modern life. Smart, fun, and practical tools.',
+      'applicationCategory': 'EducationalApplication, BusinessApplication',
+      'operatingSystem': 'Any',
+      'offers': {
+        '@type': 'Offer',
+        'price': '0',
+        'priceCurrency': 'USD'
+      }
+    })
+  }
 };
 
 import { BackgroundBlobs } from "@/components/atoms/background-blobs";

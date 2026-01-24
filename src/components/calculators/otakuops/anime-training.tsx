@@ -66,7 +66,7 @@ export function AnimeTrainingCalculator() {
              }}>
         </div>
 
-        <CardHeader className="border-b border-slate-100 bg-white/50 relative z-10 p-8">
+        <CardHeader className="border-b border-slate-100 bg-white/50 relative z-10 p-5 sm:p-8">
            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="space-y-2 text-center md:text-left">
                 <CardTitle className="text-4xl font-black italic uppercase tracking-tighter text-slate-900 drop-shadow-sm flex items-center justify-center md:justify-start gap-4">
@@ -85,14 +85,14 @@ export function AnimeTrainingCalculator() {
            </div>
         </CardHeader>
         
-        <CardContent className="grid gap-10 md:grid-cols-2 p-10 relative z-10">
+        <CardContent className="grid gap-8 md:grid-cols-2 p-5 sm:p-10 relative z-10">
            
            <div className="space-y-8">
               <div className="space-y-4">
                 <Label className="flex items-center gap-2 text-red-600 font-black uppercase tracking-widest text-[10px]">
                     <Flame className="h-4 w-4 fill-red-500 text-red-500"/> Sequence Intensity
                 </Label>
-                <div className="flex gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                    {['casual', 'shounen', 'demon slayer'].map(i => (
                      <button 
                        key={i}
@@ -147,19 +147,19 @@ export function AnimeTrainingCalculator() {
               </div>
 
               {trainingState === 'idle' && (
-                 <Button onClick={calculatePlan} className="w-full h-16 text-xl font-black italic bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white shadow-2xl shadow-red-200 rounded-[2rem] border-b-8 border-red-800 active:border-b-0 active:translate-y-2 transition-all tracking-tighter uppercase">
+                 <Button onClick={calculatePlan} className="w-full min-h-[4rem] px-6 py-4 text-lg sm:text-xl font-black italic bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white shadow-2xl shadow-red-200 rounded-[2rem] border-b-8 border-red-800 active:border-b-0 active:translate-y-2 transition-all tracking-tighter uppercase whitespace-normal leading-tight">
                     Unleash Potential!
                  </Button>
               )}
            </div>
 
            {/* Results Area */}
-           <div className="rounded-[2rem] bg-slate-900 text-white p-10 border-4 border-slate-800 relative overflow-hidden flex flex-col justify-center min-h-[400px]">
+           <div className="rounded-[1.5rem] sm:rounded-[2rem] bg-slate-900 text-white p-6 sm:p-10 border-4 border-slate-800 relative overflow-hidden flex flex-col justify-center min-h-[300px] sm:min-h-[400px]">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent pointer-events-none" />
               
               {trainingState === 'training' && (
                 <div className="space-y-6 text-center animate-in zoom-in-95 py-12 relative z-10">
-                   <h3 className="text-5xl font-black italic text-yellow-400 animate-pulse tracking-tighter">SURGING...</h3>
+                   <h3 className="text-3xl sm:text-5xl font-black italic text-yellow-400 animate-pulse tracking-tighter">SURGING...</h3>
                    <div className="w-full bg-slate-800 h-10 rounded-full overflow-hidden border-2 border-slate-700 p-1.5">
                       <div className="h-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 rounded-full shadow-[0_0_20px_rgba(239,68,68,0.5)]" style={{ width: `${progress}%` }}></div>
                    </div>
@@ -176,15 +176,15 @@ export function AnimeTrainingCalculator() {
                       EVOLVED!
                    </h3>
                    
-                   <div className="grid grid-ols-1 sm:grid-cols-2 gap-4">
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl group hover:bg-white/20 transition-all">
                          <div className="font-black text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-2">Arc Workload</div>
-                         <div className="text-4xl font-black text-white">{results.pushups.toLocaleString()}</div>
+                         <div className="text-2xl sm:text-4xl font-black text-white">{results.pushups.toLocaleString()}</div>
                          <div className="text-[10px] text-red-400 font-bold mt-1 uppercase">Total Push-ups</div>
                       </div>
                       <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-xl group hover:bg-white/20 transition-all">
                          <div className="font-black text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-2">Divergence Mult</div>
-                         <div className="text-4xl font-black text-white">{results.powerMult}x</div>
+                         <div className="text-2xl sm:text-4xl font-black text-white">{results.powerMult}x</div>
                          <div className="text-[10px] text-blue-400 font-bold mt-1 uppercase">Multiplier Active</div>
                       </div>
                    </div>

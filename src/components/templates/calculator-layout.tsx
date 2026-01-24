@@ -29,11 +29,11 @@ export function CalculatorLayout({ title, description, children, understanding, 
     <div className="min-h-screen bg-slate-50/50 relative overflow-hidden">
       <BackgroundBlobs />
       
-      <div className="container py-8 space-y-12 relative z-10">
+      <div className="container px-4 py-8 md:py-12 space-y-12 relative z-10">
         {/* Premium Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <TypographyH1 className="text-slate-900 tracking-tighter">{title}</TypographyH1>
-          <TypographyP className="text-xl text-slate-600 font-medium">{description}</TypographyP>
+          <TypographyH1 className="text-slate-900 tracking-tighter text-3xl sm:text-4xl md:text-5xl">{title}</TypographyH1>
+          <TypographyP className="text-lg md:text-xl text-slate-600 font-medium">{description}</TypographyP>
         </div>
 
         {/* Dynamic Content Sections */}

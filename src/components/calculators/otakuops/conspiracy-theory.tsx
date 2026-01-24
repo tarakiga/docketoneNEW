@@ -38,7 +38,7 @@ export function ConspiracyTheoryCalculator() {
 
         <CardHeader className="border-b-2 border-stone-300 pb-6 relative z-10">
            {/* Stamp */}
-           <div className="absolute top-2 right-4 transform rotate-12 border-4 border-red-700 md:text-xl font-black text-red-700 px-4 py-2 opacity-70 rounded-sm pointer-events-none">
+           <div className="absolute top-2 right-2 sm:right-4 transform rotate-12 border-4 border-red-700 text-sm sm:text-xl font-black text-red-700 px-2 sm:px-4 py-1 sm:py-2 opacity-70 rounded-sm pointer-events-none">
              TOP SECRET
            </div>
 
@@ -50,7 +50,7 @@ export function ConspiracyTheoryCalculator() {
            </CardDescription>
         </CardHeader>
         
-        <CardContent className="p-8 relative z-10 space-y-8">
+        <CardContent className="p-4 sm:p-8 relative z-10 space-y-8">
            
            <div className="space-y-4">
               <label className="font-bold text-xs uppercase tracking-widest text-stone-500">Subject / Theory Name</label>
@@ -63,7 +63,7 @@ export function ConspiracyTheoryCalculator() {
               />
            </div>
 
-           <div className="grid md:grid-cols-2 gap-12">
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
               
               {/* Evidence Section */}
               <div className="space-y-6 bg-white/50 p-6 rounded shadow-sm border border-stone-200">
@@ -127,7 +127,7 @@ export function ConspiracyTheoryCalculator() {
                       <div className="text-xs uppercase font-bold tracking-[0.2em] text-stone-500 mt-2">Plausibility Index</div>
                       
                       {/* Stamp Effect */}
-                      <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 border-4 px-4 py-2 text-2xl font-black uppercase tracking-widest opacity-80 mix-blend-multiply pointer-events-none whitespace-nowrap
+                      <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 border-4 px-2 sm:px-4 py-1 sm:py-2 text-lg sm:text-2xl font-black uppercase tracking-widest opacity-80 mix-blend-multiply pointer-events-none whitespace-nowrap
                          ${result.plausibility > 70 ? 'border-green-700 text-green-700' : result.plausibility > 30 ? 'border-yellow-600 text-yellow-600' : 'border-red-700 text-red-700'}
                       `}>
                          {result.verdict}

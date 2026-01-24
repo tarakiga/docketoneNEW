@@ -68,7 +68,7 @@ export function SuperheroInsuranceQuote() {
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-yellow-400 blur-3xl opacity-40 animate-pulse" />
-                <div className="text-9xl font-black text-white italic drop-shadow-[10px_10px_0_#ef4444] uppercase tracking-tighter">
+                <div className="text-5xl sm:text-7xl md:text-9xl font-black text-white italic drop-shadow-[10px_10px_0_#ef4444] uppercase tracking-tighter">
                    {selectedHero.sound}
                 </div>
               </div>
@@ -76,7 +76,7 @@ export function SuperheroInsuranceQuote() {
           )}
         </AnimatePresence>
 
-        <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-6 md:p-8">
+        <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-4 sm:p-6 md:p-8">
            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="space-y-1">
                 <CardTitle className="text-xl md:text-3xl font-display flex items-center gap-3">
@@ -96,7 +96,7 @@ export function SuperheroInsuranceQuote() {
            <div className="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
               
               {/* Form Section */}
-              <div className="lg:col-span-7 p-8 lg:p-12 space-y-10">
+              <div className="lg:col-span-7 p-5 sm:p-8 lg:p-12 space-y-8 sm:space-y-10">
                  <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
                         <Label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
@@ -168,14 +168,14 @@ export function SuperheroInsuranceQuote() {
               </div>
 
               {/* Result Section */}
-              <div className="lg:col-span-5 p-8 lg:p-12 bg-slate-50/30 flex flex-col justify-center items-center text-center space-y-8">
+              <div className="lg:col-span-5 p-5 sm:p-8 lg:p-12 bg-slate-50/30 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8">
                  <div className="space-y-2">
                     <div className="text-xs font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Estimated Premium</div>
                     <motion.div 
                       key={quote.monthly}
                       initial={{ scale: 0.95, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="text-7xl font-sans font-black text-slate-950 tracking-tighter"
+                      className="text-4xl sm:text-6xl md:text-7xl font-sans font-black text-slate-950 tracking-tighter"
                     >
                        ${quote.monthly.toLocaleString()}
                        <span className="text-sm text-slate-400 font-bold ml-1 uppercase">/ mo</span>

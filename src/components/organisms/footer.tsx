@@ -41,6 +41,7 @@ export function Footer() {
                 <li><Link href="/privacy" className="text-slate-400 hover:text-indigo-400 transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/cookies" className="text-slate-400 hover:text-indigo-400 transition-colors">Cookies Policy</Link></li>
                 <li><Link href="/terms" className="text-slate-400 hover:text-indigo-400 transition-colors">Terms of Service</Link></li>
+                <li><Link href="/disclaimer" className="text-slate-400 hover:text-indigo-400 transition-colors">Disclaimer</Link></li>
                 <li><Link href="/accessibility" className="text-slate-400 hover:text-indigo-400 transition-colors">Accessibility</Link></li>
             </ul>
           </div>

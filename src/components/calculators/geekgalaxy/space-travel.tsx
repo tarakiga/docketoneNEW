@@ -141,12 +141,12 @@ export function SpaceTravelCalculator() {
           </CardTitle>
           <CardDescription className="text-blue-200/40 font-medium">Orbital dynamics & cosmic mission planning center.</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-8 lg:grid-cols-12 p-8 lg:p-10">
+        <CardContent className="grid gap-8 lg:grid-cols-12 p-4 sm:p-6 lg:p-10">
           
           <div className="lg:col-span-4 space-y-6">
             <div className="space-y-3">
               <Label className="text-blue-400/60 uppercase tracking-widest text-[10px] font-bold">Target Destination</Label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {Object.entries(DEST_VALS).map(([key, data]) => (
                   <button
                     key={key}
@@ -170,7 +170,7 @@ export function SpaceTravelCalculator() {
             <div className="space-y-3">
               <Label className="text-blue-400/60 uppercase tracking-widest text-[10px] font-bold">Propulsion System</Label>
               <div className="relative group/scroll">
-                <div className="grid grid-cols-1 gap-2 max-h-[360px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+                <div className="grid grid-cols-1 gap-2 max-h-[300px] sm:max-h-[360px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
                   {Object.entries(PROPULSION).map(([key, prop]) => (
                     <button
                       key={key}
@@ -241,7 +241,7 @@ export function SpaceTravelCalculator() {
           </div>
 
           <div className="lg:col-span-8 flex flex-col gap-6">
-            <div className="bg-slate-950 rounded-[2rem] p-10 border border-slate-800/80 flex flex-col justify-center gap-8 relative overflow-hidden group min-h-[340px] shadow-inner">
+            <div className="bg-slate-950 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-10 border border-slate-800/80 flex flex-col justify-center gap-6 sm:gap-8 relative overflow-hidden group min-h-[280px] sm:min-h-[340px] shadow-inner">
                <div className={`absolute -right-24 -top-24 w-96 h-96 bg-gradient-to-br ${PROPULSION[propulsion as keyof typeof PROPULSION].color} rounded-full blur-[120px] opacity-10 group-hover:opacity-30 transition-opacity duration-1000 animate-blob`} />
                <div className={`absolute -left-24 -bottom-24 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px] opacity-10 animate-blob [animation-delay:3s]`} />
 
@@ -249,7 +249,7 @@ export function SpaceTravelCalculator() {
                   <div className="text-blue-500 uppercase text-[10px] tracking-[0.4em] mb-3 font-black flex items-center justify-center gap-3">
                     <Clock className="h-4 w-4 animate-pulse" /> {stats.method}
                   </div>
-                  <div className="text-8xl font-black text-white tracking-tighter group-hover:scale-105 transition-transform duration-700 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">{stats.timeLabel}</div>
+                  <div className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter group-hover:scale-105 transition-transform duration-700 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">{stats.timeLabel}</div>
                </div>
 
                <div className="grid sm:grid-cols-2 gap-4 relative z-10">
@@ -297,7 +297,7 @@ export function SpaceTravelCalculator() {
                   
                   <div className="grid sm:grid-cols-3 gap-4">
                     {stats.windows.map((win, idx) => (
-                      <div key={idx} className="bg-black border border-slate-800 rounded-[1.5rem] p-6 relative overflow-hidden group hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-700 shadow-lg">
+                      <div key={idx} className="bg-black border border-slate-800 rounded-[1.5rem] p-4 sm:p-6 relative overflow-hidden group hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-700 shadow-lg">
                         <div className={`absolute -right-4 -top-4 w-20 h-20 bg-gradient-to-br ${PROPULSION[propulsion as keyof typeof PROPULSION].color} rounded-full blur-3xl opacity-10 group-hover:opacity-30 transition-opacity duration-700`} />
                         
                         <div className="flex flex-col gap-5 relative z-10">
@@ -328,7 +328,7 @@ export function SpaceTravelCalculator() {
                   </div>
                 </div>
               ) : (
-                <Card className="bg-black border-slate-800 shadow-2xl p-20 text-center relative overflow-hidden rounded-[2.5rem]">
+                <Card className="bg-black border-slate-800 shadow-2xl p-8 sm:p-12 md:p-20 text-center relative overflow-hidden rounded-[1.5rem] sm:rounded-[2.5rem]">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e1e2e_1px,_transparent_1px)] [background-size:24px_24px] opacity-10" />
                   <div className="relative z-10 space-y-4">
                     <div className="text-slate-400 italic text-lg font-semibold tracking-wide">Launch windows are nullified for extragalactic transit.</div>
