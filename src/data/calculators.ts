@@ -78,6 +78,17 @@ export const calculators: Calculator[] = [
     tips: ["A single Stinger missile costs as much as a surgeon's annual salary.", "F-35 jets are the most expensive weapons program in history.", "The Global military spend is now over $2.4 Trillion annually."]
   },
   {
+    id: "billionaire-buyout",
+    title: "Billionaire Buy-Out",
+    description: "Experience the staggering scale of elite wealth.",
+    category: "BigKidMath",
+    slug: "billionaire-buyout",
+    icon: "💰",
+    origin: "Wealth at the billionaire level is difficult for the human brain to comprehend. This simulator lets you 'spend' that fortune to understand the true scale of concentrated liquidity.",
+    howTo: "Select a billionaire and start 'buying' items. Watch how the real-time interest often outpaces your ability to spend the capital.",
+    tips: ["Interest on $200B at 7% is over $440,000 every single hour.", "You could buy a Superyacht every few days just using the interest.", "Spending $1M a day would take over 500 years to empty the vault."]
+  },
+  {
     id: "caesar-cipher",
     title: "Caesar Cipher",
     description: "Encrypt messages with the ancient Roman shift cipher.",
@@ -141,7 +152,18 @@ export const calculators: Calculator[] = [
     icon: "🗿",
     origin: "Known as the 'alphabet of the trees,' Ogham was used in Early Medieval Ireland. It consists of notches carved along a vertical line, often on stone monuments.",
     howTo: "Type modern text and see it converted into ancient Irish runic notches. The strokes are read from bottom to top on stones or left to right on paper.",
-    tips: ["Each letter is named after a tree (e.g., 'B' for 'Beith' or Birch).", "Ancient Ogham inscriptions are still visible across the Irish landscape today.", "Perfect for creating mystical-looking designs."]
+    tips: ["Each letter is named after a tree (e.g., 'Beith' for Birch).", "Ancient Ogham inscriptions are still visible across Ireland today.", "Perfect for creating mystical-looking designs."]
+  },
+  {
+    id: "steganography-brush",
+    title: "Steganography Brush",
+    description: "Hide secret intent within digital noise.",
+    category: "CipherLab",
+    slug: "steganography-brush",
+    icon: "🎨",
+    origin: "Cryptography isn't always about unreadable text; sometimes it's about hiding the presence of a message entirely. This uses 'Entropy Masking' to conceal data.",
+    howTo: "Encode your message into the Canvas. To reveal it, use the 'Quantum Brush' (cursor) on the decode tab to scan for hidden light-value shifts.",
+    tips: ["Entropy levels of 99% ensure non-detection by casual scans.", "Quantum focal points reconstruct light data into readable intent.", "Shattering intent across coordinate vectors is a classic spy tactic."]
   },
   {
     id: "shavian-translator",
@@ -276,6 +298,17 @@ export const calculators: Calculator[] = [
     tips: ["Extra Beskar should be donated to the foundlings.", "Don't forget the Whistling Birds attachment.", "This is the way."]
   },
 
+  {
+    id: "superhero-insurance",
+    title: "Superhero Insurance",
+    description: "Calculate property liability in comic book cities.",
+    category: "GeekGalaxy",
+    slug: "superhero-insurance",
+    icon: "🛡️",
+    origin: "Living in a city with costumed heroes is a logistical nightmare. This tool calculates your property premiums based on local 'Hero Exposure' and collateral damage risks.",
+    howTo: "Select your jurisdiction (like Gotham or Metropolis) and your primary hero exposure. We'll generate a liability quote including 'Heat-Vision' fire coverage.",
+    tips: ["Gotham rates are skewed by chronic arson incidents.", "Wakanda is the cheapest jurisdiction due to the Vibranium shield.", "Hulk-class events are generally considered 'Acts of Force' and require a rider."]
+  },
   // Otaku Ops
   {
     id: "anime-training",
@@ -298,6 +331,17 @@ export const calculators: Calculator[] = [
     origin: "Space is warped between the Overworld and the Nether. A single block in the Nether equals eight in the Overworld, making portal placement a precision engineering task.",
     howTo: "Input your Overworld coordinates, and we'll tell you exactly where to build your Nether portal to ensure they link perfectly without sending you into a lava lake.",
     tips: ["Divide Overworld X and Z by 8 to get Nether coordinates.", "Height (Y) doesn't matter for linking, but it's good for safety.", "Always carry Flint and Steel on both sides!"]
+  },
+  {
+    id: "gacha-despair",
+    title: "Gacha Pit of Despair",
+    description: "Probability and 'Salt' accumulation forecaster.",
+    category: "Otaku_Ops",
+    slug: "gacha-despair",
+    icon: "🌟",
+    origin: "Inspired by the high-stakes world of gacha gaming. This tool uses probability theory to check the 'Pity' threshold and emotional cost of a failed pull.",
+    howTo: "Input your target's drop rate and your planned number of pulls. We'll visualize the exact likelihood of success and the resulting 'Salt' level if you fail.",
+    tips: ["A 0.6% rate is standard for many top-tier gacha games.", "The 'Pity' cap is often the only way to guarantee a win.", "Expectations are the root of all gacha-related despair."]
   },
   {
     id: "conspiracy-theory",
@@ -376,7 +420,17 @@ export const calculators: Calculator[] = [
     howTo: "Enter your birthdate. Each square represents one week of an 80-year life. See how much time you've spent and how much 'white space' you have left to fill.",
     tips: ["Don't let the grid scare you; let it motivate you.", "Highlight significant milestones to see your personal history.", "Every single square is a gift. Use this one well."]
   },
-
+  {
+    id: "butterfly-effect",
+    title: "Butterfly Effect",
+    description: "Chaos theory visualizer for life choices.",
+    category: "Math_Magik",
+    slug: "butterfly-effect",
+    icon: "🦋",
+    origin: "Based on Edward Lorenz's model of atmospheric unpredictability. Small initial conditions can lead to vastly different global outcomes over a long enough timeline.",
+    howTo: "Choose a minor life choice (like a coffee order) to see a potential causal branch. Visualize how that small ripple creates a massive outcome shift in your future.",
+    tips: ["A minor lane change can prevent a life-altering event 10 years later.", "The present determines the future, but approximately.", "Small ripples create the biggest waves in social causal logic."]
+  },
   // Life Hacks
   {
     id: "sleep-cycle",
@@ -421,6 +475,17 @@ export const calculators: Calculator[] = [
     origin: "Computer science legend says that a programmer is a machine for turning coffee into code. This tool calculates the 'Goldilocks Zone' of caffeination for maximum output.",
     howTo: "Log your caffeine intake and track your lines of code (or finished tasks). We'll find the peak efficiency point where your focus is laser-sharp before the jitters take over.",
     tips: ["Hydrate with water between cups of coffee.", "Coffee-fueled productivity peaks about 45 minutes after ingestion.", "Avoid caffeine 6 hours before your intended sleep time."]
+  },
+  {
+    id: "unspent-potential",
+    title: "Unspent Potential Tax",
+    description: "Quantify the hidden cost of procrastination.",
+    category: "LifeHacks",
+    slug: "unspent-potential",
+    icon: "⚖️",
+    origin: "Inspired by the 'Emotional Debt' of procrastination. Every hour spent delaying a task is a 'tax' paid by your future self's leisure time.",
+    howTo: "Input your task and the time you've spent delaying it. We'll calculate your 'Leisure Fine' and the resulting spike in your 'Cortisol Index'.",
+    tips: ["Completing a task resets your Cortisol Index to zero immediately.", "Leisure debt is unpaid relaxation you've stolen from your weekend.", "Procrastination is often just a fear of the 'Unspent Potential' itself."]
   },
   {
     id: "stress-ice-cream",
