@@ -4,8 +4,8 @@ import { calculators } from "@/data/calculators"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-// Emulate static generation for known paths (optional but good for 'export')
-export async function generateStaticParams() {
+// Emulate static generation for known paths (required for 'export')
+export function generateStaticParams() {
    return calculators.map(calc => ({
        category: calc.category,
        slug: calc.slug
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { category, slug } = await params
-    const calculatorData = calculators.find(c => c.slug === slug && c.category === category)
+    const calculatorData = calculators.find(c => c.slug === slug && c.category.toLowerCase() === category.toLowerCase())
     
     if (!calculatorData) return {}
 
@@ -47,7 +47,7 @@ export default async function CalculatorPage({ params }: PageProps) {
     // Await params in Next.js 15
     const { category, slug } = await params
     
-    const calculatorData = calculators.find(c => c.slug === slug && c.category === category)
+    const calculatorData = calculators.find(c => c.slug === slug && c.category.toLowerCase() === category.toLowerCase())
     
     if (!calculatorData) {
         notFound()

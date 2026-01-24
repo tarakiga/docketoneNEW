@@ -12,8 +12,8 @@ export type BlogPost = {
 
 export async function getLatestPosts(limit = 3): Promise<BlogPost[]> {
  try {
-    const res = await fetch(`https://blog.docket.one/wp-json/wp/v2/posts?per_page=${limit}&_embed`, {
-        next: { revalidate: 3600 } // Revalidate every hour
+    const res = await fetch(`https://blog.docket.one/wp-json/wp/v2/posts?per_page=${limit}&categories=31&_embed`, {
+        next: { revalidate: 60 } // Revalidate every minute
     })
     
     if (!res.ok) {

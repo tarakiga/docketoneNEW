@@ -59,7 +59,7 @@ import { TimeIsMoney } from "./lifehacks/time-is-money"
 import { UnspentPotentialTax } from "./lifehacks/unspent-potential"
 
 export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
-  // BigKidMath
+  // bigkidmath
   "caffeine-half-life": CaffeineCalculatorPremium,
   "car-vs-uber": CarVsUberCalculator,
   "cost-of-war": CostOfWar,
@@ -68,7 +68,7 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "lightning-life": LightningLifeCalculator,
   "power-footprint": PowerFootprintCalculator,
 
-  // Cipher Lab
+  // cipherlab
   "caesar-cipher": CaesarCipher,
   "nato-phonetic": NATOPhonetic,
   "morse-code": MorseCode,
@@ -78,7 +78,7 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "shavian-translator": ShavianTranslator,
   "steganography-brush": SteganographyBrush,
 
-  // GeekGalaxy
+  // geekgalaxy
   "superhero-insurance": SuperheroInsuranceQuote,
   "zombie-survival": ZombieSurvivalCalculator,
   "space-travel": SpaceTravelCalculator,
@@ -92,13 +92,13 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "potion-brewer": PotionBrewerCalculator,
   "time-paradox": TimeParadoxDetector,
 
-  // Otaku_Ops
+  // otakuops
   "anime-training": AnimeTrainingCalculator,
   "minecraft-portal": MinecraftPortalPlanner,
   "gacha-despair": GachaDespair,
   "conspiracy-theory": ConspiracyTheoryCalculator,
 
-  // Math_Magik
+  // mathmagik
   "fire-number": FireCalculator,
   "pizza-pi": PizzaPiCalculator,
   "double-pendulum": DoublePendulum,

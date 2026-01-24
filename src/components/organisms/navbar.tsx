@@ -16,12 +16,12 @@ import { useState } from "react"
 export function NavBar() {
   const [open, setOpen] = useState(false)
   const categories = [
-    { name: "BigKidMath", icon: GraduationCap, color: "text-blue-500", bg: "bg-blue-500/10" },
-    { name: "CipherLab", icon: Binary, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { name: "GeekGalaxy", icon: Zap, color: "text-yellow-500", bg: "bg-yellow-500/10" },
-    { name: "LifeHacks", icon: Lightbulb, color: "text-amber-500", bg: "bg-amber-500/10" },
-    { name: "Math_Magik", icon: Sparkles, color: "text-purple-500", bg: "bg-purple-500/10" },
-    { name: "Otaku_Ops", icon: Gamepad2, color: "text-rose-500", bg: "bg-rose-500/10" },
+    { name: "bigkidmath", label: "Big Kid Math", icon: GraduationCap, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { name: "cipherlab", label: "Cipher Lab", icon: Binary, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { name: "geekgalaxy", label: "Geek Galaxy", icon: Zap, color: "text-yellow-500", bg: "bg-yellow-500/10" },
+    { name: "lifehacks", label: "Life Hacks", icon: Lightbulb, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { name: "mathmagik", label: "Math Magik", icon: Sparkles, color: "text-purple-500", bg: "bg-purple-500/10" },
+    { name: "otakuops", label: "Otaku Ops", icon: Gamepad2, color: "text-rose-500", bg: "bg-rose-500/10" },
   ]
 
   return (
@@ -49,7 +49,7 @@ export function NavBar() {
               {categories.map((cat) => (
                 <DropdownMenuItem key={cat.name} asChild className="focus:bg-white/10 cursor-pointer">
                   <Link href={`/calculators/${cat.name}`}>
-                    {cat.name.replace(/_/g, ' ')}
+                    {cat.label}
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -121,7 +121,7 @@ export function NavBar() {
                                    <cat.icon className={`h-5 w-5 ${cat.color}`} />
                                 </div>
                                 <div className="flex flex-col">
-                                   <span className="text-sm font-bold text-slate-200">{cat.name.replace(/_/g, ' ')}</span>
+                                   <span className="text-sm font-bold text-slate-200">{cat.label}</span>
                                    <span className="text-[9px] text-slate-500 font-medium font-mono uppercase tracking-wider">Explore Modules</span>
                                 </div>
                               </Link>

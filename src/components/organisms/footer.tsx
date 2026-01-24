@@ -23,12 +23,12 @@ export function Footer() {
           <div className="space-y-6">
             <h4 className="text-sm font-bold tracking-widest uppercase text-white/50">Calculators</h4>
             <ul className="space-y-3 text-sm font-medium">
-                <li><Link href="/calculators/BigKidMath" className="text-slate-400 hover:text-indigo-400 transition-colors">Big Kid Math</Link></li>
-                <li><Link href="/calculators/CipherLab" className="text-slate-400 hover:text-indigo-400 transition-colors">Cipher Lab</Link></li>
-                <li><Link href="/calculators/GeekGalaxy" className="text-slate-400 hover:text-indigo-400 transition-colors">Geek Galaxy</Link></li>
-                <li><Link href="/calculators/LifeHacks" className="text-slate-400 hover:text-indigo-400 transition-colors">Life Hacks</Link></li>
-                <li><Link href="/calculators/Math_Magik" className="text-slate-400 hover:text-indigo-400 transition-colors">Math Magik</Link></li>
-                <li><Link href="/calculators/Otaku_Ops" className="text-slate-400 hover:text-indigo-400 transition-colors">Otaku Ops</Link></li>
+                <li><Link href="/calculators/bigkidmath" className="text-slate-400 hover:text-indigo-400 transition-colors">Big Kid Math</Link></li>
+                <li><Link href="/calculators/cipherlab" className="text-slate-400 hover:text-indigo-400 transition-colors">Cipher Lab</Link></li>
+                <li><Link href="/calculators/geekgalaxy" className="text-slate-400 hover:text-indigo-400 transition-colors">Geek Galaxy</Link></li>
+                <li><Link href="/calculators/lifehacks" className="text-slate-400 hover:text-indigo-400 transition-colors">Life Hacks</Link></li>
+                <li><Link href="/calculators/mathmagik" className="text-slate-400 hover:text-indigo-400 transition-colors">Math Magik</Link></li>
+                <li><Link href="/calculators/otakuops" className="text-slate-400 hover:text-indigo-400 transition-colors">Otaku Ops</Link></li>
             </ul>
           </div>
 

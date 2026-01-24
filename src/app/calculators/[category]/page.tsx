@@ -18,7 +18,7 @@ interface CategoryPageProps {
 export default async function CategoryPage({ params }: CategoryPageProps) {
     const { category } = await params
     
-    const categoryCalculators = calculators.filter(c => c.category === category)
+    const categoryCalculators = calculators.filter(c => c.category.toLowerCase() === category.toLowerCase())
     
     if (categoryCalculators.length === 0) {
         // or return empty state
@@ -26,7 +26,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
          // Allow empty categories if defined in routing but no calculators yet?
     }
 
-    const categoryName = category.replace(/_/g, ' ')
+    const categoryName = category
+        .split(/(?=[A-Z])|_/)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ')
+        .replace("Bigkidmath", "Big Kid Math")
+        .replace("Cipherlab", "Cipher Lab")
+        .replace("Geekgalaxy", "Geek Galaxy")
+        .replace("Lifehacks", "Life Hacks")
+        .replace("Mathmagik", "Math Magik")
+        .replace("Otakuops", "Otaku Ops")
 
     return (
         <div className="container py-12 px-4 md:px-6">

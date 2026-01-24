@@ -6,7 +6,7 @@ import Link from "next/link"
 
 const CATEGORIES = [
   {
-    id: "BigKidMath",
+    id: "bigkidmath",
     name: "Big Kid Math",
     icon: "🧠",
     description: "Real adulting decisions focused calculators.",
@@ -15,7 +15,7 @@ const CATEGORIES = [
     border: "group-hover:border-blue-500/50"
   },
   {
-    id: "CipherLab",
+    id: "cipherlab",
     name: "Cipher Lab",
     icon: "🔐",
     description: "Tools for encryption, codes, and digital security.",
@@ -24,7 +24,7 @@ const CATEGORIES = [
     border: "group-hover:border-green-500/50"
   },
   {
-    id: "GeekGalaxy",
+    id: "geekgalaxy",
     name: "Geek Galaxy",
     icon: "🧛",
     description: "Sci-fi scenarios and pop culture survival tools.",
@@ -33,7 +33,7 @@ const CATEGORIES = [
     border: "group-hover:border-purple-500/50"
   },
   {
-    id: "LifeHacks",
+    id: "lifehacks",
     name: "Life Hacks",
     icon: "🧬",
     description: "Optimization tools for everyday efficiency.",
@@ -42,7 +42,7 @@ const CATEGORIES = [
     border: "group-hover:border-yellow-500/50"
   },
   {
-    id: "Math_Magik",
+    id: "mathmagik",
     name: "Math Magik",
     icon: "🔮",
     description: "Playful exploration of numbers and patterns.",
@@ -51,7 +51,7 @@ const CATEGORIES = [
     border: "group-hover:border-indigo-500/50"
   },
   {
-    id: "Otaku_Ops",
+    id: "otakuops",
     name: "Otaku Ops",
     icon: "🐱‍👤",
     description: "Calculators for anime, manga, and gaming fans.",

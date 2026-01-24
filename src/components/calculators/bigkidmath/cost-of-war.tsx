@@ -243,6 +243,7 @@ export function CostOfWar() {
                  <div className="pt-6 relative z-10">
                     <ShareResult 
                       title="The Cost of War Calculator"
+                      resultValue={`1 ${activeMunition.name} = ${activeMunition.equivalents[0].val}x ${activeMunition.equivalents[0].label}`}
                       text={`I just discovered that 1 ${activeMunition.name} costs $${activeMunition.cost.toLocaleString()}, which could fund ${activeMunition.equivalents[0].val}x ${activeMunition.equivalents[0].label}. See the real price of conflict at #DocketOne.`}
                     />
                  </div>

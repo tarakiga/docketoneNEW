@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og'
 
 export const dynamic = 'force-static'
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
    return calculators.map(calc => ({
        category: calc.category,
        slug: calc.slug

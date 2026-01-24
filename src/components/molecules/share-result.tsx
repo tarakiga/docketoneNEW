@@ -1,4 +1,4 @@
-import { PremiumShareModal } from "@/components/organisms/premium-share-modal"
+import { VerdictShareModal } from "@/components/organisms/verdict-share-modal"
 import { Button } from "@/components/ui/button"
 import { Share2 } from "lucide-react"
 import { useState } from "react"
@@ -14,8 +14,9 @@ interface ShareResultProps {
 export function ShareResult({ title, text, url, className, resultValue }: ShareResultProps) {
     const [isOpen, setIsOpen] = useState(false)
     
-    // Extract result from text if resultValue not provided (simple heuristic or passed prop)
-    const displayResult = resultValue || text.split('.')[0] 
+    // Extract result from text if resultValue not provided
+    // Split by period followed by space to avoid breaking at decimal points (e.g., 1.5x)
+    const displayResult = resultValue || (text.includes('. ') ? text.split('. ')[0] + '.' : text); 
 
     return (
         <>
@@ -28,7 +29,7 @@ export function ShareResult({ title, text, url, className, resultValue }: ShareR
                 Share Result
             </Button>
 
-            <PremiumShareModal 
+            <VerdictShareModal 
                 isOpen={isOpen}
                 onOpenChange={setIsOpen}
                 title={title}

@@ -5,27 +5,27 @@ import { calculators } from "@/data/calculators"
 import Link from "next/link"
 
 const CATEGORY_STYLES: Record<string, { color: string, border: string }> = {
-  "BigKidMath": {
+  "bigkidmath": {
     color: "from-blue-500/20 to-cyan-500/20",
     border: "group-hover:border-blue-500/50"
   },
-  "CipherLab": {
+  "cipherlab": {
     color: "from-green-500/20 to-emerald-500/20",
     border: "group-hover:border-green-500/50"
   },
-  "GeekGalaxy": {
+  "geekgalaxy": {
     color: "from-purple-500/20 to-pink-500/20",
     border: "group-hover:border-purple-500/50"
   },
-  "LifeHacks": {
+  "lifehacks": {
     color: "from-yellow-500/20 to-orange-500/20",
     border: "group-hover:border-yellow-500/50"
   },
-  "Math_Magik": {
+  "mathmagik": {
     color: "from-indigo-500/20 to-violet-500/20",
     border: "group-hover:border-indigo-500/50"
   },
-  "Otaku_Ops": {
+  "otakuops": {
     color: "from-red-500/20 to-rose-500/20",
     border: "group-hover:border-red-500/50"
   }
@@ -43,7 +43,7 @@ export function RelatedCalculators({ currentCategory, currentSlug }: RelatedCalc
 
   if (related.length === 0) return null
 
-  const style = CATEGORY_STYLES[currentCategory] || CATEGORY_STYLES["BigKidMath"]
+  const style = CATEGORY_STYLES[currentCategory] || CATEGORY_STYLES["bigkidmath"]
 
   return (
     <section className="py-24 border-t border-white/5">
