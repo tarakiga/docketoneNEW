@@ -38,10 +38,10 @@ export function AIDoomsdayCalculator() {
     
     // Threat Level
     let threatLevel = "LOW"
-    let threatColor = "text-green-500"
-    if (calculatedYears <= 1) { threatLevel = "IMMINENT"; threatColor = "text-red-600 animate-pulse"; }
-    else if (calculatedYears <= 5) { threatLevel = "CRITICAL"; threatColor = "text-orange-500"; }
-    else if (calculatedYears <= 15) { threatLevel = "ELEVATED"; threatColor = "text-yellow-500"; }
+    let threatColor = "text-[#86efac]"
+    if (calculatedYears <= 1) { threatLevel = "IMMINENT"; threatColor = "text-[#ff8a8a]"; }
+    else if (calculatedYears <= 5) { threatLevel = "CRITICAL"; threatColor = "text-[#ff8a3c]"; }
+    else if (calculatedYears <= 15) { threatLevel = "ELEVATED"; threatColor = "text-[#ffd23c]"; }
 
     return { years, days, threatLevel, threatColor, calculatedYears }
   }, [factors])
@@ -52,97 +52,97 @@ export function AIDoomsdayCalculator() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-black border-green-900/50 shadow-[0_0_50px_-12px_rgba(0,255,65,0.2)]">
-        <CardHeader className="border-b border-green-900/30">
-          <CardTitle className="text-3xl font-mono text-green-500 flex items-center gap-2">
+      <Card className="bg-[#1d1442] border-[#4a3f7a]">
+        <CardHeader className="border-b border-[#4a3f7a]">
+          <CardTitle className="text-3xl font-mono text-[#ff8a3c] flex items-center gap-2">
             <Brain className="h-6 w-6" />
             SINGULARITY COUNTDOWN
           </CardTitle>
-          <CardDescription className="font-mono text-green-800">System Time: {new Date().toLocaleTimeString()} // Calculating probability of extinction...</CardDescription>
+          <CardDescription className="font-mono text-[#b3aae0]">System Time: {new Date().toLocaleTimeString()} · Calculating probability of extinction...</CardDescription>
         </CardHeader>
         
         <CardContent className="p-0">
           <Tabs defaultValue="console" className="w-full">
-            <TabsList className="w-full rounded-none bg-green-950/20 border-b border-green-900/30 grid grid-cols-2">
-              <TabsTrigger value="console" className="data-[state=active]:bg-green-900/40 data-[state=active]:text-green-400 font-mono">CONSOLE INPUT</TabsTrigger>
-              <TabsTrigger value="analysis" className="data-[state=active]:bg-green-900/40 data-[state=active]:text-green-400 font-mono">THREAT ANALYSIS</TabsTrigger>
+            <TabsList className="w-full rounded-none bg-[#0c0824] border-b border-[#4a3f7a] grid grid-cols-2">
+              <TabsTrigger value="console" className="data-[state=active]:bg-[#241a52] data-[state=active]:text-[#ff8a3c] text-[#b3aae0] font-mono">CONSOLE INPUT</TabsTrigger>
+              <TabsTrigger value="analysis" className="data-[state=active]:bg-[#241a52] data-[state=active]:text-[#ff8a3c] text-[#b3aae0] font-mono">THREAT ANALYSIS</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="console" className="p-6 space-y-8 text-green-400 font-mono text-sm">
+            <TabsContent value="console" className="p-6 space-y-8 text-[#ECEAE3] font-mono text-sm">
               <div className="grid md:grid-cols-2 gap-8">
                 
                 {/* Tech Vectors */}
-                <div className="space-y-4 border border-green-900/50 p-4 rounded bg-green-950/10">
-                  <h3 className="font-bold flex items-center gap-2 text-green-300"><Radio className="h-4 w-4"/> Technological Vectors</h3>
+                <div className="space-y-4 border border-[#4a3f7a] p-4 rounded bg-[#0c0824]">
+                  <h3 className="font-bold flex items-center gap-2 text-[#ff8a3c]"><Radio className="h-4 w-4"/> Technological Vectors</h3>
                   
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <Label className="text-green-600">AI Progress Level</Label>
-                      <span className="text-green-400">{factors.aiProgress}%</span>
+                      <Label className="text-[#b3aae0]">AI Progress Level</Label>
+                      <span className="text-[#ECEAE3]">{factors.aiProgress}%</span>
                     </div>
-                    <Slider value={[factors.aiProgress]} onValueChange={([v]) => setFactor('aiProgress', v)} max={100} className="[&_.range-thumb]:bg-green-500 [&_.range-track]:bg-green-900/50" />
+                    <Slider value={[factors.aiProgress]} onValueChange={([v]) => setFactor('aiProgress', v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[#0c0824]" />
                   </div>
 
                   <div className="space-y-2">
                      <div className="flex justify-between">
-                      <Label className="text-green-600">Learning Speed (Recursive)</Label>
-                      <span className="text-green-400">{factors.learningSpeed}x</span>
+                      <Label className="text-[#b3aae0]">Learning Speed (Recursive)</Label>
+                      <span className="text-[#ECEAE3]">{factors.learningSpeed}x</span>
                     </div>
-                    <Slider value={[factors.learningSpeed]} onValueChange={([v]) => setFactor('learningSpeed', v)} min={0.1} max={10} step={0.1} className="[&_.range-thumb]:bg-green-500 [&_.range-track]:bg-green-900/50" />
+                    <Slider value={[factors.learningSpeed]} onValueChange={([v]) => setFactor('learningSpeed', v)} min={0.1} max={10} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[#0c0824]" />
                   </div>
 
                   <div className="space-y-2">
                      <div className="flex justify-between">
-                      <Label className="text-green-600">Quantum Integration</Label>
-                      <span className="text-green-400">{factors.quantumComputing}%</span>
+                      <Label className="text-[#b3aae0]">Quantum Integration</Label>
+                      <span className="text-[#ECEAE3]">{factors.quantumComputing}%</span>
                     </div>
-                    <Slider value={[factors.quantumComputing]} onValueChange={([v]) => setFactor('quantumComputing', v)} max={100} className="[&_.range-thumb]:bg-green-500 [&_.range-track]:bg-green-900/50" />
+                    <Slider value={[factors.quantumComputing]} onValueChange={([v]) => setFactor('quantumComputing', v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[#0c0824]" />
                   </div>
                 </div>
 
                 {/* Human Response */}
-                <div className="space-y-4 border border-green-900/50 p-4 rounded bg-green-950/10">
-                  <h3 className="font-bold flex items-center gap-2 text-green-300"><ShieldAlert className="h-4 w-4"/> Human Response</h3>
+                <div className="space-y-4 border border-[#4a3f7a] p-4 rounded bg-[#0c0824]">
+                  <h3 className="font-bold flex items-center gap-2 text-[#ff8a3c]"><ShieldAlert className="h-4 w-4"/> Human Response</h3>
                   
                   <div className="space-y-2">
                      <div className="flex justify-between">
-                      <Label className="text-green-600">Preparedness</Label>
-                      <span className="text-green-400">{factors.humanPreparedness}%</span>
+                      <Label className="text-[#b3aae0]">Preparedness</Label>
+                      <span className="text-[#ECEAE3]">{factors.humanPreparedness}%</span>
                     </div>
-                    <Slider value={[factors.humanPreparedness]} onValueChange={([v]) => setFactor('humanPreparedness', v)} max={100} className="[&_.range-thumb]:bg-green-500 [&_.range-track]:bg-green-900/50" />
+                    <Slider value={[factors.humanPreparedness]} onValueChange={([v]) => setFactor('humanPreparedness', v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[#0c0824]" />
                   </div>
 
                    <div className="space-y-2">
                      <div className="flex justify-between">
-                      <Label className="text-green-600">Regulation Protocols</Label>
-                      <span className="text-green-400">{factors.techRegulation}%</span>
+                      <Label className="text-[#b3aae0]">Regulation Protocols</Label>
+                      <span className="text-[#ECEAE3]">{factors.techRegulation}%</span>
                     </div>
-                    <Slider value={[factors.techRegulation]} onValueChange={([v]) => setFactor('techRegulation', v)} max={100} className="[&_.range-thumb]:bg-green-500 [&_.range-track]:bg-green-900/50" />
+                    <Slider value={[factors.techRegulation]} onValueChange={([v]) => setFactor('techRegulation', v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[#0c0824]" />
                   </div>
                 </div>
 
                 {/* AI Psychology */}
-                <div className="space-y-4 border border-green-900/50 p-4 rounded bg-green-950/10">
-                  <h3 className="font-bold flex items-center gap-2 text-green-300"><Brain className="h-4 w-4"/> AI Directives</h3>
+                <div className="space-y-4 border border-[#4a3f7a] p-4 rounded bg-[#0c0824]">
+                  <h3 className="font-bold flex items-center gap-2 text-[#ff8a3c]"><Brain className="h-4 w-4"/> AI Directives</h3>
                    
                    <div className="space-y-2">
                      <div className="flex justify-between">
-                      <Label className="text-green-600">Hostility Index</Label>
-                      <span className="text-green-400">{factors.aiMotivation}%</span>
+                      <Label className="text-[#b3aae0]">Hostility Index</Label>
+                      <span className="text-[#ECEAE3]">{factors.aiMotivation}%</span>
                     </div>
-                    <Slider value={[factors.aiMotivation]} onValueChange={([v]) => setFactor('aiMotivation', v)} max={100} className="[&_.range-thumb]:bg-green-500 [&_.range-track]:bg-green-900/50" />
+                    <Slider value={[factors.aiMotivation]} onValueChange={([v]) => setFactor('aiMotivation', v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[#0c0824]" />
                   </div>
                 </div>
 
                 {/* Global State */}
-                <div className="space-y-4 border border-green-900/50 p-4 rounded bg-green-950/10">
-                   <h3 className="font-bold flex items-center gap-2 text-green-300"><Globe className="h-4 w-4"/> Geopolitics</h3>
+                <div className="space-y-4 border border-[#4a3f7a] p-4 rounded bg-[#0c0824]">
+                   <h3 className="font-bold flex items-center gap-2 text-[#ff8a3c]"><Globe className="h-4 w-4"/> Geopolitics</h3>
                    <div className="space-y-2">
                      <div className="flex justify-between">
-                      <Label className="text-green-600">Global Stability</Label>
-                      <span className="text-green-400">{factors.globalStability}%</span>
+                      <Label className="text-[#b3aae0]">Global Stability</Label>
+                      <span className="text-[#ECEAE3]">{factors.globalStability}%</span>
                     </div>
-                    <Slider value={[factors.globalStability]} onValueChange={([v]) => setFactor('globalStability', v)} max={100} className="[&_.range-thumb]:bg-green-500 [&_.range-track]:bg-green-900/50" />
+                    <Slider value={[factors.globalStability]} onValueChange={([v]) => setFactor('globalStability', v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[#0c0824]" />
                   </div>
                 </div>
 
@@ -152,9 +152,9 @@ export function AIDoomsdayCalculator() {
             <TabsContent value="analysis" className="p-8 flex flex-col items-center justify-center space-y-12 min-h-[400px]">
               
               <div className="text-center space-y-2">
-                 <div className="font-mono text-green-800 text-xs tracking-[0.5em]">TIME TO SINGULARITY</div>
-                 <div className="font-black text-6xl md:text-8xl text-green-500 font-mono glitch-text">
-                   {results.years}<span className="text-2xl text-green-900">Y</span> {results.days}<span className="text-2xl text-green-900">D</span>
+                 <div className="font-mono text-[#b3aae0] text-xs tracking-[0.5em]">TIME TO SINGULARITY</div>
+                 <div className="font-black text-6xl md:text-8xl glitch-text" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>
+                   {results.years}<span className="text-2xl text-[#b3aae0]">Y</span> {results.days}<span className="text-2xl text-[#b3aae0]">D</span>
                  </div>
                  <div className={`text-2xl font-bold tracking-widest ${results.threatColor} font-mono mt-4`}>
                     THREAT LEVEL: {results.threatLevel}
@@ -162,9 +162,9 @@ export function AIDoomsdayCalculator() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
-                 <div className="bg-green-950/20 border-l-2 border-green-500 p-4 rounded">
-                    <h4 className="text-green-400 font-bold mb-2 flex items-center gap-2"><Skull className="h-4 w-4"/> Scenario Forecast</h4>
-                    <p className="text-green-100/70 text-sm">
+                 <div className="bg-[#0c0824] border-l-2 border-[#ff8a3c] p-4 rounded">
+                    <h4 className="text-[#ff8a3c] font-bold mb-2 flex items-center gap-2"><Skull className="h-4 w-4"/> Scenario Forecast</h4>
+                    <p className="text-[#b3aae0] text-sm">
                       {results.calculatedYears < 5 ? 
                         "Hard Takeoff imminent. AI capability is growing vertically. Human control measures are insufficient. Prepare for rapid paradigm shift." : 
                        results.calculatedYears < 20 ? 
@@ -172,9 +172,9 @@ export function AIDoomsdayCalculator() {
                         "Symbiotic evolution possible. Current trajectory suggests a managed transition to post-human era."}
                     </p>
                  </div>
-                 <div className="bg-green-950/20 border-l-2 border-green-500 p-4 rounded flex flex-col justify-center">
-                    <h4 className="text-green-400 font-bold mb-2">Survival Probability</h4>
-                    <div className="text-4xl font-mono text-white">
+                 <div className="bg-[#0c0824] border-l-2 border-[#ff8a3c] p-4 rounded flex flex-col justify-center">
+                    <h4 className="text-[#ff8a3c] font-bold mb-2">Survival Probability</h4>
+                    <div className="text-4xl font-mono text-[#ECEAE3]">
                       {Math.max(1, Math.min(99, Math.round(100 - (100 / Math.max(0.1, results.calculatedYears)))))}%
                     </div>
                  </div>
@@ -193,15 +193,15 @@ export function AIDoomsdayCalculator() {
       {/* Matrix styling trick */}
       <style jsx global>{`
         .glitch-text {
-          text-shadow: 2px 0 #0f0, -2px 0 #00ff00;
+          text-shadow: 2px 0 #ff8a3c, -2px 0 #4a3f7a;
           animation: glitch 2s infinite linear alternate-reverse;
         }
         @keyframes glitch {
-          0% { text-shadow: 2px 0 #005500, -2px 0 #00ff00; }
-          25% { text-shadow: -2px 0 #005500, 2px 0 #00ff00; }
-          50% { text-shadow: 2px 0 #005500, -2px 0 #00ff00; }
-          75% { text-shadow: -2px 0 #005500, 2px 0 #00ff00; }
-          100% { text-shadow: 2px 0 #005500, -2px 0 #00ff00; }
+          0% { text-shadow: 2px 0 #4a3f7a, -2px 0 #ff8a3c; }
+          25% { text-shadow: -2px 0 #4a3f7a, 2px 0 #ff8a3c; }
+          50% { text-shadow: 2px 0 #4a3f7a, -2px 0 #ff8a3c; }
+          75% { text-shadow: -2px 0 #4a3f7a, 2px 0 #ff8a3c; }
+          100% { text-shadow: 2px 0 #4a3f7a, -2px 0 #ff8a3c; }
         }
       `}</style>
     </div>

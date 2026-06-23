@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Fraunces, Hanken_Grotesk, Space_Mono, Bungee, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,6 +10,37 @@ const inter = Inter({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+});
+
+// Almanac (category pages) typography
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
+const hankenGrotesk = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin"],
+});
+
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+// Arcade theme display + pixel faces
+const bungee = Bungee({
+  variable: "--font-bungee",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const pressStart = Press_Start_2P({
+  variable: "--font-press",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -38,10 +69,11 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'verification_token', // User to replace later
+  alternates: {
+    canonical: 'https://docket.one/',
   },
   other: {
+    'google-adsense-account': 'ca-pub-7016949439291956',
     'json-ld': JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
@@ -59,11 +91,12 @@ export const metadata: Metadata = {
   }
 };
 
-import { BackgroundBlobs } from "@/components/atoms/background-blobs";
+import { NavigationProgress } from "@/components/atoms/navigation-progress";
+import Script from "next/script";
+import { ConsentScripts } from "@/components/molecules/consent-scripts";
 import { CookieConsent } from "@/components/molecules/cookie-consent";
 import { Footer } from "@/components/organisms/footer";
 import { NavBar } from "@/components/organisms/navbar";
-import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -71,32 +104,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebApplication',
+              'name': 'Docket One',
+              'url': 'https://docket.one',
+              'description': 'Premium calculators for modern life. Smart, fun, and practical tools.',
+              'applicationCategory': 'EducationalApplication, BusinessApplication',
+              'operatingSystem': 'Any',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              }
+            })
+          }}
+        />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground font-sans min-h-screen flex flex-col relative`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${hankenGrotesk.variable} ${spaceMono.variable} ${bungee.variable} ${pressStart.variable} antialiased bg-background text-foreground font-sans min-h-screen flex flex-col relative`}
       >
-        <Script id="hotjar-tracking" strategy="afterInteractive">
-          {`
-            (function(h,o,t,j,a,r){
-                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                h._hjSettings={hjid:6629645,hjsv:6};
-                a=o.getElementsByTagName('head')[0];
-                r=o.createElement('script');r.async=1;
-                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                a.appendChild(r);
-            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-          `}
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`}
         </Script>
-        <Script 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7016949439291956"
-          strategy="lazyOnload"
-          crossOrigin="anonymous"
-        />
-        <BackgroundBlobs />
-        <div className="fixed inset-0 -z-30 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
-        
+        <NavigationProgress />
+        <ConsentScripts />
+
         <NavBar />
         <div className="flex-1 flex flex-col relative z-0">
           {children}

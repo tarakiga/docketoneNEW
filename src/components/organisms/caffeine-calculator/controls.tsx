@@ -1,7 +1,5 @@
 "use client"
 
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { motion } from "framer-motion"
@@ -20,97 +18,92 @@ export interface CaffeineControlsProps {
 const DRINK_PRESETS = [
     { name: "Coffee", caffeine: 95, icon: "☕" },
     { name: "Espresso", caffeine: 150, icon: "🍵" },
-    { name: "Energy Drink", caffeine: 200, icon: "🥤" },
+    { name: "Energy", caffeine: 200, icon: "🥤" },
     { name: "Tea", caffeine: 50, icon: "🫖" },
+    { name: "Cola", caffeine: 35, icon: "🥫" },
+    { name: "Dark choc", caffeine: 30, icon: "🍫" },
 ]
 
-export function CaffeineControls({ 
-    amount, setAmount, time, setTime, halfLife, setHalfLife, sleepGoal, setSleepGoal 
+const SEC = "text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 font-mono"
+const FIELD = "w-full bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 text-slate-200 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:border-cyan-500/60"
+
+export function CaffeineControls({
+    amount, setAmount, time, setTime, halfLife, setHalfLife, sleepGoal, setSleepGoal,
 }: CaffeineControlsProps) {
-    
     return (
-        <div className="space-y-8">
-            {/* Presets */}
-            <div className="space-y-4">
-                <Label className="text-indigo-200/60 uppercase tracking-widest text-xs font-bold pl-1">Select Drink</Label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {DRINK_PRESETS.map((preset) => (
-                        <motion.button
-                            key={preset.name}
-                            whileHover={{ scale: 1.05, backgroundColor: "rgba(99, 102, 241, 0.2)" }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setAmount(preset.caffeine)}
-                            className={`
-                                relative p-3 rounded-xl border transition-all duration-300 flex flex-col items-center gap-2 group
-                                ${amount === preset.caffeine 
-                                    ? "bg-indigo-500/20 border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.4)]" 
-                                    : "bg-white/5 border-white/5 hover:border-indigo-500/50"}
-                            `}
-                        >
-                            <span className="text-3xl filter drop-shadow-lg group-hover:scale-110 transition-transform duration-300">{preset.icon}</span>
-                            <span className={`text-xs font-bold uppercase tracking-wider ${amount === preset.caffeine ? "text-indigo-300" : "text-slate-400"}`}>
-                                {preset.name}
-                            </span>
-                            <span className="text-[10px] text-white/40 bg-black/20 px-2 py-0.5 rounded-full font-mono">
-                                {preset.caffeine}mg
-                            </span>
-                        </motion.button>
-                    ))}
+        <div className="space-y-7">
+            {/* Drink selection — full-width row */}
+            <div>
+                <div className={`${SEC} mb-3`}>Select your drink</div>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                    {DRINK_PRESETS.map((preset) => {
+                        const on = amount === preset.caffeine
+                        return (
+                            <motion.button
+                                key={preset.name}
+                                whileHover={{ y: -3 }}
+                                whileTap={{ scale: 0.96 }}
+                                onClick={() => setAmount(preset.caffeine)}
+                                className={`rounded-2xl border p-4 flex flex-col items-center gap-1.5 text-center transition-colors duration-300 ${on
+                                    ? "bg-cyan-400/10 border-cyan-400 shadow-[0_0_22px_-6px_rgba(34,211,238,0.5)]"
+                                    : "bg-white/[0.04] border-white/10 hover:border-cyan-400/40"}`}
+                            >
+                                <span className="text-3xl drop-shadow-lg">{preset.icon}</span>
+                                <span className={`text-[13px] font-semibold ${on ? "text-cyan-100" : "text-slate-200"}`}>{preset.name}</span>
+                                <span className="font-mono text-[11px] text-cyan-400">{preset.caffeine} mg</span>
+                            </motion.button>
+                        )
+                    })}
                 </div>
             </div>
 
-            {/* Amount Slider */}
-            <div className="space-y-4 p-5 bg-black/20 rounded-xl border border-white/5">
-                <div className="flex justify-between items-center px-1">
-                    <Label className="text-indigo-200/60 uppercase tracking-widest text-xs font-bold">Caffeine Amount</Label>
-                    <span className="text-2xl font-bold font-mono text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">{amount}mg</span>
-                </div>
-                <Slider
-                    value={[amount]}
-                    onValueChange={(v) => setAmount(v[0])}
-                    max={500}
-                    step={5}
-                    className="cursor-pointer py-4"
-                />
-            </div>
-
-            {/* Time Settings */}
-            <div className="grid grid-cols-1 gap-6">
+            {/* Control bar */}
+            <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-5 p-5 bg-black/25 rounded-2xl border border-white/5">
                 <div className="space-y-2">
-                    <Label className="text-indigo-200/60 uppercase tracking-widest text-xs font-bold pl-1">Consumption Time</Label>
-                    <Input
-                        type="datetime-local"
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
-                        className="bg-black/30 border-white/10 focus-visible:ring-indigo-500 focus-visible:border-indigo-500 h-14 text-lg text-slate-200"
-                    />
+                    <label className={SEC}>Caffeine amount</label>
+                    <div className="flex items-center gap-3">
+                        <Slider
+                            value={[amount]}
+                            onValueChange={(v) => setAmount(v[0])}
+                            max={600}
+                            step={5}
+                            className="flex-1 cursor-pointer"
+                        />
+                        <input
+                            type="number"
+                            min={0}
+                            max={600}
+                            value={amount}
+                            onChange={(e) => setAmount(Math.max(0, Math.min(600, Number(e.target.value) || 0)))}
+                            aria-label="Caffeine amount in milligrams"
+                            className="w-16 bg-black/35 border border-cyan-500/30 rounded-lg px-1 py-1.5 text-center font-mono text-lg font-bold text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+                        />
+                    </div>
                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                        <Label className="text-indigo-200/60 uppercase tracking-widest text-xs font-bold pl-1">Metabolism</Label>
-                        <Select value={halfLife.toString()} onValueChange={(v) => setHalfLife(Number(v))}>
-                            <SelectTrigger className="bg-black/30 border-white/10 h-14 text-slate-200">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent className="bg-slate-900 border-white/10 text-slate-200">
-                                <SelectItem value="3">Fast (3 hrs)</SelectItem>
-                                <SelectItem value="5">Average (5 hrs)</SelectItem>
-                                <SelectItem value="7">Slow (7 hrs)</SelectItem>
-                                <SelectItem value="9">Very Slow (9 hrs)</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
 
-                    <div className="space-y-2">
-                            <Label className="text-indigo-200/60 uppercase tracking-widest text-xs font-bold pl-1">Bedtime Goal</Label>
-                            <Input 
-                            type="time" 
-                            value={sleepGoal} 
-                            onChange={(e) => setSleepGoal(e.target.value)} 
-                            className="bg-black/30 border-white/10 h-14 text-lg text-slate-200 focus-visible:ring-indigo-500"
-                            />
-                    </div>
+                <div className="space-y-2">
+                    <label className={SEC}>Consumed at</label>
+                    <input type="datetime-local" value={time} onChange={(e) => setTime(e.target.value)} className={FIELD} />
+                </div>
+
+                <div className="space-y-2">
+                    <label className={SEC}>Metabolism</label>
+                    <Select value={halfLife.toString()} onValueChange={(v) => setHalfLife(Number(v))}>
+                        <SelectTrigger className="bg-black/35 border-white/10 text-slate-200 h-[42px]">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-slate-900 border-white/10 text-slate-200">
+                            <SelectItem value="3">Fast (3 hrs)</SelectItem>
+                            <SelectItem value="5">Average (5 hrs)</SelectItem>
+                            <SelectItem value="7">Slow (7 hrs)</SelectItem>
+                            <SelectItem value="9">Very Slow (9 hrs)</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="space-y-2">
+                    <label className={SEC}>Bedtime goal</label>
+                    <input type="time" value={sleepGoal} onChange={(e) => setSleepGoal(e.target.value)} className={FIELD} />
                 </div>
             </div>
         </div>

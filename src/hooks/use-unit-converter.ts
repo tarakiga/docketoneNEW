@@ -26,6 +26,9 @@ export const UNIT_LABELS: Record<string, string> = {
   hertz: "Hertz (Hz)", kilohertz: "Kilohertz (kHz)", megahertz: "Megahertz (MHz)", gigahertz: "Gigahertz (GHz)", rpm: "RPM (rev/min)"
 }
 type Rates = Record<string, number>
+type ConverterMap = Record<string, (value: number) => number>
+
+const hasOwn = <T extends object>(obj: T, key: PropertyKey): key is keyof T => key in obj
 
 // Conversion Factors (Base unit varies per category)
 const CONVERSION_RATES = {
@@ -210,15 +213,15 @@ const FUEL_CONVERTERS = {
 }
 
 export function useUnitConverter(initialCategory: Category = "length") {
-  const [category, setCategory] = useState<string>(initialCategory)
+  const [category, setCategory] = useState<Category>(initialCategory)
   const [values, setValues] = useState<Record<string, string>>({})
   const [rates, setRates] = useState<Rates | null>(null) // For currency
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
-  
-  // Initialize values when category changes
-  useEffect(() => {
+
+  const handleCategoryChange = useCallback((nextCategory: Category) => {
+    setCategory(nextCategory)
     setValues({})
-  }, [category])
+  }, [])
 
   // Fetch currency rates
   useEffect(() => {
@@ -249,21 +252,19 @@ export function useUnitConverter(initialCategory: Category = "length") {
 
     // Temperature
     if (category === "temperature") {
-      // @ts-ignore
-      const converters = TEMP_CONVERTERS[fromUnit]
-      if (converters) {
+      if (hasOwn(TEMP_CONVERTERS, fromUnit)) {
+        const converters = TEMP_CONVERTERS[fromUnit as keyof typeof TEMP_CONVERTERS] as ConverterMap
         Object.keys(converters).forEach(toUnit => {
-          newValues[toUnit] = converters[toUnit as keyof typeof converters](val).toFixed(2)
+          newValues[toUnit] = converters[toUnit](val).toFixed(2)
         })
       }
     }
     // Fuel
     else if (category === "fuel") {
-        // @ts-ignore
-        const converters = FUEL_CONVERTERS[fromUnit]
-        if (converters) {
+        if (hasOwn(FUEL_CONVERTERS, fromUnit)) {
+            const converters = FUEL_CONVERTERS[fromUnit as keyof typeof FUEL_CONVERTERS] as ConverterMap
             Object.keys(converters).forEach(toUnit => {
-                newValues[toUnit] = converters[toUnit as keyof typeof converters](val).toFixed(2)
+                newValues[toUnit] = converters[toUnit](val).toFixed(2)
             })
         }
     }
@@ -281,16 +282,14 @@ export function useUnitConverter(initialCategory: Category = "length") {
     }
     // Standard (Length, Weight, etc)
     else {
-        // @ts-ignore
-        const factors = CONVERSION_RATES[category]
-        if (factors) {
+        if (hasOwn(CONVERSION_RATES, category)) {
+            const factors = CONVERSION_RATES[category]
             const factor = factors[fromUnit as keyof typeof factors]
-            const baseVal = val * factor // Convert to base unit
+            const baseVal = val * factor
 
             Object.keys(factors).forEach(toUnit => {
                 if (toUnit !== fromUnit) {
                     const toFactor = factors[toUnit as keyof typeof factors]
-                    // Convert from base unit to target unit
                     newValues[toUnit] = (baseVal / toFactor).toString().match(/^-?\d+(?:\.\d{0,6})?/)![0] 
                 }
             })
@@ -302,7 +301,7 @@ export function useUnitConverter(initialCategory: Category = "length") {
 
   return {
     category,
-    setCategory,
+    setCategory: handleCategoryChange,
     values,
     convert,
     rates,
@@ -310,8 +309,7 @@ export function useUnitConverter(initialCategory: Category = "length") {
     units: category === "temperature" ? Object.keys(TEMP_CONVERTERS) : 
            category === "fuel" ? Object.keys(FUEL_CONVERTERS) :
            category === "currency" ? (rates ? Object.keys(rates).sort() : []) :
-           // @ts-ignore
-           CONVERSION_RATES[category] ? Object.keys(CONVERSION_RATES[category]) : []
+           hasOwn(CONVERSION_RATES, category) ? Object.keys(CONVERSION_RATES[category]) : []
   }
 }
 

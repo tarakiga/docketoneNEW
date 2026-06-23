@@ -1,6 +1,6 @@
 export function BackgroundBlobs() {
   return (
-    <div className="absolute top-0 left-0 w-full h-[800px] overflow-hidden -z-20 pointer-events-none user-select-none">
+    <div className="absolute top-0 left-0 w-full h-[800px] overflow-hidden -z-20 pointer-events-none user-select-none hidden md:block">
       {/* Blob 1 - Indigo/Blue Mix */}
       <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-indigo-500/40 rounded-full blur-[100px] animate-blob-1" />
       

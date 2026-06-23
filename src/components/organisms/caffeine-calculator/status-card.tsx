@@ -1,87 +1,54 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { AlertTriangle, Moon } from "lucide-react"
 
 export interface CaffeineStatusCardProps {
     currentLevel: number
     isSleepImpacted: boolean
-    timeToSleep: number // hours until sleep
+    bedtimeLevel: number
+    bedtimeLabel: string
+    safeLabel: string
+    safeIsPast: boolean
+    threshold: number
 }
 
-export function CaffeineStatusCard({ currentLevel, isSleepImpacted, timeToSleep }: CaffeineStatusCardProps) {
-    // Determine status state
-    const status = currentLevel > 50 
-        ? "active" 
-        : currentLevel > 20 
-            ? "moderate" 
-            : "clear"
+const K = "text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500 font-mono mb-2"
+const TILE = "bg-black/35 border border-white/10 rounded-2xl p-5 flex flex-col justify-between"
 
-    const getStatusColor = () => {
-        if (status === "active") return "text-red-500"
-        if (status === "moderate") return "text-orange-400"
-        return "text-emerald-400"
-    }
-
-    const getStatusText = () => {
-        if (status === "active") return "System Active"
-        if (status === "moderate") return "Winding Down"
-        return "Ready for Sleep"
-    }
-
-    const getRecommendation = () => {
-        if (isSleepImpacted) return "High chance of sleep disruption. Consider delaying bedtime."
-        if (status === "moderate") return "You might feel slight alertness, but sleep should be okay."
-        return "Your system is effectively clear. Sweet dreams!"
-    }
+export function CaffeineStatusCard({
+    currentLevel, isSleepImpacted, bedtimeLevel, bedtimeLabel, safeLabel, safeIsPast, threshold,
+}: CaffeineStatusCardProps) {
+    const status = currentLevel > threshold ? "active" : currentLevel > 20 ? "moderate" : "clear"
+    const loadColor = status === "active" ? "text-red-400" : status === "moderate" ? "text-orange-400" : "text-emerald-400"
+    const loadDot = status === "active" ? "bg-red-500 animate-pulse" : status === "moderate" ? "bg-orange-400" : "bg-emerald-400"
+    const loadText = status === "active" ? "System Active" : status === "moderate" ? "Winding Down" : "Ready for Sleep"
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Level Gauge */}
-            <motion.div 
-                className="bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10 relative overflow-hidden shadow-xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-            >
-                <div className="relative z-10 flex flex-col h-full justify-between">
-                    <div>
-                        <div className="text-slate-400 uppercase tracking-widest text-xs font-bold mb-2">Current Load</div>
-                        <div className={`text-5xl md:text-6xl font-black tracking-tighter ${getStatusColor()} flex items-baseline gap-2 drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]`}>
-                            {currentLevel.toFixed(0)} <span className="text-xl text-slate-500 font-medium">mg</span>
-                        </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-3 mt-6">
-                        <div className={`h-3 w-3 rounded-full shadow-[0_0_10px_currentColor] ${status === "active" ? "bg-red-500 animate-pulse text-red-500" : status === "moderate" ? "bg-orange-400 text-orange-400" : "bg-emerald-400 text-emerald-400"}`} />
-                        <span className="text-sm font-bold text-slate-200 tracking-wide">{getStatusText()}</span>
-                    </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <motion.div className={TILE} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                <div className={K}>Current load</div>
+                <div className={`text-5xl font-black tracking-tighter ${loadColor} flex items-baseline gap-1`}>
+                    {currentLevel.toFixed(0)}<span className="text-lg text-slate-500 font-medium">mg</span>
                 </div>
-                
-                {/* Background Decoration */}
-                <div className={`absolute -right-10 -bottom-10 w-48 h-48 rounded-full blur-[80px] opacity-30 ${status === "active" ? "bg-red-600" : "bg-emerald-600"}`} />
+                <div className="flex items-center gap-2 mt-3 text-sm font-semibold text-slate-300">
+                    <span className={`h-2.5 w-2.5 rounded-full ${loadDot}`} /> {loadText}
+                </div>
             </motion.div>
 
-            {/* Sleep Impact */}
-            <motion.div 
-                 className={`bg-black/40 backdrop-blur-xl p-6 rounded-2xl border-l-4 shadow-xl ${isSleepImpacted ? "border-l-red-500 shadow-[inset_10px_0_20px_-10px_rgba(239,68,68,0.2)]" : "border-l-emerald-500 shadow-[inset_10px_0_20px_-10px_rgba(16,185,129,0.2)]"}`}
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.5, delay: 0.1 }}
-            >
-                 <div className="h-full flex flex-col justify-between">
-                    <div className="flex items-start gap-4">
-                        <div className={`p-3 rounded-xl ${isSleepImpacted ? "bg-red-500/20 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.3)]" : "bg-emerald-500/20 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]"}`}>
-                            {isSleepImpacted ? <AlertTriangle className="w-8 h-8" /> : <Moon className="w-8 h-8" />}
-                        </div>
-                        <div>
-                            <h3 className={`font-bold text-xl mb-2 ${isSleepImpacted ? "text-red-100" : "text-emerald-100"}`}>{isSleepImpacted ? "Sleep Warning" : "Sleep Safe"}</h3>
-                            <p className="text-sm text-slate-400 leading-relaxed">
-                                {getRecommendation()}
-                            </p>
-                        </div>
-                    </div>
-                 </div>
+            <motion.div className={TILE} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.08 }}>
+                <div className={K}>At {bedtimeLabel} (bedtime)</div>
+                <div className={`text-5xl font-black tracking-tighter flex items-baseline gap-1 ${isSleepImpacted ? "text-amber-400" : "text-emerald-400"}`}>
+                    {bedtimeLevel.toFixed(0)}<span className="text-lg text-slate-500 font-medium">mg</span>
+                </div>
+                <div className="text-xs text-slate-400 mt-3">
+                    {isSleepImpacted ? `above the ${threshold} mg sleep line` : `under the ${threshold} mg sleep line`}
+                </div>
+            </motion.div>
+
+            <motion.div className={TILE} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.16 }}>
+                <div className={K}>{safeIsPast ? "Cleared the sleep line" : "Safe to sleep"}</div>
+                <div className="text-4xl font-bold font-mono tracking-tight text-cyan-300">{safeLabel}</div>
+                <div className="text-xs text-slate-400 mt-3">when you drop under {threshold} mg</div>
             </motion.div>
         </div>
     )

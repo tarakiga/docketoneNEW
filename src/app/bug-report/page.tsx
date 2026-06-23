@@ -1,14 +1,10 @@
 "use client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { TypographyH1, TypographyP } from "@/components/ui/typography"
+import { FormStatusModal, type FormStatus } from "@/components/molecules/form-status-modal"
+import Link from "next/link"
 import { useState } from "react"
-import { toast } from "sonner"
 
 export default function BugReportPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [status, setStatus] = useState<FormStatus>(null)
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -19,109 +15,120 @@ export default function BugReportPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setIsSubmitting(true)
-        
+        setStatus("submitting")
         try {
             const response = await fetch("/api/mail-relay.php?type=bug", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
             })
-
             if (response.ok) {
-                toast.success("Report submitted! Thanks for helping us squash bugs.")
+                setStatus("success")
                 setFormData({ name: "", email: "", location: "", browser: "", description: "" })
             } else {
-                toast.error("Failed to deliver report. Please try again.")
+                setStatus("error")
             }
-        } catch (error) {
-            toast.error("Portal connection error.")
-        } finally {
-            setIsSubmitting(false)
+        } catch {
+            setStatus("error")
         }
     }
 
     return (
-        <main className="flex-1 bg-background relative">
-            <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-500/5 via-background to-background" />
-            
-            <div className="container py-16 md:py-24 max-w-2xl mx-auto">
-                <div className="glass-card p-8 rounded-xl border-white/10 shadow-2xl">
-                    <header className="mb-8 text-center">
-                        <TypographyH1 className="text-gradient mb-2">Report a Bug</TypographyH1>
-                        <TypographyP className="text-muted-foreground">
-                            Found something broken? We appreciate you letting us know so we can fix it ASAP.
-                        </TypographyP>
-                    </header>
-
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">Your Name (Optional)</label>
-                                <Input 
-                                    placeholder="John Doe" 
-                                    className="bg-background/50 border-input/50" 
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">Email Address (Optional)</label>
-                                <Input 
-                                    type="email" 
-                                    placeholder="In case we need more info" 
-                                    className="bg-background/50 border-input/50" 
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium">Where did you find the bug?</label>
-                            <Input 
-                                placeholder="e.g. Caffeine Calculator, Homepage, Footer" 
-                                required 
-                                className="bg-background/50 border-input/50" 
-                                value={formData.location}
-                                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                            />
-                        </div>
-
-                         <div className="space-y-2">
-                            <label className="text-sm font-medium">Browser / Device</label>
-                            <Select onValueChange={(v) => setFormData({ ...formData, browser: v })} value={formData.browser}>
-                                <SelectTrigger className="bg-background/50 border-input/50">
-                                    <SelectValue placeholder="What are you using?" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="chrome">Chrome (Desktop)</SelectItem>
-                                    <SelectItem value="safari">Safari (Desktop)</SelectItem>
-                                    <SelectItem value="firefox">Firefox</SelectItem>
-                                    <SelectItem value="mobile-ios">iPhone / iOS</SelectItem>
-                                    <SelectItem value="mobile-android">Android</SelectItem>
-                                    <SelectItem value="other">Other</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium">Description</label>
-                            <Textarea 
-                                placeholder="What happened? What did you expect to happen? Steps to reproduce?" 
-                                required 
-                                className="bg-background/50 border-input/50 min-h-[150px]" 
-                                value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            />
-                        </div>
-
-                        <Button type="submit" className="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-6" disabled={isSubmitting}>
-                            {isSubmitting ? "Sending..." : "🐛 Submit Report"}
-                        </Button>
-                    </form>
+        <div className="almanac">
+            <div className="almanac-page">
+                <div className="almanac-top">
+                    <Link className="almanac-back" href="/">← home</Link>
+                    <span>Docket One</span>
                 </div>
+
+                <header className="almanac-masthead">
+                    <div className="almanac-eyebrow">Report a bug</div>
+                    <h1 className="almanac-h1 sm">Report a Bug</h1>
+                    <p className="almanac-sub">
+                        Found something broken? We appreciate you letting us know so we can fix it ASAP.
+                    </p>
+                </header>
+
+                <form onSubmit={handleSubmit} className="almanac-form">
+                    <div className="almanac-row">
+                        <div className="almanac-field">
+                            <label className="almanac-label">Your Name (Optional)</label>
+                            <input
+                                className="almanac-input"
+                                placeholder="John Doe"
+                                value={formData.name}
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            />
+                        </div>
+                        <div className="almanac-field">
+                            <label className="almanac-label">Email Address (Optional)</label>
+                            <input
+                                className="almanac-input"
+                                type="email"
+                                placeholder="In case we need more info"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="almanac-field">
+                        <label className="almanac-label">Where did you find the bug?</label>
+                        <input
+                            className="almanac-input"
+                            placeholder="e.g. Caffeine Calculator, Homepage, Footer"
+                            required
+                            value={formData.location}
+                            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        />
+                    </div>
+
+                    <div className="almanac-field">
+                        <label className="almanac-label">Browser / Device</label>
+                        <select
+                            className="almanac-input"
+                            value={formData.browser}
+                            onChange={(e) => setFormData({ ...formData, browser: e.target.value })}
+                        >
+                            <option value="" disabled>What are you using?</option>
+                            <option value="chrome">Chrome (Desktop)</option>
+                            <option value="safari">Safari (Desktop)</option>
+                            <option value="firefox">Firefox</option>
+                            <option value="mobile-ios">iPhone / iOS</option>
+                            <option value="mobile-android">Android</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div className="almanac-field">
+                        <label className="almanac-label">Description</label>
+                        <textarea
+                            className="almanac-textarea"
+                            placeholder="What happened? What did you expect to happen? Steps to reproduce?"
+                            required
+                            value={formData.description}
+                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        />
+                    </div>
+
+                    <button type="submit" className="almanac-btn" disabled={status === "submitting"}>
+                        {status === "submitting" ? "Sending..." : "🐛 Submit Report"}
+                    </button>
+                </form>
+
+                <div className="almanac-foot">
+                    <span>© 2026 Docket One</span>
+                    <Link href="/">Home →</Link>
+                </div>
+
+                <FormStatusModal
+                    status={status}
+                    onClose={() => setStatus(null)}
+                    successTitle="Report submitted"
+                    successMessage="Thanks for helping us squash bugs! We'll take a look."
+                    errorMessage="We couldn't deliver your report just now. Please try again in a moment."
+                />
             </div>
-        </main>
+        </div>
     )
 }

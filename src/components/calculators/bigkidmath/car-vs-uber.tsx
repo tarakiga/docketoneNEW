@@ -1,326 +1,202 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Info, TrendingDown, TrendingUp, Zap } from "lucide-react"
-import { useEffect, useState } from "react"
-import { Cell, Legend, Pie, PieChart, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts'
-
 import { ShareResult } from "@/components/molecules/share-result"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Slider } from "@/components/ui/slider"
+import { motion } from "framer-motion"
+import { TrendingDown } from "lucide-react"
+import { useMemo, useState } from "react"
+
+type Mode = "car" | "ev" | "uber"
+
+const STYLES: Record<Mode, { label: string; text: string; bar: string; ring: string }> = {
+    car: { label: "Gas Car", text: "text-[#29e0ff]", bar: "bg-[#29e0ff]", ring: "ring-[#29e0ff]/60" },
+    ev: { label: "Electric", text: "text-[#b3aae0]", bar: "bg-[#b3aae0]", ring: "ring-[#b3aae0]/60" },
+    uber: { label: "Rideshare", text: "text-[#86efac]", bar: "bg-[#86efac]", ring: "ring-[#86efac]/60" },
+}
+const EMOJI: Record<Mode, string> = { car: "⛽", ev: "⚡", uber: "🚕" }
+const AVG_RIDE_MILES = 15
+
+const LBL = "block font-mono text-[10px] uppercase tracking-[0.1em] text-[#b3aae0] mb-1.5"
+const INP = "w-full bg-[#0c0824] border border-[#4a3f7a] rounded-lg px-2.5 py-2 text-[#ECEAE3] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#29e0ff]/50"
+const clamp = (v: number) => Math.max(0, Number.isFinite(v) ? v : 0)
 
 export function CarVsUberCalculator() {
-    // Car Ownership State (ICE)
-    const [carPrice, setCarPrice] = useState(32000)
+    // Shared
+    const [milesDriven, setMilesDriven] = useState(12000)
     const [loanTerm, setLoanTerm] = useState(5)
     const [interestRate, setInterestRate] = useState(5.5)
     const [insurance, setInsurance] = useState(1500)
-    const [maintenance, setMaintenance] = useState(800)
-    const [fuelCost, setFuelCost] = useState(3.50) // Gas price per gallon
+
+    // Gas
+    const [carPrice, setCarPrice] = useState(32000)
     const [mpg, setMpg] = useState(25)
-    const [milesDriven, setMilesDriven] = useState(12000)
+    const [fuelCost, setFuelCost] = useState(3.5)
+    const [maintenance, setMaintenance] = useState(800)
 
-    // EV State
+    // EV
     const [evPrice, setEvPrice] = useState(45000)
-    const [electricityCost, setElectricityCost] = useState(0.14) // per kWh
-    const [evEfficiency, setEvEfficiency] = useState(3.5) // miles per kWh
+    const [evEfficiency, setEvEfficiency] = useState(3.5)
+    const [electricityCost, setElectricityCost] = useState(0.14)
     const [chargerInstall, setChargerInstall] = useState(1200)
-    const [evMaintenance, setEvMaintenance] = useState(400) // Lower maintenance for EV
+    const evMaintenance = 400
 
-    // Rideshare State
+    // Rideshare
     const [uberCostPerRide, setUberCostPerRide] = useState(22)
     const [ridesPerWeek, setRidesPerWeek] = useState(10)
 
-    // Results State
-    const [annualCarCost, setAnnualCarCost] = useState(0)
-    const [annualEvCost, setAnnualEvCost] = useState(0)
-    const [annualUberCost, setAnnualUberCost] = useState(0)
-    const [savings, setSavings] = useState(0)
-    const [winner, setWinner] = useState<"car" | "ev" | "uber">("car")
-    const [chartData, setChartData] = useState<any[]>([])
-
-    useEffect(() => {
-        calculate()
-    }, [carPrice, loanTerm, interestRate, insurance, maintenance, fuelCost, mpg, milesDriven, evPrice, electricityCost, evEfficiency, chargerInstall, evMaintenance, uberCostPerRide, ridesPerWeek])
-
-    const calculate = () => {
-        // Shared Calculation: Amortized Loan Component
-        const getAnnualLoanPayment = (price: number, term: number, rate: number) => {
-            const monthlyInterestRate = rate / 100 / 12
-            const numberOfPayments = term * 12
+    const results = useMemo(() => {
+        const annualLoan = (price: number) => {
+            const r = interestRate / 100 / 12
+            const n = loanTerm * 12
             if (price <= 0) return 0
-            if (monthlyInterestRate === 0) return (price / term)
-            const monthlyPayment = price * 
-                (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / 
-                (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1)
-            return monthlyPayment * 12
+            if (r === 0) return price / loanTerm
+            return price * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) * 12
         }
 
-        // 1. ICE Car Cost
-        const annualIceLoan = getAnnualLoanPayment(carPrice, loanTerm, interestRate)
-        const annualFuelTotal = (milesDriven / (mpg || 1)) * fuelCost
-        const totalIce = annualIceLoan + insurance + maintenance + annualFuelTotal
-
-        // 2. EV Cost
-        // Amortize charger install over same term as loan for fair comparison
-        const annualEvLoan = getAnnualLoanPayment(evPrice + chargerInstall, loanTerm, interestRate)
-        const annualElectricityTotal = (milesDriven / (evEfficiency || 1)) * electricityCost
-        const totalEv = annualEvLoan + (insurance * 1.1) + evMaintenance + annualElectricityTotal // Insurance usually +10% for EV
-
-        // 3. Uber Cost
+        const totalCar = annualLoan(carPrice) + insurance + maintenance + (milesDriven / (mpg || 1)) * fuelCost
+        const totalEv = annualLoan(evPrice + chargerInstall) + insurance * 1.1 + evMaintenance + (milesDriven / (evEfficiency || 1)) * electricityCost
         const totalUber = uberCostPerRide * ridesPerWeek * 52
 
-        // Determine Winner
-        const costs = [
-            { type: "car" as const, val: totalIce, label: "Gas Car", color: "#3b82f6" },
-            { type: "ev" as const, val: totalEv, label: "Electric Vehicle", color: "#a855f7" },
-            { type: "uber" as const, val: totalUber, label: "Rideshare", color: "#10b981" }
-        ].sort((a, b) => a.val - b.val)
+        const arr: { type: Mode; val: number }[] = [
+            { type: "car", val: totalCar },
+            { type: "ev", val: totalEv },
+            { type: "uber", val: totalUber },
+        ]
+        const costs = arr.sort((a, b) => a.val - b.val)
 
-        const mainWinner = costs[0]
-        const secondBest = costs[1]
+        return {
+            car: totalCar, ev: totalEv, uber: totalUber,
+            ranked: costs,
+            winner: costs[0].type,
+            savings: costs[1].val - costs[0].val,
+            maxVal: costs[2].val,
+            impliedMiles: ridesPerWeek * 52 * AVG_RIDE_MILES,
+        }
+    }, [milesDriven, loanTerm, interestRate, insurance, carPrice, mpg, fuelCost, maintenance, evPrice, evEfficiency, electricityCost, chargerInstall, uberCostPerRide, ridesPerWeek])
 
-        setAnnualCarCost(totalIce)
-        setAnnualEvCost(totalEv)
-        setAnnualUberCost(totalUber)
-        setWinner(mainWinner.type)
-        setSavings(secondBest.val - mainWinner.val)
-
-        setChartData([
-            { name: 'Gas Car', value: totalIce, color: '#3b82f6' },
-            { name: 'Electric Car', value: totalEv, color: '#a855f7' },
-            { name: 'Rideshare', value: totalUber, color: '#10b981' },
-        ])
-    }
-
-    const formatCurrency = (val: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val)
+    const fmt = (v: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(v)
+    const win = STYLES[results.winner]
+    const winTitle = results.winner === "car" ? "Own a Gas Car" : results.winner === "ev" ? "Go Electric" : "Stick to Rideshare"
 
     return (
-        <div className="grid lg:grid-cols-3 gap-8">
-            {/* Input Panel */}
-            <Card className="glass-card lg:col-span-1 h-fit">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <TrendingDown className="w-5 h-5 text-primary" />
-                        Financing Scenarios
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    <Tabs defaultValue="car" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 mb-4 bg-white/5 p-1 h-12">
-                            <TabsTrigger value="car" className="text-xs">⛽ Gas</TabsTrigger>
-                            <TabsTrigger value="ev" className="text-xs">⚡ EV</TabsTrigger>
-                            <TabsTrigger value="uber" className="text-xs">🚕 Uber</TabsTrigger>
-                        </TabsList>
-                        
-                        <TabsContent value="car" className="space-y-4 animate-in fade-in slide-in-from-left-2 duration-300">
-                             <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Purchase Price ($)</Label>
-                                <Input type="number" value={carPrice} onChange={(e) => setCarPrice(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label className="text-xs font-bold uppercase tracking-wider opacity-60">MPG</Label>
-                                    <Input type="number" value={mpg} onChange={(e) => setMpg(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Gas ($/gal)</Label>
-                                    <Input type="number" value={fuelCost} step="0.1" onChange={(e) => setFuelCost(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Maintenance/Year ($)</Label>
-                                <Input type="number" value={maintenance} onChange={(e) => setMaintenance(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                            </div>
-                        </TabsContent>
+        <motion.div
+            className="w-full bg-[#1d1442] rounded-3xl p-5 md:p-8 border border-[#4a3f7a] shadow-2xl relative overflow-hidden"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
+        >
+            <div className="relative z-10">
+                {/* Header */}
+                <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
+                    <h2 className="text-2xl font-extrabold text-[#ECEAE3] flex items-center gap-3"><span className="text-3xl">🚗</span> Car vs EV vs Uber</h2>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-[#29e0ff] flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[#29e0ff] animate-pulse" /> Annual cost model</span>
+                </div>
 
-                        <TabsContent value="ev" className="space-y-4 animate-in fade-in slide-in-from-right-2 duration-300">
-                             <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-wider opacity-60">EV Price ($)</Label>
-                                <Input type="number" value={evPrice} onChange={(e) => setEvPrice(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label className="text-xs font-bold uppercase tracking-wider opacity-60">mi/kWh</Label>
-                                    <Input type="number" value={evEfficiency} step="0.1" onChange={(e) => setEvEfficiency(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Elec ($/kWh)</Label>
-                                    <Input type="number" value={electricityCost} step="0.01" onChange={(e) => setElectricityCost(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                                </div>
-                            </div>
-                             <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Charger Install ($)</Label>
-                                <Input type="number" value={chargerInstall} onChange={(e) => setChargerInstall(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                            </div>
-                        </TabsContent>
-                        
-                        <TabsContent value="uber" className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                             <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Avg Cost per Ride ($)</Label>
-                                <Input type="number" value={uberCostPerRide} onChange={(e) => setUberCostPerRide(Number(e.target.value))} className="bg-white/5 border-white/10" />
-                            </div>
-                            <div className="space-y-2">
-                                <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Rides per Week</Label>
-                                <Slider value={[ridesPerWeek]} onValueChange={(v) => setRidesPerWeek(v[0])} max={50} step={1} className="py-4" />
-                                <div className="text-right text-xs font-mono text-primary font-bold">{ridesPerWeek} rides/week</div>
-                            </div>
-                        </TabsContent>
-                    </Tabs>
-
-                    <div className="pt-6 border-t border-white/10 space-y-6">
-                        <div className="space-y-2">
-                            <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Annual Mileage</Label>
-                            <Slider value={[milesDriven]} onValueChange={(v) => setMilesDriven(v[0])} min={1000} max={40000} step={500} className="py-4" />
-                            <div className="text-right text-xs font-mono text-primary font-bold">{milesDriven.toLocaleString()} miles/year</div>
+                {/* Inputs zone */}
+                <div className="bg-[#0c0824] border border-[#4a3f7a] rounded-2xl p-5 mb-6 space-y-5">
+                    {/* Shared assumptions */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-5 border-b border-[#4a3f7a]">
+                        <div className="col-span-2 md:col-span-1">
+                            <label className={LBL}>Annual mileage</label>
+                            <Slider value={[milesDriven]} onValueChange={(v) => setMilesDriven(v[0])} min={1000} max={40000} step={500} className="py-3" />
+                            <div className="font-mono text-[12px] text-[#29e0ff]">{milesDriven.toLocaleString()} miles / year</div>
                         </div>
-                        <div className="space-y-2">
-                            <Label className="text-xs font-bold uppercase tracking-wider opacity-60">Loan Term ({loanTerm} Years)</Label>
-                            <Slider value={[loanTerm]} onValueChange={(v) => setLoanTerm(v[0])} min={1} max={8} step={1} className="py-4" />
+                        <div><label className={LBL}>Loan term (yrs)</label><input type="number" min={1} max={10} value={loanTerm} onChange={(e) => setLoanTerm(clamp(Number(e.target.value)) || 1)} className={INP} /></div>
+                        <div><label className={LBL}>Loan APR (%)</label><input type="number" min={0} step={0.1} value={interestRate} onChange={(e) => setInterestRate(clamp(Number(e.target.value)))} className={INP} /></div>
+                        <div><label className={LBL}>Insurance / yr ($)</label><input type="number" min={0} value={insurance} onChange={(e) => setInsurance(clamp(Number(e.target.value)))} className={INP} /></div>
+                    </div>
+
+                    {/* Per-scenario inputs */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div>
+                            <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#29e0ff] mb-2.5">⛽ Gas Car</div>
+                            <div className="grid grid-cols-2 gap-2.5">
+                                <div className="col-span-2"><label className={LBL}>Purchase price ($)</label><input type="number" min={0} value={carPrice} onChange={(e) => setCarPrice(clamp(Number(e.target.value)))} className={INP} /></div>
+                                <div><label className={LBL}>MPG</label><input type="number" min={1} value={mpg} onChange={(e) => setMpg(clamp(Number(e.target.value)) || 1)} className={INP} /></div>
+                                <div><label className={LBL}>Gas $/gal</label><input type="number" min={0} step={0.1} value={fuelCost} onChange={(e) => setFuelCost(clamp(Number(e.target.value)))} className={INP} /></div>
+                                <div className="col-span-2"><label className={LBL}>Maintenance / yr ($)</label><input type="number" min={0} value={maintenance} onChange={(e) => setMaintenance(clamp(Number(e.target.value)))} className={INP} /></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#b3aae0] mb-2.5">⚡ Electric</div>
+                            <div className="grid grid-cols-2 gap-2.5">
+                                <div className="col-span-2"><label className={LBL}>EV price ($)</label><input type="number" min={0} value={evPrice} onChange={(e) => setEvPrice(clamp(Number(e.target.value)))} className={INP} /></div>
+                                <div><label className={LBL}>mi / kWh</label><input type="number" min={0.1} step={0.1} value={evEfficiency} onChange={(e) => setEvEfficiency(clamp(Number(e.target.value)) || 0.1)} className={INP} /></div>
+                                <div><label className={LBL}>Elec $/kWh</label><input type="number" min={0} step={0.01} value={electricityCost} onChange={(e) => setElectricityCost(clamp(Number(e.target.value)))} className={INP} /></div>
+                                <div className="col-span-2"><label className={LBL}>Charger install ($)</label><input type="number" min={0} value={chargerInstall} onChange={(e) => setChargerInstall(clamp(Number(e.target.value)))} className={INP} /></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#86efac] mb-2.5">🚕 Rideshare</div>
+                            <div className="space-y-2.5">
+                                <div><label className={LBL}>Avg cost / ride ($)</label><input type="number" min={0} value={uberCostPerRide} onChange={(e) => setUberCostPerRide(clamp(Number(e.target.value)))} className={INP} /></div>
+                                <div>
+                                    <label className={LBL}>Rides / week</label>
+                                    <Slider value={[ridesPerWeek]} onValueChange={(v) => setRidesPerWeek(v[0])} max={50} step={1} className="py-3" />
+                                    <div className="font-mono text-[12px] text-[#86efac]">{ridesPerWeek} rides / week</div>
+                                </div>
+                                <div className="text-[11px] text-[#b3aae0] leading-snug">≈ {results.impliedMiles.toLocaleString()} mi/yr of travel (at {AVG_RIDE_MILES} mi/ride) vs {milesDriven.toLocaleString()} for the cars.</div>
+                            </div>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
 
-            {/* Results Panel */}
-            <div className="lg:col-span-2 space-y-6">
-                 {/* Winner Card */}
-                <Card className={`relative overflow-hidden glass-card border-none bg-gradient-to-br from-slate-900 to-slate-950 p-1`}>
-                    <div className={`absolute inset-0 opacity-20 bg-gradient-to-t ${
-                        winner === 'car' ? 'from-blue-600' : winner === 'ev' ? 'from-purple-600' : 'from-green-600'
-                    }`} />
-                    
-                    <CardContent className="relative pt-8 pb-10">
-                        <div className="flex flex-col md:flex-row justify-between items-center gap-8 px-4">
-                            <div className="space-y-4 text-center md:text-left">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white/50">
-                                    Ultimate Verdict
-                                </div>
-                                <div className="space-y-1">
-                                    <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-white">
-                                        {winner === 'car' ? "Own a Gas Car" : winner === 'ev' ? "Go Electric" : "Stick to Uber"}
-                                    </h3>
-                                    <p className="text-slate-400 font-medium italic">
-                                        {winner === 'car' ? "Tradition wins the wallet race... for now." : 
-                                         winner === 'ev' ? "The future is cheaper than you think." : 
-                                         "Let someone else do the driving."}
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-2 text-green-400 font-black text-xl">
-                                    <TrendingDown className="w-5 h-5" />
-                                    <span>Save {formatCurrency(savings)} / year</span>
-                                </div>
-                            </div>
-                            
-                            <div className="text-center p-8 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-3xl min-w-[240px] group transition-all hover:bg-white/10">
-                                <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">5-Year Impact</div>
-                                <div className="text-4xl font-black text-gradient group-hover:scale-110 transition-transform">
-                                    {formatCurrency(savings * 5)}
-                                </div>
-                            </div>
-                        </div>
+                {/* Verdict */}
+                <div className="flex items-center justify-between gap-5 flex-wrap rounded-2xl px-6 py-5 mb-5 border" style={{ borderColor: "#4a3f7a", background: "#0c0824" }}>
+                    <div>
+                        <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#29e0ff] mb-1">Ultimate verdict</div>
+                        <div className="text-3xl md:text-4xl font-extrabold tracking-tight" style={{ fontFamily: "var(--font-bungee), cursive", color: "#29e0ff" }}>{winTitle}</div>
+                        <div className={`mt-1 font-bold flex items-center gap-1.5 ${win.text}`}><TrendingDown className="w-4 h-4" /> Saves {fmt(results.savings)} / year vs the next best</div>
+                    </div>
+                    <div className="text-center bg-[#241a52] border border-[#4a3f7a] rounded-2xl px-6 py-4">
+                        <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#b3aae0]">5-year impact*</div>
+                        <div className="text-3xl font-extrabold text-[#ECEAE3] mt-1">{fmt(results.savings * 5)}</div>
+                    </div>
+                </div>
 
-                         <div className="mt-10 px-4">
-                             <ShareResult 
-                                title="Car vs. EV vs. Uber" 
-                                text={`I save ${formatCurrency(savings)}/year by choosing ${
-                                    winner === 'car' ? 'ICE Car' : winner === 'ev' ? 'EV' : 'Rideshare'
-                                }! Check your savings at Docket One.`}
-                                className={`w-full py-6 text-lg font-black tracking-tight rounded-2xl ${
-                                    winner === 'car' ? 'bg-blue-600 hover:bg-blue-500' : 
-                                    winner === 'ev' ? 'bg-purple-600 hover:bg-purple-500' : 
-                                    'bg-green-600 hover:bg-green-500'
-                                } text-white border-none shadow-2xl shadow-primary/20 transition-all active:scale-[0.98]`}
-                            />
-                        </div>
-                    </CardContent>
-                </Card>
-
-                {/* Visual Data Section */}
-                <div className="grid md:grid-cols-5 gap-6">
-                    <Card className="glass-card md:col-span-3 border-white/5 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                            <TrendingUp className="w-48 h-48 rotate-12" />
-                        </div>
-                        <CardHeader>
-                            <CardTitle className="text-lg font-bold flex items-center gap-2">
-                                <Zap className="w-4 h-4 text-primary" />
-                                Annual Cost Variance
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="h-[320px] pb-10">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={chartData}
-                                        cx="50%"
-                                        cy="50%"
-                                        innerRadius={70}
-                                        outerRadius={95}
-                                        paddingAngle={8}
-                                        dataKey="value"
-                                        stroke="none"
-                                    >
-                                        {chartData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.color} className="hover:opacity-80 transition-opacity cursor-pointer" />
-                                        ))}
-                                    </Pie>
-                                    <RechartsTooltip 
-                                         contentStyle={{ 
-                                            backgroundColor: 'rgba(15, 23, 42, 0.9)', 
-                                            backdropFilter: 'blur(10px)',
-                                            border: '1px solid rgba(255,255,255,0.1)', 
-                                            borderRadius: '16px', 
-                                            color: '#fff',
-                                            padding: '12px'
-                                         }}
-                                         itemStyle={{ color: '#fff', fontWeight: 'bold' }}
-                                         formatter={(value: number | undefined) => [formatCurrency(value || 0), 'Annual Spend']}
-                                    />
-                                    <Legend 
-                                        verticalAlign="bottom" 
-                                        height={36} 
-                                        iconType="circle"
-                                        formatter={(value) => <span className="text-xs font-bold text-slate-400">{value}</span>}
-                                    />
-                                </PieChart>
-                            </ResponsiveContainer>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="glass-card md:col-span-2 border-white/5">
-                        <CardHeader>
-                            <CardTitle className="text-lg font-bold">The Breakdown</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            {[
-                                { label: "Gas Car Cost", value: annualCarCost, color: "blue", type: 'ICE' },
-                                { label: "Electric Car Cost", value: annualEvCost, color: "purple", type: 'EV' },
-                                { label: "Rideshare Cost", value: annualUberCost, color: "green", type: 'Uber' }
-                            ].map((item, idx) => (
-                                <div key={idx} className={`flex justify-between items-center p-4 rounded-2xl bg-${item.color}-500/5 border border-${item.color}-500/10 hover:border-${item.color}-500/30 transition-all group`}>
-                                    <div className="flex flex-col">
-                                        <span className={`text-[10px] font-black uppercase tracking-widest text-${item.color}-500/60`}>Total / Year</span>
-                                        <span className="font-bold text-slate-200">{item.label}</span>
+                {/* Hero bar chart */}
+                <div className="bg-[#0c0824] border border-[#4a3f7a] rounded-2xl p-6 mb-5">
+                    <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#b3aae0] mb-5">Annual cost comparison</h3>
+                    <div className="space-y-4">
+                        {results.ranked.map((c) => {
+                            const s = STYLES[c.type]
+                            const isWin = c.type === results.winner
+                            return (
+                                <div key={c.type} className="grid grid-cols-[110px_1fr_92px] sm:grid-cols-[130px_1fr_100px] items-center gap-3">
+                                    <span className="text-sm font-semibold text-[#ECEAE3] truncate">{EMOJI[c.type]} {s.label}</span>
+                                    <div className="h-8 bg-[#241a52] rounded-lg overflow-hidden">
+                                        <div className={`h-full rounded-lg ${s.bar} ${isWin ? `ring-2 ${s.ring}` : ""}`} style={{ width: `${Math.max(6, (c.val / results.maxVal) * 100)}%` }} />
                                     </div>
-                                    <span className={`font-black text-lg text-${item.color}-500 group-hover:scale-105 transition-transform`}>{formatCurrency(item.value)}</span>
+                                    <span className={`font-mono font-bold text-right text-sm ${s.text}`}>{fmt(c.val)}</span>
                                 </div>
-                            ))}
+                            )
+                        })}
+                    </div>
+                </div>
 
-                            <Alert className="bg-white/5 border-white/10 mt-6 rounded-2xl">
-                                <Info className="h-4 w-4 text-indigo-400" />
-                                <AlertTitle className="text-xs font-bold text-slate-200">The "EV Premium" Factor</AlertTitle>
-                                <AlertDescription className="text-[10px] text-slate-500 leading-relaxed uppercase tracking-wider font-medium">
-                                    EVs cost more to buy but often save 70% on "fuel" and 50% on maintenance over ICE cars. Check your local electricity rates for precision.
-                                </AlertDescription>
-                            </Alert>
-                        </CardContent>
-                    </Card>
+                {/* Cost tiles */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {(["car", "ev", "uber"] as Mode[]).map((m) => {
+                        const s = STYLES[m]
+                        const val = results[m]
+                        return (
+                            <div key={m} className="bg-[#0c0824] border border-[#4a3f7a] rounded-2xl p-5">
+                                <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#b3aae0] mb-1.5">{s.label} / year</div>
+                                <div className={`text-2xl font-extrabold ${s.text}`}>{fmt(val)}</div>
+                                <div className="text-[11px] text-[#b3aae0] mt-1">≈ {fmt(val / 12)} / month</div>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <div className="text-[11px] text-[#b3aae0] mt-4">*Rough projection (annual gap × 5). Doesn&apos;t model loan payoff or resale value. Insurance, APR, and rideshare distance are estimates &mdash; adjust the inputs for your situation.</div>
+
+                <div className="flex justify-end mt-5">
+                    <ShareResult
+                        title="Car vs. EV vs. Uber"
+                        text={`Cheapest option for me: ${win.label} at ${fmt(results.ranked[0].val)}/year, saving ${fmt(results.savings)}/yr. Compare yours at Docket One.`}
+                        className="bg-[#29e0ff] hover:bg-[#29e0ff]/90 text-[#160e33] border-none"
+                    />
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

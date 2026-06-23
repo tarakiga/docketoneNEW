@@ -4,14 +4,23 @@ import { ShareResult } from "@/components/molecules/share-result"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertTriangle, FlaskConical, Scroll, Sparkles } from "lucide-react"
-import { useMemo, useState } from "react"
+import { useState } from "react"
+
+type ElementKey = 'fire' | 'life' | 'illusion' | 'chaos' | 'order' | 'death'
 
 type Ingredient = {
   id: string
   name: string
   icon: string
-  properties: { [key: string]: number }
+  properties: Partial<Record<ElementKey, number>>
   desc: string
+}
+
+type PotionResult = {
+  name: string
+  tier: string
+  desc: string
+  warn?: string
 }
 
 const INGREDIENTS: Ingredient[] = [
@@ -25,7 +34,7 @@ const INGREDIENTS: Ingredient[] = [
   { id: 'ironwood', name: 'Ironwood Bark', icon: '🌳', properties: { order: 1, life: 1 }, desc: "Unbreakable natural armor." },
 ]
 
-const RECIPES: Record<string, { name: string, tier: string, desc: string, warn?: string }> = {
+const RECIPES: Record<string, PotionResult> = {
   'moonflower_phoenixfeather': { name: 'Elixir of Rejuvenation', tier: 'Epic', desc: 'Heals wounds and restores vitality.', warn: 'Side effect: Glowing skin.' },
   'dragonscale_sunstone': { name: 'Draught of Stone Skin', tier: 'Epic', desc: 'Grants incredible physical resistance.' },
   'moonflower_shadowcap': { name: 'Potion of Invisibility', tier: 'Rare', desc: 'Renders the drinker unseen.' },
@@ -39,7 +48,7 @@ export function PotionBrewerCalculator() {
   const [selected, setSelected] = useState<string[]>([])
   const [discovered, setDiscovered] = useState<string[]>([])
   const [brewing, setBrewing] = useState(false)
-  const [lastResult, setLastResult] = useState<any>(null)
+  const [lastResult, setLastResult] = useState<PotionResult | null>(null)
 
   const toggleIngredient = (id: string) => {
     if (selected.includes(id)) setSelected(s => s.filter(x => x !== id))
@@ -54,12 +63,15 @@ export function PotionBrewerCalculator() {
       
       if (!res) {
         // Procedural generation fallback
-        let props: any = { fire: 0, life: 0, illusion: 0, chaos: 0, order: 0, death: 0 }
+        const props: Record<ElementKey, number> = { fire: 0, life: 0, illusion: 0, chaos: 0, order: 0, death: 0 }
         selected.forEach(id => {
           const ing = INGREDIENTS.find(i => i.id === id)!
-          Object.entries(ing.properties).forEach(([k, v]) => props[k] += v)
+          Object.entries(ing.properties).forEach(([k, v]) => {
+            const element = k as ElementKey
+            props[element] += v ?? 0
+          })
         })
-        const dom = Object.keys(props).reduce((a, b) => props[a] > props[b] ? a : b)
+        const dom = (Object.keys(props) as ElementKey[]).reduce((a, b) => props[a] > props[b] ? a : b)
         res = {
            name: `Minor ${dom.charAt(0).toUpperCase() + dom.slice(1)} Concoction`, 
            tier: 'Common', 
@@ -75,20 +87,14 @@ export function PotionBrewerCalculator() {
     }, 1500)
   }
 
-  const cauldronColor = useMemo(() => {
-    if (selected.length === 0) return '#4b5563'
-    // Mix colors roughly logic
-    return '#8b5cf6' // Generic purple magic for now, could be dynamic
-  }, [selected])
-
   return (
     <div className="grid lg:grid-cols-12 gap-8 animate-in fade-in duration-700">
       
       {/* Shelf */}
-      <Card className="lg:col-span-4 bg-slate-950 border-purple-900/50 h-fit">
+      <Card className="lg:col-span-4 h-fit" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
         <CardHeader>
-           <CardTitle className="text-purple-400 flex items-center gap-2"><FlaskConical/> Ingredients</CardTitle>
-           <CardDescription>Select up to 3</CardDescription>
+           <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c' }}><FlaskConical/> Ingredients</CardTitle>
+           <CardDescription style={{ color: '#b3aae0' }}>Select up to 3</CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-3">
            {INGREDIENTS.map(ing => (
@@ -96,30 +102,31 @@ export function PotionBrewerCalculator() {
                key={ing.id}
                onClick={() => toggleIngredient(ing.id)}
                disabled={!selected.includes(ing.id) && selected.length >= 3}
-               className={`p-3 rounded-lg border text-left transition-all ${
-                 selected.includes(ing.id) 
-                   ? "bg-purple-900/40 border-purple-500 ring-1 ring-purple-500" 
-                   : "bg-slate-900/50 border-slate-800 hover:bg-purple-900/20"
-               } disabled:opacity-50 disabled:cursor-not-allowed`}
+               className="p-3 rounded-lg border text-left transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+               style={
+                 selected.includes(ing.id)
+                   ? { backgroundColor: '#241a52', borderColor: '#ff8a3c', boxShadow: '0 0 0 1px #ff8a3c' }
+                   : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }
+               }
              >
                <div className="text-2xl mb-1">{ing.icon}</div>
-               <div className="font-bold text-sm text-slate-200">{ing.name}</div>
+               <div className="font-bold text-sm" style={{ color: '#ECEAE3' }}>{ing.name}</div>
              </button>
            ))}
         </CardContent>
       </Card>
 
       {/* Cauldron */}
-      <Card className="lg:col-span-8 bg-slate-950 border-purple-900/50 relative overflow-hidden">
+      <Card className="lg:col-span-8 relative overflow-hidden" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
          <CardHeader>
-           <CardTitle className="text-purple-400 flex items-center gap-2"><Sparkles/> Alchemy Station</CardTitle>
+           <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c' }}><Sparkles/> Alchemy Station</CardTitle>
          </CardHeader>
          <CardContent className="flex flex-col items-center justify-center space-y-8 min-h-[400px]">
             
             {/* Cauldron Visual */}
             <div className="relative w-48 h-48 flex items-center justify-center">
-               <div className={`absolute bottom-0 w-32 h-32 rounded-b-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center overflow-hidden`}>
-                  <div 
+               <div className="absolute bottom-0 w-32 h-32 rounded-b-full border-4 flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                  <div
                     className={`absolute bottom-0 left-0 right-0 bg-purple-600 transition-all duration-1000 ${brewing ? 'animate-bounce' : ''}`}
                     style={{ height: selected.length * 33 + '%', opacity: 0.8 }}
                   />
@@ -131,30 +138,31 @@ export function PotionBrewerCalculator() {
                </div>
                {/* Legs */}
                <div className="absolute bottom-[-10px] w-40 flex justify-between px-2">
-                 <div className="w-4 h-8 bg-slate-800 -rotate-12 rounded"/>
-                 <div className="w-4 h-8 bg-slate-800 rotate-12 rounded"/>
+                 <div className="w-4 h-8 -rotate-12 rounded" style={{ backgroundColor: '#241a52' }}/>
+                 <div className="w-4 h-8 rotate-12 rounded" style={{ backgroundColor: '#241a52' }}/>
                </div>
             </div>
 
             {/* Action */}
             <div className="w-full max-w-md space-y-4">
                {lastResult && !brewing && (
-                 <div className="bg-purple-950/30 p-4 rounded-xl border border-purple-500/30 text-center animate-in zoom-in">
-                    <div className="text-sm uppercase tracking-widest text-purple-400 mb-1">{lastResult.tier}</div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{lastResult.name}</h3>
-                    <p className="text-slate-300 italic mb-3">"{lastResult.desc}"</p>
+                 <div className="p-4 rounded-xl border text-center animate-in zoom-in" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                    <div className="text-sm uppercase tracking-widest mb-1" style={{ color: '#ff8a3c', fontFamily: 'var(--font-bungee), cursive' }}>{lastResult.tier}</div>
+                    <h3 className="text-2xl font-bold mb-2" style={{ color: '#ECEAE3', fontFamily: 'var(--font-bungee), cursive' }}>{lastResult.name}</h3>
+                   <p className="italic mb-3" style={{ color: '#b3aae0' }}>&quot;{lastResult.desc}&quot;</p>
                     {lastResult.warn && (
-                      <div className="flex items-center justify-center gap-2 text-red-400 text-sm font-bold bg-red-950/20 p-2 rounded">
+                      <div className="flex items-center justify-center gap-2 text-sm font-bold p-2 rounded" style={{ color: '#ff8a8a', backgroundColor: '#241a52' }}>
                         <AlertTriangle className="h-4 w-4"/> {lastResult.warn}
                       </div>
                     )}
                  </div>
                )}
 
-               <Button 
-                onClick={brew} 
+               <Button
+                onClick={brew}
                 disabled={selected.length === 0 || brewing}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-lg h-12"
+                className="w-full text-lg h-12"
+                style={{ backgroundColor: '#ff8a3c', color: '#160e33' }}
                >
                  {brewing ? "Brewing..." : "Mix Ingredients"}
                </Button>
@@ -169,7 +177,7 @@ export function PotionBrewerCalculator() {
       
       {/* Grimoire */}
       <div className="lg:col-span-12">
-        <div className="flex items-center gap-2 text-lg font-bold text-slate-400 mb-4 px-2">
+        <div className="flex items-center gap-2 text-lg font-bold mb-4 px-2" style={{ color: '#b3aae0' }}>
            <Scroll className="h-5 w-5"/> Discovered Recipes ({discovered.length}/{Object.keys(RECIPES).length})
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -177,9 +185,9 @@ export function PotionBrewerCalculator() {
              const key = Object.keys(RECIPES)[i]
              const isFound = discovered.includes(key)
              return (
-               <div key={key} className={`p-4 rounded border ${isFound ? 'bg-slate-900 border-purple-500/30' : 'bg-slate-950 border-slate-900 opacity-50'}`}>
-                 <div className="font-bold text-slate-200">{isFound ? r.name : "???"}</div>
-                 <div className="text-xs text-purple-400 uppercase">{isFound ? r.tier : "Locked"}</div>
+               <div key={key} className={`p-4 rounded border ${isFound ? '' : 'opacity-50'}`} style={isFound ? { backgroundColor: '#241a52', borderColor: '#4a3f7a' } : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                 <div className="font-bold" style={{ color: '#ECEAE3' }}>{isFound ? r.name : "???"}</div>
+                 <div className="text-xs uppercase" style={{ color: '#ff8a3c' }}>{isFound ? r.tier : "Locked"}</div>
                </div>
              )
            })}

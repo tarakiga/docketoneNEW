@@ -1,212 +1,142 @@
 "use client"
 
 import { ShareResult } from "@/components/molecules/share-result"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
-import { AnimatePresence, motion } from "framer-motion"
-import { Battery, Zap } from "lucide-react"
-import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { useMemo, useState } from "react"
+
+type Lifestyle = "low" | "average" | "high"
+
+const LIFESTYLES: { key: Lifestyle; emoji: string; label: string }[] = [
+    { key: "low", emoji: "🌱", label: "Eco" },
+    { key: "average", emoji: "🏠", label: "Average" },
+    { key: "high", emoji: "🚗", label: "High" },
+]
 
 export function LightningLifeCalculator() {
     const [age, setAge] = useState(25)
-    const [lifestyle, setLifestyle] = useState<'low' | 'average' | 'high'>('average')
-    const [results, setResults] = useState<{
-        lightningStrikes: number
-        totalEnergy: number
-        energyPerYear: number
-        homesForYear: number
-        iPhoneBatteries: string
-        tntEquivalent: number
-        carMiles: string
-        futureStrikes: string
-    } | null>(null)
+    const [lifestyle, setLifestyle] = useState<Lifestyle>("average")
 
-    useEffect(() => {
-        calculate()
-    }, [age, lifestyle])
+    const results = useMemo(() => {
+        const lifestyleMultipliers = { low: 0.7, average: 1.0, high: 1.5 }
 
-    const calculate = () => {
-        const lifestyleMultipliers = {
-            low: 0.7,      // 56M joules/year
-            average: 1.0,  // 80M joules/year  
-            high: 1.5      // 120M joules/year
-        }
+        // Average total per-capita energy footprint (electricity + transport + heating + everything).
+        // World per-capita primary energy is ~80 GJ/year. (Previously this was 80 MJ — 1000x too low.)
+        const baseEnergyPerYear = 80_000_000_000 // 80 GJ
+        const lightningBoltEnergy = 1_000_000_000 // ~1 GJ per bolt
 
-        const baseEnergyPerYear = 80000000 // 80 million joules
-        const lightningBoltEnergy = 1000000000 // 1 billion joules
-        
         const energyPerYear = baseEnergyPerYear * lifestyleMultipliers[lifestyle]
         const totalEnergy = energyPerYear * age
         const lightningStrikes = totalEnergy / lightningBoltEnergy
 
-        // Fun comparisons
-        const homesForYear = Math.round(totalEnergy / 11000000000) // ~11B joules per home/year
-        const iPhoneBatteries = Math.round(totalEnergy / 46800) // iPhone battery ~46.8k joules
-        const tntEquivalent = Math.round(totalEnergy / 4184000) // TNT ~4.18M joules/kg
-        const carMiles = Math.round(totalEnergy / 3600000) // Car ~3.6M joules/mile
-
-        // Future projection (age 80)
-        const futureEnergy = energyPerYear * 80
-        const futureStrikes = (futureEnergy / lightningBoltEnergy).toFixed(1)
-
-        setResults({
+        return {
             lightningStrikes,
             totalEnergy,
             energyPerYear,
-            homesForYear,
-            iPhoneBatteries: iPhoneBatteries.toLocaleString(),
-            tntEquivalent,
-            carMiles: carMiles.toLocaleString(),
-            futureStrikes
-        })
-    }
+            homesForYear: Math.round(totalEnergy / 38_000_000_000),   // ~38 GJ ≈ a home's yearly electricity (~10,500 kWh)
+            iPhoneBatteries: Math.round(totalEnergy / 46_800).toLocaleString(), // iPhone battery ~46.8 kJ
+            tntEquivalent: Math.round(totalEnergy / 4_184_000).toLocaleString(), // TNT 4.184 MJ/kg
+            carMiles: Math.round(totalEnergy / 3_600_000).toLocaleString(),      // car ~3.6 MJ/mile
+        }
+    }, [age, lifestyle])
 
     const formatEnergy = (joules: number) => {
-        if (joules >= 1e9) return (joules / 1e9).toFixed(1) + 'B joules'
-        if (joules >= 1e6) return (joules / 1e6).toFixed(1) + 'M joules'
-        return joules.toLocaleString() + ' joules'
+        if (joules >= 1e12) return (joules / 1e12).toFixed(1) + "T joules"
+        if (joules >= 1e9) return (joules / 1e9).toFixed(1) + "B joules"
+        if (joules >= 1e6) return (joules / 1e6).toFixed(1) + "M joules"
+        return joules.toLocaleString() + " joules"
     }
 
-    return (
-        <div className="grid lg:grid-cols-3 gap-8">
-            {/* Input Panel */}
-            <Card className="glass-card lg:col-span-1 h-fit">
-                <CardHeader>
-                    <CardTitle>Your Profile</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-8">
-                    <div className="space-y-4">
-                        <Label>Your Age: {age} years</Label>
-                        <Slider 
-                            value={[age]} 
-                            onValueChange={(v) => setAge(v[0])} 
-                            min={1} 
-                            max={100} 
-                            step={1} 
-                            className="py-2"
-                        />
-                    </div>
+    const equivalents = [
+        { ic: "🏠", nm: "Homes powered for one year", v: results.homesForYear.toLocaleString() },
+        { ic: "📱", nm: "iPhone charges", v: results.iPhoneBatteries },
+        { ic: "🚗", nm: "Miles driven by car", v: results.carMiles },
+        { ic: "💣", nm: "Equivalent TNT", v: results.tntEquivalent, unit: "kg" },
+    ]
 
-                    <div className="space-y-4">
-                        <Label>Lifestyle Energy Usage</Label>
-                        <div className="grid grid-cols-3 gap-2">
-                             <Button 
-                                variant={lifestyle === 'low' ? 'default' : 'outline'}
-                                onClick={() => setLifestyle('low')}
-                                className="h-auto flex flex-col gap-2 py-4"
-                            >
-                                <span className="text-2xl">🌱</span>
-                                <span className="text-xs">Eco</span>
-                             </Button>
-                             <Button 
-                                variant={lifestyle === 'average' ? 'default' : 'outline'}
-                                onClick={() => setLifestyle('average')}
-                                className="h-auto flex flex-col gap-2 py-4"
-                            >
-                                <span className="text-2xl">🏠</span>
-                                <span className="text-xs">Avg</span>
-                             </Button>
-                             <Button 
-                                variant={lifestyle === 'high' ? 'default' : 'outline'}
-                                onClick={() => setLifestyle('high')}
-                                className="h-auto flex flex-col gap-2 py-4"
-                            >
-                                <span className="text-2xl">🚗</span>
-                                <span className="text-xs">High</span>
-                             </Button>
+    return (
+        <motion.div
+            className="w-full rounded-3xl p-5 md:p-8 border shadow-2xl relative overflow-hidden"
+            style={{ background: "#1d1442", borderColor: "#4a3f7a" }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
+        >
+            <div className="relative z-10">
+                {/* Header */}
+                <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
+                    <h2 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: "#ECEAE3" }}><span className="text-3xl">⚡</span> Lightning-Powered Life</h2>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "#29e0ff" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "#29e0ff" }} /> Energy model</span>
+                </div>
+
+                {/* Inputs bar */}
+                <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1.7fr] gap-5 p-5 border rounded-2xl mb-5" style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
+                    <div>
+                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-1" style={{ color: "#b3aae0" }}>Your age</div>
+                        <div className="font-mono font-bold text-sm mb-2" style={{ color: "#29e0ff" }}>{age} years</div>
+                        <Slider value={[age]} onValueChange={(v) => setAge(v[0])} min={1} max={100} step={1} className="py-2" />
+                    </div>
+                    <div>
+                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2" style={{ color: "#b3aae0" }}>Lifestyle energy usage</div>
+                        <div className="grid grid-cols-3 gap-2.5">
+                            {LIFESTYLES.map((l) => {
+                                const on = lifestyle === l.key
+                                return (
+                                    <button key={l.key} onClick={() => setLifestyle(l.key)}
+                                        className="rounded-xl border py-3 flex flex-col items-center gap-1 transition-colors"
+                                        style={on ? { background: "#241a52", borderColor: "#29e0ff" } : { background: "#241a52", borderColor: "#4a3f7a" }}>
+                                        <span className="text-2xl">{l.emoji}</span>
+                                        <span className="text-xs font-semibold" style={{ color: on ? "#29e0ff" : "#b3aae0" }}>{l.label}</span>
+                                    </button>
+                                )
+                            })}
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
 
-            {/* Results Panel */}
-            <div className="lg:col-span-2 space-y-6">
-                {results && (
-                     <Card className="glass-card overflow-hidden relative border-amber-500/20">
-                        {/* Animated Background Gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent pointer-events-none" />
-                        
-                        <CardContent className="pt-8 relative z-10 text-center space-y-6">
-                            <AnimatePresence mode="wait">
-                                <motion.div 
-                                    key={results.lightningStrikes}
-                                    initial={{ scale: 0.8, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    className="inline-block"
-                                >
-                                    <div className="text-8xl mb-2 animate-pulse">⚡</div>
-                                    <h2 className="text-5xl font-extrabold tracking-tight text-amber-500 mb-2">
-                                        {results.lightningStrikes.toFixed(1)} Strikes
-                                    </h2>
-                                    <p className="text-muted-foreground text-lg">
-                                        Amount of lightning needed to power your life so far!
-                                    </p>
-                                </motion.div>
-                            </AnimatePresence>
-
-                            <div className="grid sm:grid-cols-2 gap-4 mt-8">
-                                <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 flex items-center gap-3">
-                                    <div className="p-2 rounded-full bg-blue-500/20 text-blue-500"><Battery className="w-5 h-5"/></div>
-                                    <div className="text-left">
-                                        <div className="text-xs text-muted-foreground">Total Energy</div>
-                                        <div className="font-mono font-bold text-foreground">{formatEnergy(results.totalEnergy)}</div>
-                                    </div>
-                                </div>
-                                <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 flex items-center gap-3">
-                                    <div className="p-2 rounded-full bg-orange-500/20 text-orange-500"><Zap className="w-5 h-5"/></div>
-                                    <div className="text-left">
-                                        <div className="text-xs text-muted-foreground">Per Year</div>
-                                        <div className="font-mono font-bold text-foreground">{formatEnergy(results.energyPerYear)}</div>
-                                    </div>
-                                </div>
+                {/* Readout: figure + ticker list */}
+                <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-5">
+                    {/* Figure */}
+                    <div className="rounded-2xl border p-7 flex flex-col justify-center"
+                        style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
+                        <div className="text-5xl">⚡</div>
+                        <div className="text-6xl font-black tracking-tight leading-none mt-2" style={{ fontFamily: "var(--font-bungee), cursive", color: "#29e0ff" }}>
+                            {results.lightningStrikes.toLocaleString(undefined, { maximumFractionDigits: 0 })}<span className="text-2xl font-bold" style={{ color: "#29e0ff" }}> strikes</span>
+                        </div>
+                        <div className="text-sm mt-2" style={{ color: "#b3aae0" }}>of lightning to power your life so far</div>
+                        <div className="grid grid-cols-2 gap-3 mt-5">
+                            <div className="border rounded-xl p-3" style={{ background: "#241a52", borderColor: "#4a3f7a" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>Total energy</div>
+                                <div className="font-mono font-bold text-[15px] mt-0.5" style={{ color: "#ECEAE3" }}>{formatEnergy(results.totalEnergy)}</div>
                             </div>
-
-                            <div className="pt-4">
-                                <ShareResult 
-                                    title="My Lightning Power ⚡" 
-                                    text={`My life has consumed ${results.lightningStrikes.toFixed(1)} lightning strikes worth of energy! That's ${results.homesForYear} homes powered for a year. Calculate yours at Docket One.`}
-                                    className="w-full bg-amber-500 hover:bg-amber-600 text-white border-none"
-                                />
+                            <div className="border rounded-xl p-3" style={{ background: "#241a52", borderColor: "#4a3f7a" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>Per year</div>
+                                <div className="font-mono font-bold text-[15px] mt-0.5" style={{ color: "#ECEAE3" }}>{formatEnergy(results.energyPerYear)}</div>
                             </div>
-                        </CardContent>
-                    </Card>
-                )}
-
-                {results && (
-                    <div className="grid sm:grid-cols-2 gap-4">
-                         <Card className="glass-card hover:bg-accent/5 transition-colors">
-                            <CardContent className="pt-6 flex flex-col items-center text-center gap-2">
-                                <div className="text-4xl">🏠</div>
-                                <div className="text-2xl font-bold text-foreground">{results.homesForYear}</div>
-                                <div className="text-sm text-muted-foreground">Homes powered for 1 year</div>
-                            </CardContent>
-                        </Card>
-                        <Card className="glass-card hover:bg-accent/5 transition-colors">
-                            <CardContent className="pt-6 flex flex-col items-center text-center gap-2">
-                                <div className="text-4xl">📱</div>
-                                <div className="text-2xl font-bold text-foreground">{results.iPhoneBatteries}</div>
-                                <div className="text-sm text-muted-foreground">iPhone charges</div>
-                            </CardContent>
-                        </Card>
-                        <Card className="glass-card hover:bg-accent/5 transition-colors">
-                            <CardContent className="pt-6 flex flex-col items-center text-center gap-2">
-                                <div className="text-4xl">🚗</div>
-                                <div className="text-2xl font-bold text-foreground">{results.carMiles}</div>
-                                <div className="text-sm text-muted-foreground">Miles driven</div>
-                            </CardContent>
-                        </Card>
-                        <Card className="glass-card hover:bg-accent/5 transition-colors">
-                            <CardContent className="pt-6 flex flex-col items-center text-center gap-2">
-                                <div className="text-4xl">💣</div>
-                                <div className="text-2xl font-bold text-foreground">{results.tntEquivalent.toLocaleString()}</div>
-                                <div className="text-sm text-muted-foreground">Kg of TNT</div>
-                            </CardContent>
-                        </Card>
+                        </div>
                     </div>
-                )}
+
+                    {/* Ticker list */}
+                    <div className="border rounded-2xl px-6" style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
+                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] pt-5 pb-1" style={{ color: "#b3aae0" }}>That energy is equivalent to…</div>
+                        {equivalents.map((e, i) => (
+                            <div key={i} className="grid grid-cols-[44px_1fr_auto] items-center gap-4 py-4" style={i < equivalents.length - 1 ? { borderBottom: "1px solid #4a3f7a" } : undefined}>
+                                <span className="w-11 h-11 rounded-xl grid place-items-center text-[22px]" style={{ background: "#241a52" }}>{e.ic}</span>
+                                <span className="text-sm" style={{ color: "#b3aae0" }}>{e.nm}</span>
+                                <span className="font-mono font-bold text-xl text-right leading-tight" style={{ color: "#ECEAE3" }}>
+                                    {e.v}{e.unit && <span className="block text-xs font-normal" style={{ color: "#b3aae0" }}>{e.unit}</span>}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex justify-end mt-5">
+                    <ShareResult
+                        title="My Lightning Power ⚡"
+                        text={`My life has consumed ${results.lightningStrikes.toLocaleString(undefined, { maximumFractionDigits: 0 })} lightning strikes worth of energy — enough to power ${results.homesForYear.toLocaleString()} homes for a year! Calculate yours at Docket One.`}
+                        className="border-none !bg-[#29e0ff] hover:!bg-[#29e0ff]/90 !text-[#160e33]"
+                    />
+                </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

@@ -8,7 +8,7 @@ import { useUnitConverter } from "@/hooks/use-unit-converter"
 import { useMemo, useState } from "react"
 
 export function CurrencyConverterUI({ units }: { units: string[] }) {
-    const { convert, values, setCategory, rates, lastUpdated } = useUnitConverter("currency")
+    const { rates, lastUpdated } = useUnitConverter("currency")
     const [amount, setAmount] = useState<string>("1")
     const [from, setFrom] = useState<string>("USD")
     const [to, setTo] = useState<string>("EUR")
@@ -37,12 +37,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
         <div className="space-y-8 animate-in fade-in zoom-in duration-300">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <Label>AMOUNT</Label>
-                    <Input 
-                        type="number" 
-                        value={amount} 
+                    <Label className="text-[#b3aae0]">AMOUNT</Label>
+                    <Input
+                        type="number"
+                        value={amount}
                         onChange={(e) => setAmount(e.target.value)}
-                        className="bg-background/50 border-input/50 focus-visible:ring-primary backdrop-blur-sm"
+                        className="bg-[#160e33] border-[#4a3f7a] text-[#ECEAE3] placeholder:text-[#8a83b0] focus-visible:ring-[#29e0ff] focus-visible:border-[#29e0ff]"
                     />
                 </div>
                 
@@ -51,12 +51,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div className="space-y-2">
-                    <Label>FROM CURRENCY</Label>
+                    <Label className="text-[#b3aae0]">FROM CURRENCY</Label>
                     <Select value={from} onValueChange={setFrom}>
-                        <SelectTrigger className="bg-background/50 border-input/50">
+                        <SelectTrigger className="bg-[#160e33] border-[#4a3f7a] text-[#ECEAE3]">
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
                             {units.map(u => (
                                 <SelectItem key={u} value={u}>{u}</SelectItem>
                             ))}
@@ -65,12 +65,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
                 </div>
                 
                 <div className="space-y-2">
-                    <Label>TO CURRENCY</Label>
+                    <Label className="text-[#b3aae0]">TO CURRENCY</Label>
                     <Select value={to} onValueChange={setTo}>
-                        <SelectTrigger className="bg-background/50 border-input/50">
+                        <SelectTrigger className="bg-[#160e33] border-[#4a3f7a] text-[#ECEAE3]">
                              <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
                             {units.map(u => (
                                 <SelectItem key={u} value={u}>{u}</SelectItem>
                             ))}
@@ -79,12 +79,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
                 </div>
             </div>
 
-            <div className="bg-white/50 dark:bg-black/20 border border-primary/20 rounded-xl p-8 text-center shadow-inner relative group">
-                <div className="text-muted-foreground mb-2 text-sm font-medium uppercase tracking-wider">Result</div>
-                <div className="text-5xl font-bold text-primary tracking-tight">
-                    {result} <span className="text-2xl text-muted-foreground ml-2">{to}</span>
+            <div className="bg-[#160e33] border border-[#4a3f7a] rounded-xl p-8 text-center relative group">
+                <div className="text-[#b3aae0] mb-2 text-sm font-medium uppercase tracking-wider">Result</div>
+                <div className="text-5xl font-bold text-[#29e0ff] tracking-tight" style={{ fontFamily: "var(--font-bungee), cursive" }}>
+                    {result} <span className="text-2xl text-[#b3aae0] ml-2">{to}</span>
                 </div>
-                <div className="text-xs text-muted-foreground mt-4 pt-4 border-t border-dashed border-primary/10">
+                <div className="text-xs text-[#b3aae0] mt-4 pt-4 border-t border-dashed border-[#4a3f7a]">
                     Last updated: {lastUpdated ? lastUpdated.toLocaleString() : "Loading..."}
                 </div>
                 

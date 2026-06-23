@@ -1,35 +1,74 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { FormStatusModal, type FormStatus } from "@/components/molecules/form-status-modal"
 import { cn } from "@/lib/utils"
-import { Send } from "lucide-react"
+import { useState } from "react"
 
 interface NewsletterFormProps {
   className?: string
+  dark?: boolean
 }
 
-export function NewsletterForm({ className }: NewsletterFormProps) {
+export function NewsletterForm({ className, dark }: NewsletterFormProps) {
+  const [email, setEmail] = useState("")
+  const [status, setStatus] = useState<FormStatus>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus("submitting")
+    try {
+      const res = await fetch("/api/mail-relay.php?type=newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "home newsletter" }),
+      })
+      if (res.ok) {
+        setStatus("success")
+        setEmail("")
+      } else {
+        setStatus("error")
+      }
+    } catch {
+      setStatus("error")
+    }
+  }
+
   return (
-    <div className={cn("glass-card p-6 rounded-2xl relative overflow-hidden group hover:shadow-xl transition-all duration-500", className)}>
-      <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/30 transition-colors animate-pulse"></div>
-      <div className="relative z-10">
-        <h3 className="text-xl font-bold mb-2 tracking-tight">Stay Calculated</h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          Join our premium newsletter for the latest tools and life hacks.
-        </p>
-        <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); /* Handle submit later */ }}>
-          <Input 
-            type="email" 
-            placeholder="Enter your email" 
-            className="bg-background/50 border-white/10 focus-visible:ring-primary backdrop-blur-sm"
-          />
-          <Button type="submit" size="icon" className="shrink-0 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
-            <Send className="w-4 h-4" />
-            <span className="sr-only">Subscribe</span>
-          </Button>
-        </form>
-      </div>
+    <div className={cn(dark ? "home-news" : "almanac-callout", className)}>
+      <h2 style={{ fontFamily: dark ? "var(--font-bungee), cursive" : "var(--font-fraunces), serif", fontWeight: dark ? 400 : 600, fontSize: dark ? 30 : 24, color: dark ? "#ffd23c" : "var(--ink)", marginBottom: 6 }}>
+        {dark ? "Join the calculation nation" : "Stay calculated"}
+      </h2>
+      <p style={{ color: dark ? "#b9b1a3" : "var(--ink-soft)", fontSize: 15, marginBottom: 16 }}>
+        New tools and life hacks in your inbox. No spam, just math.
+      </p>
+      <form
+        className="almanac-form"
+        style={{ flexDirection: "row", gap: 10, flexWrap: "wrap", ...(dark ? { maxWidth: 460, margin: "0 auto", justifyContent: "center" } : {}) }}
+        onSubmit={handleSubmit}
+      >
+        <input
+          type="email"
+          required
+          placeholder="you@email.com"
+          className="almanac-input"
+          style={{ flex: "1 1 220px", ...(dark ? { background: "#0c0824", borderColor: "#4a3f7a", color: "#fff" } : {}) }}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button type="submit" className="almanac-btn" disabled={status === "submitting"}>
+          {status === "submitting" ? "Subscribing…" : "Subscribe"}
+        </button>
+      </form>
+
+      <FormStatusModal
+        status={status}
+        onClose={() => setStatus(null)}
+        submittingTitle="Subscribing…"
+        submittingMessage="Adding you to the list."
+        successTitle="You're in!"
+        successMessage="Thanks for subscribing — we'll send the good stuff, no spam."
+        errorMessage="We couldn't subscribe you just now. Please try again in a moment."
+      />
     </div>
   )
 }

@@ -13,7 +13,7 @@ export function SarcasticDivider() {
       >
         <span className="text-2xl">😴</span>
         <p className="text-amber-900 font-medium text-sm md:text-base">
-          Or... you could have some fun with our regular "boring" calculators below!
+          Or... you could have some fun with our regular &quot;boring&quot; calculators below!
         </p>
       </motion.div>
     </div>

@@ -86,43 +86,38 @@ export function CostOfWar() {
   const DEFENSE_BUDGET_SEC = 850000000000 / (365 * 24 * 60 * 60) // $26,953 per second
   
   const stats = useMemo(() => {
-    const taxShare = taxContribution / 850000000000
-    const fundedSeconds = (taxContribution / DEFENSE_BUDGET_SEC)
-    
-    return {
-      taxShare,
-      fundedSeconds: fundedSeconds.toFixed(6)
-    }
+    const fundedSeconds = taxContribution / DEFENSE_BUDGET_SEC
+    return { fundedSeconds: fundedSeconds.toFixed(3) }
   }, [taxContribution, DEFENSE_BUDGET_SEC])
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="white-glass-card border-slate-200/60 shadow-2xl relative overflow-hidden">
+      <Card className="border-[#4a3f7a] shadow-2xl relative overflow-hidden" style={{ backgroundColor: 'var(--card)' }}>
         {/* Background Grid Pattern */}
-        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-             style={{ 
-               backgroundImage: 'radial-gradient(#002244 1px, transparent 1px)',
+        <div className="absolute inset-0 z-0 opacity-[0.06] pointer-events-none"
+             style={{
+               backgroundImage: 'radial-gradient(#29e0ff 1px, transparent 1px)',
                backgroundSize: '24px 24px'
              }}>
         </div>
 
-        <CardHeader className="border-b border-slate-100 bg-white/50 relative z-10 p-8">
+        <CardHeader className="border-b border-[#4a3f7a] relative z-10 p-8" style={{ backgroundColor: '#241a52' }}>
            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="space-y-1 text-center md:text-left">
-                <CardTitle className="text-4xl font-display text-slate-900 flex items-center justify-center md:justify-start gap-4">
-                  <span className="bg-slate-950 text-white p-2 rounded-lg"><Crosshair className="h-6 w-6"/></span>
+                <CardTitle className="text-4xl font-display flex items-center justify-center md:justify-start gap-4" style={{ color: 'var(--ink)' }}>
+                  <span className="p-2 rounded-lg" style={{ backgroundColor: '#29e0ff', color: '#160e33' }}><Crosshair className="h-6 w-6"/></span>
                   The Cost of War
                 </CardTitle>
-                <CardDescription className="text-slate-500 font-medium max-w-lg">
-                  Visualizing the opportunity cost of modern military investment vs. societal benefit.
+                <CardDescription className="font-medium max-w-lg" style={{ color: 'var(--ink-soft)' }}>
+                  Educational comparison of military procurement costs and societal opportunity benefits.
                 </CardDescription>
               </div>
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+              <div className="border border-[#4a3f7a] rounded-2xl p-4 flex items-center gap-4 shadow-sm" style={{ backgroundColor: '#0c0824' }}>
                  <div className="text-right">
-                    <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest leading-none">Global Impact</div>
-                    <div className="text-xl font-black text-rose-600">$2.4T+ / yr</div>
+                    <div className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: 'var(--ink-soft)' }}>Global Impact</div>
+                    <div className="text-xl font-black text-[#ff8a8a]">$2.4T+ / yr</div>
                  </div>
-                 <Globe className="h-8 w-8 text-rose-400 animate-pulse" />
+                 <Globe className="h-8 w-8 text-[#ff8a8a] animate-pulse" />
               </div>
            </div>
         </CardHeader>
@@ -131,28 +126,29 @@ export function CostOfWar() {
            <div className="grid lg:grid-cols-2">
               
               {/* Tactical Pane */}
-              <div className="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-slate-100 space-y-10">
-                 <div className="space-y-6">
-                    <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Weapon Selection</Label>
+              <div className="p-4 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#4a3f7a] space-y-8 sm:space-y-10">
+                 <div className="space-y-5 sm:space-y-6">
+                    <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em]" style={{ color: 'var(--ink-soft)' }}>Weapon Selection</Label>
                     <div className="grid grid-cols-1 gap-3">
                        {MUNITIONS.map((m, idx) => (
                          <button
                            key={m.id}
                            onClick={() => setSelectedIndex(idx)}
-                           className={`flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl border-2 transition-all group gap-4 ${
-                             selectedIndex === idx 
-                               ? "bg-slate-950 border-slate-950 text-white shadow-xl -translate-y-1" 
-                               : "bg-white border-slate-100 text-slate-600 hover:border-slate-300"
-                           }`}
+                          className="flex items-center justify-between p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl md:rounded-3xl border-2 transition-all group gap-3 sm:gap-4 min-h-[64px]"
+                          style={
+                            selectedIndex === idx
+                              ? { backgroundColor: '#29e0ff', borderColor: '#29e0ff', color: '#160e33' }
+                              : { backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: 'var(--ink-soft)' }
+                          }
                          >
                             <div className="text-left flex-1 min-w-0">
-                               <div className={`font-black text-[12px] md:text-sm uppercase tracking-tight truncate ${selectedIndex === idx ? 'text-white' : 'text-slate-900 group-hover:text-black'}`}>
+                               <div className="font-black text-[11px] sm:text-[12px] md:text-sm uppercase tracking-tight whitespace-normal break-words" style={{ color: selectedIndex === idx ? '#160e33' : 'var(--ink)' }}>
                                   {m.name}
                                </div>
-                               <div className={`text-[9px] md:text-[10px] font-medium opacity-60 truncate`}>{m.desc}</div>
+                               <div className="text-[8px] sm:text-[9px] md:text-[10px] font-medium opacity-60 truncate">{m.desc}</div>
                             </div>
                             <div className="text-right shrink-0">
-                               <div className={`font-mono text-sm md:text-lg font-bold ${selectedIndex === idx ? 'text-rose-400' : 'text-slate-400'}`}>
+                               <div className="font-mono text-xs sm:text-sm md:text-lg font-bold tabular-nums" style={{ color: selectedIndex === idx ? '#160e33' : 'var(--ink-soft)' }}>
                                   ${(m.cost / 1000).toLocaleString()}k
                                </div>
                             </div>
@@ -161,30 +157,30 @@ export function CostOfWar() {
                     </div>
                  </div>
 
-                 <div className="bg-slate-50 rounded-[2rem] p-8 border border-slate-200/60 space-y-6 shadow-inner">
-                    <div className="flex justify-between items-end">
-                       <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500">Your Annual Tax Contribution</Label>
-                       <span className="text-xl font-black text-slate-900">${taxContribution.toLocaleString()}</span>
+                 <div className="rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 border border-[#4a3f7a] space-y-5 sm:space-y-6 shadow-inner" style={{ backgroundColor: '#0c0824' }}>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2">
+                       <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--ink-soft)' }}>Your Annual Tax Contribution</Label>
+                       <span className="text-lg sm:text-xl font-black text-[#29e0ff]">${taxContribution.toLocaleString()}</span>
                     </div>
-                    <Slider 
-                      value={[taxContribution]} 
-                      onValueChange={([v]) => setTaxContribution(v)} 
-                      min={1000} 
-                      max={100000} 
+                    <Slider
+                      value={[taxContribution]}
+                      onValueChange={([v]) => setTaxContribution(v)}
+                      min={1000}
+                      max={100000}
                       step={500}
-                      className="[&_.range-thumb]:bg-slate-950"
+                      className="[&_.range-thumb]:bg-[#29e0ff]"
                     />
-                    <div className="pt-4 border-t border-slate-200">
-                       <div className="flex items-start gap-4">
-                          <div className="bg-slate-950 p-2 rounded-xl mt-1">
-                             <ShieldAlert className="h-4 w-4 text-emerald-400" />
+                    <div className="pt-4 border-t border-[#4a3f7a]">
+                       <div className="flex items-start gap-3 sm:gap-4">
+                          <div className="p-1.5 sm:p-2 rounded-xl mt-1" style={{ backgroundColor: '#241a52' }}>
+                             <ShieldAlert className="h-4 w-4 text-[#86efac]" />
                           </div>
                           <div className="space-y-1">
-                             <div className="text-lg font-black text-slate-900 leading-none">
+                             <div className="text-base sm:text-lg font-black leading-none" style={{ color: 'var(--ink)' }}>
                                 {stats.fundedSeconds} SECONDS
                              </div>
-                             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                                OF THE GLOBAL DEFENSE ENGINE FUNDED BY YOU
+                             <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest" style={{ color: 'var(--ink-soft)' }}>
+                                OF THE U.S. DEFENSE BUDGET FUNDED BY YOU
                              </div>
                           </div>
                        </div>
@@ -193,24 +189,22 @@ export function CostOfWar() {
               </div>
 
               {/* Opportunity Pane */}
-              <div className="p-8 lg:p-12 bg-white flex flex-col justify-center gap-12 relative">
-                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] to-indigo-500/[0.03] pointer-events-none" />
-                 
+              <div className="p-8 lg:p-12 flex flex-col justify-center gap-12 relative" style={{ backgroundColor: 'var(--card)' }}>
                  <div className="text-center space-y-2 relative z-10">
-                    <div className="text-rose-600 font-black uppercase text-[10px] md:text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
+                    <div className="text-[#ff8a8a] font-black uppercase text-[10px] md:text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
                        <Flame className="h-4 w-4 animate-bounce" /> The Destruction
                     </div>
-                    <div className="text-5xl md:text-7xl font-black text-slate-950 tracking-tighter drop-shadow-sm">
+                    <div className="text-5xl md:text-7xl font-black tracking-tighter" style={{ color: 'var(--ink)' }}>
                        ${(activeMunition.cost).toLocaleString()}
                     </div>
-                    <div className="text-slate-400 font-bold uppercase text-[9px] md:text-[10px] tracking-widest">Per unit procurement cost</div>
+                    <div className="font-bold uppercase text-[9px] md:text-[10px] tracking-widest" style={{ color: 'var(--ink-soft)' }}>Per unit procurement cost</div>
                  </div>
 
                  <div className="grid gap-4 relative z-10">
                     <div className="flex items-center gap-4 px-2">
-                       <div className="h-px flex-1 bg-slate-100" />
-                       <div className="text-[9px] md:text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">Socio-Economic Value</div>
-                       <div className="h-px flex-1 bg-slate-100" />
+                       <div className="h-px flex-1 bg-[#4a3f7a]" />
+                       <div className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: 'var(--ink-soft)' }}>Socio-Economic Value</div>
+                       <div className="h-px flex-1 bg-[#4a3f7a]" />
                     </div>
 
                     <AnimatePresence mode="wait">
@@ -222,15 +216,15 @@ export function CostOfWar() {
                          className="grid gap-4"
                        >
                           {activeMunition.equivalents.map((eq, i) => (
-                             <div key={i} className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/20 group hover:scale-[1.02] transition-transform">
-                                <div className="bg-emerald-50 p-3 md:p-4 rounded-xl md:rounded-3xl group-hover:bg-emerald-100 transition-colors shrink-0">
-                                   <eq.icon className="h-6 w-6 md:h-8 md:w-8 text-emerald-600" />
+                             <div key={i} className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] border border-[#4a3f7a] shadow-xl group hover:scale-[1.02] transition-transform" style={{ backgroundColor: '#0c0824' }}>
+                                <div className="p-3 md:p-4 rounded-xl md:rounded-3xl transition-colors shrink-0" style={{ backgroundColor: '#241a52' }}>
+                                   <eq.icon className="h-6 w-6 md:h-8 md:w-8 text-[#86efac]" />
                                 </div>
                                 <div className="min-w-0">
-                                   <div className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter">
+                                   <div className="text-2xl md:text-4xl font-black tracking-tighter text-[#29e0ff]">
                                       {eq.val}x
                                    </div>
-                                   <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest truncate">
+                                   <div className="text-[10px] md:text-xs font-bold uppercase tracking-widest truncate" style={{ color: 'var(--ink-soft)' }}>
                                       {eq.label}
                                    </div>
                                 </div>
@@ -256,17 +250,17 @@ export function CostOfWar() {
       {/* Educational Footer */}
       <div className="grid md:grid-cols-3 gap-6">
          {[
-           { title: "Opportunity Cost", desc: "Every dollar spent on munitions is a dollar that cannot be used for healthcare, housing, or education.", icon: Heart, color: "text-rose-500" },
-           { title: "The Industrial Cycle", desc: "Military spending is often locked into multi-decade contracts that persist regardless of peace.", icon: ShieldAlert, color: "text-amber-500" },
-           { title: "Long-term Debt", desc: "Wars are rarely funded by current taxes; they are funded by borrowing against future generations.", icon: DollarSign, color: "text-emerald-500" }
+           { title: "Opportunity Cost", desc: "Every dollar spent on munitions is a dollar that cannot be used for healthcare, housing, or education.", icon: Heart, color: "text-[#ff8a8a]" },
+           { title: "The Industrial Cycle", desc: "Military spending is often locked into multi-decade contracts that persist regardless of peace.", icon: ShieldAlert, color: "text-[#ffd23c]" },
+           { title: "Long-term Debt", desc: "Wars are rarely funded by current taxes; they are funded by borrowing against future generations.", icon: DollarSign, color: "text-[#86efac]" }
          ].map((item, idx) => (
-           <Card key={idx} className="white-glass-card p-6 border-slate-100 hover:shadow-lg transition-all group">
+           <Card key={idx} className="p-6 border-[#4a3f7a] hover:shadow-lg transition-all group" style={{ backgroundColor: 'var(--card)' }}>
               <div className={`${item.color} mb-4 flex justify-between items-center`}>
                  <item.icon className="h-6 w-6" />
-                 <span className="text-[10px] font-black uppercase text-slate-300">Section 0{idx+1}</span>
+                 <span className="text-[10px] font-black uppercase" style={{ color: 'var(--ink-soft)' }}>Section 0{idx+1}</span>
               </div>
-              <h3 className="font-black text-sm uppercase tracking-tight text-slate-900 mb-2">{item.title}</h3>
-              <p className="text-xs text-slate-500 leading-relaxed font-medium font-mono italic">{item.desc}</p>
+              <h3 className="font-black text-sm uppercase tracking-tight mb-2" style={{ color: 'var(--ink)' }}>{item.title}</h3>
+              <p className="text-xs leading-relaxed font-medium font-mono italic" style={{ color: 'var(--ink-soft)' }}>{item.desc}</p>
            </Card>
          ))}
       </div>

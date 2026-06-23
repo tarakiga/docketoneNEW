@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { motion } from "framer-motion"
 import { FileText, Play, Square, Volume2 } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 const NATO_ALPHABET: Record<string, string> = {
     'A': 'Alpha', 'B': 'Bravo', 'C': 'Charlie', 'D': 'Delta', 'E': 'Echo',
@@ -20,16 +20,10 @@ const NATO_ALPHABET: Record<string, string> = {
 
 export function NATOPhonetic() {
     const [text, setText] = useState("")
-    const [phoneticWords, setPhoneticWords] = useState<string[]>([])
     const [isPlaying, setIsPlaying] = useState(false)
     const [currentWordIndex, setCurrentWordIndex] = useState(-1)
-    const speechRef = useRef<SpeechSynthesisUtterance | null>(null)
-
-    useEffect(() => {
-        if (!text) {
-            setPhoneticWords([])
-            return
-        }
+    const phoneticWords = useMemo(() => {
+        if (!text) return []
 
         const words: string[] = []
         for (const char of text.toUpperCase()) {
@@ -41,7 +35,8 @@ export function NATOPhonetic() {
                 // Skip basic punctuation for visual clarity or handle if needed
             }
         }
-        setPhoneticWords(words)
+
+        return words
     }, [text])
 
     const speak = async () => {
@@ -97,26 +92,29 @@ export function NATOPhonetic() {
     return (
         <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-6">
-                <Card className="glass-card">
+                <Card className="glass-card" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                     <CardHeader>
-                         <CardTitle className="flex items-center gap-2">
-                             <FileText className="w-5 h-5 text-blue-400" />
+                         <CardTitle className="flex items-center gap-2" style={{ color: '#ECEAE3', fontFamily: 'var(--font-bungee), cursive' }}>
+                             <FileText className="w-5 h-5" style={{ color: '#b388ff' }} />
                             Input Message
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <Textarea 
-                            placeholder="Type text to convert (e.g., 'Hello Control')..." 
+                        <Textarea
+                            placeholder="Type text to convert (e.g., 'Hello Control')..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[150px] text-lg"
+                            className="min-h-[150px] text-lg focus-visible:ring-[#b388ff]"
+                            style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
                         />
                         <div className="flex gap-2">
-                            <Button 
+                            <Button
                                 onClick={speak}
-                                variant={isPlaying ? "destructive" : "default"}
                                 className="w-full gap-2"
                                 disabled={phoneticWords.length === 0}
+                                style={isPlaying
+                                    ? { backgroundColor: '#0c0824', border: '1px solid #4a3f7a', color: '#ECEAE3' }
+                                    : { backgroundColor: '#b388ff', color: '#160e33' }}
                             >
                                 {isPlaying ? <Square className="w-4 h-4 fill-current"/> : <Play className="w-4 h-4 fill-current"/>}
                                 {isPlaying ? "Stop Transmission" : "Transmit Audio"}
@@ -125,46 +123,47 @@ export function NATOPhonetic() {
                     </CardContent>
                 </Card>
 
-                <Card className="glass-card bg-blue-500/5 border-blue-500/20">
+                <Card className="glass-card" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
                      <CardContent className="pt-6">
-                        <h4 className="font-bold text-blue-500 mb-2 flex items-center gap-2">
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
                              ✈️ Pilot Protocol
                         </h4>
-                        <p className="text-sm text-muted-foreground">
-                            Used by NATO, aviation, and maritime professionals worldwide. 
+                        <p className="text-sm" style={{ color: '#b3aae0' }}>
+                            Used by NATO, aviation, and maritime professionals worldwide.
                             The words are chosen to be distinct and clear even over static-filled radio lines.
-                            "B" and "D" sound alike, but "Bravo" and "Delta" are unmistakable.
+                            &quot;B&quot; and &quot;D&quot; sound alike, but &quot;Bravo&quot; and &quot;Delta&quot; are unmistakable.
                         </p>
                     </CardContent>
                 </Card>
             </div>
 
             <div className="space-y-6">
-                 <Card className="glass-card h-full flex flex-col">
+                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                     <CardHeader>
-                         <CardTitle className="flex items-center gap-2">
-                             <Volume2 className="w-5 h-5 text-green-400" />
+                         <CardTitle className="flex items-center gap-2" style={{ color: '#ECEAE3', fontFamily: 'var(--font-bungee), cursive' }}>
+                             <Volume2 className="w-5 h-5" style={{ color: '#b388ff' }} />
                             Phonetic Output
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
-                        <div className="flex flex-wrap gap-2 content-start h-full p-4 bg-muted/30 rounded-xl border border-border min-h-[300px]">
+                        <div className="flex flex-wrap gap-2 content-start h-full p-4 rounded-xl border min-h-[300px]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
                             {phoneticWords.length === 0 && (
-                                <span className="text-muted-foreground italic w-full text-center mt-10">Start typing to see NATO usage...</span>
+                                <span className="italic w-full text-center mt-10" style={{ color: '#b3aae0' }}>Start typing to see NATO usage...</span>
                             )}
                             {phoneticWords.map((word, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ scale: 0.9, opacity: 0 }}
-                                    animate={{ 
-                                        scale: currentWordIndex === i ? 1.1 : 1, 
+                                    animate={{
+                                        scale: currentWordIndex === i ? 1.1 : 1,
                                         opacity: 1,
-                                        backgroundColor: currentWordIndex === i ? 'rgba(59, 130, 246, 0.4)' : 'rgba(59, 130, 246, 0.1)'
+                                        backgroundColor: currentWordIndex === i ? 'rgba(179, 136, 255, 0.4)' : 'rgba(179, 136, 255, 0.12)'
                                     }}
                                     className={`
                                         px-3 py-1.5 rounded-md font-mono font-bold text-sm border
-                                        ${word === '[SPACE]' ? 'opacity-0 w-4' : 'border-blue-500/30 text-blue-600 dark:text-blue-300'}
+                                        ${word === '[SPACE]' ? 'opacity-0 w-4' : ''}
                                     `}
+                                    style={word === '[SPACE]' ? undefined : { borderColor: '#4a3f7a', color: '#b388ff' }}
                                 >
                                     {word !== '[SPACE]' && word}
                                 </motion.div>
@@ -172,7 +171,7 @@ export function NATOPhonetic() {
                         </div>
                     </CardContent>
                      <div className="p-6 pt-0">
-                         <ShareResult 
+                         <ShareResult
                             title="NATO Transmission 📡"
                             text={`I transmitted: "${phoneticWords.filter(w => w !== '[SPACE]').join(' ')}"`}
                             className="w-full"

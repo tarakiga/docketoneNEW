@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Flashlight, Play, Square } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 const MORSE_MAP: Record<string, string> = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
@@ -19,7 +19,6 @@ const MORSE_MAP: Record<string, string> = {
 
 export function MorseCode() {
     const [text, setText] = useState("")
-    const [morse, setMorse] = useState("")
     const [isPlaying, setIsPlaying] = useState(false)
     const [isFlashlight, setIsFlashlight] = useState(false)
     const [activeChar, setActiveChar] = useState(-1) // Index of character being played
@@ -30,22 +29,17 @@ export function MorseCode() {
     const gainNodeRef = useRef<GainNode | null>(null)
     const playingRef = useRef(false)
 
-    useEffect(() => {
-        // Convert text to morse
-        const converted = text.toUpperCase().split('').map(char => {
-            return MORSE_MAP[char] || char // Keep unknowns/spaces
-        }).join(' ') // Space between letters
-        setMorse(converted)
+    const morse = useMemo(() => {
+        return text.toUpperCase().split('').map(char => {
+            return MORSE_MAP[char] || char
+        }).join(' ')
     }, [text])
-
-    // Cleanup audio on unmount
-    useEffect(() => {
-        return () => stopSignal()
-    }, [])
 
     const startSignal = () => {
         if (!audioContextRef.current) {
-            audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
+            const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+            if (!AudioContextClass) return
+            audioContextRef.current = new AudioContextClass()
         }
         
         const ctx = audioContextRef.current
@@ -65,7 +59,7 @@ export function MorseCode() {
         gainNodeRef.current = gain
     }
 
-    const stopSignal = () => {
+    const stopSignal = useCallback(() => {
         if (oscillatorRef.current) {
             oscillatorRef.current.stop()
             oscillatorRef.current.disconnect()
@@ -75,7 +69,12 @@ export function MorseCode() {
             gainNodeRef.current.disconnect()
             gainNodeRef.current = null
         }
-    }
+    }, [])
+
+    // Cleanup audio on unmount
+    useEffect(() => {
+        return () => stopSignal()
+    }, [stopSignal])
 
     const beep = (duration: number) => {
         if (!gainNodeRef.current || !audioContextRef.current) return
@@ -152,34 +151,39 @@ export function MorseCode() {
             <div id="flashlight-overlay" className="fixed inset-0 bg-white pointer-events-none opacity-0 z-50 transition-opacity duration-75 mix-blend-difference" />
             
             <div className="space-y-6">
-                <Card className="glass-card">
+                <Card className="glass-card" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                     <CardHeader>
-                        <CardTitle>Text Input</CardTitle>
+                        <CardTitle style={{ color: '#ECEAE3' }}>Text Input</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <Textarea 
-                            placeholder="SOS HELLO WORLD..." 
+                        <Textarea
+                            placeholder="SOS HELLO WORLD..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             className="min-h-[150px] text-lg uppercase font-mono"
+                            style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
                         />
                         <div className="flex gap-2">
-                             <Button 
+                             <Button
                                 onClick={playMorse}
-                                variant={isPlaying ? "destructive" : "default"}
                                 className="flex-1 gap-2"
                                 disabled={!morse}
+                                style={isPlaying
+                                    ? { backgroundColor: '#0c0824', border: '1px solid #4a3f7a', color: '#ff8a8a' }
+                                    : { backgroundColor: '#b388ff', color: '#160e33' }}
                             >
                                 {isPlaying ? <Square className="w-4 h-4 fill-current"/> : <Play className="w-4 h-4 fill-current"/>}
                                 {isPlaying ? "Stop Signal" : "Play Signal"}
                             </Button>
-                             <Button 
+                             <Button
                                 onClick={() => setIsFlashlight(!isFlashlight)}
-                                variant={isFlashlight ? "default" : "outline"}
                                 className="flex-initial gap-2"
                                 title="Toggle Screen Flash"
+                                style={isFlashlight
+                                    ? { backgroundColor: '#b388ff', color: '#160e33' }
+                                    : { backgroundColor: '#241a52', border: '1px solid #4a3f7a', color: '#ECEAE3' }}
                             >
-                                <Flashlight className={`w-4 h-4 ${isFlashlight ? 'text-yellow-400 fill-yellow-400' : ''}`} />
+                                <Flashlight className="w-4 h-4" style={{ color: isFlashlight ? '#160e33' : '#b3aae0' }} />
                             </Button>
                         </div>
                     </CardContent>
@@ -187,24 +191,24 @@ export function MorseCode() {
             </div>
 
             <div className="space-y-6">
-                 <Card className="glass-card h-full flex flex-col">
+                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                     <CardHeader>
-                        <CardTitle>Morse Output</CardTitle>
+                        <CardTitle style={{ color: '#ECEAE3' }}>Morse Output</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
-                        <div className="flex flex-wrap gap-1 content-start p-6 bg-stone-900 rounded-xl border border-stone-800 min-h-[300px] font-mono text-2xl tracking-widest leading-loose">
+                        <div className="flex flex-wrap gap-1 content-start p-6 rounded-xl border min-h-[300px] font-mono text-2xl tracking-widest leading-loose" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
                             {morse.split('').map((char, i) => (
-                                <span 
-                                    key={i} 
-                                    className={`
-                                        transition-colors duration-100 ease-linear rounded px-0.5
-                                        ${activeChar === i ? 'bg-yellow-500 text-black' : 'text-green-500'}
-                                    `}
+                                <span
+                                    key={i}
+                                    className="transition-colors duration-100 ease-linear rounded px-0.5"
+                                    style={activeChar === i
+                                        ? { backgroundColor: '#b388ff', color: '#160e33' }
+                                        : { color: '#b388ff' }}
                                 >
                                     {char}
                                 </span>
                             ))}
-                            {!morse && <span className="text-stone-600 italic text-base">... --- ...</span>}
+                            {!morse && <span className="italic text-base" style={{ color: '#b3aae0' }}>... --- ...</span>}
                         </div>
                     </CardContent>
                      <div className="p-6 pt-0">

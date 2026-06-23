@@ -1,7 +1,8 @@
-import { BackgroundBlobs } from "@/components/atoms/background-blobs"
+import { AdUnit } from "@/components/molecules/consent-scripts"
 import { RelatedCalculators } from "@/components/organisms/related-calculators"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { TypographyH1, TypographyP } from "@/components/ui/typography"
+import { CalculatorSchema } from "@/components/seo/CalculatorSchema"
+import { CATEGORY_META } from "@/data/calculators"
+import Link from "next/link"
 import { ReactNode } from "react"
 
 interface FAQItem {
@@ -20,85 +21,112 @@ interface CalculatorLayoutProps {
   faq: FAQItem[]
   slug: string
   category: string
+  articleContent?: ReactNode
 }
 
-export function CalculatorLayout({ title, description, children, understanding, origin, howTo, tips = [], faq, slug, category }: CalculatorLayoutProps) {
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : `https://docket.one/${slug}`
+// Calm per-category accents (mirrors the category landing pages)
+const ACCENTS: Record<string, { a: string; a2: string; tint: string }> = {
+  bigkidmath: { a: "#29e0ff", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
+  cipherlab: { a: "#b388ff", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
+  geekgalaxy: { a: "#ff8a3c", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
+  lifehacks: { a: "#b6ff3c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
+  mathmagik: { a: "#ff3ca6", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
+  otakuops: { a: "#ffd23c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
+  brainmodes: { a: "#5bf0c0", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
+}
+
+export function CalculatorLayout({ title, description, children, understanding, origin, howTo, tips = [], faq, slug, category, articleContent }: CalculatorLayoutProps) {
+  const key = category.toLowerCase()
+  const meta = CATEGORY_META.find(m => m.id.toLowerCase() === key)
+  const catName = meta?.name || category
+  const acc = ACCENTS[key] || ACCENTS.lifehacks
 
   return (
-    <div className="min-h-screen bg-slate-50/50 relative overflow-hidden">
-      <BackgroundBlobs />
-      
-      <div className="container px-4 py-8 md:py-12 space-y-12 relative z-10">
-        {/* Premium Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <TypographyH1 className="text-slate-900 tracking-tighter text-3xl sm:text-4xl md:text-5xl">{title}</TypographyH1>
-          <TypographyP className="text-lg md:text-xl text-slate-600 font-medium">{description}</TypographyP>
+    <div
+      className="almanac"
+      style={{
+        // @ts-expect-error CSS custom properties
+        "--accent": acc.a, "--accent-2": acc.a2, "--accent-tint": acc.tint,
+      }}
+    >
+      <div className="almanac-wrap">
+        <div className="almanac-top">
+          <Link className="almanac-back" href={`/calculators/${key}/`}>← {catName}</Link>
+          <span>Docket One</span>
         </div>
 
-        {/* Dynamic Content Sections */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Origin / Story Section */}
-          {(origin || understanding) && (
-            <section className="space-y-4 white-glass-card p-6 rounded-2xl flex flex-col group hover:shadow-primary/5 transition-all duration-500">
-              <h2 className="text-xl font-bold tracking-tight border-b border-slate-100 pb-2 flex items-center gap-2 text-slate-900">
-                📜 The Origins
-              </h2>
-              <div className="prose prose-slate max-w-none text-slate-600 text-sm leading-relaxed flex-1">
-                  {origin ? <p>{origin}</p> : understanding}
-              </div>
-            </section>
-          )}
+        <header className="almanac-calc-masthead">
+          <div className="almanac-eyebrow">{catName}</div>
+          <h1>{title}</h1>
+          <p className="almanac-sub direct-answer">{description}</p>
+        </header>
 
-          {/* How To Use Section */}
-          {howTo && (
-            <section className="space-y-4 white-glass-card p-6 rounded-2xl flex flex-col bg-white/95 group hover:shadow-primary/5 transition-all duration-500">
-              <h2 className="text-xl font-bold tracking-tight border-b border-slate-100 pb-2 flex items-center gap-2 text-slate-900">
-                🚀 Master the Tool
-              </h2>
-              <div className="prose prose-slate max-w-none text-slate-600 text-sm leading-relaxed flex-1">
-                  <p>{howTo}</p>
-              </div>
-            </section>
-          )}
+        {(origin || understanding || howTo) && (
+          <div className="almanac-infocards">
+            {(origin || understanding) && (
+              <section className="almanac-infocard">
+                <h2>📜 The Origins</h2>
+                {origin ? <p>{origin}</p> : understanding}
+              </section>
+            )}
+            {howTo && (
+              <section className="almanac-infocard">
+                <h2>🚀 Master the Tool</h2>
+                <p>{howTo}</p>
+              </section>
+            )}
+          </div>
+        )}
+
+        {/* Interactive widget */}
+        <div className="almanac-toollabel">
+          <div className="almanac-eyebrow">The calculator</div>
         </div>
-
-        {/* Calculator Content */}
-        <div className="min-h-[400px]">
+        <div className="almanac-screen min-h-[400px]">
           {children}
         </div>
 
-        {/* Tips Section */}
+        {articleContent && (
+          <article className="almanac-article almanac-prose">
+            {articleContent}
+          </article>
+        )}
+
+        <AdUnit className="max-w-3xl mx-auto almanac-block" />
+
         {tips.length > 0 && (
-          <section className="space-y-6 max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900">Pro Tips</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-                {tips.map((tip, index) => (
-                    <div key={index} className="p-5 rounded-2xl white-glass-card hover:bg-white transition-all duration-300 flex gap-4 group">
-                        <span className="text-primary font-black text-lg opacity-40 group-hover:opacity-100 transition-opacity">0{index + 1}</span>
-                        <span className="text-slate-600 text-sm font-medium pt-1">{tip}</span>
-                    </div>
-                ))}
+          <section className="almanac-block" style={{ maxWidth: 900, marginLeft: "auto", marginRight: "auto" }}>
+            <div className="almanac-eyebrow">Pro tips</div>
+            <div className="almanac-tips">
+              {tips.map((tip, index) => (
+                <div key={index} className="almanac-tip">
+                  <span className="n">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="x">{tip}</span>
+                </div>
+              ))}
             </div>
           </section>
         )}
 
-        {/* FAQ Accordion */}
-        <section className="space-y-6 max-w-4xl mx-auto pb-12">
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900">The Fine Print (FAQ)</h2>
-          <Accordion type="single" collapsible className="w-full">
+        {faq.length > 0 && (
+          <section className="almanac-block" style={{ maxWidth: 760, marginLeft: "auto", marginRight: "auto" }}>
+            <h2 className="almanac-h2">The Fine Print (FAQ)</h2>
+            <div className="almanac-faq">
               {faq.map((item, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="border-slate-200">
-                      <AccordionTrigger className="text-left text-lg text-slate-900 hover:text-primary transition-colors py-6 font-bold">{item.question}</AccordionTrigger>
-                      <AccordionContent className="text-slate-600 leading-relaxed text-base pb-6">
-                          {item.answer}
-                      </AccordionContent>
-                  </AccordionItem>
+                <details key={index}>
+                  <summary>{item.question}</summary>
+                  <div className="ans">{item.answer}</div>
+                </details>
               ))}
-          </Accordion>
-        </section>
+            </div>
+          </section>
+        )}
 
-        <RelatedCalculators currentCategory={category} currentSlug={slug} />
+        <div className="almanac-block">
+          <RelatedCalculators currentCategory={category} currentSlug={slug} />
+        </div>
+
+        <CalculatorSchema title={title} description={description} faq={faq} slug={slug} category={category} />
       </div>
     </div>
   )

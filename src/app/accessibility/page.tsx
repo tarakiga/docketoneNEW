@@ -1,83 +1,70 @@
-import { TypographyH1, TypographyH2, TypographyH4, TypographyP } from "@/components/ui/typography"
+import Link from "next/link"
 
 export const metadata = {
   title: "Accessibility Statement | Docket One",
   description: "Docket One Accessibility Statement - Our commitment to making calculators accessible to all users.",
+  alternates: {
+    canonical: "https://docket.one/accessibility/",
+  },
 }
 
 export default function AccessibilityPage() {
   return (
-    <main className="flex-1 bg-background relative selection:bg-primary/30">
-        <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-500/5 via-background to-background" />
+    <div className="almanac"><div className="almanac-page">
+      <div className="almanac-top"><Link className="almanac-back" href="/">← home</Link><span>Docket One</span></div>
+      <header className="almanac-masthead">
+        <div className="almanac-eyebrow">Commitment</div>
+        <h1 className="almanac-h1 sm">Accessibility</h1>
+        <p className="almanac-sub">Our commitment to making calculators accessible to everyone, regardless of ability or technology used.</p>
+      </header>
+      <div className="almanac-prose">
+        <p>Last Updated: December 15, 2024</p>
 
-        <div className="container py-16 md:py-24 max-w-4xl mx-auto">
-            <header className="mb-12 text-center text-muted-foreground">
-                <TypographyH1 className="text-foreground text-gradient mb-4">Accessibility Statement</TypographyH1>
-                <p>Last Updated: December 15, 2024</p>
-                <TypographyP className="max-w-2xl mx-auto mt-4">
-                    Our commitment to making calculators accessible to everyone, regardless of ability or technology used.
-                </TypographyP>
-            </header>
+        <h2>🌟 Our Commitment</h2>
+        <p>
+          Docket One is committed to ensuring digital accessibility for all users, including people with disabilities. We strive to provide an inclusive experience that allows everyone to access and benefit from our calculator tools regardless of their abilities or the technologies they use.
+        </p>
+        <p>We work to ensure our website meets or exceeds the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards.</p>
 
-            <div className="space-y-12 prose prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary">
-                
-                <section className="glass-card p-8 rounded-xl border-white/10">
-                    <TypographyH2>🌟 Our Commitment</TypographyH2>
-                    <TypographyP>
-                        Docket One is committed to ensuring digital accessibility for all users, including people with disabilities. We strive to provide an inclusive experience that allows everyone to access and benefit from our calculator tools regardless of their abilities or the technologies they use.
-                    </TypographyP>
-                    <TypographyP>We work to ensure our website meets or exceeds the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards.</TypographyP>
-                </section>
+        <h2>Accessibility Features</h2>
 
-                <section>
-                    <TypographyH2>Accessibility Features</TypographyH2>
-                    <div className="grid md:grid-cols-2 gap-6 not-prose">
-                        <div className="bg-white/5 border border-white/10 p-6 rounded-lg">
-                            <TypographyH4 className="mb-2">⌨️ Keyboard Navigation</TypographyH4>
-                            <ul className="list-disc pl-4 text-sm text-muted-foreground space-y-1">
-                                <li>Full keyboard support</li>
-                                <li>Logical tab order</li>
-                                <li>Skip links</li>
-                            </ul>
-                        </div>
-                        <div className="bg-white/5 border border-white/10 p-6 rounded-lg">
-                            <TypographyH4 className="mb-2">👁️ Screen Reader Support</TypographyH4>
-                            <ul className="list-disc pl-4 text-sm text-muted-foreground space-y-1">
-                                <li>ARIA labels and descriptions</li>
-                                <li>Semantic HTML structure</li>
-                                <li>Alt text for images</li>
-                            </ul>
-                        </div>
-                        <div className="bg-white/5 border border-white/10 p-6 rounded-lg">
-                            <TypographyH4 className="mb-2">🎨 Visual Accessibility</TypographyH4>
-                            <ul className="list-disc pl-4 text-sm text-muted-foreground space-y-1">
-                                <li>High contrast text</li>
-                                <li>Color-independent info</li>
-                                <li>Scalable text</li>
-                            </ul>
-                        </div>
-                         <div className="bg-white/5 border border-white/10 p-6 rounded-lg">
-                            <TypographyH4 className="mb-2">🧪 Compatible Tools</TypographyH4>
-                            <ul className="list-disc pl-4 text-sm text-muted-foreground space-y-1">
-                                <li>NVDA, JAWS (Windows)</li>
-                                <li>VoiceOver (macOS/iOS)</li>
-                                <li>TalkBack (Android)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+        <h3>⌨️ Keyboard Navigation</h3>
+        <ul>
+          <li>Full keyboard support</li>
+          <li>Logical tab order</li>
+          <li>Skip links</li>
+        </ul>
 
-                <section>
-                    <TypographyH2>Known Issues & Feedback</TypographyH2>
-                    <TypographyP>
-                       We are actively working to address limitations with some third-party chart libraries and complex formula explanations.
-                    </TypographyP>
-                    <TypographyP>
-                        If you encounter accessibility barriers, please contact us at <a href="mailto:accessibility@docket.one">accessibility@docket.one</a>. We aim to respond to accessibility inquiries within 3 business days.
-                    </TypographyP>
-                </section>
-            </div>
-        </div>
-    </main>
+        <h3>👁️ Screen Reader Support</h3>
+        <ul>
+          <li>ARIA labels and descriptions</li>
+          <li>Semantic HTML structure</li>
+          <li>Alt text for images</li>
+        </ul>
+
+        <h3>🎨 Visual Accessibility</h3>
+        <ul>
+          <li>High contrast text</li>
+          <li>Color-independent info</li>
+          <li>Scalable text</li>
+        </ul>
+
+        <h3>🧪 Compatible Tools</h3>
+        <ul>
+          <li>NVDA, JAWS (Windows)</li>
+          <li>VoiceOver (macOS/iOS)</li>
+          <li>TalkBack (Android)</li>
+        </ul>
+
+        <h2>Known Issues & Feedback</h2>
+        <p>
+          We are actively working to address limitations with some third-party chart libraries and complex formula explanations.
+        </p>
+        <p>
+          If you encounter accessibility barriers, please contact us at <a href="mailto:accessibility@docket.one">accessibility@docket.one</a>. We aim to respond to accessibility inquiries within 3 business days.
+        </p>
+      </div>
+      <div className="almanac-foot"><span>© 2026 Docket One</span><Link href="/">Home →</Link></div>
+    </div></div>
   )
 }

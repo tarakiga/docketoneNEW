@@ -32,7 +32,7 @@ const GENERATIONS: Generation[] = [
         name: "Generation Alpha",
         range: "2013 - Present",
         start: 2013,
-        end: 2025,
+        end: 9999, // open-ended: the input guard caps entries at the current year
         color: "from-purple-500 to-pink-500",
         icon: "🤖",
         description: "The first generation born entirely within the 21st century. Raised with AI, tablets, and constant connectivity.",
@@ -129,6 +129,23 @@ const GENERATIONS: Generation[] = [
         },
         workStyle: "Disciplined and loyal. Respect authority.",
         financial: "Frugal and conservative. 'Save for a rainy day'.",
+    },
+    {
+        name: "Greatest Generation",
+        range: "1901 - 1927",
+        start: 1901,
+        end: 1927,
+        color: "from-stone-500 to-zinc-600",
+        icon: "🎖️",
+        description: "The 'G.I. Generation' who came of age during the Great Depression and went on to fight World War II. Defined by grit, sacrifice, and civic duty.",
+        cultural: {
+            music: "Big Band, Swing, Jazz",
+            film: "Silent Films, Early Talkies",
+            tech: "Radio, Telephone, Early Flight",
+            events: "Great Depression, World War II"
+        },
+        workStyle: "Hardworking and loyal. Built the institutions and infrastructure of the modern era.",
+        financial: "Extremely frugal, shaped by the Depression. 'Waste not, want not'.",
     }
 ]
 
@@ -136,37 +153,53 @@ export function GenerationalTimelineCalculator() {
     const [birthYear, setBirthYear] = useState<string>("")
     const [result, setResult] = useState<Generation | null>(null)
     const [age, setAge] = useState<number>(0)
+    const [notice, setNotice] = useState<string>("")
 
     const calculate = () => {
-        const year = parseInt(birthYear)
-        if (!year || year < 1900 || year > new Date().getFullYear()) return
+        const currentYear = new Date().getFullYear()
+        const year = parseInt(birthYear, 10)
+
+        if (!year || Number.isNaN(year)) {
+            setResult(null); setNotice("Please enter a valid 4-digit birth year."); return
+        }
+        if (year < 1901) {
+            setResult(null); setNotice("Our timeline starts in 1901 (the Greatest Generation). Try a later year."); return
+        }
+        if (year > currentYear) {
+            setResult(null); setNotice(`That year is in the future. Try ${currentYear} or earlier.`); return
+        }
 
         const gen = GENERATIONS.find(g => year >= g.start && year <= g.end)
         if (gen) {
             setResult(gen)
-            setAge(new Date().getFullYear() - year)
+            setAge(currentYear - year)
+            setNotice("")
+        } else {
+            setResult(null)
+            setNotice("Hmm, we couldn't place that year. Double-check it and try again.")
         }
     }
 
     return (
         <div className="grid lg:grid-cols-3 gap-8">
             {/* Input Panel */}
-            <Card className="glass-card lg:col-span-1 h-fit">
+            <Card className="lg:col-span-1 h-fit" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                 <CardHeader>
-                    <CardTitle>Find Your Place in History</CardTitle>
+                    <CardTitle style={{ color: '#ECEAE3' }}>Find Your Place in History</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="space-y-2">
-                        <Label>Enter Birth Year</Label>
-                        <Input 
-                            type="number" 
-                            placeholder="e.g. 1990" 
-                            value={birthYear} 
+                        <Label style={{ color: '#b3aae0' }}>Enter Birth Year</Label>
+                        <Input
+                            type="number"
+                            placeholder="e.g. 1990"
+                            value={birthYear}
                             onChange={(e) => setBirthYear(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && calculate()}
+                            style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
                         />
                     </div>
-                    <Button onClick={calculate} className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 hover:opacity-90 transition-opacity">
+                    <Button onClick={calculate} className="w-full hover:opacity-90 transition-opacity" style={{ backgroundColor: '#29e0ff', color: '#160e33' }}>
                         Reveal My Generation
                     </Button>
                 </CardContent>
@@ -182,17 +215,17 @@ export function GenerationalTimelineCalculator() {
                         className="space-y-6"
                     >
                          {/* Hero Result Card */}
-                        <Card className={`overflow-hidden border-0 relative shadow-xl`}>
+                        <Card className={`overflow-hidden border-0 relative shadow-xl`} style={{ backgroundColor: '#1d1442' }}>
                             <div className={`absolute inset-0 bg-gradient-to-br ${result.color} opacity-10 dark:opacity-20`} />
                             <CardContent className="pt-8 relative z-10 text-center space-y-4">
                                 <div className="text-6xl mb-2">{result.icon}</div>
                                 <div className="space-y-1">
-                                    <h2 className="text-3xl font-bold tracking-tight text-foreground mb-1">
+                                    <h2 className="text-3xl font-bold tracking-tight mb-1" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#29e0ff' }}>
                                         You are {result.name}
                                     </h2>
-                                    <p className="text-muted-foreground">Born {birthYear} • Approx {age} years old</p>
+                                    <p style={{ color: '#b3aae0' }}>Born {birthYear} • Approx {age} years old</p>
                                 </div>
-                                <p className="text-lg text-foreground/90 max-w-lg mx-auto leading-relaxed">
+                                <p className="text-lg max-w-lg mx-auto leading-relaxed" style={{ color: '#ECEAE3' }}>
                                     {result.description}
                                 </p>
                                 <div className="pt-6">
@@ -207,39 +240,39 @@ export function GenerationalTimelineCalculator() {
 
                         {/* Cultural Grid */}
                         <div className="grid sm:grid-cols-2 gap-4">
-                            <Card className="glass-card hover:bg-accent/5 transition-colors">
+                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
-                                     <div className="p-2 rounded-lg bg-pink-500/20 text-pink-400"><Music className="w-5 h-5" /></div>
+                                     <div className="p-2 rounded-lg bg-pink-500/20 text-pink-300"><Music className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold text-foreground mb-1">Music</h4>
-                                         <p className="text-sm text-muted-foreground">{result.cultural.music}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Music</h4>
+                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.music}</p>
                                      </div>
                                 </CardContent>
                             </Card>
-                            <Card className="glass-card hover:bg-accent/5 transition-colors">
+                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
-                                     <div className="p-2 rounded-lg bg-yellow-500/20 text-yellow-400"><Film className="w-5 h-5" /></div>
+                                     <div className="p-2 rounded-lg bg-yellow-500/20 text-yellow-300"><Film className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold text-foreground mb-1">Pop Culture</h4>
-                                         <p className="text-sm text-muted-foreground">{result.cultural.film}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Pop Culture</h4>
+                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.film}</p>
                                      </div>
                                 </CardContent>
                             </Card>
-                            <Card className="glass-card hover:bg-accent/5 transition-colors">
+                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
-                                     <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400"><Smartphone className="w-5 h-5" /></div>
+                                     <div className="p-2 rounded-lg bg-blue-500/20 text-blue-300"><Smartphone className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold text-foreground mb-1">Tech</h4>
-                                         <p className="text-sm text-muted-foreground">{result.cultural.tech}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Tech</h4>
+                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.tech}</p>
                                      </div>
                                 </CardContent>
                             </Card>
-                            <Card className="glass-card hover:bg-accent/5 transition-colors">
+                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
-                                     <div className="p-2 rounded-lg bg-green-500/20 text-green-400"><Globe className="w-5 h-5" /></div>
+                                     <div className="p-2 rounded-lg bg-green-500/20 text-green-300"><Globe className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold text-foreground mb-1">Events</h4>
-                                         <p className="text-sm text-muted-foreground">{result.cultural.events}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Events</h4>
+                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.events}</p>
                                      </div>
                                 </CardContent>
                             </Card>
@@ -248,18 +281,18 @@ export function GenerationalTimelineCalculator() {
                          {/* Work & Finance */}
                         <div className="grid sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-foreground font-medium">
-                                    <Briefcase className="w-4 h-4 text-indigo-400" /> Work Style
+                                <div className="flex items-center gap-2 font-medium" style={{ color: '#ECEAE3' }}>
+                                    <Briefcase className="w-4 h-4" style={{ color: '#29e0ff' }} /> Work Style
                                 </div>
-                                <p className="text-sm text-muted-foreground leading-relaxed p-4 rounded-lg bg-accent/5 border border-border">
+                                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ color: '#b3aae0', backgroundColor: '#0c0824', border: '1px solid #4a3f7a' }}>
                                     {result.workStyle}
                                 </p>
                             </div>
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-foreground font-medium">
-                                    <Wallet className="w-4 h-4 text-emerald-400" /> Financial Outlook
+                                <div className="flex items-center gap-2 font-medium" style={{ color: '#ECEAE3' }}>
+                                    <Wallet className="w-4 h-4" style={{ color: '#29e0ff' }} /> Financial Outlook
                                 </div>
-                                <p className="text-sm text-muted-foreground leading-relaxed p-4 rounded-lg bg-accent/5 border border-border">
+                                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ color: '#b3aae0', backgroundColor: '#0c0824', border: '1px solid #4a3f7a' }}>
                                     {result.financial}
                                 </p>
                             </div>
@@ -267,11 +300,11 @@ export function GenerationalTimelineCalculator() {
 
                     </motion.div>
                 ) : (
-                    <div className="h-full min-h-[400px] flex flex-col items-center justify-center p-8 text-center border-2 border-dashed border-white/10 rounded-xl bg-white/5">
-                        <div className="text-4xl mb-4 opacity-50">🕰️</div>
-                        <h3 className="text-xl font-medium text-foreground mb-2">Waiting for input...</h3>
-                        <p className="text-muted-foreground max-w-md">
-                            Enter your birth year to unlock a detailed breakdown of your generational identity and cultural touchstones.
+                    <div className="h-full min-h-[400px] flex flex-col items-center justify-center p-8 text-center border-2 border-dashed rounded-xl" style={{ borderColor: '#4a3f7a', backgroundColor: '#0c0824' }}>
+                        <div className="text-4xl mb-4 opacity-50">{notice ? "🤔" : "🕰️"}</div>
+                        <h3 className="text-xl font-medium mb-2" style={{ color: '#ECEAE3' }}>{notice ? "Out of range" : "Waiting for input..."}</h3>
+                        <p className="max-w-md" style={{ color: '#b3aae0' }}>
+                            {notice || "Enter your birth year to unlock a detailed breakdown of your generational identity and cultural touchstones."}
                         </p>
                     </div>
                 )}

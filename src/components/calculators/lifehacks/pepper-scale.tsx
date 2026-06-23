@@ -35,24 +35,24 @@ export function PepperScale() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-red-950 border-red-900 text-red-50 shadow-[0_0_50px_rgba(220,38,38,0.3)]">
+      <Card className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
         <CardHeader>
-           <CardTitle className="text-3xl font-display text-red-500 flex items-center gap-3">
-              <Flame className="h-8 w-8 fill-red-500 animate-pulse" />
+           <CardTitle className="text-3xl font-display text-[#b6ff3c] flex items-center gap-3">
+              <Flame className="h-8 w-8 fill-[#b6ff3c]" />
               How Hot Is That Pepper?
            </CardTitle>
-           <CardDescription className="text-red-300/60">
+           <CardDescription className="text-[#b3aae0]">
               Scoville Scale Visualizer & Survival Guide.
            </CardDescription>
         </CardHeader>
         <CardContent className="space-y-8 p-8">
            
            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
+              <div className="space-y-6 min-w-0">
                  <div className="space-y-2">
-                    <Label className="uppercase text-xs font-bold text-red-400 tracking-widest">Select a Pepper</Label>
+                    <Label className="uppercase text-xs font-bold text-[#b6ff3c] tracking-widest">Select a Pepper</Label>
                     <Select value={selectedPepper.name} onValueChange={handleSelect}>
-                       <SelectTrigger className="bg-red-900/50 border-red-800 text-white h-12 text-lg font-bold"><SelectValue/></SelectTrigger>
+                       <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] h-12 text-lg font-bold focus:ring-2 focus:ring-[#b6ff3c]"><SelectValue/></SelectTrigger>
                        <SelectContent>
                           {PEPPERS.map(p => (
                              <SelectItem key={p.name} value={p.name}>{p.name}</SelectItem>
@@ -62,14 +62,14 @@ export function PepperScale() {
                  </div>
 
                  <div className="space-y-4">
-                    <div className="bg-black/40 p-6 rounded-xl border border-red-900/50 space-y-4">
-                       <div className="flex justify-between items-end">
-                          <div className="text-sm text-red-400 uppercase font-bold">Scoville Heat Units (SHU)</div>
-                          <div className="text-4xl font-black text-white">{selectedPepper.shu.toLocaleString()}</div>
+                    <div className="bg-[#0c0824] p-6 rounded-xl border border-[#4a3f7a] space-y-4 min-w-0">
+                       <div className="flex justify-between items-end gap-3">
+                          <div className="text-sm text-[#b3aae0] uppercase font-bold min-w-0">Scoville Heat Units (SHU)</div>
+                          <div className="text-3xl sm:text-4xl font-black shrink-0 tabular-nums" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#b6ff3c' }}>{selectedPepper.shu.toLocaleString()}</div>
                        </div>
-                       
+
                        {/* Thermometer Bar */}
-                       <div className="relative w-full h-6 bg-red-950 rounded-full overflow-hidden border border-red-900">
+                       <div className="relative w-full h-6 bg-[#0c0824] rounded-full overflow-hidden border border-[#4a3f7a]">
                           <div 
                             className="h-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 transition-all duration-700 ease-out"
                             style={{ width: `${Math.max(1, heatPercent)}%` }} // Minimum 1% to show something
@@ -77,25 +77,25 @@ export function PepperScale() {
                        </div>
                     </div>
 
-                    <div className="bg-red-900/20 p-4 rounded-xl space-y-2">
-                       <div className="flex gap-2 font-bold text-red-300 items-center">
+                    <div className="bg-[#241a52] p-4 rounded-xl space-y-2">
+                       <div className="flex gap-2 font-bold text-[#b6ff3c] items-center">
                           <Info className="w-4 h-4" /> Description
                        </div>
-                       <p className="text-red-100 italic">"{selectedPepper.desc}"</p>
+                      <p className="text-[#ECEAE3] italic">&quot;{selectedPepper.desc}&quot;</p>
                     </div>
 
-                    <div className="bg-white/10 p-4 rounded-xl space-y-2 border border-white/10">
-                       <div className="flex gap-2 font-bold text-white items-center">
+                    <div className="bg-[#241a52] p-4 rounded-xl space-y-2 border border-[#4a3f7a]">
+                       <div className="flex gap-2 font-bold text-[#b6ff3c] items-center">
                           <Milk className="w-4 h-4" /> Survival Kit
                        </div>
-                       <p className="text-white font-mono">{selectedPepper.survival}</p>
+                       <p className="text-[#ECEAE3] font-mono">{selectedPepper.survival}</p>
                     </div>
                  </div>
               </div>
 
-              <div className="flex items-center justify-center p-8 relative">
+              <div className="flex items-center justify-center p-4 sm:p-8 relative">
                  {/* Visual Pepper Representation - dynamic color/glow */}
-                 <div className={`relative w-48 h-64 transition-all duration-700 ${selectedPepper.shu > 100000 ? 'animate-shake' : ''}`}>
+                 <div className={`relative w-44 h-60 sm:w-48 sm:h-64 max-w-full transition-all duration-700 ${selectedPepper.shu > 100000 ? 'animate-shake' : ''}`}>
                     {/* SVG Pepper */}
                     <svg viewBox="0 0 100 120" className="w-full h-full drop-shadow-2xl">
                        <path 
@@ -119,7 +119,7 @@ export function PepperScale() {
                     
                     {/* Fire effect for extreme heat */}
                     {selectedPepper.shu > 500000 && (
-                       <div className="absolute -bottom-4 left-0 right-0 h-20 bg-gradient-to-t from-red-600 to-transparent opacity-50 blur-xl animate-pulse"></div>
+                       <div className="absolute -bottom-2 left-1/4 right-1/4 h-1.5 bg-red-600 rounded-full opacity-80"></div>
                     )}
                  </div>
               </div>

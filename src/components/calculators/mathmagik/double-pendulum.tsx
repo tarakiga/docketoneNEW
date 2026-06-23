@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Slider } from "@/components/ui/slider"
 import { Infinity } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 export function DoublePendulum() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -28,7 +28,7 @@ export function DoublePendulum() {
   const L2 = 100
   const G = 1
 
-  const animate = () => {
+  const animate = useCallback(() => {
     if (!canvasRef.current) return
     const ctx = canvasRef.current.getContext('2d')
     if (!ctx) return
@@ -90,7 +90,7 @@ export function DoublePendulum() {
 
     // Draw Rods
     ctx.beginPath()
-    ctx.strokeStyle = '#cbd5e1'
+    ctx.strokeStyle = '#b3aae0'
     ctx.lineWidth = 4
     ctx.moveTo(cx, cy)
     ctx.lineTo(x1, y1)
@@ -99,7 +99,7 @@ export function DoublePendulum() {
 
     // Draw Pivot
     ctx.beginPath()
-    ctx.fillStyle = '#94a3b8'
+    ctx.fillStyle = '#4a3f7a'
     ctx.arc(cx, cy, 5, 0, 2 * Math.PI)
     ctx.fill()
 
@@ -114,7 +114,7 @@ export function DoublePendulum() {
     ctx.fillStyle = '#a855f7' // Purple
     ctx.arc(x2, y2, m2, 0, 2 * Math.PI)
     ctx.fill()
-  }
+  }, [mass1, mass2, trailLength])
 
   const animationRef = useRef<number | null>(null)
 
@@ -129,9 +129,9 @@ export function DoublePendulum() {
       cancelAnimationFrame(animationRef.current!)
     }
     return () => cancelAnimationFrame(animationRef.current!)
-  }, [isPlaying, trailLength, mass1, mass2])
+  }, [animate, isPlaying])
 
-  const reset = () => {
+  const reset = useCallback(() => {
     state.current = {
       a1: Math.PI / 2,
       a2: Math.PI / 2,
@@ -141,23 +141,23 @@ export function DoublePendulum() {
     }
     // Do one render
     animate()
-  }
+  }, [animate])
   
-  useEffect(() => { reset() }, [])
+  useEffect(() => { reset() }, [reset])
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-slate-950 border-purple-900">
+      <Card className="bg-[#1d1442] border-[#4a3f7a]">
         <CardHeader>
-          <CardTitle className="text-3xl font-display text-purple-400 flex items-center gap-2">
+          <CardTitle className="text-3xl text-[#ff3ca6] flex items-center gap-2" style={{ fontFamily: 'var(--font-bungee), cursive' }}>
             <Infinity className="h-8 w-8" />
             Chaotic Double Pendulum
           </CardTitle>
-          <CardDescription>A physical demonstration of chaos theory. Small changes, big consequences.</CardDescription>
+          <CardDescription className="text-[#b3aae0]">A physical demonstration of chaos theory. Small changes, big consequences.</CardDescription>
         </CardHeader>
         <CardContent className="grid lg:grid-cols-12 gap-8">
-           
-           <div className="lg:col-span-8 bg-slate-900 rounded-xl overflow-hidden border border-slate-800 relative">
+
+           <div className="lg:col-span-8 bg-[#0c0824] rounded-xl overflow-hidden border border-[#4a3f7a] relative">
               <canvas 
                 ref={canvasRef} 
                 width={800} 
@@ -165,8 +165,8 @@ export function DoublePendulum() {
                 className="w-full h-full object-contain"
               />
               {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px]">
-                   <Button onClick={() => setIsPlaying(true)} className="bg-purple-600 hover:bg-purple-700 text-lg py-6 px-8 rounded-full shadow-[0_0_30px_#9333ea]">
+                <div className="absolute inset-0 flex items-center justify-center bg-[#0c0824]/60">
+                   <Button onClick={() => setIsPlaying(true)} className="bg-[#ff3ca6] hover:bg-[#ff3ca6]/90 text-[#160e33] text-lg py-6 px-8 rounded-full">
                       Start Simulation
                    </Button>
                 </div>
@@ -174,37 +174,37 @@ export function DoublePendulum() {
            </div>
 
            <div className="lg:col-span-4 space-y-8">
-              <div className="space-y-6 bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+              <div className="space-y-6 bg-[#241a52] p-6 rounded-xl border border-[#4a3f7a]">
                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm text-slate-400">
+                    <div className="flex justify-between text-sm text-[#b3aae0]">
                        <span>Tail Length</span>
                        <span>{trailLength}</span>
                     </div>
-                    <Slider value={[trailLength]} onValueChange={([v]) => setTrailLength(v)} min={10} max={500} step={10} className="[&_.range-thumb]:bg-purple-500" />
-                 </div>
-                 
-                 <div className="space-y-4">
-                    <div className="flex justify-between text-sm text-slate-400">
-                       <span>Mass 1 (Blue)</span>
-                       <span>{mass1}kg</span>
-                    </div>
-                    <Slider value={[mass1]} onValueChange={([v]) => setMass1(v)} min={5} max={30} step={1} className="[&_.range-thumb]:bg-blue-500" />
+                    <Slider value={[trailLength]} onValueChange={([v]) => setTrailLength(v)} min={10} max={500} step={10} className="[&_.range-thumb]:bg-[#ff3ca6]" />
                  </div>
 
                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm text-slate-400">
+                    <div className="flex justify-between text-sm text-[#b3aae0]">
+                       <span>Mass 1 (Blue)</span>
+                       <span>{mass1}kg</span>
+                    </div>
+                    <Slider value={[mass1]} onValueChange={([v]) => setMass1(v)} min={5} max={30} step={1} className="[&_.range-thumb]:bg-[#60a5fa]" />
+                 </div>
+
+                 <div className="space-y-4">
+                    <div className="flex justify-between text-sm text-[#b3aae0]">
                        <span>Mass 2 (Purple)</span>
                        <span>{mass2}kg</span>
                     </div>
-                    <Slider value={[mass2]} onValueChange={([v]) => setMass2(v)} min={5} max={30} step={1} className="[&_.range-thumb]:bg-purple-500" />
+                    <Slider value={[mass2]} onValueChange={([v]) => setMass2(v)} min={5} max={30} step={1} className="[&_.range-thumb]:bg-[#a855f7]" />
                  </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                 <Button variant="outline" onClick={() => setIsPlaying(!isPlaying)} className="border-slate-700 hover:bg-slate-800 text-slate-300">
+                 <Button variant="outline" onClick={() => setIsPlaying(!isPlaying)} className="bg-[#0c0824] border-[#4a3f7a] hover:bg-[#241a52] text-[#ECEAE3]">
                     {isPlaying ? "Pause" : "Resume"}
                  </Button>
-                 <Button variant="destructive" onClick={reset} className="bg-red-900/30 hover:bg-red-900/50 text-red-300 border border-red-900">
+                 <Button onClick={reset} className="bg-[#ff3ca6] hover:bg-[#ff3ca6]/90 text-[#160e33]">
                     Reset Chaos
                  </Button>
               </div>

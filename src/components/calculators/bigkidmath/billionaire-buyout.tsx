@@ -1,181 +1,152 @@
 "use client"
 
 import { ShareResult } from "@/components/molecules/share-result"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { motion } from "framer-motion"
-import {
-    Beef,
-    Building2,
-    DollarSign,
-    FastForward,
-    Globe,
-    Heart,
-    Home,
-    Ship,
-    TrendingUp,
-    Wallet,
-    Zap
-} from "lucide-react"
+import { Beef, Building2, FastForward, Globe, Heart, Home, Ship, Zap, type LucideIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 
 const BILLIONAIRES = [
-  { id: 'musk', name: 'Elon Musk', wealth: 245000000000, color: 'text-indigo-500' },
-  { id: 'bezos', name: 'Jeff Bezos', wealth: 200000000000, color: 'text-orange-500' },
-  { id: 'zuck', name: 'Mark Zuckerberg', wealth: 195000000000, color: 'text-blue-500' },
-  { id: 'gates', name: 'Bill Gates', wealth: 125000000000, color: 'text-cyan-500' },
-  { id: 'buffett', name: 'Warren Buffett', wealth: 140000000000, color: 'text-emerald-500' }
+    { id: "musk", name: "Elon Musk", wealth: 245_000_000_000 },
+    { id: "bezos", name: "Jeff Bezos", wealth: 200_000_000_000 },
+    { id: "zuck", name: "Mark Zuckerberg", wealth: 195_000_000_000 },
+    { id: "buffett", name: "Warren Buffett", wealth: 140_000_000_000 },
+    { id: "gates", name: "Bill Gates", wealth: 125_000_000_000 },
 ]
 
-const SHOP_ITEMS = [
-  { label: 'Superyacht', price: 500000000, icon: Ship, cat: 'Luxury' },
-  { label: 'Private Island', price: 100000000, icon: Globe, cat: 'Real Estate' },
-  { label: 'F-35 Fighter Jet', price: 80000000, icon: Zap, cat: 'Defense' },
-  { label: 'Hyper-Luxury Mansion', price: 50000000, icon: Home, cat: 'Real Estate' },
-  { label: 'SpaceX Rocket Launch', price: 67000000, icon: FastForward, cat: 'Space' },
-  { label: 'Small Nation GDP', price: 1000000000, icon: Building2, cat: 'Global' },
-  { label: 'Meal for 1 Million People', price: 5000000, icon: Beef, cat: 'Humanitarian' },
-  { label: 'High-Tech Hospital', price: 250000000, icon: Heart, cat: 'Healthcare' },
+const SHOP_ITEMS: { label: string; price: number; icon: LucideIcon; cat: string }[] = [
+    { label: "Superyacht", price: 500_000_000, icon: Ship, cat: "Luxury" },
+    { label: "Private Island", price: 100_000_000, icon: Globe, cat: "Real Estate" },
+    { label: "F-35 Fighter Jet", price: 80_000_000, icon: Zap, cat: "Defense" },
+    { label: "Hyper-Luxury Mansion", price: 50_000_000, icon: Home, cat: "Real Estate" },
+    { label: "SpaceX Rocket Launch", price: 67_000_000, icon: FastForward, cat: "Space" },
+    { label: "Small Nation GDP", price: 1_000_000_000, icon: Building2, cat: "Global" },
+    { label: "Meal for 1 Million People", price: 5_000_000, icon: Beef, cat: "Humanitarian" },
+    { label: "High-Tech Hospital", price: 250_000_000, icon: Heart, cat: "Healthcare" },
 ]
+
+const fmtPrice = (p: number) =>
+    p >= 1e9 ? `$${(p / 1e9).toLocaleString(undefined, { maximumFractionDigits: 1 })}B`
+        : p >= 1e6 ? `$${(p / 1e6).toLocaleString()}M`
+            : `$${p.toLocaleString()}`
 
 export function BillionaireBuyout() {
-  const [personId, setPersonId] = useState('musk')
-  const [balance, setBalance] = useState(0)
-  const [interestEarned, setInterestEarned] = useState(0)
+    const [personId, setPersonId] = useState("musk")
+    const selectedPerson = BILLIONAIRES.find(p => p.id === personId) || BILLIONAIRES[0]
 
-  const selectedPerson = BILLIONAIRES.find(p => p.id === personId) || BILLIONAIRES[0]
+    // Fix: start funded at the selected billionaire's wealth (was 0 → loaded showing $0).
+    const [balance, setBalance] = useState(BILLIONAIRES[0].wealth)
+    const [interestEarned, setInterestEarned] = useState(0)
 
-  useEffect(() => {
-    setBalance(selectedPerson.wealth)
-    setInterestEarned(0)
-  }, [selectedPerson])
+    const spent = Math.max(0, selectedPerson.wealth - balance)
 
-  // Real-time interest simulator (~7% annual returns)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const perSec = (selectedPerson.wealth * 0.07) / (365 * 24 * 60 * 60)
-      setInterestEarned(prev => prev + (perSec / 10))
-    }, 100)
-    return () => clearInterval(timer)
-  }, [selectedPerson])
+    const handlePersonChange = (value: string) => {
+        const next = BILLIONAIRES.find(p => p.id === value) || BILLIONAIRES[0]
+        setPersonId(value)
+        setBalance(next.wealth)
+        setInterestEarned(0)
+    }
+    const reset = () => { setBalance(selectedPerson.wealth); setInterestEarned(0) }
+    const buy = (price: number) => setBalance(prev => Math.max(0, prev - price))
 
-  const buy = (price: number) => {
-    setBalance(prev => Math.max(0, prev - price))
-  }
+    // Real-time interest simulator (~7% annual returns), display-only.
+    useEffect(() => {
+        const perSec = (selectedPerson.wealth * 0.07) / (365 * 24 * 60 * 60)
+        const timer = setInterval(() => setInterestEarned(prev => prev + perSec / 10), 100)
+        return () => clearInterval(timer)
+    }, [selectedPerson])
 
-  const reset = () => {
-    setBalance(selectedPerson.wealth)
-    setInterestEarned(0)
-  }
+    const years = Math.floor(balance / 1_000_000 / 365)
 
-  return (
-    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-700">
-      
-      {/* Wealth Header */}
-      <div className="grid lg:grid-cols-3 gap-6">
-         <Card className="lg:col-span-2 white-glass-card border-indigo-100 shadow-2xl overflow-hidden relative">
-            <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
-               <Wallet className="w-64 h-64 -mr-20 -mt-20" />
+    return (
+        <motion.div
+            className="w-full rounded-3xl p-5 md:p-8 shadow-2xl relative overflow-hidden"
+            style={{ background: "#1d1442", border: "1px solid #4a3f7a" }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
+        >
+            <div className="relative z-10">
+                <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
+                    <h2 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: "#ECEAE3" }}><span className="text-3xl">💸</span> Billionaire Buyout</h2>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "#29e0ff" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "#29e0ff" }} /> Live vault</span>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-5">
+                    {/* Vault rail */}
+                    <div className="rounded-2xl p-6 flex flex-col gap-5 self-start"
+                        style={{ background: "#0c0824", border: "1px solid #4a3f7a" }}>
+                        <div>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2" style={{ color: "#b3aae0" }}>Net-worth controller</div>
+                            <Select value={personId} onValueChange={handlePersonChange}>
+                                <SelectTrigger className="font-bold text-base h-12" style={{ background: "#0c0824", border: "1px solid #4a3f7a", color: "#ECEAE3" }}>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent style={{ background: "#0c0824", border: "1px solid #4a3f7a", color: "#ECEAE3" }}>
+                                    {BILLIONAIRES.map(p => (
+                                        <SelectItem key={p.id} value={p.id} className="font-semibold">{p.name} — {fmtPrice(p.wealth)}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: "#29e0ff" }}>Active liquidity</div>
+                            <div className="text-4xl font-black tracking-tight leading-none mt-1.5 break-all" style={{ fontFamily: "var(--font-bungee), cursive", color: "#29e0ff" }}>${Math.floor(balance).toLocaleString()}</div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="rounded-xl p-3" style={{ background: "#241a52", border: "1px solid #4a3f7a" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>↗ Interest · live</div>
+                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "#86efac" }}>+${Math.floor(interestEarned).toLocaleString()}</div>
+                            </div>
+                            <div className="rounded-xl p-3" style={{ background: "#241a52", border: "1px solid #4a3f7a" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>$1M/day for</div>
+                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "#29e0ff" }}>{years.toLocaleString()} yrs</div>
+                            </div>
+                        </div>
+
+                        <button onClick={reset} className="w-full rounded-xl font-bold text-sm py-3 transition-colors" style={{ background: "#241a52", border: "1px solid #4a3f7a", color: "#ECEAE3" }}>↺ Reset Vault</button>
+                    </div>
+
+                    {/* Storefront */}
+                    <div>
+                        <div className="flex justify-between items-baseline mb-3">
+                            <div className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "#b3aae0" }}>The storefront</div>
+                            <div className="font-mono text-[12px]" style={{ color: "#b3aae0" }}>Spent so far: <b style={{ color: "#ff8a8a" }}>${spent.toLocaleString()}</b></div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {SHOP_ITEMS.map((item) => {
+                                const Icon = item.icon
+                                const tooPoor = balance < item.price
+                                return (
+                                    <motion.button
+                                        key={item.label}
+                                        whileHover={{ y: -3 }} whileTap={{ scale: 0.98 }}
+                                        onClick={() => buy(item.price)}
+                                        disabled={tooPoor}
+                                        className={`text-left flex items-center gap-3.5 rounded-2xl p-4 transition-colors ${tooPoor ? "opacity-40 cursor-not-allowed" : ""}`}
+                                        style={{ background: "#241a52", border: "1px solid #4a3f7a" }}
+                                    >
+                                        <span className="w-11 h-11 rounded-xl grid place-items-center shrink-0" style={{ background: "#0c0824" }}><Icon className="h-5 w-5" style={{ color: "#29e0ff" }} /></span>
+                                        <span className="flex-1 min-w-0">
+                                            <span className="block font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>{item.cat}</span>
+                                            <span className="block text-[13px] font-bold leading-tight" style={{ color: "#ECEAE3" }}>{item.label}</span>
+                                        </span>
+                                        <span className="font-mono text-sm font-bold text-right" style={{ color: "#29e0ff" }}>{fmtPrice(item.price)}</span>
+                                    </motion.button>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex justify-end mt-6">
+                    <ShareResult
+                        title="Billionaire Buy-Out Challenge"
+                        text={`I tried to spend ${selectedPerson.name}'s fortune! After splurging $${spent.toLocaleString()}, I still have $${Math.floor(balance).toLocaleString()} left. The wealth scale is insane! #DocketOne`}
+                        className="border-none bg-[#29e0ff] hover:bg-[#29e0ff] text-[#160e33]"
+                    />
+                </div>
             </div>
-            <CardHeader className="pb-4">
-               <div className="flex justify-between items-center">
-                  <div className="space-y-1">
-                     <CardTitle className="text-sm font-black uppercase tracking-widest text-slate-400">Net Worth Controller</CardTitle>
-                     <Select value={personId} onValueChange={setPersonId}>
-                        <SelectTrigger className="border-none p-0 h-auto bg-transparent focus:ring-0 shadow-none text-4xl font-black text-slate-950 tracking-tighter">
-                           <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="glass-card">
-                           {BILLIONAIRES.map(p => (
-                             <SelectItem key={p.id} value={p.id} className="font-bold">{p.name}</SelectItem>
-                           ))}
-                        </SelectContent>
-                     </Select>
-                  </div>
-                  <Button variant="outline" onClick={reset} className="rounded-full font-bold px-6 border-indigo-100 hover:bg-indigo-50">Reset Vault</Button>
-               </div>
-            </CardHeader>
-            <CardContent className="space-y-8 relative z-10">
-               <div className="space-y-2">
-                  <div className="text-xs font-black text-indigo-600 uppercase tracking-widest">Active Liquidity</div>
-                  <motion.div 
-                    key={balance}
-                    className="text-8xl font-black text-slate-950 tracking-tighter break-all"
-                  >
-                     ${Math.floor(balance).toLocaleString()}
-                  </motion.div>
-               </div>
-               
-               <div className="flex items-center gap-6 pt-4 border-t border-indigo-50">
-                  <div className="flex-1 space-y-1">
-                     <div className="text-[10px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-2">
-                        <TrendingUp className="h-3 w-3" /> Real-time Interest Growth
-                     </div>
-                     <div className="text-3xl font-black text-emerald-500 font-mono tracking-tighter">
-                        +${interestEarned.toFixed(2)}
-                     </div>
-                  </div>
-                  <div className="text-right text-[10px] font-bold text-slate-400 max-w-[120px] leading-tight font-mono italic">
-                     *Based on estimated 7% return on assets.
-                  </div>
-               </div>
-            </CardContent>
-         </Card>
-
-         <Card className="bg-slate-950 text-white p-8 flex flex-col justify-center gap-6 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent pointer-events-none" />
-            <div className="space-y-2 relative z-10">
-               <div className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.3em]">Statistical Insight</div>
-               <h3 className="text-2xl font-black leading-tight tracking-tight">At this rate, you'd have to spend $1M every day for...</h3>
-               <div className="text-6xl font-black text-indigo-100 tracking-tighter">
-                  {Math.floor(balance / 1000000 / 365)} <span className="text-xl text-indigo-400 uppercase">Years</span>
-               </div>
-               <p className="text-xs text-slate-500 font-medium">Just to reach zero (without accounting for interest).</p>
-            </div>
-         </Card>
-      </div>
-
-      {/* Shopping Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-         {SHOP_ITEMS.map((item, idx) => (
-           <motion.button
-             whileHover={{ y: -5 }}
-             whileTap={{ scale: 0.98 }}
-             key={idx}
-             onClick={() => buy(item.price)}
-             className="white-glass-card p-5 md:p-6 border-slate-100 hover:border-slate-300 transition-all text-left flex flex-col justify-between h-[180px] md:h-[220px] group relative overflow-hidden"
-           >
-              <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <div className="bg-indigo-600 text-white rounded-full p-1"><DollarSign className="h-3 w-3" /></div>
-              </div>
-              
-              <div className="space-y-4">
-                 <div className="bg-slate-50 p-3 rounded-2xl w-fit group-hover:bg-indigo-50 transition-colors">
-                    <item.icon className="h-6 w-6 text-slate-400 group-hover:text-indigo-600 transition-colors" />
-                 </div>
-                 <div className="space-y-1">
-                    <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-none">{item.cat}</div>
-                    <div className="font-black text-sm text-slate-900 leading-tight">{item.label}</div>
-                 </div>
-              </div>
-              
-              <div className="pt-4 border-t border-slate-50">
-                 <div className="font-mono text-xs font-black text-indigo-600 uppercase tracking-tighter">
-                    ${(item.price / 1000000 >= 1 ? `${item.price / 1000000}M` : `${item.price.toLocaleString()}`)}
-                 </div>
-                 <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">Single Unit Cost</div>
-              </div>
-           </motion.button>
-         ))}
-      </div>
-
-      <div className="pt-8 flex justify-center">
-         <ShareResult 
-            title="Billionaire Buy-Out Challenge"
-            text={`I tried to spend ${selectedPerson.name}'s wealth! Even after buying everything, I still have $${Math.floor(balance).toLocaleString()} left. The wealth scale is insane! #DocketOne`}
-         />
-      </div>
-    </div>
-  )
+        </motion.div>
+    )
 }

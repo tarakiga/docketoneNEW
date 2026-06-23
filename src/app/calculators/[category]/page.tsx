@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { calculators } from "@/data/calculators"
-import { ArrowLeft } from "lucide-react"
+import { FilteredCalculatorGrid } from "@/components/organisms/filtered-calculator-grid"
+import { calculators, CATEGORY_META, NOINDEX_CATEGORIES } from "@/data/calculators"
+import { categoryDescriptions } from "@/data/categoryDescriptions"
+import { Metadata } from "next"
 import Link from "next/link"
 
 export function generateStaticParams() {
@@ -9,75 +9,94 @@ export function generateStaticParams() {
     return categories.map(category => ({ category }))
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+    const { category } = await params
+    const meta = CATEGORY_META.find(m => m.id.toLowerCase() === category.toLowerCase())
+    const categoryName = meta?.name || category.charAt(0).toUpperCase() + category.slice(1)
+
+    return {
+        title: `${categoryName} Calculators`,
+        description: `Explore our collection of ${categoryName} tools. From fun simulations to practical utilities.`,
+        alternates: {
+            canonical: `https://docket.one/calculators/${category}/`,
+        },
+        ...(NOINDEX_CATEGORIES.has(category)
+            ? { robots: { index: false, follow: true, googleBot: { index: false, follow: true } } }
+            : {}),
+    }
+}
+
+// Calm per-category accents for the Almanac theme (each keeps its own identity)
+const ACCENTS: Record<string, { a: string; a2: string; tint: string }> = {
+    bigkidmath: { a: "#29e0ff", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
+    cipherlab: { a: "#b388ff", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
+    geekgalaxy: { a: "#ff8a3c", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
+    lifehacks: { a: "#b6ff3c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
+    mathmagik: { a: "#ff3ca6", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
+    otakuops: { a: "#ffd23c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
+    brainmodes: { a: "#5bf0c0", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
+}
+
 interface CategoryPageProps {
-    params: Promise<{
-        category: string
-    }>
+    params: Promise<{ category: string }>
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
     const { category } = await params
-    
-    const categoryCalculators = calculators.filter(c => c.category.toLowerCase() === category.toLowerCase())
-    
-    if (categoryCalculators.length === 0) {
-        // or return empty state
-         // notFound() 
-         // Allow empty categories if defined in routing but no calculators yet?
-    }
+    const key = category.toLowerCase()
 
-    const categoryName = category
+    const categoryCalculators = calculators.filter(c => c.category.toLowerCase() === key)
+    const meta = CATEGORY_META.find(m => m.id.toLowerCase() === key)
+    const about = categoryDescriptions[key]
+    const acc = ACCENTS[key] || ACCENTS.lifehacks
+
+    const categoryName = meta?.name || category
         .split(/(?=[A-Z])|_/)
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ')
-        .replace("Bigkidmath", "Big Kid Math")
-        .replace("Cipherlab", "Cipher Lab")
-        .replace("Geekgalaxy", "Geek Galaxy")
-        .replace("Lifehacks", "Life Hacks")
-        .replace("Mathmagik", "Math Magik")
-        .replace("Otakuops", "Otaku Ops")
 
     return (
-        <div className="container py-12 px-4 md:px-6">
-            <div className="mb-8">
-                <Button variant="ghost" asChild className="mb-4 -ml-4 text-muted-foreground hover:text-primary">
-                    <Link href="/#categories">
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        Back to Categories
-                    </Link>
-                </Button>
-                <h1 className="text-4xl font-bold tracking-tight text-gradient mb-2">{categoryName}</h1>
-                <p className="text-xl text-muted-foreground">
-                    Explore our collection of {categoryName} tools.
-                </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {categoryCalculators.map(calc => (
-                    <Link key={calc.id} href={`/calculators/${calc.category}/${calc.slug}`} className="no-underline group">
-                        <Card className="h-full glass-card hover:shadow-xl transition-all duration-300 border-white/10 group-hover:border-primary/50 relative overflow-hidden">
-                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-6xl select-none pointer-events-none">
-                                {calc.icon}
-                             </div>
-                             <CardHeader>
-                                <div className="text-4xl mb-2">{calc.icon}</div>
-                                <CardTitle className="group-hover:text-primary transition-colors">{calc.title}</CardTitle>
-                             </CardHeader>
-                             <CardContent>
-                                <CardDescription>{calc.description}</CardDescription>
-                             </CardContent>
-                        </Card>
-                    </Link>
-                ))}
-            </div>
-            
-            {categoryCalculators.length === 0 && (
-                <div className="text-center py-24 glass-card rounded-xl">
-                    <div className="text-4xl mb-4">📭</div>
-                    <h3 className="text-xl font-bold">No calculators found</h3>
-                    <p className="text-muted-foreground">We haven't added any tools to this category yet. Check back soon!</p>
+        <div
+            className="almanac"
+            style={{
+                // @ts-expect-error CSS custom properties
+                "--accent": acc.a, "--accent-2": acc.a2, "--accent-tint": acc.tint,
+            }}
+        >
+            <div className="almanac-wrap">
+                <div className="almanac-top">
+                    <Link className="almanac-back" href="/#categories">← all collections</Link>
+                    <span>Docket One</span>
                 </div>
-            )}
+
+                <header className="almanac-masthead">
+                    {meta?.tagline && <div className="almanac-eyebrow">{meta.tagline}</div>}
+                    <h1 className="almanac-h1">
+                        {categoryName}
+                        {meta?.emoji && <span className="almanac-mark">{meta.emoji}</span>}
+                    </h1>
+                    {meta?.description && <p className="almanac-tagline">{meta.description}</p>}
+                </header>
+
+                <div className="almanac-rule">
+                    <span><b>{categoryCalculators.length}</b> {categoryCalculators.length === 1 ? "tool" : "tools"} in this collection</span>
+                    <span>Free · no sign-up</span>
+                </div>
+
+                <FilteredCalculatorGrid calculators={categoryCalculators} />
+
+                {about && (
+                    <section className="almanac-about">
+                        <h2>{about.title}</h2>
+                        <div className="almanac-body">{about.content}</div>
+                    </section>
+                )}
+
+                <div className="almanac-foot">
+                    <span>© 2026 Docket One</span>
+                    <Link href="/#categories">View all collections →</Link>
+                </div>
+            </div>
         </div>
     )
 }

@@ -79,56 +79,56 @@ export function ForceSensitivityCalculator() {
 
   return (
     <div className="max-w-2xl mx-auto animate-in fade-in duration-700">
-       <Card className="bg-slate-950 border-yellow-500/30 overflow-hidden relative">
+       <Card className="bg-[#1d1442] border-[#4a3f7a] overflow-hidden relative">
          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none"></div>
          <CardHeader>
-           <CardTitle className="text-3xl font-display text-yellow-400 text-center flex items-center justify-center gap-2">
+           <CardTitle className="text-3xl font-display text-[#ff8a3c] text-center flex items-center justify-center gap-2">
              <Zap className="h-6 w-6"/> Holocron Aptitude Test
            </CardTitle>
-           <CardDescription className="text-center">Trial {step} of 3</CardDescription>
+           <CardDescription className="text-center text-[#b3aae0]">Trial {step} of 3</CardDescription>
          </CardHeader>
          <CardContent className="space-y-8 min-h-[400px] flex flex-col justify-center">
             
             {step === 1 && (
                <div className="space-y-6 animate-in slide-in-from-right relative z-10">
-                 <h2 className="text-xl font-bold text-slate-100 text-center">Trial 1: The Calling</h2>
-                 <p className="text-slate-300 text-center">From where does your connection stem?</p>
+                 <h2 className="text-xl font-bold text-[#ECEAE3] text-center">Trial 1: The Calling</h2>
+                 <p className="text-[#b3aae0] text-center">From where does your connection stem?</p>
                  <div className="grid gap-3">
                    {[['unknown', 'Unknown Heritage'], ['skywalker', 'Skywalker Bloodline'], ['kenobi', 'Kenobi Lineage'], ['palpatine', 'Palpatine Heritage'], ['yoda', 'Unknown Species']].map(([val, label]) => (
-                     <button key={val} onClick={() => setLineage(val)} className={`p-4 rounded border font-medium ${lineage === val ? 'bg-yellow-900/40 border-yellow-500 text-yellow-100' : 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700'} transition focus:ring-2 focus:ring-yellow-500`}>
+                     <button key={val} onClick={() => setLineage(val)} className={`p-4 rounded border font-medium ${lineage === val ? 'bg-[#241a52] border-[#ff8a3c] text-[#ff8a3c]' : 'bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] hover:bg-[#241a52]'} transition focus:ring-2 focus:ring-[#ff8a3c]`}>
                        {label}
                      </button>
                    ))}
                  </div>
-                 <Button onClick={() => setStep(2)} className="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold">Next Trial</Button>
+                 <Button onClick={() => setStep(2)} className="w-full bg-[#ff8a3c] hover:bg-[#ff8a3c] text-[#160e33] font-bold">Next Trial</Button>
                </div>
             )}
 
             {step === 2 && (
                <div className="space-y-6 animate-in slide-in-from-right flex flex-col items-center relative z-10">
-                 <h2 className="text-xl font-bold text-slate-100 text-center">Trial 2: Focus</h2>
-                 <p className="text-slate-300 text-center">Click the orb when it pulses to its extremes.</p>
-                 
+                 <h2 className="text-xl font-bold text-[#ECEAE3] text-center">Trial 2: Focus</h2>
+                 <p className="text-[#b3aae0] text-center">Click the orb when it pulses to its extremes.</p>
+
                  <div className="relative w-48 h-48 flex items-center justify-center my-8">
-                    <button 
+                    <button
                       onClick={clickOrb}
                       disabled={gameState === 'complete'}
                       aria-label="Focus Orb"
-                      className="rounded-full bg-blue-500 shadow-[0_0_30px_#3b82f6] transition-transform duration-75 focus:ring-4 focus:ring-blue-300"
+                      className="rounded-full bg-[#29e0ff] transition-transform duration-75 focus:ring-4 focus:ring-[#ff8a3c]"
                       style={{ width: '60px', height: '60px', transform: `scale(${orbSize})` }}
                     />
                  </div>
-                 
-                 {gameState === 'idle' && <Button onClick={() => setGameState('active')} className="bg-blue-600 hover:bg-blue-700 text-white">Begin Meditation</Button>}
-                 {gameState === 'active' && <p className="text-blue-300 animate-pulse font-bold">Focus...</p>}
-                 {gameState === 'complete' && <Button onClick={() => setStep(3)} className="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold">Trial Complete</Button>}
+
+                 {gameState === 'idle' && <Button onClick={() => setGameState('active')} className="bg-[#241a52] hover:bg-[#241a52] text-[#ECEAE3] border border-[#4a3f7a]">Begin Meditation</Button>}
+                 {gameState === 'active' && <p className="text-[#29e0ff] animate-pulse font-bold">Focus...</p>}
+                 {gameState === 'complete' && <Button onClick={() => setStep(3)} className="w-full bg-[#ff8a3c] hover:bg-[#ff8a3c] text-[#160e33] font-bold">Trial Complete</Button>}
                </div>
             )}
 
             {step === 3 && (
                <div className="space-y-6 animate-in slide-in-from-right relative z-10">
-                 <h2 className="text-xl font-bold text-slate-100 text-center">Trial 3: Insight</h2>
-                 <p className="text-slate-300 text-center italic">"You see a locked door. Beyond it, power. The key is lost."</p>
+                 <h2 className="text-xl font-bold text-[#ECEAE3] text-center">Trial 3: Insight</h2>
+                <p className="text-[#b3aae0] text-center italic">&quot;You see a locked door. Beyond it, power. The key is lost.&quot;</p>
                  <div className="grid gap-3">
                     {[
                       ['search', 'Search for the Key', 'Patience reveals path.'],
@@ -136,33 +136,33 @@ export function ForceSensitivityCalculator() {
                       ['convince', 'Persuade the Lock', 'The mind is the key.'],
                       ['break', 'Break the Wall', 'Power is to be taken.']
                     ].map(([val, label, sub]) => (
-                      <button key={val} onClick={() => setVision(val)} className={`p-4 rounded border text-left ${vision === val ? 'bg-yellow-900/40 border-yellow-500 text-yellow-100' : 'bg-slate-800 border-slate-700 text-slate-200 hover:bg-slate-700'} transition focus:ring-2 focus:ring-yellow-500`}>
+                      <button key={val} onClick={() => setVision(val)} className={`p-4 rounded border text-left ${vision === val ? 'bg-[#241a52] border-[#ff8a3c] text-[#ff8a3c]' : 'bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] hover:bg-[#241a52]'} transition focus:ring-2 focus:ring-[#ff8a3c]`}>
                         <div className="font-bold">{label}</div>
-                        <div className="text-xs opacity-70 text-slate-300">{sub}</div>
+                        <div className="text-xs opacity-70 text-[#b3aae0]">{sub}</div>
                       </button>
                     ))}
                  </div>
-                 <Button onClick={calculate} disabled={!vision} className="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold">Reveal Path</Button>
+                 <Button onClick={calculate} disabled={!vision} className="w-full bg-[#ff8a3c] hover:bg-[#ff8a3c] text-[#160e33] font-bold">Reveal Path</Button>
                </div>
             )}
 
             {step === 4 && result && (
                <div className="space-y-8 animate-in zoom-in text-center">
                  <div>
-                    <div className="text-sm text-yellow-500 uppercase tracking-widest mb-2">Midichlorian Count</div>
-                    <div className="text-6xl font-black text-white glow-yellow">{result.midichlorian.toLocaleString()}</div>
-                    <div className="text-2xl mt-2 text-yellow-200">{result.title} Potential</div>
+                    <div className="text-sm text-[#ff8a3c] uppercase tracking-widest mb-2">Midichlorian Count</div>
+                    <div className="text-6xl font-black" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>{result.midichlorian.toLocaleString()}</div>
+                    <div className="text-2xl mt-2 text-[#ECEAE3]">{result.title} Potential</div>
                  </div>
 
                  <div className="space-y-2">
-                    <div className="flex justify-between text-xs uppercase text-slate-500 font-bold px-1">
+                    <div className="flex justify-between text-xs uppercase text-[#b3aae0] font-bold px-1">
                        <span>Dark</span><span>Balance</span><span>Light</span>
                     </div>
-                    <div className="h-4 bg-slate-900 rounded-full overflow-hidden border border-slate-800 relative">
-                       <div className="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_10px_white]" style={{ left: result.alignment + '%' }} />
-                       <div className="h-full w-full bg-gradient-to-r from-red-900 via-slate-800 to-blue-900 opacity-50"/>
+                    <div className="h-4 bg-[#0c0824] rounded-full overflow-hidden border border-[#4a3f7a] relative">
+                       <div className="absolute top-0 bottom-0 w-1 bg-[#ECEAE3]" style={{ left: result.alignment + '%' }} />
+                       <div className="h-full w-full bg-gradient-to-r from-[#ff8a8a] via-[#241a52] to-[#29e0ff] opacity-50"/>
                     </div>
-                    <div className="text-slate-400 text-sm">{result.alignment < 40 ? "Dark Tendencies" : result.alignment > 60 ? "Light Adherent" : "Gray Alignment"}</div>
+                    <div className="text-[#b3aae0] text-sm">{result.alignment < 40 ? "Dark Tendencies" : result.alignment > 60 ? "Light Adherent" : "Gray Alignment"}</div>
                  </div>
 
                  <ShareResult 
@@ -170,7 +170,7 @@ export function ForceSensitivityCalculator() {
                    text={`I have a midichlorian count of ${result.midichlorian.toLocaleString()} and show ${result.title} potential! What's your connection?`}
                  />
                  
-                 <Button onClick={() => { setStep(1); setFocusScore(0); setGameState('idle'); }} variant="ghost" className="text-slate-500 hover:text-white">Retake Trials</Button>
+                 <Button onClick={() => { setStep(1); setFocusScore(0); setGameState('idle'); }} variant="ghost" className="text-[#b3aae0] hover:text-[#ECEAE3]">Retake Trials</Button>
                </div>
             )}
 

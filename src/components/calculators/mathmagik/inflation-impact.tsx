@@ -30,7 +30,6 @@ export function InflationImpact() {
   const [mode, setMode] = useState<'historic' | 'future'>('historic')
 
   const calculation = useMemo(() => {
-    let current = amount
     const data = []
     const endYear = mode === 'historic' ? 2023 : startYear + 30
     
@@ -66,32 +65,32 @@ export function InflationImpact() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-slate-50 border-slate-200">
+      <Card className="bg-[#1d1442] border-[#4a3f7a]">
         <CardHeader>
-          <CardTitle className="text-3xl font-display text-slate-700 flex items-center gap-2">
-            <TrendingDown className="h-8 w-8 text-red-500" />
+          <CardTitle className="text-3xl font-display text-[#ECEAE3] flex items-center gap-2">
+            <TrendingDown className="h-8 w-8 text-[#ff3ca6]" />
             The Silent Thief (Inflation)
           </CardTitle>
-          <CardDescription>Visualize how inflation erodes value or increases costs over time.</CardDescription>
+          <CardDescription className="text-[#b3aae0]">Visualize how inflation erodes value or increases costs over time.</CardDescription>
         </CardHeader>
         <CardContent className="grid lg:grid-cols-12 gap-8">
            
            <div className="lg:col-span-4 space-y-6">
-              <div className="space-y-4 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-                 <div className="flex bg-slate-100 p-1 rounded-lg">
-                    <button onClick={() => setMode('historic')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'historic' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}>
+              <div className="space-y-4 p-4 rounded-xl bg-[#0c0824] border border-[#4a3f7a]">
+                 <div className="flex bg-[#241a52] p-1 rounded-lg">
+                    <button onClick={() => setMode('historic')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'historic' ? 'bg-[#ff3ca6] text-[#0c0824]' : 'text-[#b3aae0] hover:text-[#ECEAE3]'}`}>
                        Past (History)
                     </button>
-                    <button onClick={() => setMode('future')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'future' ? 'bg-white shadow text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}>
+                    <button onClick={() => setMode('future')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'future' ? 'bg-[#ff3ca6] text-[#0c0824]' : 'text-[#b3aae0] hover:text-[#ECEAE3]'}`}>
                        Future (Projection)
                     </button>
                  </div>
 
                  <div className="space-y-2">
-                    <Label className="text-slate-600">{mode === 'historic' ? 'Start Year' : 'Current Year'}</Label>
+                    <Label className="text-[#b3aae0]">{mode === 'historic' ? 'Start Year' : 'Current Year'}</Label>
                     <Select value={startYear.toString()} onValueChange={(v) => setStartYear(Number(v))}>
-                      <SelectTrigger><SelectValue/></SelectTrigger>
-                      <SelectContent>
+                      <SelectTrigger className="bg-[#241a52] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#ff3ca6] focus:border-[#ff3ca6]"><SelectValue/></SelectTrigger>
+                      <SelectContent className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
                         {mode === 'historic' 
                            ? Object.keys(HISTORIC_RATES).map(y => <SelectItem key={y} value={y}>{y}</SelectItem>)
                            : <SelectItem value={new Date().getFullYear().toString()}>{new Date().getFullYear()}</SelectItem>
@@ -101,17 +100,17 @@ export function InflationImpact() {
                  </div>
 
                  <div className="space-y-2">
-                    <Label className="text-slate-600">Amount ($)</Label>
-                    <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
+                    <Label className="text-[#b3aae0]">Amount ($)</Label>
+                    <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} className="bg-[#241a52] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#ff3ca6] focus-visible:border-[#ff3ca6]" />
                  </div>
 
                  {mode === 'future' && (
                     <div className="space-y-4 pt-2">
                        <div className="flex justify-between text-sm">
-                          <Label>Assumed Inflation Rate</Label>
-                          <span className="font-mono text-red-500">{customRate}%</span>
+                          <Label className="text-[#b3aae0]">Assumed Inflation Rate</Label>
+                          <span className="font-mono text-[#ff3ca6]">{customRate}%</span>
                        </div>
-                       <Slider value={[customRate]} onValueChange={([v]) => setCustomRate(v)} min={1} max={15} step={0.5} className="[&_.range-thumb]:bg-red-500" />
+                       <Slider value={[customRate]} onValueChange={([v]) => setCustomRate(v)} min={1} max={15} step={0.5} className="[&_.range-thumb]:bg-[#ff3ca6] [&_[role=slider]]:border-[#ff3ca6]" />
                     </div>
                  )}
               </div>
@@ -119,40 +118,43 @@ export function InflationImpact() {
 
            <div className="lg:col-span-8 space-y-8">
               <div className="grid md:grid-cols-2 gap-4">
-                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Original Amount</div>
-                    <div className="text-4xl font-black text-slate-800">${amount.toLocaleString()}</div>
-                    <div className="text-sm text-slate-400 mt-2">
+                 <div className="bg-[#0c0824] p-6 rounded-xl border border-[#4a3f7a]">
+                    <div className="text-xs font-bold uppercase tracking-widest text-[#b3aae0] mb-1">Original Amount</div>
+                    <div className="text-4xl font-black text-[#ECEAE3]">${amount.toLocaleString()}</div>
+                    <div className="text-sm text-[#b3aae0] mt-2">
                        in {startYear}
                     </div>
                  </div>
-                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">{calculation.label}</div>
-                    <div className={`text-4xl font-black ${mode === 'historic' ? 'text-red-600' : 'text-orange-600'}`}>
+                 <div className="bg-[#0c0824] p-6 rounded-xl border border-[#4a3f7a]">
+                    <div className="text-xs font-bold uppercase tracking-widest text-[#b3aae0] mb-1">{calculation.label}</div>
+                    <div className="text-4xl font-black text-[#ff3ca6]">
                       ${calculation.final.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                     </div>
-                    <div className="text-sm text-slate-400 mt-2">
+                    <div className="text-sm text-[#b3aae0] mt-2">
                        in {mode === 'historic' ? '2023' : startYear + 30}
                     </div>
                  </div>
               </div>
 
-              <div className="h-[300px] w-full bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
+              <div className="h-[300px] w-full bg-[#0c0824] rounded-xl p-4 border border-[#4a3f7a]">
                 <ResponsiveContainer width="100%" height="100%">
                    <LineChart data={calculation.data}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                      <XAxis dataKey="year" tick={{ fontSize: 12 }} />
-                      <YAxis domain={['auto', 'auto']} tick={{ fontSize: 12 }} tickFormatter={(val) => `$${val}`} />
-                      <Tooltip 
-                        formatter={(value: any) => [`$${Number(value).toFixed(2)}`, 'Value']}
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#4a3f7a" />
+                      <XAxis dataKey="year" tick={{ fontSize: 12, fill: '#b3aae0' }} stroke="#4a3f7a" />
+                      <YAxis domain={['auto', 'auto']} tick={{ fontSize: 12, fill: '#b3aae0' }} stroke="#4a3f7a" tickFormatter={(val) => `$${val}`} />
+                      <Tooltip
+                        formatter={(value) => [`$${Number(value).toFixed(2)}`, "Value"]}
+                        contentStyle={{ backgroundColor: '#1d1442', border: '1px solid #4a3f7a', color: '#ECEAE3' }}
+                        labelStyle={{ color: '#ECEAE3' }}
+                        itemStyle={{ color: '#ff3ca6' }}
                       />
-                      <Line type="monotone" dataKey="value" stroke={mode === 'historic' ? '#ef4444' : '#f97316'} strokeWidth={3} dot={false} />
+                      <Line type="monotone" dataKey="value" stroke="#ff3ca6" strokeWidth={3} dot={false} />
                    </LineChart>
                 </ResponsiveContainer>
               </div>
 
-              <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg text-sm text-yellow-800 flex gap-3">
-                 <Banknote className="h-5 w-5 shrink-0" />
+              <div className="bg-[#0c0824] border border-[#4a3f7a] p-4 rounded-lg text-sm text-[#ECEAE3] flex gap-3">
+                 <Banknote className="h-5 w-5 shrink-0 text-[#ff3ca6]" />
                  <p>
                     {mode === 'historic' 
                        ? `That's a ${(calculation.final / amount * 100 - 100).toFixed(0)}% increase in prices since ${startYear}. Ouch.` 

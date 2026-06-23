@@ -1,12 +1,10 @@
 "use client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { FormStatusModal, type FormStatus } from "@/components/molecules/form-status-modal"
+import Link from "next/link"
 import { useState } from "react"
-import { toast } from "sonner"
 
 export default function ContactPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [status, setStatus] = useState<FormStatus>(null)
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -15,75 +13,75 @@ export default function ContactPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setIsSubmitting(true)
-        
+        setStatus("submitting")
         try {
             const response = await fetch("/api/mail-relay.php?type=contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
             })
-
             if (response.ok) {
-                toast.success("Message sent! We'll get back to you soon.")
+                setStatus("success")
                 setFormData({ name: "", email: "", message: "" })
             } else {
-                toast.error("Failed to send message. Please try again.")
+                setStatus("error")
             }
-        } catch (error) {
-            toast.error("Portal communication error.")
-        } finally {
-            setIsSubmitting(false)
+        } catch {
+            setStatus("error")
         }
     }
 
     return (
-        <main className="flex-1 bg-background relative">
-            <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-500/10 via-background to-background" />
-            <div className="container py-24 px-4 md:px-6 max-w-2xl mx-auto flex-1 h-full">
-                <div className="glass-card p-8 rounded-xl border-white/20 shadow-2xl animate-in fade-in slide-in-from-bottom-5 duration-500">
-                    <h1 className="text-3xl font-bold mb-2 text-gradient">Contact Us</h1>
-                    <p className="text-muted-foreground mb-6">Have a calculator idea or found a bug? Let us know.</p>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">Name</label>
-                                <Input 
-                                    placeholder="John Doe" 
-                                    required 
-                                    className="bg-background/50 border-input/50" 
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">Email</label>
-                                <Input 
-                                    placeholder="john@example.com" 
-                                    type="email" 
-                                    required 
-                                    className="bg-background/50 border-input/50" 
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                />
-                            </div>
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium">Message</label>
-                            <Textarea 
-                                placeholder="How can we help?" 
-                                required 
-                                className="bg-background/50 border-input/50 min-h-[150px]" 
-                                value={formData.message}
-                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            />
-                        </div>
-                        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
-                            {isSubmitting ? "Sending..." : "Send Message"}
-                        </Button>
-                    </form>
+        <div className="almanac"><div className="almanac-page">
+            <div className="almanac-top"><Link className="almanac-back" href="/">← home</Link><span>Docket One</span></div>
+            <header className="almanac-masthead"><div className="almanac-eyebrow">Get in touch</div><h1 className="almanac-h1 sm">Contact Us</h1><p className="almanac-sub">Have a calculator idea or found a bug? Let us know.</p></header>
+            <form onSubmit={handleSubmit} className="almanac-form">
+                <div className="almanac-row">
+                    <div className="almanac-field">
+                        <label className="almanac-label">Name</label>
+                        <input
+                            className="almanac-input"
+                            placeholder="John Doe"
+                            required
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        />
+                    </div>
+                    <div className="almanac-field">
+                        <label className="almanac-label">Email</label>
+                        <input
+                            className="almanac-input"
+                            type="email"
+                            placeholder="john@example.com"
+                            required
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        />
+                    </div>
                 </div>
-            </div>
-        </main>
+                <div className="almanac-field">
+                    <label className="almanac-label">Message</label>
+                    <textarea
+                        className="almanac-textarea"
+                        placeholder="How can we help?"
+                        required
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    />
+                </div>
+                <button type="submit" className="almanac-btn" disabled={status === "submitting"}>
+                    {status === "submitting" ? "Sending..." : "Send message"}
+                </button>
+            </form>
+            <div className="almanac-foot"><span>© 2026 Docket One</span><Link href="/">Home →</Link></div>
+
+            <FormStatusModal
+                status={status}
+                onClose={() => setStatus(null)}
+                successTitle="Message sent"
+                successMessage="Thanks for reaching out! We'll get back to you soon."
+                errorMessage="We couldn't send your message just now. Please try again in a moment."
+            />
+        </div></div>
     )
 }

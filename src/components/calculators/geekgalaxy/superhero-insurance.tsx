@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
+import { ShareResult } from "@/components/molecules/share-result"
 import { AnimatePresence, motion } from "framer-motion"
 import { Building, Flame, Hammer, Info, ShieldAlert, ShieldCheck, Zap } from "lucide-react"
 import { useMemo, useState } from "react"
@@ -54,8 +55,8 @@ export function SuperheroInsuranceQuote() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in duration-700">
-      <Card className="white-glass-card border-slate-200 shadow-2xl relative overflow-hidden">
+    <div className="almanac max-w-5xl mx-auto space-y-8 animate-in fade-in duration-700" style={{ ['--card' as string]: '#1d1442', ['--ink' as string]: '#ECEAE3', ['--ink-soft' as string]: '#b3aae0', ['--accent' as string]: '#ff8a3c', ['--line' as string]: '#4a3f7a' }}>
+      <Card className="border-[#4a3f7a] shadow-2xl relative overflow-hidden" style={{ backgroundColor: '#1d1442', color: '#ECEAE3' }}>
         
         {/* Comic Overlay Effect */}
         <AnimatePresence>
@@ -76,37 +77,37 @@ export function SuperheroInsuranceQuote() {
           )}
         </AnimatePresence>
 
-        <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-4 sm:p-6 md:p-8">
+        <CardHeader className="border-b border-[#4a3f7a] p-4 sm:p-6 md:p-8" style={{ backgroundColor: '#0c0824' }}>
            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="space-y-1">
-                <CardTitle className="text-xl md:text-3xl font-display flex items-center gap-3">
-                  <ShieldCheck className="h-6 w-6 md:h-8 md:w-8 text-blue-600" />
+                <CardTitle className="text-xl md:text-3xl font-display flex items-center gap-3" style={{ color: '#ECEAE3' }}>
+                  <ShieldCheck className="h-6 w-6 md:h-8 md:w-8" style={{ color: '#ff8a3c' }} />
                   Hero-Liability Quote
                 </CardTitle>
-                <CardDescription className="text-[10px] md:text-sm text-slate-500 font-medium">Protecting assets in the world of legends.</CardDescription>
+                <CardDescription className="text-[10px] md:text-sm font-medium" style={{ color: '#b3aae0' }}>Protecting assets in the world of legends.</CardDescription>
               </div>
-              <div className="bg-rose-50 border border-rose-200 rounded-xl px-4 py-2 flex items-center gap-3">
-                 <ShieldAlert className="h-4 w-4 text-rose-500 animate-bounce" />
-                 <span className="text-[10px] font-black text-rose-700 uppercase tracking-widest leading-none">Status: {selectedCity.alert}</span>
+              <div className="border rounded-xl px-4 py-2 flex items-center gap-3" style={{ backgroundColor: '#241a52', borderColor: '#ff8a3c' }}>
+                 <ShieldAlert className="h-4 w-4 animate-bounce" style={{ color: '#ff8a3c' }} />
+                 <span className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: '#ff8a3c' }}>Status: {selectedCity.alert}</span>
               </div>
            </div>
         </CardHeader>
 
         <CardContent className="p-0">
-           <div className="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-100">
-              
+           <div className="grid lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#4a3f7a]">
+
               {/* Form Section */}
               <div className="lg:col-span-7 p-5 sm:p-8 lg:p-12 space-y-8 sm:space-y-10">
                  <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                        <Label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                        <Label className="text-[11px] font-black uppercase tracking-widest flex items-center gap-2" style={{ color: '#b3aae0' }}>
                            <Building className="h-3 w-3" /> Designated Jurisdiction
                         </Label>
                         <Select value={cityId} onValueChange={setCityId}>
-                           <SelectTrigger className="bg-white border-slate-200 h-12 rounded-xl font-bold">
+                           <SelectTrigger className="h-12 rounded-xl font-bold border-[#4a3f7a] focus:border-[#ff8a3c] focus:ring-1 focus:ring-[#ff8a3c]" style={{ backgroundColor: '#0c0824', color: '#ECEAE3' }}>
                               <SelectValue placeholder="Select City" />
                            </SelectTrigger>
-                           <SelectContent>
+                           <SelectContent style={{ backgroundColor: '#241a52', color: '#ECEAE3', borderColor: '#4a3f7a' }}>
                               {CITIES.map(c => (
                                 <SelectItem key={c.id} value={c.id} className="font-bold">{c.name}</SelectItem>
                               ))}
@@ -115,14 +116,15 @@ export function SuperheroInsuranceQuote() {
                     </div>
 
                     <div className="space-y-3">
-                        <Label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                        <Label className="text-[11px] font-black uppercase tracking-widest flex items-center gap-2" style={{ color: '#b3aae0' }}>
                            <Info className="h-3 w-3" /> Property Valuation
                         </Label>
                         <div className="relative">
-                           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
-                           <Input 
-                             type="number" 
-                             className="pl-8 bg-white border-slate-200 h-12 rounded-xl font-black text-lg"
+                           <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold z-10" style={{ color: '#b3aae0' }}>$</span>
+                           <Input
+                             type="number"
+                             className="pl-8 h-12 rounded-xl font-black text-lg border-[#4a3f7a] focus:border-[#ff8a3c] focus:ring-1 focus:ring-[#ff8a3c]"
+                             style={{ backgroundColor: '#0c0824', color: '#ECEAE3' }}
                              value={propertyValue}
                              onChange={(e) => setPropertyValue(Number(e.target.value))}
                            />
@@ -132,7 +134,7 @@ export function SuperheroInsuranceQuote() {
 
                  <div className="space-y-8">
                     <div className="space-y-4">
-                        <Label className="text-[11px] font-black uppercase tracking-widest text-slate-400">Primary Hero Exposure</Label>
+                        <Label className="text-[11px] font-black uppercase tracking-widest" style={{ color: '#b3aae0' }}>Primary Hero Exposure</Label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                            {HERO_MODIFIERS.map(h => (
                              <button
@@ -141,9 +143,12 @@ export function SuperheroInsuranceQuote() {
                                  setActiveHero(h.id)
                                  triggerBlast()
                                }}
-                               className={`p-3 rounded-2xl border-2 transition-all font-black text-[10px] uppercase tracking-tighter ${
-                                 activeHero === h.id ? "bg-slate-950 border-slate-950 text-white shadow-lg -translate-y-1" : "bg-white border-slate-100 hover:border-slate-200"
-                               }`}
+                               className="p-3 rounded-2xl border-2 transition-all font-black text-[10px] uppercase tracking-tighter"
+                               style={
+                                 activeHero === h.id
+                                   ? { backgroundColor: '#ff8a3c', borderColor: '#ff8a3c', color: '#0c0824', transform: 'translateY(-0.25rem)' }
+                                   : { backgroundColor: '#241a52', borderColor: '#4a3f7a', color: '#ECEAE3' }
+                               }
                              >
                                {h.name.split(' (')[0]}
                              </button>
@@ -151,61 +156,67 @@ export function SuperheroInsuranceQuote() {
                         </div>
                     </div>
 
-                    <div className="space-y-5 bg-slate-50/50 p-6 rounded-[2rem] border border-slate-100">
-                        <div className="flex justify-between items-center text-[11px] font-black uppercase tracking-widest text-slate-500">
+                    <div className="space-y-5 p-6 rounded-[2rem] border border-[#4a3f7a]" style={{ backgroundColor: '#0c0824' }}>
+                        <div className="flex justify-between items-center text-[11px] font-black uppercase tracking-widest" style={{ color: '#b3aae0' }}>
                            <span>Collateral Radius Exposure</span>
-                           <span className="text-slate-950">{heroExposure} miles</span>
+                           <span style={{ color: '#ff8a3c' }}>{heroExposure} miles</span>
                         </div>
-                        <Slider 
-                          value={[heroExposure]} 
-                          onValueChange={([v]) => setHeroExposure(v)} 
-                          max={100} 
+                        <Slider
+                          value={[heroExposure]}
+                          onValueChange={([v]) => setHeroExposure(v)}
+                          max={100}
                           step={1}
-                          className="[&_.range-thumb]:bg-slate-950"
+                          className="[&_.range-thumb]:bg-[#ff8a3c]"
                         />
                     </div>
                  </div>
               </div>
 
               {/* Result Section */}
-              <div className="lg:col-span-5 p-5 sm:p-8 lg:p-12 bg-slate-50/30 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8">
+              <div className="lg:col-span-5 p-5 sm:p-8 lg:p-12 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8" style={{ backgroundColor: '#0c0824' }}>
                  <div className="space-y-2">
-                    <div className="text-xs font-black text-blue-600 uppercase tracking-[0.4em] mb-4">Estimated Premium</div>
-                    <motion.div 
+                    <div className="text-xs font-black uppercase tracking-[0.4em] mb-4" style={{ color: '#ff8a3c' }}>Estimated Premium</div>
+                    <motion.div
                       key={quote.monthly}
                       initial={{ scale: 0.95, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="text-4xl sm:text-6xl md:text-7xl font-sans font-black text-slate-950 tracking-tighter"
+                      className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tighter"
+                      style={{ color: '#ff8a3c' }}
                     >
                        ${quote.monthly.toLocaleString()}
-                       <span className="text-sm text-slate-400 font-bold ml-1 uppercase">/ mo</span>
+                       <span className="text-sm font-bold ml-1 uppercase" style={{ color: '#b3aae0' }}>/ mo</span>
                     </motion.div>
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: '#b3aae0' }}>
                        Annual Total: ${quote.annual.toLocaleString()}
                     </div>
                  </div>
 
+                 <div className="flex justify-center mt-6">
+                    <ShareResult title="Superhero Insurance" text={`My hero-liability premium is $${quote.monthly}/mo. 🦸💥`} />
+                 </div>
+
                  <div className="w-full space-y-4">
-                    <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-xl shadow-slate-200/20 text-left space-y-4">
-                       <div className="flex justify-between items-center border-b border-slate-50 pb-3">
-                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Risk Category</span>
-                          <span className="text-xs font-black text-rose-600 italic underline decoration-rose-500/30 underline-offset-4">{quote.riskLevel}</span>
+                    <div className="p-6 rounded-3xl border border-[#4a3f7a] text-left space-y-4" style={{ backgroundColor: '#1d1442' }}>
+                       <div className="flex justify-between items-center border-b border-[#4a3f7a] pb-3">
+                          <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: '#b3aae0' }}>Risk Category</span>
+                          <span className="text-xs font-black italic underline underline-offset-4" style={{ color: '#ff8a3c' }}>{quote.riskLevel}</span>
                        </div>
                        <div className="flex flex-col gap-3">
-                          <div className="flex items-center gap-3 text-slate-600">
-                             <div className="bg-orange-100 p-2 rounded-lg"><Zap className="h-4 w-4 text-orange-600" /></div>
+                          <div className="flex items-center gap-3" style={{ color: '#ECEAE3' }}>
+                             <div className="p-2 rounded-lg" style={{ backgroundColor: '#241a52' }}><Zap className="h-4 w-4" style={{ color: '#ff8a3c' }} /></div>
                              <span className="text-[11px] font-medium leading-tight">Secondary Impact Waiver Included</span>
                           </div>
-                          <div className="flex items-center gap-3 text-slate-600">
-                             <div className="bg-red-100 p-2 rounded-lg"><Flame className="h-4 w-4 text-red-600" /></div>
+                          <div className="flex items-center gap-3" style={{ color: '#ECEAE3' }}>
+                             <div className="p-2 rounded-lg" style={{ backgroundColor: '#241a52' }}><Flame className="h-4 w-4" style={{ color: '#ff8a3c' }} /></div>
                              <span className="text-[11px] font-medium leading-tight">Heat-Vision Fire Coverage</span>
                           </div>
                        </div>
                     </div>
-                    
-                    <Button 
+
+                    <Button
                       onClick={triggerBlast}
-                      className="w-full h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-widest transition-transform active:scale-95"
+                      className="w-full h-14 rounded-2xl font-black uppercase tracking-widest transition-transform active:scale-95 hover:opacity-90"
+                      style={{ backgroundColor: '#ff8a3c', color: '#0c0824' }}
                     >
                       Process Claim
                     </Button>
@@ -217,15 +228,15 @@ export function SuperheroInsuranceQuote() {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
          {[
-           { title: "Shield Waiver", txt: "Optional coverage for Vibranium or Adamanitum incidents.", icon: ShieldCheck, color: "text-blue-500" },
-           { title: "Collateral Aid", txt: "Emergency relocation if your home becomes a boss fight.", icon: Building, color: "text-emerald-500" },
-           { title: "Gadget Guard", txt: "Insure high-tech bunkers against EMP or hacking.", icon: Hammer, color: "text-orange-500" },
-           { title: "Speed Claim", txt: "Instant payout for supersonic-boom window damage.", icon: Zap, color: "text-purple-500" }
+           { title: "Shield Waiver", txt: "Optional coverage for Vibranium or Adamanitum incidents.", icon: ShieldCheck },
+           { title: "Collateral Aid", txt: "Emergency relocation if your home becomes a boss fight.", icon: Building },
+           { title: "Gadget Guard", txt: "Insure high-tech bunkers against EMP or hacking.", icon: Hammer },
+           { title: "Speed Claim", txt: "Instant payout for supersonic-boom window damage.", icon: Zap }
          ].map((item, idx) => (
-           <Card key={idx} className="white-glass-card p-5 border-slate-100 hover:border-slate-300 transition-all cursor-default group">
-              <item.icon className={`${item.color} w-5 h-5 mb-3 group-hover:scale-110 transition-transform`} />
-              <div className="font-black text-[10px] uppercase tracking-widest text-slate-900 mb-1">{item.title}</div>
-              <p className="text-[9px] text-slate-400 font-medium leading-tight">{item.txt}</p>
+           <Card key={idx} className="p-5 border-[#4a3f7a] hover:border-[#ff8a3c] transition-all cursor-default group" style={{ backgroundColor: '#1d1442' }}>
+              <item.icon className="w-5 h-5 mb-3 group-hover:scale-110 transition-transform" style={{ color: '#ff8a3c' }} />
+              <div className="font-black text-[10px] uppercase tracking-widest mb-1" style={{ color: '#ECEAE3' }}>{item.title}</div>
+              <p className="text-[9px] font-medium leading-tight" style={{ color: '#b3aae0' }}>{item.txt}</p>
            </Card>
          ))}
       </div>

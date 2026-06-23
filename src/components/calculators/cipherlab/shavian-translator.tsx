@@ -3,7 +3,7 @@
 import { ShareResult } from "@/components/molecules/share-result"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { useEffect, useState } from "react"
+import { useMemo, useState } from "react"
 
 // Shavian mapping sorted by length for greedy match
 const SHAVIAN_MAP: Record<string, string> = {
@@ -23,13 +23,11 @@ const SORTED_KEYS = Object.keys(SHAVIAN_MAP).sort((a, b) => b.length - a.length)
 
 export function ShavianTranslator() {
     const [text, setText] = useState("Hello world")
-    const [shavian, setShavian] = useState("")
-
-    useEffect(() => {
-        let input = text.toLowerCase()
+    const shavian = useMemo(() => {
+        const input = text.toLowerCase()
         let result = ""
         let i = 0
-        
+
         while (i < input.length) {
             let foundMatch = false
             for (const key of SORTED_KEYS) {
@@ -41,41 +39,57 @@ export function ShavianTranslator() {
                 }
             }
             if (!foundMatch) {
-                result += input[i] // Append unknown char as is
+                result += input[i]
                 i++
             }
         }
-        
-        setShavian(result)
+
+        return result
     }, [text])
 
     return (
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div
+            className="almanac grid lg:grid-cols-2 gap-8"
+            style={{
+                ['--card' as string]: '#1d1442',
+                ['--ink' as string]: '#ECEAE3',
+                ['--ink-soft' as string]: '#b3aae0',
+                ['--accent' as string]: '#b388ff',
+                ['--line' as string]: '#4a3f7a',
+            }}
+        >
             <div className="space-y-6">
-                <Card className="glass-card">
+                <Card
+                    className="glass-card"
+                    style={{ background: '#1d1442', borderColor: '#4a3f7a' }}
+                >
                     <CardHeader>
-                        <CardTitle>English Text</CardTitle>
+                        <CardTitle style={{ color: '#ECEAE3' }}>English Text</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <Textarea 
-                            placeholder="Type English..." 
+                        <Textarea
+                            placeholder="Type English..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[150px] text-lg"
+                            className="min-h-[150px] text-lg focus-visible:ring-[#b388ff]"
+                            style={{ background: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
                         />
-                         <p className="mt-2 text-xs text-muted-foreground">
-                            Try words like "the", "and", "church", "measure", "enough".
+                         <p className="mt-2 text-xs" style={{ color: '#b3aae0' }}>
+                            Try words like &quot;the&quot;, &quot;and&quot;, &quot;church&quot;, &quot;measure&quot;, &quot;enough&quot;.
                         </p>
                     </CardContent>
                 </Card>
 
-                <Card className="glass-card bg-orange-500/5 border-orange-500/20">
+                <Card
+                    className="glass-card"
+                    style={{ background: '#241a52', borderColor: '#4a3f7a' }}
+                >
                      <CardContent className="pt-6">
-                        <h4 className="font-bold text-orange-500 mb-2 flex items-center gap-2">
-                             🇬🇧 George Bernard Shaw's Dream
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
+                             🇬🇧 George Bernard Shaw&apos;s Dream
                         </h4>
-                        <p className="text-sm text-muted-foreground">
-                            A constructed phonetic alphabet designed to replace the complex spelling of English. 
+                        <p className="text-sm" style={{ color: '#b3aae0' }}>
+                            A constructed phonetic alphabet designed to replace the complex spelling of English.
                             Funded by the will of playwright George Bernard Shaw. It is phonetic, meaning one symbol = one sound.
                         </p>
                     </CardContent>
@@ -83,23 +97,29 @@ export function ShavianTranslator() {
             </div>
 
             <div className="space-y-6">
-                 <Card className="glass-card h-full flex flex-col">
+                 <Card
+                    className="glass-card h-full flex flex-col"
+                    style={{ background: '#1d1442', borderColor: '#4a3f7a' }}
+                 >
                     <CardHeader>
-                        <CardTitle>Shavian Output</CardTitle>
+                        <CardTitle style={{ color: '#ECEAE3' }}>Shavian Output</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
-                        <div className="p-8 bg-orange-50 dark:bg-stone-900/50 rounded-xl border border-orange-200 dark:border-orange-900/30 min-h-[300px] flex items-center justify-center text-center">
+                        <div
+                            className="p-8 rounded-xl min-h-[300px] flex items-center justify-center text-center"
+                            style={{ background: '#0c0824', border: '1px solid #4a3f7a' }}
+                        >
                             {shavian ? (
-                                <p className="text-4xl leading-relaxed text-orange-700 dark:text-orange-300 font-serif">
+                                <p className="text-4xl leading-relaxed font-serif" style={{ color: '#b388ff' }}>
                                     {shavian}
                                 </p>
                             ) : (
-                                <p className="text-muted-foreground italic">Translation will appear here...</p>
+                                <p className="italic" style={{ color: '#b3aae0' }}>Translation will appear here...</p>
                             )}
                         </div>
                     </CardContent>
                      <div className="p-6 pt-0">
-                         <ShareResult 
+                         <ShareResult
                             title="Shavian Alphabet 📜"
                             text={`I translated into Shavian: "${shavian}"`}
                             className="w-full"

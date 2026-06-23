@@ -2,32 +2,20 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { ShareResult } from "@/components/molecules/share-result"
 import { ChevronDown, Clock, Fuel, Gauge, Rocket } from "lucide-react"
 import { useMemo, useState } from "react"
-
-const DESTINATIONS = {
-  'moon': { name: 'Moon', emoji: '🌙', distKm: 384400, color: 'text-gray-300', au: 1.002, period: 0.074 },
-  'mercury': { name: 'Mercury', emoji: '☿️', distKm: 77000000, color: 'text-gray-400', au: 0.387, period: 0.241 },
-  'venus': { name: 'Venus', emoji: '♀️', distKm: 41000000, color: 'text-yellow-400', au: 0.723, period: 0.615 },
-  'mars': { name: 'Mars', emoji: '🔴', distKm: 78000000, color: 'text-red-500', au: 1.524, period: 1.881 },
-  'jupiter': { name: 'Jupiter', emoji: '🪐', distKm: 628000000, color: 'text-orange-400', au: 5.204, period: 11.86 },
-  'saturn': { name: 'Saturn', emoji: '🪐', distKm: 1200000000, color: 'text-yellow-600', au: 9.582, period: 29.45 },
-  'uranus': { name: 'Uranus', emoji: '🔵', distKm: 2700000000, color: 'text-cyan-400', au: 19.22, period: 84.01 },
-  'neptune': { name: 'Neptune', emoji: '🔵', distKm: 4300000000, color: 'text-blue-500', au: 30.07, period: 164.8 },
-  'proxima': { name: 'Proxima Centauri', emoji: '⭐', distKm: 4.24 * 9.461e12, color: 'text-yellow-200', au: 268000, period: 1000000 },
-  'andromeda': { name: 'Andromeda Galaxy', emoji: '🌌', distKm: 2.5e6 * 9.461e12, color: 'text-purple-400', au: 1.5e11, period: 1e15 },
-}
 
 // Correcting the object structure to ensure consistency
 const DEST_VALS = {
   'moon': { name: 'Moon', emoji: '🌙', distKm: 384400, color: 'text-gray-300', au: 1.002, period: 0.074 },
-  'mercury': { name: 'Mercury', emoji: '☿️', distKm: 77000000, color: 'text-gray-400', au: 0.387, period: 0.241 },
-  'venus': { name: 'Venus', emoji: '♀️', distKm: 41000000, color: 'text-yellow-400', au: 0.723, period: 0.615 },
-  'mars': { name: 'Mars', emoji: '🔴', distKm: 78000000, color: 'text-red-500', au: 1.524, period: 1.881 },
+  'mercury': { name: 'Mercury', emoji: '☿️', distKm: 77000000, color: 'text-gray-300', au: 0.387, period: 0.241 },
+  'venus': { name: 'Venus', emoji: '♀️', distKm: 41000000, color: 'text-yellow-300', au: 0.723, period: 0.615 },
+  'mars': { name: 'Mars', emoji: '🔴', distKm: 78000000, color: 'text-red-300', au: 1.524, period: 1.881 },
   'jupiter': { name: 'Jupiter', emoji: '🪐', distKm: 628000000, color: 'text-orange-400', au: 5.204, period: 11.86 },
-  'saturn': { name: 'Saturn', emoji: '🪐', distKm: 1200000000, color: 'text-yellow-600', au: 9.582, period: 29.45 },
+  'saturn': { name: 'Saturn', emoji: '🪐', distKm: 1200000000, color: 'text-amber-300', au: 9.582, period: 29.45 },
   'uranus': { name: 'Uranus', emoji: '🔵', distKm: 2700000000, color: 'text-cyan-400', au: 19.22, period: 84.01 },
-  'neptune': { name: 'Neptune', emoji: '🔵', distKm: 4300000000, color: 'text-blue-500', au: 30.07, period: 164.8 },
+  'neptune': { name: 'Neptune', emoji: '🔵', distKm: 4300000000, color: 'text-sky-300', au: 30.07, period: 164.8 },
   'proxima': { name: 'Proxima Centauri', emoji: '⭐', distKm: 4.24 * 9.461e12, color: 'text-yellow-200', au: 268000, period: 1000000 },
   'andromeda': { name: 'Andromeda Galaxy', emoji: '🌌', distKm: 2.5e6 * 9.461e12, color: 'text-purple-400', au: 1.5e11, period: 1e15 },
 }
@@ -35,6 +23,7 @@ const DEST_VALS = {
 const PROPULSION = {
   'car': { name: 'Highway Speed', emoji: '🚗', speed: 0.1, label: '100 km/h', color: 'from-slate-800 to-slate-900', class: 'Civilian', isFTL: false },
   'jet': { name: 'Jet Aircraft', emoji: '✈️', speed: 0.9, label: '900 km/h', color: 'from-blue-800 to-blue-900', class: 'Aviation', isFTL: false },
+  'artemis': { name: 'Artemis SLS', emoji: '🌕', speed: 27.35, label: '27.35k km/h', color: 'from-orange-800 to-red-900', class: 'Super Heavy Lift', isFTL: false },
   'dragon': { name: 'SpaceX Dragon', emoji: '🐉', speed: 28, label: '28k km/h', color: 'from-blue-900 to-indigo-950', class: 'LEO Transport', isFTL: false },
   'starship': { name: 'SpaceX Starship', emoji: '🚀', speed: 30, label: '30k km/h', color: 'from-blue-800 to-indigo-900', class: 'Super Heavy', isFTL: false },
   'rocket': { name: 'Chemical Rocket', emoji: '🧨', speed: 40, label: '40k km/h', color: 'from-orange-900 to-red-900', class: 'Traditional', isFTL: false },
@@ -64,15 +53,22 @@ export function SpaceTravelCalculator() {
     let method = "Direct Path"
 
     // Only apply Hohmann to inner/outer solar system and traditional rockets
-    const isRocketType = ['rocket', 'starship', 'dragon'].includes(propulsion)
+    const isRocketType = ['rocket', 'starship', 'dragon', 'artemis'].includes(propulsion)
     if (useHohmann && dest.au < 100 && isRocketType) {
-      const r1 = 1.0 
-      const r2 = dest.au
-      const a_trans = (r1 + r2) / 2
-      const p_trans_years = Math.sqrt(Math.pow(a_trans, 3))
-      const travel_years = p_trans_years / 2
-      hours = travel_years * 365 * 24
-      method = "Hohmann Transfer Orbit"
+      if (destination === 'moon') {
+        // The standard Kepler calculation below is Heliocentric (Sun-orbit). 
+        // For the Moon, we use a Geocentric translunar injection which takes roughly 3 to 5 days.
+        hours = 120 // 5 days average for high-efficiency lunar transfer
+        method = "Lunar Transfer Orbit"
+      } else {
+        const r1 = 1.0 
+        const r2 = dest.au
+        const a_trans = (r1 + r2) / 2
+        const p_trans_years = Math.sqrt(Math.pow(a_trans, 3))
+        const travel_years = p_trans_years / 2
+        hours = travel_years * 365 * 24
+        method = "Hohmann Transfer Orbit"
+      }
     } else {
       const actualSpeed = prop.isFTL ? prop.speed : prop.speed * 1000
       hours = dest.distKm / actualSpeed
@@ -133,34 +129,33 @@ export function SpaceTravelCalculator() {
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <Card className="bg-black border-slate-800/60 shadow-2xl shadow-blue-900/10">
-        <CardHeader className="border-b border-slate-800/50">
-          <CardTitle className="text-3xl font-display text-blue-400 flex items-center gap-2">
-            <Rocket className="h-8 w-8 text-blue-500" />
+      <Card className="shadow-2xl" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+        <CardHeader className="border-b" style={{ borderColor: '#4a3f7a' }}>
+          <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: '#ff8a3c' }}>
+            <Rocket className="h-8 w-8" style={{ color: '#ff8a3c' }} />
             Interstellar Voyager
           </CardTitle>
-          <CardDescription className="text-blue-200/40 font-medium">Orbital dynamics & cosmic mission planning center.</CardDescription>
+          <CardDescription className="font-medium" style={{ color: '#b3aae0' }}>Orbital dynamics & cosmic mission planning center.</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-8 lg:grid-cols-12 p-4 sm:p-6 lg:p-10">
           
           <div className="lg:col-span-4 space-y-6">
             <div className="space-y-3">
-              <Label className="text-blue-400/60 uppercase tracking-widest text-[10px] font-bold">Target Destination</Label>
+              <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: '#ff8a3c' }}>Target Destination</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {Object.entries(DEST_VALS).map(([key, data]) => (
                   <button
                     key={key}
-                    onClick={() => setDestination(key as any)}
-                    className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${
-                      destination === key 
-                        ? "bg-slate-900/80 border-blue-500/50 ring-1 ring-blue-500/30" 
-                        : "bg-black border-slate-800 hover:border-blue-900/50 hover:bg-slate-900/20"
-                    }`}
+                    onClick={() => setDestination(key as keyof typeof DEST_VALS)}
+                    className="flex items-center gap-3 p-3 rounded-xl border transition-all"
+                    style={destination === key
+                      ? { backgroundColor: '#241a52', borderColor: '#ff8a3c' }
+                      : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}
                   >
                     <span className="text-2xl">{data.emoji}</span>
                     <div className="text-left">
                       <div className={`font-bold text-xs ${data.color}`}>{data.name}</div>
-                      <div className="text-[9px] text-slate-500">{(data.distKm).toExponential(1)} km</div>
+                      <div className="text-[9px]" style={{ color: '#b3aae0' }}>{(data.distKm).toExponential(1)} km</div>
                     </div>
                   </button>
                 ))}
@@ -168,69 +163,63 @@ export function SpaceTravelCalculator() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-blue-400/60 uppercase tracking-widest text-[10px] font-bold">Propulsion System</Label>
+              <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: '#ff8a3c' }}>Propulsion System</Label>
               <div className="relative group/scroll">
-                <div className="grid grid-cols-1 gap-2 max-h-[300px] sm:max-h-[360px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+                <div className="grid grid-cols-1 gap-2 max-h-[300px] sm:max-h-[360px] overflow-y-auto pr-2 scrollbar-thin scrollbar-track-transparent">
                   {Object.entries(PROPULSION).map(([key, prop]) => (
                     <button
                       key={key}
-                      onClick={() => setPropulsion(key as any)}
-                      className={`flex items-center gap-4 p-4 rounded-xl border transition-all relative overflow-hidden group/btn ${
-                        propulsion === key 
-                          ? "bg-slate-900/80 border-blue-500/50 ring-1 ring-blue-500/30" 
-                          : "bg-black border-slate-800 hover:border-blue-900/50 hover:bg-slate-900/20"
-                      }`}
+                      onClick={() => setPropulsion(key as keyof typeof PROPULSION)}
+                      className="flex items-center gap-4 p-4 rounded-xl border transition-all relative overflow-hidden group/btn"
+                      style={propulsion === key
+                        ? { backgroundColor: '#241a52', borderColor: '#ff8a3c' }
+                        : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}
                     >
-                      <span className="text-3xl relative z-10 filter group-hover/btn:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)] transition-all">{prop.emoji}</span>
+                      <span className="text-3xl relative z-10 transition-all">{prop.emoji}</span>
                       <div className="text-left relative z-10 flex-1">
                         <div className="flex items-center justify-between">
-                          <div className="font-bold text-[11px] text-white uppercase tracking-tight">{prop.name}</div>
-                          <div className="text-[8px] text-slate-500 font-bold uppercase">{prop.class}</div>
+                          <div className="font-bold text-[11px] uppercase tracking-tight" style={{ color: '#ECEAE3' }}>{prop.name}</div>
+                          <div className="text-[8px] font-bold uppercase" style={{ color: '#b3aae0' }}>{prop.class}</div>
                         </div>
-                        <div className="text-[10px] text-blue-400 font-bold mt-0.5">{prop.label}</div>
+                        <div className="text-[10px] font-bold mt-0.5" style={{ color: '#ff8a3c' }}>{prop.label}</div>
                       </div>
-                      {propulsion === key && (
-                        <div className="absolute inset-0 bg-blue-500/5 pointer-events-none" />
-                      )}
                     </button>
                   ))}
                 </div>
-                <div className="absolute bottom-0 left-0 right-2 h-12 bg-gradient-to-t from-black to-transparent pointer-events-none z-20 flex items-end justify-center pb-1">
+                <div className="absolute bottom-0 left-0 right-2 h-12 pointer-events-none z-20 flex items-end justify-center pb-1">
                    <div className="flex flex-col items-center gap-1 animate-bounce opacity-40 group-hover/scroll:opacity-80 transition-opacity">
-                      <span className="text-[7px] text-slate-500 font-bold uppercase tracking-wider">Hangar Scroll</span>
-                      <ChevronDown className="h-3 w-3 text-slate-500" />
+                      <span className="text-[7px] font-bold uppercase tracking-wider" style={{ color: '#b3aae0' }}>Hangar Scroll</span>
+                      <ChevronDown className="h-3 w-3" style={{ color: '#b3aae0' }} />
                    </div>
                 </div>
               </div>
             </div>
 
-            {['rocket', 'starship', 'dragon'].includes(propulsion) && DEST_VALS[destination].au < 100 && (
+            {['rocket', 'starship', 'dragon', 'artemis'].includes(propulsion) && DEST_VALS[destination].au < 100 && (
               <div className="space-y-3 pt-2">
-                <Label className="text-blue-400/60 uppercase tracking-widest text-[10px] font-bold">Trajectory Mode</Label>
+                <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: '#ff8a3c' }}>Trajectory Mode</Label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setUseHohmann(true)}
-                    className={`text-[10px] p-2.5 rounded-lg border uppercase tracking-widest font-black transition-all ${
-                      useHohmann 
-                        ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-900/50" 
-                        : "bg-black border-slate-800 text-slate-500 hover:text-slate-300 hover:border-slate-700"
-                    }`}
+                    className="text-[10px] p-2.5 rounded-lg border uppercase tracking-widest font-black transition-all"
+                    style={useHohmann
+                      ? { backgroundColor: '#ff8a3c', borderColor: '#ff8a3c', color: '#160e33' }
+                      : { backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#b3aae0' }}
                   >
                     Hohmann
                   </button>
                   <button
                     onClick={() => setUseHohmann(false)}
-                    className={`text-[10px] p-2.5 rounded-lg border uppercase tracking-widest font-black transition-all ${
-                      !useHohmann 
-                        ? "bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-900/50" 
-                        : "bg-black border-slate-800 text-slate-500 hover:text-slate-300 hover:border-slate-700"
-                    }`}
+                    className="text-[10px] p-2.5 rounded-lg border uppercase tracking-widest font-black transition-all"
+                    style={!useHohmann
+                      ? { backgroundColor: '#ff8a3c', borderColor: '#ff8a3c', color: '#160e33' }
+                      : { backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#b3aae0' }}
                   >
                     Direct
                   </button>
                 </div>
-                <div className="bg-slate-900/40 p-4 rounded-xl border border-slate-800/50 mt-2">
-                  <p className="text-[10px] text-slate-400 font-medium leading-relaxed italic">
+                <div className="p-4 rounded-xl border mt-2" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                  <p className="text-[10px] font-medium leading-relaxed italic" style={{ color: '#b3aae0' }}>
                     {useHohmann 
                       ? "📡 Hohmann Transfer: Maximum fuel efficiency via gravity drift." 
                       : "🔥 Direct Path: Brute-force trajectory. Ignores orbital curves."}
@@ -241,44 +230,47 @@ export function SpaceTravelCalculator() {
           </div>
 
           <div className="lg:col-span-8 flex flex-col gap-6">
-            <div className="bg-slate-950 rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-10 border border-slate-800/80 flex flex-col justify-center gap-6 sm:gap-8 relative overflow-hidden group min-h-[280px] sm:min-h-[340px] shadow-inner">
-               <div className={`absolute -right-24 -top-24 w-96 h-96 bg-gradient-to-br ${PROPULSION[propulsion as keyof typeof PROPULSION].color} rounded-full blur-[120px] opacity-10 group-hover:opacity-30 transition-opacity duration-1000 animate-blob`} />
-               <div className={`absolute -left-24 -bottom-24 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px] opacity-10 animate-blob [animation-delay:3s]`} />
+            <div className="rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-10 border flex flex-col justify-center gap-6 sm:gap-8 relative overflow-hidden group min-h-[280px] sm:min-h-[340px]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+               <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full opacity-20 animate-blob" style={{ backgroundColor: '#241a52' }} />
+               <div className="absolute -left-24 -bottom-24 w-64 h-64 rounded-full opacity-20 animate-blob [animation-delay:3s]" style={{ backgroundColor: '#241a52' }} />
 
                <div className="relative z-10 text-center space-y-4">
-                  <div className="text-blue-500 uppercase text-[10px] tracking-[0.4em] mb-3 font-black flex items-center justify-center gap-3">
+                  <div className="uppercase text-[10px] tracking-[0.4em] mb-3 font-black flex items-center justify-center gap-3" style={{ color: '#ff8a3c' }}>
                     <Clock className="h-4 w-4 animate-pulse" /> {stats.method}
                   </div>
-                  <div className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter group-hover:scale-105 transition-transform duration-700 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">{stats.timeLabel}</div>
+                  <div className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-700" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>{stats.timeLabel}</div>
+                  <div className="flex justify-center mt-6">
+                    <ShareResult title="Space Travel Time" text={`It would take ${stats.timeLabel} to reach ${DEST_VALS[destination].name} by ${PROPULSION[propulsion as keyof typeof PROPULSION].name}. 🚀`} />
+                  </div>
                </div>
 
                <div className="grid sm:grid-cols-2 gap-4 relative z-10">
-                  <div className="bg-black/80 backdrop-blur-xl p-5 rounded-2xl border border-slate-800 shadow-xl">
-                     <div className="flex items-center gap-2 text-slate-400 mb-2">
+                  <div className="p-5 rounded-2xl border" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                     <div className="flex items-center gap-2 mb-2" style={{ color: '#b3aae0' }}>
                         <Gauge className="h-4 w-4" />
                         <span className="text-[10px] font-black uppercase tracking-widest">Warp Profile</span>
                      </div>
-                     <div className="text-lg font-bold text-white leading-tight">{PROPULSION[propulsion as keyof typeof PROPULSION].name}</div>
-                     <div className="text-[10px] text-blue-500 font-bold mt-1 uppercase tracking-widest">Active Velocity Computation</div>
+                     <div className="text-lg font-bold leading-tight" style={{ color: '#ECEAE3' }}>{PROPULSION[propulsion as keyof typeof PROPULSION].name}</div>
+                     <div className="text-[10px] font-bold mt-1 uppercase tracking-widest" style={{ color: '#ff8a3c' }}>Active Velocity Computation</div>
                   </div>
-                  
+
                   {DEST_VALS[destination].au < 100 && (
-                    <div className="bg-black/80 backdrop-blur-xl p-5 rounded-2xl border border-slate-800 shadow-xl">
-                       <div className="flex items-center gap-2 text-emerald-400 mb-2">
+                    <div className="p-5 rounded-2xl border" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                       <div className="flex items-center gap-2 mb-2" style={{ color: '#86efac' }}>
                           <Fuel className="h-4 w-4" />
                           <span className="text-[10px] font-black uppercase tracking-widest">Departure Window</span>
                        </div>
-                       <div className="text-lg font-bold text-white leading-tight underline decoration-emerald-500/50 underline-offset-4">{stats.windows[0].month} {stats.windows[0].year}</div>
-                       <div className="text-[10px] text-emerald-400 font-bold mt-1 uppercase tracking-widest italic font-mono">Launch Gate Primed</div>
+                       <div className="text-lg font-bold leading-tight underline decoration-[#86efac]/50 underline-offset-4" style={{ color: '#ECEAE3' }}>{stats.windows[0].month} {stats.windows[0].year}</div>
+                       <div className="text-[10px] font-bold mt-1 uppercase tracking-widest italic font-mono" style={{ color: '#86efac' }}>Launch Gate Primed</div>
                     </div>
                   )}
                </div>
 
                {stats.percentC >= 100 && (
-                 <div className="bg-blue-950/40 border border-blue-500/30 p-4 rounded-xl flex gap-3 items-start relative z-10">
-                   <Clock className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
-                   <div className="text-[10px] text-blue-200/80 leading-relaxed">
-                     <span className="font-black text-blue-400 uppercase pr-1">Causality Violation:</span> 
+                 <div className="p-4 rounded-xl flex gap-3 items-start relative z-10 border" style={{ backgroundColor: '#241a52', borderColor: '#ff8a3c' }}>
+                   <Clock className="h-5 w-5 shrink-0 mt-0.5" style={{ color: '#ff8a3c' }} />
+                   <div className="text-[10px] leading-relaxed" style={{ color: '#b3aae0' }}>
+                     <span className="font-black uppercase pr-1" style={{ color: '#ff8a3c' }}>Causality Violation:</span>
                      Time dilation is significant. Perceived mission time follows crew-relative temporal flow.
                    </div>
                  </div>
@@ -289,50 +281,48 @@ export function SpaceTravelCalculator() {
               {DEST_VALS[destination].au < 100 ? (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between px-2">
-                    <h3 className="text-blue-500 font-black uppercase tracking-[0.4em] text-[10px] flex items-center gap-2">
+                    <h3 className="font-black uppercase tracking-[0.4em] text-[10px] flex items-center gap-2" style={{ color: '#ff8a3c' }}>
                       <Rocket className="h-3 w-3" /> Flight Manifest: {DEST_VALS[destination].name}
                     </h3>
-                    <div className="h-px flex-1 bg-gradient-to-r from-blue-500/40 to-transparent ml-6" />
+                    <div className="h-px flex-1 ml-6" style={{ backgroundColor: '#4a3f7a' }} />
                   </div>
                   
                   <div className="grid sm:grid-cols-3 gap-4">
                     {stats.windows.map((win, idx) => (
-                      <div key={idx} className="bg-black border border-slate-800 rounded-[1.5rem] p-4 sm:p-6 relative overflow-hidden group hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-700 shadow-lg">
-                        <div className={`absolute -right-4 -top-4 w-20 h-20 bg-gradient-to-br ${PROPULSION[propulsion as keyof typeof PROPULSION].color} rounded-full blur-3xl opacity-10 group-hover:opacity-30 transition-opacity duration-700`} />
-                        
+                      <div key={idx} className="rounded-[1.5rem] p-4 sm:p-6 relative overflow-hidden group transition-all duration-700 border" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
                         <div className="flex flex-col gap-5 relative z-10">
                           <div className="space-y-1">
-                            <div className="text-slate-500 uppercase text-[9px] font-black tracking-widest">Epoch</div>
-                            <div className="text-3xl font-black text-white leading-none">{win.year}</div>
-                          </div>
-                          
-                          <div className="space-y-1">
-                            <div className="text-slate-500 uppercase text-[9px] font-black tracking-widest">Window</div>
-                            <div className="text-xl font-bold text-blue-400 leading-tight">{win.month}</div>
+                            <div className="uppercase text-[9px] font-black tracking-widest" style={{ color: '#b3aae0' }}>Epoch</div>
+                            <div className="text-3xl font-black leading-none" style={{ color: '#ECEAE3' }}>{win.year}</div>
                           </div>
 
-                          <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                          <div className="space-y-1">
+                            <div className="uppercase text-[9px] font-black tracking-widest" style={{ color: '#b3aae0' }}>Window</div>
+                            <div className="text-xl font-bold leading-tight" style={{ color: '#ff8a3c' }}>{win.month}</div>
+                          </div>
+
+                          <div className="pt-3 border-t flex items-center justify-between" style={{ borderColor: '#4a3f7a' }}>
                             <div className="flex items-center gap-2">
-                               <Fuel className="h-3 w-3 text-emerald-500" />
-                               <span className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Window</span>
+                               <Fuel className="h-3 w-3" style={{ color: '#86efac' }} />
+                               <span className="text-[10px] font-bold uppercase tracking-tight" style={{ color: '#b3aae0' }}>Window</span>
                             </div>
-                            <span className="text-[10px] text-white font-black bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-900/50">{win.days}</span>
+                            <span className="text-[10px] font-black px-2.5 py-1 rounded-full border" style={{ color: '#86efac', backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>{win.days}</span>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
-                  <div className="px-5 py-4 bg-blue-950/20 border border-blue-900/30 rounded-2xl italic text-[11px] text-blue-200/60 leading-relaxed shadow-inner">
-                    <span className="text-blue-400 font-black uppercase pr-2">Mission Log:</span>
+                  <div className="px-5 py-4 rounded-2xl italic text-[11px] leading-relaxed border" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#b3aae0' }}>
+                    <span className="font-black uppercase pr-2" style={{ color: '#ff8a3c' }}>Mission Log:</span>
                     Hohmann orbital arcs are prioritized for Delta-V efficiency. Gates occur at optimal planetary conjunctions.
                   </div>
                 </div>
               ) : (
-                <Card className="bg-black border-slate-800 shadow-2xl p-8 sm:p-12 md:p-20 text-center relative overflow-hidden rounded-[1.5rem] sm:rounded-[2.5rem]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e1e2e_1px,_transparent_1px)] [background-size:24px_24px] opacity-10" />
+                <Card className="shadow-2xl p-8 sm:p-12 md:p-20 text-center relative overflow-hidden rounded-[1.5rem] sm:rounded-[2.5rem]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#241a52_1px,_transparent_1px)] [background-size:24px_24px] opacity-30" />
                   <div className="relative z-10 space-y-4">
-                    <div className="text-slate-400 italic text-lg font-semibold tracking-wide">Launch windows are nullified for extragalactic transit.</div>
-                    <div className="text-blue-500/60 text-[10px] font-black uppercase tracking-[0.4em] animate-pulse">Deep Space Protocol: Active</div>
+                    <div className="italic text-lg font-semibold tracking-wide" style={{ color: '#b3aae0' }}>Launch windows are nullified for extragalactic transit.</div>
+                    <div className="text-[10px] font-black uppercase tracking-[0.4em] animate-pulse" style={{ color: '#ff8a3c' }}>Deep Space Protocol: Active</div>
                   </div>
                 </Card>
               )}
@@ -340,20 +330,19 @@ export function SpaceTravelCalculator() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { title: '🌐 Orbital Arc', text: 'Gravity-assisted drifting between planetary spheres. High efficiency, low speed.', color: 'text-blue-500' },
-                { title: '🎯 Launch Gate', text: "Alignment-critical temporal window for mission start. Missing this gate causes indefinite stall.", color: 'text-orange-500' },
-                { title: '⏳ Gate Lifecycle', text: "The operational duration of the departure window. Fuel costs scale exponentially pre/post gate.", color: 'text-emerald-500' },
-                { title: '⚡ Brute Force', text: 'Direct High-Thrust trajectories ignoring orbital mechanics. Extreme energy cost.', color: 'text-purple-500' }
+                { title: '🌐 Orbital Arc', text: 'Gravity-assisted drifting between planetary spheres. High efficiency, low speed.', color: '#ff8a3c' },
+                { title: '🎯 Launch Gate', text: "Alignment-critical temporal window for mission start. Missing this gate causes indefinite stall.", color: '#ffd23c' },
+                { title: '⏳ Gate Lifecycle', text: "The operational duration of the departure window. Fuel costs scale exponentially pre/post gate.", color: '#86efac' },
+                { title: '⚡ Brute Force', text: 'Direct High-Thrust trajectories ignoring orbital mechanics. Extreme energy cost.', color: '#ff8a3c' }
               ].map((card, i) => (
-                <Card key={i} className="bg-black border-slate-800 hover:border-blue-500/40 transition-all group overflow-hidden relative rounded-2xl shadow-xl">
-                  <div className={`absolute -right-8 -top-8 w-20 h-20 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all duration-700`} />
+                <Card key={i} className="transition-all group overflow-hidden relative rounded-2xl" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
                   <CardHeader className="pb-2 relative z-10">
-                     <CardTitle className={`text-[10px] font-black flex items-center gap-2 ${card.color} uppercase tracking-widest`}>
+                     <CardTitle className="text-[10px] font-black flex items-center gap-2 uppercase tracking-widest" style={{ color: card.color }}>
                        {card.title}
                      </CardTitle>
                   </CardHeader>
                   <CardContent className="relative z-10">
-                    <p className="text-[10px] text-slate-400 leading-relaxed font-bold italic">
+                    <p className="text-[10px] leading-relaxed font-bold italic" style={{ color: '#b3aae0' }}>
                       {card.text}
                     </p>
                   </CardContent>

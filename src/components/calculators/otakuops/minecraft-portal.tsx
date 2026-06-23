@@ -36,11 +36,11 @@ export function MinecraftPortalPlanner() {
   }, [coords, coordType])
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-700 font-sans">
-      <Card className="bg-[#121212] border-[#3C0F59] border-4 shadow-xl text-white overflow-hidden">
-        <CardHeader className="bg-[#2D0A42] border-b-4 border-[#1A0526]">
-           <CardTitle className="text-center font-bold text-2xl tracking-widest text-[#D685E0] uppercase flex items-center justify-center gap-3">
-             <div className="w-8 h-8 bg-[#3C0F59] border-2 border-[#542478]"></div> 
+    <div className="space-y-8 animate-in fade-in duration-700 font-sans almanac-darktool">
+      <Card className="bg-[#1d1442] border-[#4a3f7a] border-4 shadow-xl text-[#ECEAE3] overflow-hidden">
+        <CardHeader className="bg-[#0c0824] border-b-4 border-[#4a3f7a]">
+           <CardTitle className="text-center font-bold text-2xl tracking-widest text-[#ffd23c] uppercase flex items-center justify-center gap-3">
+             <div className="w-8 h-8 bg-[#6A0DAD] border-2 border-[#4a3f7a]"></div>
              Nether Architect
            </CardTitle>
         </CardHeader>
@@ -49,13 +49,13 @@ export function MinecraftPortalPlanner() {
            
            {/* Section 1: Portal Builder */}
            <div className="space-y-6">
-              <h3 className="font-bold text-[#D685E0] uppercase border-b border-[#3C0F59] pb-2">Portal Configuration</h3>
-              
+              <h3 className="font-bold text-[#ffd23c] uppercase border-b border-[#4a3f7a] pb-2">Portal Configuration</h3>
+
               <div className="space-y-2">
-                 <label className="text-sm font-bold text-slate-400">Frame Size</label>
+                 <label className="text-sm font-bold text-[#b3aae0]">Frame Size</label>
                  <Select value={size} onValueChange={setSize}>
-                    <SelectTrigger className="bg-[#1A1A1A] border-[#333]"><SelectValue/></SelectTrigger>
-                    <SelectContent className="bg-[#1A1A1A] border-[#333] text-white">
+                    <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]"><SelectValue/></SelectTrigger>
+                    <SelectContent className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]">
                        <SelectItem value="small">Standard (4x5)</SelectItem>
                        <SelectItem value="medium">Medium (6x7)</SelectItem>
                        <SelectItem value="large">Large (8x9)</SelectItem>
@@ -67,29 +67,29 @@ export function MinecraftPortalPlanner() {
               {size === 'custom' && (
                  <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                       <label className="text-xs text-slate-500">Width</label>
-                       <input type="number" value={customW} onChange={e => setCustomW(Number(e.target.value))} className="w-full bg-[#1A1A1A] border border-[#333] p-2 rounded text-white"/>
+                       <label className="text-xs text-[#b3aae0]">Width</label>
+                       <input type="number" value={customW} onChange={e => setCustomW(Number(e.target.value))} className="w-full bg-[#0c0824] border border-[#4a3f7a] p-2 rounded text-[#ECEAE3] focus:border-[#ffd23c] focus:outline-none"/>
                     </div>
                     <div className="space-y-1">
-                       <label className="text-xs text-slate-500">Height</label>
-                       <input type="number" value={customH} onChange={e => setCustomH(Number(e.target.value))} className="w-full bg-[#1A1A1A] border border-[#333] p-2 rounded text-white"/>
+                       <label className="text-xs text-[#b3aae0]">Height</label>
+                       <input type="number" value={customH} onChange={e => setCustomH(Number(e.target.value))} className="w-full bg-[#0c0824] border border-[#4a3f7a] p-2 rounded text-[#ECEAE3] focus:border-[#ffd23c] focus:outline-none"/>
                     </div>
                  </div>
               )}
               
-              <div className="bg-[#1A1A1A] p-4 rounded border border-[#333] space-y-2">
+              <div className="bg-[#241a52] p-4 rounded border border-[#4a3f7a] space-y-2">
                   <div className="flex justify-between">
-                     <span className="text-slate-400">Obsidian Blocks:</span>
-                     <span className="font-bold text-[#D685E0]">{requirements.obsidian}</span>
+                     <span className="text-[#b3aae0]">Obsidian Blocks:</span>
+                     <span className="font-bold text-[#ffd23c]">{requirements.obsidian}</span>
                   </div>
                   <div className="flex justify-between">
-                     <span className="text-slate-400">Interior Spaces:</span>
-                     <span className="font-bold text-[#A020F0]">{requirements.interior}</span>
+                     <span className="text-[#b3aae0]">Interior Spaces:</span>
+                     <span className="font-bold text-[#ffd23c]">{requirements.interior}</span>
                   </div>
               </div>
 
               {/* Visual Preview */}
-              <div className="flex justify-center items-center p-4 bg-[#0a0a0a] rounded border border-[#222] min-h-[150px]">
+              <div className="flex justify-center items-center p-4 bg-[#0c0824] rounded border border-[#4a3f7a] min-h-[150px]">
                   <div style={{ 
                      display: 'grid', 
                      gridTemplateColumns: `repeat(${requirements.width}, 1fr)`,
@@ -119,36 +119,36 @@ export function MinecraftPortalPlanner() {
 
            {/* Section 2: Coordinate Calculator */}
            <div className="space-y-6">
-              <h3 className="font-bold text-[#D685E0] uppercase border-b border-[#3C0F59] pb-2">Coordinate Linker</h3>
-              
-              <div className="flex bg-[#1A1A1A] p-1 rounded">
-                 <button onClick={() => setCoordType('overworld')} className={`flex-1 text-sm py-1 rounded ${coordType === 'overworld' ? 'bg-green-700 text-white' : 'text-slate-500 hover:text-white'}`}>Overworld</button>
-                 <ArrowRightLeft className="w-4 h-4 mx-2 text-slate-500 self-center"/>
-                 <button onClick={() => setCoordType('nether')} className={`flex-1 text-sm py-1 rounded ${coordType === 'nether' ? 'bg-red-900 text-white' : 'text-slate-500 hover:text-white'}`}>Nether</button>
+              <h3 className="font-bold text-[#ffd23c] uppercase border-b border-[#4a3f7a] pb-2">Coordinate Linker</h3>
+
+              <div className="flex bg-[#0c0824] p-1 rounded">
+                 <button onClick={() => setCoordType('overworld')} className={`flex-1 text-sm py-1 rounded ${coordType === 'overworld' ? 'bg-[#ffd23c] text-[#160e33] font-bold' : 'text-[#b3aae0] hover:text-[#ECEAE3]'}`}>Overworld</button>
+                 <ArrowRightLeft className="w-4 h-4 mx-2 text-[#b3aae0] self-center"/>
+                 <button onClick={() => setCoordType('nether')} className={`flex-1 text-sm py-1 rounded ${coordType === 'nether' ? 'bg-[#ffd23c] text-[#160e33] font-bold' : 'text-[#b3aae0] hover:text-[#ECEAE3]'}`}>Nether</button>
               </div>
 
               <div className="grid grid-cols-3 gap-2">
                  <div className="space-y-1">
-                    <label className="text-xs text-slate-500 font-bold uppercase">X</label>
-                    <input type="number" value={coords.x} onChange={e => setCoords({...coords, x: Number(e.target.value)})} className="w-full bg-[#1A1A1A] border border-[#333] p-2 rounded text-white font-mono"/>
+                    <label className="text-xs text-[#b3aae0] font-bold uppercase">X</label>
+                    <input type="number" value={coords.x} onChange={e => setCoords({...coords, x: Number(e.target.value)})} className="w-full bg-[#0c0824] border border-[#4a3f7a] p-2 rounded text-[#ECEAE3] font-mono focus:border-[#ffd23c] focus:outline-none"/>
                  </div>
                  <div className="space-y-1">
-                    <label className="text-xs text-slate-500 font-bold uppercase">Y</label>
-                    <input type="number" value={coords.y} onChange={e => setCoords({...coords, y: Number(e.target.value)})} className="w-full bg-[#1A1A1A] border border-[#333] p-2 rounded text-white font-mono"/>
+                    <label className="text-xs text-[#b3aae0] font-bold uppercase">Y</label>
+                    <input type="number" value={coords.y} onChange={e => setCoords({...coords, y: Number(e.target.value)})} className="w-full bg-[#0c0824] border border-[#4a3f7a] p-2 rounded text-[#ECEAE3] font-mono focus:border-[#ffd23c] focus:outline-none"/>
                  </div>
                  <div className="space-y-1">
-                    <label className="text-xs text-slate-500 font-bold uppercase">Z</label>
-                    <input type="number" value={coords.z} onChange={e => setCoords({...coords, z: Number(e.target.value)})} className="w-full bg-[#1A1A1A] border border-[#333] p-2 rounded text-white font-mono"/>
+                    <label className="text-xs text-[#b3aae0] font-bold uppercase">Z</label>
+                    <input type="number" value={coords.z} onChange={e => setCoords({...coords, z: Number(e.target.value)})} className="w-full bg-[#0c0824] border border-[#4a3f7a] p-2 rounded text-[#ECEAE3] font-mono focus:border-[#ffd23c] focus:outline-none"/>
                  </div>
               </div>
 
-              <div className="bg-[#2D0A42] p-6 rounded border border-[#542478] text-center space-y-2">
-                 <div className="text-xs uppercase text-[#D685E0]/70 font-bold">Build in {convertedCoords.dest} at:</div>
-                 <div className="text-2xl font-mono font-bold text-white tracking-widest">
+              <div className="bg-[#0c0824] p-6 rounded border border-[#4a3f7a] text-center space-y-2">
+                 <div className="text-xs uppercase text-[#ffd23c] font-bold" style={{ fontFamily: 'var(--font-bungee), cursive' }}>Build in {convertedCoords.dest} at:</div>
+                 <div className="text-2xl font-mono font-bold text-[#ffd23c] tracking-widest">
                     {convertedCoords.x} / {convertedCoords.y} / {convertedCoords.z}
                  </div>
-                 <div className="text-xs italic text-slate-400 mt-2">
-                    (Y-coordinate doesn't strictly matter for linking, but match it for convenience!)
+                 <div className="text-xs italic text-[#b3aae0] mt-2">
+                   (Y-coordinate doesn&apos;t strictly matter for linking, but match it for convenience!)
                  </div>
               </div>
               

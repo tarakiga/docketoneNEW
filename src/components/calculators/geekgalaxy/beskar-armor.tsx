@@ -53,25 +53,28 @@ export function BeskarArmorCalculator() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-slate-900 border-slate-700 shadow-2xl overflow-hidden">
-        <CardHeader className="bg-slate-950 border-b border-slate-800">
-           <CardTitle className="text-2xl font-bold text-slate-200 flex items-center gap-2">
-             <Shield className="h-6 w-6 text-slate-400"/> Mandalorian Forge
+      <Card className="shadow-2xl overflow-hidden" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+        <CardHeader className="border-b" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+           <CardTitle className="text-2xl font-bold flex items-center gap-2" style={{ color: '#ECEAE3' }}>
+             <Shield className="h-6 w-6" style={{ color: '#ff8a3c' }}/> Mandalorian Forge
            </CardTitle>
-           <CardDescription>Configure your loadout. This is the Way.</CardDescription>
+           <CardDescription style={{ color: '#b3aae0' }}>Configure your loadout. This is the Way.</CardDescription>
         </CardHeader>
         
         <CardContent className="grid lg:grid-cols-2 gap-12 p-8">
            
            <div className="space-y-8">
               <div className="space-y-4">
-                 <h3 className="text-slate-400 font-bold uppercase text-xs tracking-wider">Material Grade</h3>
+                 <h3 className="font-bold uppercase text-xs tracking-wider" style={{ color: '#b3aae0' }}>Material Grade</h3>
                  <div className="grid grid-cols-2 gap-3">
                     {Object.entries(BESKAR_TYPES).map(([k, v]) => (
-                      <button 
-                        key={k} 
-                        onClick={() => setBeskar(k as any)}
-                        className={`p-4 rounded border text-left transition-all ${beskar === k ? 'bg-slate-800 border-slate-400 text-white' : 'bg-slate-950 border-slate-800 text-slate-500'}`}
+                      <button
+                        key={k}
+                        onClick={() => setBeskar(k as keyof typeof BESKAR_TYPES)}
+                        className="p-4 rounded border text-left transition-all"
+                        style={beskar === k
+                          ? { backgroundColor: '#241a52', borderColor: '#ff8a3c', color: '#ECEAE3' }
+                          : { backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#b3aae0' }}
                       >
                         <div className="font-bold">{v.name}</div>
                         <div className="text-xs opacity-70">Purity: {v.purity}%</div>
@@ -81,13 +84,16 @@ export function BeskarArmorCalculator() {
               </div>
 
               <div className="space-y-4">
-                 <h3 className="text-slate-400 font-bold uppercase text-xs tracking-wider">Primary Threat</h3>
+                 <h3 className="font-bold uppercase text-xs tracking-wider" style={{ color: '#b3aae0' }}>Primary Threat</h3>
                  <div className="grid grid-cols-4 gap-2">
                     {Object.entries(DAMAGE_TYPES).map(([k, v]) => (
-                      <button 
-                        key={k} 
-                        onClick={() => setDamage(k as any)}
-                        className={`p-2 py-4 rounded border text-center text-xs transition-all ${damage === k ? 'bg-red-900/40 border-red-500 text-red-100' : 'bg-slate-950 border-slate-800 text-slate-500'}`}
+                      <button
+                        key={k}
+                        onClick={() => setDamage(k as keyof typeof DAMAGE_TYPES)}
+                        className="p-2 py-4 rounded border text-center text-xs transition-all"
+                        style={damage === k
+                          ? { backgroundColor: '#241a52', borderColor: '#ff8a3c', color: '#ECEAE3' }
+                          : { backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#b3aae0' }}
                       >
                         {v.name}
                       </button>
@@ -96,57 +102,57 @@ export function BeskarArmorCalculator() {
               </div>
 
               <div className="space-y-4">
-                 <h3 className="text-slate-400 font-bold uppercase text-xs tracking-wider">Combat Variables</h3>
+                 <h3 className="font-bold uppercase text-xs tracking-wider" style={{ color: '#b3aae0' }}>Combat Variables</h3>
                  <div className="space-y-2">
-                   <div className="flex justify-between text-sm text-slate-300">
+                   <div className="flex justify-between text-sm" style={{ color: '#ECEAE3' }}>
                      <span>Intensity Level</span><span>{intensity}/10</span>
                    </div>
-                   <input type="range" min="1" max="10" value={intensity} onChange={(e) => setIntensity(Number(e.target.value))} className="w-full accent-slate-500"/>
+                   <input type="range" min="1" max="10" value={intensity} onChange={(e) => setIntensity(Number(e.target.value))} className="w-full" style={{ accentColor: '#ff8a3c' }}/>
                  </div>
                  <div className="space-y-2">
-                   <div className="flex justify-between text-sm text-slate-300">
+                   <div className="flex justify-between text-sm" style={{ color: '#ECEAE3' }}>
                      <span>Armor Age</span><span>{age} Years</span>
                    </div>
-                   <input type="range" min="0" max="50" value={age} onChange={(e) => setAge(Number(e.target.value))} className="w-full accent-slate-500"/>
+                   <input type="range" min="0" max="50" value={age} onChange={(e) => setAge(Number(e.target.value))} className="w-full" style={{ accentColor: '#ff8a3c' }}/>
                  </div>
               </div>
            </div>
 
-           <div className="flex flex-col items-center justify-center space-y-8 bg-black/20 rounded-xl p-6 border border-white/5">
-              
+           <div className="flex flex-col items-center justify-center space-y-8 rounded-xl p-6 border" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+
               {/* Helmet Viz */}
               <div className="relative w-48 h-48 flex items-center justify-center">
                  <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-2xl">
-                    <path 
-                      fill={BESKAR_TYPES[beskar].color} 
+                    <path
+                      fill={BESKAR_TYPES[beskar].color}
                       d="M20,30 Q20,5 50,5 Q80,5 80,30 V60 Q80,95 50,95 Q20,95 20,60 Z" // Simplified helmet shape
                     />
-                     <path 
-                      fill="#1e293b" // Visor
+                     <path
+                      fill="#0c0824" // Visor
                       d="M45,30 H55 V60 H80 V70 H55 V85 H45 V70 H20 V60 H45 Z" // T-shape
                     />
                  </svg>
-                 <div className="absolute -bottom-4 bg-slate-800 px-3 py-1 rounded text-xs text-white font-mono">
+                 <div className="absolute -bottom-4 px-3 py-1 rounded text-xs font-mono" style={{ backgroundColor: '#241a52', color: '#ECEAE3' }}>
                    {stats.integrity}% INTEGRITY
                  </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4 w-full">
-                 <div className="bg-slate-950 p-4 rounded text-center border border-slate-800">
-                    <div className="text-slate-500 text-xs uppercase mb-1">Survival Rate</div>
-                    <div className={`text-2xl font-black ${stats.integrity > 50 ? 'text-green-500' : 'text-red-500'}`}>
+                 <div className="p-4 rounded text-center border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                    <div className="text-xs uppercase mb-1" style={{ color: '#b3aae0' }}>Survival Rate</div>
+                    <div className="text-2xl font-black" style={{ color: stats.integrity > 50 ? '#86efac' : '#ff8a8a' }}>
                       {Math.round(stats.integrity * 0.9 + 5)}%
                     </div>
                  </div>
-                 <div className="bg-slate-950 p-4 rounded text-center border border-slate-800">
-                    <div className="text-slate-500 text-xs uppercase mb-1">Repair Cost</div>
-                    <div className="text-2xl font-black text-amber-500 flex items-center justify-center gap-1">
+                 <div className="p-4 rounded text-center border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                    <div className="text-xs uppercase mb-1" style={{ color: '#b3aae0' }}>Repair Cost</div>
+                    <div className="text-2xl font-black flex items-center justify-center gap-1" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>
                       {stats.repairCost.toLocaleString()}C
                     </div>
                  </div>
               </div>
 
-              <div className="text-center text-sm text-slate-400 italic">
+              <div className="text-center text-sm italic" style={{ color: '#b3aae0' }}>
                 {stats.integrity > 80 ? "Ready for battle." : stats.integrity > 40 ? "Caution advised." : "CRITICAL FAILURE IMMINENT."}
               </div>
 

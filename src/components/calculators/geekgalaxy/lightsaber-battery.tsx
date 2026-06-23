@@ -45,7 +45,7 @@ export function LightsaberBatteryCalculator() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-slate-950 border-slate-800 overflow-hidden relative">
+      <Card className="bg-[#1d1442] border-[#4a3f7a] overflow-hidden relative">
         {/* Glow effect based on crystal */}
         <div 
           className="absolute inset-0 opacity-10 pointer-events-none transition-colors duration-1000"
@@ -53,11 +53,11 @@ export function LightsaberBatteryCalculator() {
         />
 
         <CardHeader className="relative z-10">
-          <CardTitle className="text-3xl font-display text-slate-100 flex items-center gap-2">
-            <Zap className="h-6 w-6 text-yellow-400" />
+          <CardTitle className="text-3xl font-display text-[#ECEAE3] flex items-center gap-2">
+            <Zap className="h-6 w-6 text-[#ff8a3c]" />
             Kyber Power Analysis
           </CardTitle>
-          <CardDescription>Optimize your blade's energy consumption.</CardDescription>
+          <CardDescription className="text-[#b3aae0]">Optimize your blade&apos;s energy consumption.</CardDescription>
         </CardHeader>
         
         <CardContent className="grid lg:grid-cols-2 gap-12 relative z-10">
@@ -66,16 +66,16 @@ export function LightsaberBatteryCalculator() {
           <div className="space-y-8">
             
             <div className="space-y-4">
-              <Label className="text-slate-300">Kyber Crystal</Label>
+              <Label className="text-[#b3aae0]">Kyber Crystal</Label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {Object.entries(CRYSTALS).map(([key, data]) => (
                   <button
                     key={key}
-                    onClick={() => setCrystal(key as any)}
+                    onClick={() => setCrystal(key as keyof typeof CRYSTALS)}
                     className={`p-3 rounded-lg border transition-all text-sm font-bold flex flex-col items-center gap-2 ${
-                      crystal === key 
-                        ? "bg-slate-800 border-white/50 text-white ring-1 ring-white/30" 
-                        : "bg-black/40 border-slate-800 text-slate-400 hover:bg-slate-900"
+                      crystal === key
+                        ? "bg-[#241a52] border-[#ff8a3c] text-[#ECEAE3] ring-1 ring-[#ff8a3c]/40"
+                        : "bg-[#0c0824] border-[#4a3f7a] text-[#b3aae0] hover:bg-[#241a52]"
                     }`}
                   >
                     <div 
@@ -90,53 +90,53 @@ export function LightsaberBatteryCalculator() {
 
             <div className="space-y-4">
               <div className="flex justify-between">
-                <Label className="text-slate-300">Combat Intensity</Label>
-                <span className="text-xs text-slate-500 font-mono">Level {intensity}</span>
+                <Label className="text-[#b3aae0]">Combat Intensity</Label>
+                <span className="text-xs text-[#b3aae0] font-mono">Level {intensity}</span>
               </div>
-              <Slider 
-                value={[intensity]} 
-                onValueChange={([v]) => setIntensity(v)} 
+              <Slider
+                value={[intensity]}
+                onValueChange={([v]) => setIntensity(v)}
                 min={1} max={10} step={1}
-                className="[&_.range-thumb]:bg-red-500"
+                className="[&_.range-thumb]:bg-[#ff8a3c]"
               />
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#b3aae0]">
                 {intensity < 4 ? "Meditation & Form Practice" : intensity < 8 ? "Active Combat & Deflection" : "Duel of the Fates Intensity"}
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-between">
-                <Label className="text-slate-300">Force Mastery</Label>
-                <span className="text-xs text-slate-500 font-mono">Level {mastery}</span>
+                <Label className="text-[#b3aae0]">Force Mastery</Label>
+                <span className="text-xs text-[#b3aae0] font-mono">Level {mastery}</span>
               </div>
-              <Slider 
-                value={[mastery]} 
-                onValueChange={([v]) => setMastery(v)} 
+              <Slider
+                value={[mastery]}
+                onValueChange={([v]) => setMastery(v)}
                 min={1} max={10} step={1}
-                className="[&_.range-thumb]:bg-blue-500"
+                className="[&_.range-thumb]:bg-[#ff8a3c]"
               />
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#b3aae0]">
                 {mastery < 4 ? "Padawan Learner" : mastery < 8 ? "Jedi Knight" : "Council Master"}
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-between">
-                <Label className="text-slate-300">Hilt Age</Label>
-                <span className="text-xs text-slate-500 font-mono">{age} Years</span>
+                <Label className="text-[#b3aae0]">Hilt Age</Label>
+                <span className="text-xs text-[#b3aae0] font-mono">{age} Years</span>
               </div>
-              <Slider 
-                value={[age]} 
-                onValueChange={([v]) => setAge(v)} 
+              <Slider
+                value={[age]}
+                onValueChange={([v]) => setAge(v)}
                 min={0} max={100} step={1}
-                className="[&_.range-thumb]:bg-amber-600"
+                className="[&_.range-thumb]:bg-[#ff8a3c]"
               />
             </div>
 
           </div>
 
           {/* Visualization */}
-          <div className="flex flex-col items-center justify-center space-y-8 bg-black/40 rounded-xl p-6 border border-white/5">
+          <div className="flex flex-col items-center justify-center space-y-8 bg-[#0c0824] rounded-xl p-6 border border-[#4a3f7a]">
             
             <div className="relative h-[300px] w-full flex items-center justify-center">
               {/* Hilt */}
@@ -163,20 +163,20 @@ export function LightsaberBatteryCalculator() {
             </div>
 
             <div className="text-center space-y-2">
-              <div className="text-5xl font-black text-white" style={{ textShadow: `0 0 20px ${CRYSTALS[crystal].color}` }}>
+              <div className="text-5xl font-black" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c', textShadow: `0 0 20px ${CRYSTALS[crystal].color}` }}>
                 {result.toFixed(1)} hrs
               </div>
-              <div className="text-sm text-slate-400 uppercase tracking-widest">Est. Continuous Runtime</div>
+              <div className="text-sm text-[#b3aae0] uppercase tracking-widest">Est. Continuous Runtime</div>
             </div>
 
             <div className="w-full grid grid-cols-2 gap-4">
-               <div className="bg-slate-900/50 p-3 rounded text-center border border-white/5">
-                 <div className="text-xs text-slate-500 mb-1">Recharge Rate</div>
-                 <div className="font-mono text-white">{(2 + (age * 0.05)).toFixed(1)}h</div>
+               <div className="bg-[#241a52] p-3 rounded text-center border border-[#4a3f7a]">
+                 <div className="text-xs text-[#b3aae0] mb-1">Recharge Rate</div>
+                 <div className="font-mono text-[#ECEAE3]">{(2 + (age * 0.05)).toFixed(1)}h</div>
                </div>
-               <div className="bg-slate-900/50 p-3 rounded text-center border border-white/5">
-                 <div className="text-xs text-slate-500 mb-1">Efficiency</div>
-                 <div className="font-mono text-white">{Math.round((result / CRYSTALS[crystal].baseLife) * 100)}%</div>
+               <div className="bg-[#241a52] p-3 rounded text-center border border-[#4a3f7a]">
+                 <div className="text-xs text-[#b3aae0] mb-1">Efficiency</div>
+                 <div className="font-mono text-[#ECEAE3]">{Math.round((result / CRYSTALS[crystal].baseLife) * 100)}%</div>
                </div>
             </div>
 

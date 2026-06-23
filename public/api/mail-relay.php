@@ -3,29 +3,41 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// Handle preflight
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit;
-}
-
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
     echo json_encode(["success" => false, "error" => "Method not allowed"]);
     exit;
 }
 
-$input = json_decode(file_get_contents('php://input'), true);
-$type = $_GET['type'] ?? 'contact';
+/*
+ * Credentials live OUTSIDE public_html so they are never web-accessible
+ * and never committed to the (public) repo. Create the file by hand in
+ * Hostinger File Manager one level above public_html. It must `return`
+ * an array — see the mail-config.php template provided with this change.
+ */
+$config = null;
+$candidates = [
+    dirname($_SERVER['DOCUMENT_ROOT']) . '/mail-config.php',
+    $_SERVER['DOCUMENT_ROOT'] . '/../mail-config.php',
+    dirname(dirname($_SERVER['DOCUMENT_ROOT'])) . '/mail-config.php',
+];
+foreach ($candidates as $path) {
+    if (is_file($path)) { $config = require $path; break; }
+}
+if (!is_array($config)) {
+    error_log("mail-relay: config not found. Looked in: " . implode(', ', $candidates));
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Mailer not configured"]);
+    exit;
+}
 
-// SMTP Configuration
-$smtp_host = "smtp.titan.email";
-$smtp_port = 465;
-$smtp_user = "support@docket.one";
-$smtp_pass = "Galvatron101!";
-$smtp_from = "support@docket.one";
+$input = json_decode(file_get_contents('php://input'), true) ?: [];
+$type  = $_GET['type'] ?? 'contact';
 
-// Format the email content
-$subject = "";
-$body = "";
+// Strip CR/LF from any value used in a header to prevent header injection.
+$clean = function ($v) { return trim(str_replace(["\r", "\n"], '', (string)$v)); };
+$replyTo = filter_var($input['email'] ?? '', FILTER_VALIDATE_EMAIL) ? $clean($input['email']) : '';
 
 if ($type === 'bug') {
     $subject = "🐛 Bug Report: " . ($input['location'] ?? 'Unknown');
@@ -44,6 +56,11 @@ if ($type === 'bug') {
             "Title: " . ($input['title'] ?? 'N/A') . "\n" .
             "Priority: " . ($input['priority'] ?? 'N/A') . "\n\n" .
             "Details:\n" . ($input['description'] ?? '');
+} elseif ($type === 'newsletter') {
+    $subject = "📬 Newsletter signup: " . ($input['email'] ?? 'unknown');
+    $body = "New newsletter subscriber\n-------------------------\n" .
+            "Email: " . ($input['email'] ?? 'N/A') . "\n" .
+            "Source: " . ($input['source'] ?? 'website');
 } else {
     $subject = "New Contact Submission from " . ($input['name'] ?? 'Visitor');
     $body = "Contact Form Message\n--------------------\n" .
@@ -52,24 +69,76 @@ if ($type === 'bug') {
             "Message:\n" . ($input['message'] ?? '');
 }
 
-// Hostinger usually allows mail() if configured, but for authenticated SMTP 
-// in a single file without libraries, we'll try a clean mail() call with 
-// proper headers first, as many shared hosts intercept this. 
-// If specific SMTP is required, PHPMailer is usually recommended, but 
-// for a single-file static bridge, we'll use the native mail() with 
-// the user's return-path.
+/* ---- Authenticated SMTP over implicit TLS (port 465), no external library ---- */
+function smtp_read($fp) {
+    $data = '';
+    while (($line = fgets($fp, 515)) !== false) {
+        $data .= $line;
+        // last line of a reply has a space (not '-') as the 4th character
+        if (isset($line[3]) && $line[3] === ' ') break;
+    }
+    return $data;
+}
+function smtp_cmd($fp, $cmd, $expect) {
+    if ($cmd !== null) fwrite($fp, $cmd . "\r\n");
+    $resp = smtp_read($fp);
+    return [((int)substr($resp, 0, 3)) === $expect, $resp];
+}
 
-$headers = "From: " . $smtp_from . "\r\n";
-$headers .= "Reply-To: " . ($input['email'] ?? $smtp_from) . "\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion();
+$host = $config['smtp_host'] ?? 'smtp.titan.email';
+$port = (int)($config['smtp_port'] ?? 465);
+$user = $config['smtp_user'] ?? '';
+$pass = $config['smtp_pass'] ?? '';
+$from = $config['from_email'] ?? $user;
+$fromName = $config['from_name'] ?? 'Docket One';
+$to = $config['to_email'] ?? $user;
 
-// Note: For authenticated SMTP in raw PHP without a library like PHPMailer,
-// it requires a lot of socket code. On Hostinger, as long as the 'From' 
-// matches the account email, mail() works through their relays.
+$fp = @stream_socket_client(($port === 465 ? "ssl://" : "tcp://") . $host . ":" . $port, $errno, $errstr, 20);
+if (!$fp) {
+    error_log("mail-relay: connect failed $errno $errstr");
+    http_response_code(502);
+    echo json_encode(["success" => false, "error" => "Relay connection failed"]);
+    exit;
+}
+stream_set_timeout($fp, 20);
 
-if (mail($smtp_from, $subject, $body, $headers)) {
-    echo json_encode(["success" => true, "message" => "Portal message delivered"]);
+$ok = true;
+list($r) = smtp_cmd($fp, null, 220);                  $ok = $ok && $r;   // greeting
+list($r) = smtp_cmd($fp, "EHLO docket.one", 250);     $ok = $ok && $r;
+list($r) = smtp_cmd($fp, "AUTH LOGIN", 334);          $ok = $ok && $r;
+list($r) = smtp_cmd($fp, base64_encode($user), 334);  $ok = $ok && $r;
+list($r) = smtp_cmd($fp, base64_encode($pass), 235);  $ok = $ok && $r;
+list($r) = smtp_cmd($fp, "MAIL FROM:<{$from}>", 250); $ok = $ok && $r;
+list($r) = smtp_cmd($fp, "RCPT TO:<{$to}>", 250);     $ok = $ok && $r;
+
+if ($ok) { list($r) = smtp_cmd($fp, "DATA", 354); $ok = $ok && $r; }
+
+if ($ok) {
+    $encodedSubject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
+    $headers  = "Date: " . date('r') . "\r\n";
+    $headers .= "From: \"{$fromName}\" <{$from}>\r\n";
+    if ($replyTo) $headers .= "Reply-To: <{$replyTo}>\r\n";
+    $headers .= "To: <{$to}>\r\n";
+    $headers .= "Subject: {$encodedSubject}\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $headers .= "Content-Transfer-Encoding: 8bit\r\n";
+
+    // Normalise newlines to CRLF and dot-stuff lines beginning with '.'
+    $message = str_replace("\n", "\r\n", str_replace("\r\n", "\n", $body));
+    $message = preg_replace('/^\./m', '..', $message);
+
+    fwrite($fp, $headers . "\r\n" . $message . "\r\n.\r\n");
+    list($r) = smtp_cmd($fp, null, 250); $ok = $ok && $r;
+}
+
+@fwrite($fp, "QUIT\r\n");
+@fclose($fp);
+
+if ($ok) {
+    echo json_encode(["success" => true, "message" => "Message delivered"]);
 } else {
+    error_log("mail-relay: SMTP send failed for type=$type");
+    http_response_code(502);
     echo json_encode(["success" => false, "error" => "Relay failure"]);
 }
-?>

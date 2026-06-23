@@ -1,0 +1,742 @@
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\app\calculators\[category]\[slug]\page.tsx | 1e 0w
+  react-hooks/static-components | 2 | 81:14 | Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\app\calculators\[category]\[slug]\page.tsx:81:14
+  79 |             faq={faq}
+  80 |         >
+> 81 |             <Component />
+     |              ^^^^^^^^^ This component is created during render
+  82 |         </CalculatorLayout>
+  83 |     )
+  84 | }
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\app\calculators\[category]\[slug]\page.tsx:56:55
+  54 |     }
+  55 |
+> 56 |     const Component = CALCULATOR_COMPONENTS[slug] || (() => <div>Calculator Component Not Found</div>)
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ The component is created during render here
+  57 |
+  58 |     // Placeholder content for Layout props - In a real app, this should come from a CMS or separate data file per calculator
+  59 |     const tips = [
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\atoms\sarcastic-divider.tsx | 2e 0w
+  react/no-unescaped-entities | 2 | 16:58 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 16:65 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\billionaire-buyout.tsx | 2e 0w
+  react-hooks/set-state-in-effect | 2 | 50:5 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\billionaire-buyout.tsx:50:5
+  48 |
+  49 |   useEffect(() => {
+> 50 |     setBalance(selectedPerson.wealth)
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  51 |     setInterestEarned(0)
+  52 |   }, [selectedPerson])
+  53 |
+  react/no-unescaped-entities | 2 | 130:98 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\caffeine-half-life.tsx | 1e 1w
+  react-hooks/immutability | 2 | 46:9 | Error: Cannot access variable before it is declared
+
+`calculate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\caffeine-half-life.tsx:46:9
+  44 |
+  45 |     useEffect(() => {
+> 46 |         calculate()
+     |         ^^^^^^^^^ `calculate` accessed before it is declared
+  47 |     }, [amount, time, halfLife, sleepGoal])
+  48 |
+  49 |     const calculate = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\caffeine-half-life.tsx:49:5
+  47 |     }, [amount, time, halfLife, sleepGoal])
+  48 |
+> 49 |     const calculate = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 50 |         if (!time) return
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 51 |
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 85 |         setData(newData)
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 86 |     }
+     | ^^^^^^ `calculate` is declared here
+  87 |
+  88 |     return (
+  89 |         <div className="grid lg:grid-cols-3 gap-8">
+  react-hooks/exhaustive-deps | 1 | 47:8 | React Hook useEffect has a missing dependency: 'calculate'. Either include it or remove the dependency array.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\car-vs-uber.tsx | 5e 4w
+  @typescript-eslint/no-unused-vars | 1 | 25:26 | 'setInterestRate' is assigned a value but never used.
+  @typescript-eslint/no-unused-vars | 1 | 26:23 | 'setInsurance' is assigned a value but never used.
+  @typescript-eslint/no-unused-vars | 1 | 37:27 | 'setEvMaintenance' is assigned a value but never used.
+  react-hooks/immutability | 2 | 52:9 | Error: Cannot access variable before it is declared
+
+`calculate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\car-vs-uber.tsx:52:9
+  50 |
+  51 |     useEffect(() => {
+> 52 |         calculate()
+     |         ^^^^^^^^^ `calculate` accessed before it is declared
+  53 |     }, [carPrice, loanTerm, interestRate, insurance, maintenance, fuelCost, mpg, milesDriven, evPrice, electricityCost, evEfficiency, chargerInstall, evMaintenance, uberCostPerRide, ridesPerWeek])
+  54 |
+  55 |     const calculate = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\car-vs-uber.tsx:55:5
+   53 |     }, [carPrice, loanTerm, interestRate, insurance, maintenance, fuelCost, mpg, milesDriven, evPrice, electricityCost, evEfficiency, chargerInstall, evMaintenance, uberCostPerRide, ridesPerWeek])
+   54 |
+>  55 |     const calculate = () => {
+      |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+>  56 |         // Shared Calculation: Amortized Loan Component
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  57 |         const getAnnualLoanPayment = (price: number, term: number, rate: number) => {
+      …
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 102 |         ])
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 103 |     }
+      | ^^^^^^ `calculate` is declared here
+  104 |
+  105 |     const formatCurrency = (val: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val)
+  106 |
+  react-hooks/exhaustive-deps | 1 | 53:8 | React Hook useEffect has a missing dependency: 'calculate'. Either include it or remove the dependency array.
+  react/no-unescaped-entities | 2 | 321:94 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 321:105 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 323:80 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 323:85 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\lightning-life.tsx | 1e 1w
+  react-hooks/immutability | 2 | 27:9 | Error: Cannot access variable before it is declared
+
+`calculate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\lightning-life.tsx:27:9
+  25 |
+  26 |     useEffect(() => {
+> 27 |         calculate()
+     |         ^^^^^^^^^ `calculate` accessed before it is declared
+  28 |     }, [age, lifestyle])
+  29 |
+  30 |     const calculate = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\lightning-life.tsx:30:5
+  28 |     }, [age, lifestyle])
+  29 |
+> 30 |     const calculate = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 31 |         const lifestyleMultipliers = {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 32 |             low: 0.7,      // 56M joules/year
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 63 |         })
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 64 |     }
+     | ^^^^^^ `calculate` is declared here
+  65 |
+  66 |     const formatEnergy = (joules: number) => {
+  67 |         if (joules >= 1e9) return (joules / 1e9).toFixed(1) + 'B joules'
+  react-hooks/exhaustive-deps | 1 | 28:8 | React Hook useEffect has a missing dependency: 'calculate'. Either include it or remove the dependency array.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\power-footprint.tsx | 2e 1w
+  react-hooks/immutability | 2 | 24:9 | Error: Cannot access variable before it is declared
+
+`calculate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\power-footprint.tsx:24:9
+  22 |
+  23 |     useEffect(() => {
+> 24 |         calculate()
+     |         ^^^^^^^^^ `calculate` accessed before it is declared
+  25 |     }, [population, kwhPerCapita])
+  26 |
+  27 |     const calculate = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\bigkidmath\power-footprint.tsx:27:5
+  25 |     }, [population, kwhPerCapita])
+  26 |
+> 27 |     const calculate = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 28 |         // Power Density (W/m2)
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 29 |         const densitySolar = 10
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 56 |         })
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 57 |     }
+     | ^^^^^^ `calculate` is declared here
+  58 |
+  59 |     const formatNumber = (num: number) => num.toLocaleString(undefined, { maximumFractionDigits: 1 })
+  60 |
+  react-hooks/exhaustive-deps | 1 | 25:8 | React Hook useEffect has a missing dependency: 'calculate'. Either include it or remove the dependency array.
+  react/no-unescaped-entities | 2 | 198:114 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\brainmodes\decibel-detective.tsx | 1e 0w
+  react-hooks/set-state-in-effect | 2 | 79:9 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\brainmodes\decibel-detective.tsx:79:9
+  77 |
+  78 |     useEffect(() => {
+> 79 |         calculateLoad()
+     |         ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  80 |     }, [calculateLoad])
+  81 |
+  82 |     const toggleSource = (id: string) => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\caesar-cipher.tsx | 1e 0w
+  react-hooks/set-state-in-effect | 2 | 40:9 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\caesar-cipher.tsx:40:9
+  38 |
+  39 |     useEffect(() => {
+> 40 |         processText()
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  41 |     }, [processText])
+  42 |
+  43 |     const copyToClipboard = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\morse-code.tsx | 1e 0w
+  react-hooks/set-state-in-effect | 2 | 38:9 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\morse-code.tsx:38:9
+  36 |             return MORSE_MAP[char] || char // Keep unknowns/spaces
+  37 |         }).join(' ') // Space between letters
+> 38 |         setMorse(converted)
+     |         ^^^^^^^^ Avoid calling setState() directly within an effect
+  39 |     }, [text])
+  40 |
+  41 |     const startSignal = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\nato-phonetic.tsx | 9e 1w
+  @typescript-eslint/no-unused-vars | 1 | 26:11 | 'speechRef' is assigned a value but never used.
+  react-hooks/set-state-in-effect | 2 | 30:13 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\nato-phonetic.tsx:30:13
+  28 |     useEffect(() => {
+  29 |         if (!text) {
+> 30 |             setPhoneticWords([])
+     |             ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  31 |             return
+  32 |         }
+  33 |
+  react/no-unescaped-entities | 2 | 136:29 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 136:31 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 136:37 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 136:39 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 136:58 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 136:64 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 136:70 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 136:76 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\ogham-translator.tsx | 0e 1w
+  @typescript-eslint/no-unused-vars | 1 | 38:12 | 'ogham' is assigned a value but never used.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\password-anger.tsx | 1e 1w
+  @typescript-eslint/no-unused-vars | 1 | 23:11 | 'strengthPercent' is assigned a value but never used.
+  react/no-unescaped-entities | 2 | 57:36 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\shavian-translator.tsx | 13e 0w
+  prefer-const | 2 | 29:13 | 'input' is never reassigned. Use 'const' instead.
+  react-hooks/set-state-in-effect | 2 | 49:9 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\shavian-translator.tsx:49:9
+  47 |         }
+  48 |         
+> 49 |         setShavian(result)
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  50 |     }, [text])
+  51 |
+  52 |     return (
+  react/no-unescaped-entities | 2 | 67:44 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:48 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:51 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:55 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:58 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:65 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:68 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:76 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:79 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 67:86 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 75:54 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx | 9e 0w
+  react-hooks/purity | 2 | 27:10 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx:27:10
+  25 |     return Array.from({ length: 400 }).map((_, i) => ({
+  26 |       id: i,
+> 27 |       x: Math.random() * 100,
+     |          ^^^^^^^^^^^^^ Cannot call impure function
+  28 |       y: Math.random() * 100,
+  29 |       size: Math.random() * 2 + 1,
+  30 |       color: `hsl(${220 + Math.random() * 60}, 70%, ${50 + Math.random() * 20}%)`
+  react-hooks/purity | 2 | 28:10 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx:28:10
+  26 |       id: i,
+  27 |       x: Math.random() * 100,
+> 28 |       y: Math.random() * 100,
+     |          ^^^^^^^^^^^^^ Cannot call impure function
+  29 |       size: Math.random() * 2 + 1,
+  30 |       color: `hsl(${220 + Math.random() * 60}, 70%, ${50 + Math.random() * 20}%)`
+  31 |     }))
+  react-hooks/purity | 2 | 29:13 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx:29:13
+  27 |       x: Math.random() * 100,
+  28 |       y: Math.random() * 100,
+> 29 |       size: Math.random() * 2 + 1,
+     |             ^^^^^^^^^^^^^ Cannot call impure function
+  30 |       color: `hsl(${220 + Math.random() * 60}, 70%, ${50 + Math.random() * 20}%)`
+  31 |     }))
+  32 |   }, [])
+  react-hooks/purity | 2 | 30:27 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx:30:27
+  28 |       y: Math.random() * 100,
+  29 |       size: Math.random() * 2 + 1,
+> 30 |       color: `hsl(${220 + Math.random() * 60}, 70%, ${50 + Math.random() * 20}%)`
+     |                           ^^^^^^^^^^^^^ Cannot call impure function
+  31 |     }))
+  32 |   }, [])
+  33 |
+  react-hooks/purity | 2 | 30:60 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx:30:60
+  28 |       y: Math.random() * 100,
+  29 |       size: Math.random() * 2 + 1,
+> 30 |       color: `hsl(${220 + Math.random() * 60}, 70%, ${50 + Math.random() * 20}%)`
+     |                                                            ^^^^^^^^^^^^^ Cannot call impure function
+  31 |     }))
+  32 |   }, [])
+  33 |
+  react-hooks/purity | 2 | 47:32 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx:47:32
+  45 |         id: i,
+  46 |         char,
+> 47 |         x: (i % 8) * 12 + 10 + Math.random() * 5,
+     |                                ^^^^^^^^^^^^^ Cannot call impure function
+  48 |         y: Math.floor(i / 8) * 15 + 15 + Math.random() * 5,
+  49 |     }))
+  50 |   }, [message])
+  react-hooks/purity | 2 | 48:42 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\cipherlab\steganography-brush.tsx:48:42
+  46 |         char,
+  47 |         x: (i % 8) * 12 + 10 + Math.random() * 5,
+> 48 |         y: Math.floor(i / 8) * 15 + 15 + Math.random() * 5,
+     |                                          ^^^^^^^^^^^^^ Cannot call impure function
+  49 |     }))
+  50 |   }, [message])
+  51 |
+  react/no-unescaped-entities | 2 | 107:127 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 107:141 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\ai-doomsday.tsx | 1e 0w
+  react/jsx-no-comment-textnodes | 2 | 61:111 | Comments inside children section of tag should be placed inside braces
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\alien-communication.tsx | 6e 0w
+  react-hooks/purity | 2 | 142:32 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\alien-communication.tsx:142:32
+  140 |                       className="absolute bg-white rounded-full animate-pulse"
+  141 |                       style={{
+> 142 |                         width: Math.random() * 2 + 1 + 'px',
+      |                                ^^^^^^^^^^^^^ Cannot call impure function
+  143 |                         height: Math.random() * 2 + 1 + 'px',
+  144 |                         top: Math.random() * 100 + '%',
+  145 |                         left: Math.random() * 100 + '%',
+  react-hooks/purity | 2 | 143:33 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\alien-communication.tsx:143:33
+  141 |                       style={{
+  142 |                         width: Math.random() * 2 + 1 + 'px',
+> 143 |                         height: Math.random() * 2 + 1 + 'px',
+      |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  144 |                         top: Math.random() * 100 + '%',
+  145 |                         left: Math.random() * 100 + '%',
+  146 |                         opacity: Math.random(),
+  react-hooks/purity | 2 | 144:30 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\alien-communication.tsx:144:30
+  142 |                         width: Math.random() * 2 + 1 + 'px',
+  143 |                         height: Math.random() * 2 + 1 + 'px',
+> 144 |                         top: Math.random() * 100 + '%',
+      |                              ^^^^^^^^^^^^^ Cannot call impure function
+  145 |                         left: Math.random() * 100 + '%',
+  146 |                         opacity: Math.random(),
+  147 |                         animationDelay: Math.random() * 2 + 's'
+  react-hooks/purity | 2 | 145:31 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\alien-communication.tsx:145:31
+  143 |                         height: Math.random() * 2 + 1 + 'px',
+  144 |                         top: Math.random() * 100 + '%',
+> 145 |                         left: Math.random() * 100 + '%',
+      |                               ^^^^^^^^^^^^^ Cannot call impure function
+  146 |                         opacity: Math.random(),
+  147 |                         animationDelay: Math.random() * 2 + 's'
+  148 |                       }}
+  react-hooks/purity | 2 | 146:34 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\alien-communication.tsx:146:34
+  144 |                         top: Math.random() * 100 + '%',
+  145 |                         left: Math.random() * 100 + '%',
+> 146 |                         opacity: Math.random(),
+      |                                  ^^^^^^^^^^^^^ Cannot call impure function
+  147 |                         animationDelay: Math.random() * 2 + 's'
+  148 |                       }}
+  149 |                     />
+  react-hooks/purity | 2 | 147:41 | Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\alien-communication.tsx:147:41
+  145 |                         left: Math.random() * 100 + '%',
+  146 |                         opacity: Math.random(),
+> 147 |                         animationDelay: Math.random() * 2 + 's'
+      |                                         ^^^^^^^^^^^^^ Cannot call impure function
+  148 |                       }}
+  149 |                     />
+  150 |                 ))}
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\force-sensitivity.tsx | 2e 0w
+  react/no-unescaped-entities | 2 | 131:67 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 131:125 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\lightsaber-battery.tsx | 1e 0w
+  react/no-unescaped-entities | 2 | 60:47 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\potion-brewer.tsx | 2e 1w
+  @typescript-eslint/no-unused-vars | 1 | 87:9 | 'cauldronColor' is assigned a value but never used.
+  react/no-unescaped-entities | 2 | 154:63 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 154:81 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\space-travel.tsx | 0e 1w
+  @typescript-eslint/no-unused-vars | 1 | 8:7 | 'DESTINATIONS' is assigned a value but never used.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\time-paradox.tsx | 1e 0w
+  prefer-const | 2 | 33:9 | 'finalRisk' is never reassigned. Use 'const' instead.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\zombie-survival.tsx | 1e 1w
+  react-hooks/set-state-in-effect | 2 | 135:5 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\geekgalaxy\zombie-survival.tsx:135:5
+  133 |
+  134 |   useEffect(() => {
+> 135 |     calculateSurvival()
+      |     ^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  136 |   }, [fitness, skills, groupSize, zombieType, location])
+  137 |
+  138 |   return (
+  react-hooks/exhaustive-deps | 1 | 136:6 | React Hook useEffect has a missing dependency: 'calculateSurvival'. Either include it or remove the dependency array.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\elevator-efficiency.tsx | 1e 1w
+  react-hooks/immutability | 2 | 23:9 | Error: Cannot access variable before it is declared
+
+`calculate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\elevator-efficiency.tsx:23:9
+  21 |
+  22 |     useEffect(() => {
+> 23 |         calculate()
+     |         ^^^^^^^^^ `calculate` accessed before it is declared
+  24 |     }, [floors, crowdLevel, fitness])
+  25 |
+  26 |     const calculate = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\elevator-efficiency.tsx:26:5
+  24 |     }, [floors, crowdLevel, fitness])
+  25 |
+> 26 |     const calculate = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 27 |         // Stairs logic
+     | ^^^^^^^^^^^^^^^^^^^^^^^
+> 28 |         // Avg steps per floor = 16
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^
+> 74 |         }
+     | ^^^^^^^^^^^^^^^^^^^^^^^
+> 75 |     }
+     | ^^^^^^ `calculate` is declared here
+  76 |
+  77 |     const formatTime = (seconds: number) => {
+  78 |         const m = Math.floor(seconds / 60)
+  react-hooks/exhaustive-deps | 1 | 24:8 | React Hook useEffect has a missing dependency: 'calculate'. Either include it or remove the dependency array.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\pepper-scale.tsx | 2e 0w
+  react/no-unescaped-entities | 2 | 84:59 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 84:81 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\procrastination-roi.tsx | 4e 0w
+  react/no-unescaped-entities | 2 | 69:84 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 69:99 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 110:64 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 110:98 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\should-i-engage.tsx | 2e 0w
+  react/no-unescaped-entities | 2 | 142:24 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 142:40 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\sleep-cycle.tsx | 2e 0w
+  prefer-const | 2 | 19:9 | 'targetTime' is never reassigned. Use 'const' instead.
+  react-hooks/use-memo | 2 | 69:27 | Error: Expected the first argument to be an inline function expression
+
+Expected the first argument to be an inline function expression.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\sleep-cycle.tsx:69:27
+  67 |   }
+  68 |
+> 69 |   const results = useMemo(calculateCycles, [mode, hour, minute, ampm, now])
+     |                           ^^^^^^^^^^^^^^^ Expected the first argument to be an inline function expression
+  70 |
+  71 |   const formatTime = (date: Date) => {
+  72 |     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\social-media-addiction.tsx | 1e 2w
+  @typescript-eslint/no-unused-vars | 1 | 13:10 | 'platform' is assigned a value but never used.
+  @typescript-eslint/no-unused-vars | 1 | 13:20 | 'setPlatform' is assigned a value but never used.
+  react/no-unescaped-entities | 2 | 60:85 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\time-is-money.tsx | 4e 0w
+  react/no-unescaped-entities | 2 | 36:55 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 36:66 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 94:24 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 94:97 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\lifehacks\unspent-potential.tsx | 5e 0w
+  react/no-unescaped-entities | 2 | 57:106 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 57:122 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 111:82 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 111:88 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 137:25 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\mathmagik\butterfly-effect.tsx | 2e 0w
+  react/no-unescaped-entities | 2 | 139:29 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 139:149 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\mathmagik\chaos-explorer.tsx | 3e 1w
+  react-hooks/immutability | 2 | 16:5 | Error: Cannot access variable before it is declared
+
+`draw` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\mathmagik\chaos-explorer.tsx:16:5
+  14 |   
+  15 |   useEffect(() => {
+> 16 |     draw()
+     |     ^^^^ `draw` accessed before it is declared
+  17 |   }, [generations, zoom])
+  18 |
+  19 |   const draw = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\mathmagik\chaos-explorer.tsx:19:3
+  17 |   }, [generations, zoom])
+  18 |
+> 19 |   const draw = () => {
+     |   ^^^^^^^^^^^^^^^^^^^^
+> 20 |     const canvas = canvasRef.current
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 21 |     if (!canvas) return
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 58 |     }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 59 |   }
+     | ^^^^ `draw` is declared here
+  60 |
+  61 |   return (
+  62 |     <div className="space-y-8 animate-in fade-in duration-700">
+  react-hooks/exhaustive-deps | 1 | 17:6 | React Hook useEffect has a missing dependency: 'draw'. Either include it or remove the dependency array.
+  react/no-unescaped-entities | 2 | 110:32 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 110:52 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\mathmagik\double-pendulum.tsx | 0e 2w
+  react-hooks/exhaustive-deps | 1 | 132:6 | React Hook useEffect has a missing dependency: 'animate'. Either include it or remove the dependency array.
+  react-hooks/exhaustive-deps | 1 | 146:32 | React Hook useEffect has a missing dependency: 'reset'. Either include it or remove the dependency array.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\mathmagik\inflation-impact.tsx | 1e 1w
+  prefer-const | 2 | 33:9 | 'current' is never reassigned. Use 'const' instead.
+  @typescript-eslint/no-unused-vars | 1 | 33:9 | 'current' is assigned a value but never used.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\minecraft-portal.tsx | 1e 0w
+  react/no-unescaped-entities | 2 | 151:40 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\mjolnir-cost.tsx | 1e 0w
+  react-hooks/set-state-in-effect | 2 | 26:9 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\mjolnir-cost.tsx:26:9
+  24 |         else baseCost = 80000000000 // Mass production efficiencies
+  25 |
+> 26 |         setCost(baseCost)
+     |         ^^^^^^^ Avoid calling setState() directly within an effect
+  27 |         setDebt(baseCost - userNetWorth)
+  28 |         setCarrierGroups(baseCost / 40000000000) // Carrier group ~40B cR?
+  29 |     }, [generation, userNetWorth])
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\ork-waaagh-energy.tsx | 1e 1w
+  react-hooks/immutability | 2 | 22:9 | Error: Cannot access variable before it is declared
+
+`calculate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\ork-waaagh-energy.tsx:22:9
+  20 |
+  21 |     useEffect(() => {
+> 22 |         calculate()
+     |         ^^^^^^^^^ `calculate` accessed before it is declared
+  23 |     }, [orks, loudness, redPaint])
+  24 |
+  25 |     const calculate = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\ork-waaagh-energy.tsx:25:5
+  23 |     }, [orks, loudness, redPaint])
+  24 |
+> 25 |     const calculate = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 26 |         // WAAAGH logic: (Orks ^ 1.5) * (dB / 10)
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 27 |         let waaghOutput = Math.pow(orks, 1.5) * (loudness / 10)
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 41 |         ])
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 42 |     }
+     | ^^^^^^ `calculate` is declared here
+  43 |
+  44 |     const formatEnergy = (val: number) => {
+  45 |         if (val >= 1000000) return (val / 1000000).toFixed(1) + " MJ"
+  react-hooks/exhaustive-deps | 1 | 23:8 | React Hook useEffect has a missing dependency: 'calculate'. Either include it or remove the dependency array.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\slipspace-debt.tsx | 5e 1w
+  react-hooks/immutability | 2 | 21:9 | Error: Cannot access variable before it is declared
+
+`calculate` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\slipspace-debt.tsx:21:9
+  19 |
+  20 |     useEffect(() => {
+> 21 |         calculate()
+     |         ^^^^^^^^^ `calculate` accessed before it is declared
+  22 |     }, [distance, forerunnerTech, coleProtocol])
+  23 |
+  24 |     const calculate = () => {
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\slipspace-debt.tsx:24:5
+  22 |     }, [distance, forerunnerTech, coleProtocol])
+  23 |
+> 24 |     const calculate = () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |         // Human ships: ~2-3 LY per day
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 26 |         // Covenant/Forerunner: Much faster
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 40 |         setDrift(vectorDrift)
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 41 |     }
+     | ^^^^^^ `calculate` is declared here
+  42 |
+  43 |     const timeoutToDrift = (dist: number) => {
+  44 |         // More distance = more drift for human drives
+  react-hooks/exhaustive-deps | 1 | 22:8 | React Hook useEffect has a missing dependency: 'calculate'. Either include it or remove the dependency array.
+  react/no-unescaped-entities | 2 | 133:25 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+  react/no-unescaped-entities | 2 | 133:39 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+  react/no-unescaped-entities | 2 | 133:51 | `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+  react/no-unescaped-entities | 2 | 133:75 | `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\space-marine-survival.tsx | 1e 0w
+  react-hooks/set-state-in-effect | 2 | 55:9 | Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\work\Tar\PROJECTS\CALCULATOR\web-app\src\components\calculators\otakuops\space-marine-survival.tsx:55:9
+  53 |
+  54 |     useEffect(() => {
+> 55 |         calculate()
+     |         ^^^^^^^^^ Avoid calling setState() directly within an effect
+  56 |     }, [calculate])
+  57 |
+  58 |     return (

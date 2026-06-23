@@ -1,155 +1,152 @@
 "use client"
 
 import { ShareResult } from "@/components/molecules/share-result"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Slider } from "@/components/ui/slider"
-import { AlertTriangle, Eye, FileSearch } from "lucide-react"
-import { useState } from "react"
+import { Eye } from "lucide-react"
+import { useMemo, useState } from "react"
+
+// Famous cases, with the conspirator counts Dr. Grimes used in his 2016 paper.
+const PRESETS = [
+  { name: "Moon-Landing Hoax", n: 411000 },
+  { name: "Climate-Change Fraud", n: 405000 },
+  { name: "Vaccine Cover-Up", n: 22000 },
+  { name: "Suppressed Cancer Cure", n: 714000 },
+  { name: "Small Cell", n: 12 },
+]
 
 export function ConspiracyTheoryCalculator() {
-  const [theory, setTheory] = useState("Birds are Drones")
-  const [evidence, setEvidence] = useState({ anomalies: 30, denials: 30, whistleblowers: 10 })
-  const [tinfoil, setTinfoil] = useState({ disbelief: 50, entities: 50, years: 20 })
-  const [result, setResult] = useState<any>(null)
+  const [theory, setTheory] = useState("Birds Are Drones")
+  const [conspirators, setConspirators] = useState(411000)
+  const [years, setYears] = useState(50)
+  const [leakMicro, setLeakMicro] = useState(4) // p in millionths/person/year; Grimes ≈ 4×10⁻⁶
 
-  const analyze = () => {
-    // Logic from legacy
-    const evidenceScore = Math.round((evidence.anomalies * 0.4) + (evidence.denials * 0.3) + (evidence.whistleblowers * 0.3))
-    const tinfoilScore = Math.round((tinfoil.disbelief * 0.5) + (tinfoil.entities * 0.3) + (tinfoil.years * 0.2))
-    
-    // Plausibility = Evidence - Tinfoil Penalty
-    // High evidence is good, high tinfoil factors (requires huge suspension of disbelief) is bad for plausibility
-    const plausibility = Math.max(0, Math.min(100, evidenceScore - (tinfoilScore / 3)))
-    
-    setResult({
-        plausibility: Math.round(plausibility),
-        evidenceScore,
-        tinfoilScore,
-        verdict: plausibility < 30 ? "Unlikely (Take off the hat)" : plausibility < 70 ? "Possible (Keep digging)" : "HIGHLY SUSPICIOUS (Run!)"
-    })
-  }
+  const result = useMemo(() => {
+    const p = leakMicro * 1e-6 // per-person, per-year intrinsic leak probability
+    const lambda = p * conspirators // expected leak "rate"
+    // Grimes' core relation: chance the secret has leaked by year t = 1 − e^(−p·N·t)
+    const exposure = 1 - Math.exp(-lambda * years)
+    const meanYears = lambda > 0 ? 1 / lambda : Infinity // expected time to first leak
+    const halfLife = lambda > 0 ? Math.log(2) / lambda : Infinity // years to 50% odds
+
+    const verdict =
+      exposure >= 0.95 ? "TOO BIG TO HIDE" :
+      exposure >= 0.5 ? "LIKELY EXPOSED" :
+      exposure >= 0.15 ? "CRACKS SHOWING" :
+      "COULD STAY BURIED"
+
+    return { exposurePct: Math.round(exposure * 1000) / 10, meanYears, halfLife, verdict }
+  }, [conspirators, years, leakMicro])
+
+  const fmtYears = (y: number) =>
+    !Number.isFinite(y) ? "∞" : y >= 1000 ? `${Math.round(y).toLocaleString()}` : y >= 1 ? Math.round(y).toString() : "<1"
+
+  const tone =
+    result.exposurePct >= 50 ? "text-[#ff8a8a] border-[#ff8a8a]" :
+    result.exposurePct >= 15 ? "text-[#ffd23c] border-[#ffd23c]" :
+    "text-[#86efac] border-[#86efac]"
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700 font-serif">
-      <Card className="bg-[#f4f1ea] border-stone-400 border-2 shadow-2xl relative overflow-hidden">
-        {/* Paper texture overlay */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/aged-paper.png")' }}></div>
+      <div className="bg-[#1d1442] border-[#4a3f7a] border-2 shadow-2xl relative overflow-hidden rounded-xl">
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/aged-paper.png")' }} />
 
-        <CardHeader className="border-b-2 border-stone-300 pb-6 relative z-10">
-           {/* Stamp */}
-           <div className="absolute top-2 right-2 sm:right-4 transform rotate-12 border-4 border-red-700 text-sm sm:text-xl font-black text-red-700 px-2 sm:px-4 py-1 sm:py-2 opacity-70 rounded-sm pointer-events-none">
-             TOP SECRET
-           </div>
+        {/* header */}
+        <div className="border-b-2 border-[#4a3f7a] pb-6 pt-6 px-4 sm:px-8 relative z-10">
+          <div className="absolute top-2 right-2 sm:right-4 rotate-12 border-4 border-[#ff8a8a] text-sm sm:text-xl font-black text-[#ff8a8a] px-2 sm:px-4 py-1 sm:py-2 opacity-80 rounded-sm pointer-events-none">
+            TOP SECRET
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-[#ECEAE3] text-center uppercase tracking-widest flex items-center justify-center gap-2">
+            <Eye className="w-7 h-7 text-[#ffd23c]" /> Dept. of Truth
+          </h2>
+          <p className="text-center font-mono text-[#b3aae0] text-sm mt-1">
+            CASE FILE: {theory || "—"} · GRIMES PROTOCOL
+          </p>
+        </div>
 
-           <CardTitle className="text-3xl font-black text-stone-800 text-center uppercase tracking-widest flex items-center justify-center gap-2">
-              <Eye className="w-8 h-8 text-stone-700"/> DEPT. OF TRUTH
-           </CardTitle>
-           <CardDescription className="text-center font-mono text-stone-600">
-              CASE FILE: {theory}
-           </CardDescription>
-        </CardHeader>
-        
-        <CardContent className="p-4 sm:p-8 relative z-10 space-y-8">
-           
-           <div className="space-y-4">
-              <label className="font-bold text-xs uppercase tracking-widest text-stone-500">Subject / Theory Name</label>
-              <input 
-                type="text" 
-                value={theory} 
-                onChange={e => setTheory(e.target.value)} 
-                className="w-full bg-transparent border-b-2 border-stone-400 font-mono text-xl focus:outline-none focus:border-red-700 transition-colors"
-                placeholder="e.g. The Moon is Cheese"
+        <div className="p-4 sm:p-8 relative z-10 space-y-8">
+          {/* theory name */}
+          <div className="space-y-2">
+            <label className="font-bold text-xs uppercase tracking-widest text-[#b3aae0]">Subject / Theory Name</label>
+            <input
+              type="text"
+              value={theory}
+              onChange={(e) => setTheory(e.target.value)}
+              className="w-full min-w-0 bg-[#0c0824] border-2 border-[#4a3f7a] rounded px-3 py-2 font-mono text-lg sm:text-xl focus:outline-none focus:border-[#ffd23c] transition-colors text-[#ECEAE3] placeholder:text-[#b3aae0]/60"
+              placeholder="e.g. The Moon Is Cheese"
+            />
+          </div>
+
+          {/* presets */}
+          <div className="flex flex-wrap gap-2">
+            {PRESETS.map((pre) => (
+              <button
+                key={pre.name}
+                onClick={() => { setTheory(pre.name); setConspirators(pre.n) }}
+                className={`text-[11px] font-mono uppercase tracking-wide px-3 py-1.5 rounded border transition-colors ${
+                  conspirators === pre.n ? "bg-[#ffd23c] text-[#0c0824] border-[#ffd23c]" : "bg-[#0c0824] text-[#b3aae0] border-[#4a3f7a] hover:border-[#ffd23c]"
+                }`}
+              >
+                {pre.name} · {pre.n.toLocaleString()}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 bg-[#0c0824] p-6 rounded shadow-sm border border-[#4a3f7a]">
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs font-mono text-[#b3aae0]"><span>People In On It</span><span className="font-bold text-[#ECEAE3]">{conspirators.toLocaleString()}</span></div>
+              <input
+                type="number"
+                min={1}
+                value={conspirators}
+                onChange={(e) => { const v = Math.floor(Number(e.target.value)); setConspirators(Number.isFinite(v) && v > 0 ? v : 1) }}
+                className="w-full min-w-0 bg-[#1d1442] border-2 border-[#4a3f7a] rounded px-3 py-2 font-mono text-base focus:outline-none focus:border-[#ffd23c] text-[#ECEAE3]"
               />
-           </div>
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs font-mono text-[#b3aae0]"><span>Years To Stay Hidden</span><span className="font-bold text-[#ECEAE3]">{years}y</span></div>
+              <Slider value={[years]} min={1} max={200} step={1} onValueChange={([v]) => setYears(v)} className="[&_[data-slot=slider-track]]:bg-[#1d1442] [&_[data-slot=slider-range]]:bg-[#ffd23c] [&_[data-slot=slider-thumb]]:border-[#ffd23c]" />
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs font-mono text-[#b3aae0]"><span>Leakiness / Person·Yr</span><span className="font-bold text-[#ECEAE3]">{leakMicro}×10⁻⁶</span></div>
+              <Slider value={[leakMicro]} min={1} max={20} step={1} onValueChange={([v]) => setLeakMicro(v)} className="[&_[data-slot=slider-track]]:bg-[#1d1442] [&_[data-slot=slider-range]]:bg-[#ffd23c] [&_[data-slot=slider-thumb]]:border-[#ffd23c]" />
+              <p className="text-[10px] text-[#b3aae0] font-mono">Grimes calibrated this at 4×10⁻⁶ from real leaks.</p>
+            </div>
+          </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
-              
-              {/* Evidence Section */}
-              <div className="space-y-6 bg-white/50 p-6 rounded shadow-sm border border-stone-200">
-                 <h3 className="font-bold text-stone-800 flex items-center gap-2 border-b border-stone-300 pb-2">
-                    <FileSearch className="w-4 h-4 text-blue-700"/> Evidence Factors
-                 </h3>
-                 
-                 <div className="space-y-4">
-                    <div className="space-y-1">
-                       <div className="flex justify-between text-xs font-mono text-stone-600"><span>Anomalies</span><span>{evidence.anomalies}%</span></div>
-                       <Slider value={[evidence.anomalies]} onValueChange={([v]) => setEvidence({...evidence, anomalies: v})} className="[&_.range-thumb]:bg-blue-700"/>
-                    </div>
-                    <div className="space-y-1">
-                       <div className="flex justify-between text-xs font-mono text-stone-600"><span>Official Denials</span><span>{evidence.denials}%</span></div>
-                       <Slider value={[evidence.denials]} onValueChange={([v]) => setEvidence({...evidence, denials: v})} className="[&_.range-thumb]:bg-blue-700"/>
-                    </div>
-                    <div className="space-y-1">
-                       <div className="flex justify-between text-xs font-mono text-stone-600"><span>Whistleblowers</span><span>{evidence.whistleblowers}%</span></div>
-                       <Slider value={[evidence.whistleblowers]} onValueChange={([v]) => setEvidence({...evidence, whistleblowers: v})} className="[&_.range-thumb]:bg-blue-700"/>
-                    </div>
-                 </div>
+          {/* result */}
+          <div className="border-t-4 border-double border-[#4a3f7a] pt-8 text-center space-y-6">
+            <div className="relative inline-block">
+              <div className={`text-5xl sm:text-6xl font-black ${tone.split(" ")[0]}`}>{result.exposurePct}%</div>
+              <div className="text-xs uppercase font-bold tracking-[0.2em] text-[#b3aae0] mt-2">Chance The Secret Has Leaked</div>
+              <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 border-4 px-3 sm:px-4 py-1 sm:py-2 text-base sm:text-2xl font-black uppercase tracking-widest opacity-90 pointer-events-none whitespace-nowrap ${tone}`}>
+                {result.verdict}
               </div>
+            </div>
 
-              {/* Tinfoil Section */}
-              <div className="space-y-6 bg-white/50 p-6 rounded shadow-sm border border-stone-200">
-                 <h3 className="font-bold text-stone-800 flex items-center gap-2 border-b border-stone-300 pb-2">
-                    <AlertTriangle className="w-4 h-4 text-orange-600"/> Tinfoil Factors
-                 </h3>
-                 
-                 <div className="space-y-4">
-                    <div className="space-y-1">
-                       <div className="flex justify-between text-xs font-mono text-stone-600"><span>Suspension of Disbelief</span><span>{tinfoil.disbelief}%</span></div>
-                       <Slider value={[tinfoil.disbelief]} onValueChange={([v]) => setTinfoil({...tinfoil, disbelief: v})} className="[&_.range-thumb]:bg-orange-600"/>
-                    </div>
-                    <div className="space-y-1">
-                       <div className="flex justify-between text-xs font-mono text-stone-600"><span>Entities Involved</span><span>{tinfoil.entities}%</span></div>
-                       <Slider value={[tinfoil.entities]} onValueChange={([v]) => setTinfoil({...tinfoil, entities: v})} className="[&_.range-thumb]:bg-orange-600"/>
-                    </div>
-                    <div className="space-y-1">
-                       <div className="flex justify-between text-xs font-mono text-stone-600"><span>Time Covered (Years)</span><span>{tinfoil.years}y</span></div>
-                       <Slider value={[tinfoil.years]} onValueChange={([v]) => setTinfoil({...tinfoil, years: v})} className="[&_.range-thumb]:bg-orange-600"/>
-                    </div>
-                 </div>
+            <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto text-sm font-mono text-[#ECEAE3]">
+              <div className="bg-[#0c0824] border border-[#4a3f7a] rounded p-3">
+                <div className="text-lg font-bold text-[#ECEAE3]">{fmtYears(result.halfLife)}</div>
+                <div className="text-[10px] uppercase tracking-wide text-[#b3aae0]">Years to 50/50 odds</div>
               </div>
-
-           </div>
-
-           <div className="flex justify-center pt-4">
-               <Button onClick={analyze} className="bg-stone-800 hover:bg-stone-900 text-white font-mono uppercase tracking-widest px-8 py-6 rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-y-1 active:shadow-none transition-all">
-                  Analyze Truth
-               </Button>
-           </div>
-
-           {result && (
-              <div className="mt-8 border-t-4 border-double border-stone-400 pt-8 text-center animate-in slide-in-from-bottom space-y-6">
-                  
-                  <div className="relative inline-block">
-                      <div className={`text-6xl font-black ${result.plausibility > 70 ? 'text-green-700' : result.plausibility > 30 ? 'text-yellow-600' : 'text-red-700'}`}>
-                         {result.plausibility}%
-                      </div>
-                      <div className="text-xs uppercase font-bold tracking-[0.2em] text-stone-500 mt-2">Plausibility Index</div>
-                      
-                      {/* Stamp Effect */}
-                      <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 border-4 px-2 sm:px-4 py-1 sm:py-2 text-lg sm:text-2xl font-black uppercase tracking-widest opacity-80 mix-blend-multiply pointer-events-none whitespace-nowrap
-                         ${result.plausibility > 70 ? 'border-green-700 text-green-700' : result.plausibility > 30 ? 'border-yellow-600 text-yellow-600' : 'border-red-700 text-red-700'}
-                      `}>
-                         {result.verdict}
-                      </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto text-sm font-mono text-stone-600">
-                      <div>Evidence Score: {result.evidenceScore}/100</div>
-                      <div>Tinfoil Penalty: {result.tinfoilScore}/100</div>
-                  </div>
-
-                  <div className="flex justify-center gap-4">
-                     <ShareResult 
-                        title="Conspiracy Analysis"
-                        text={`I analyzed the theory "${theory}" and it has a ${result.plausibility}% plausibility index. ${result.verdict}!`}
-                     />
-                  </div>
+              <div className="bg-[#0c0824] border border-[#4a3f7a] rounded p-3">
+                <div className="text-lg font-bold text-[#ECEAE3]">{fmtYears(result.meanYears)}</div>
+                <div className="text-[10px] uppercase tracking-wide text-[#b3aae0]">Avg. years to first leak</div>
               </div>
-           )}
+            </div>
 
-        </CardContent>
-      </Card>
+            <p className="text-[11px] font-mono text-[#b3aae0] max-w-md mx-auto">
+              Grimes&apos; equation: P(leak) = 1 − e<sup>−p·N·t</sup>, with p = per-person yearly leak chance, N = conspirators, t = years.
+            </p>
+
+            <div className="flex justify-center">
+              <ShareResult
+                title="Conspiracy Analysis"
+                text={`"${theory}" would need ${conspirators.toLocaleString()} people to stay quiet for ${years} years. Grimes' equation says there's a ${result.exposurePct}% chance it has already leaked. Verdict: ${result.verdict}.`}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -18,10 +18,9 @@ interface ShareModalProps {
   title: string
   url: string
   description?: string
-  image?: string
 }
 
-export function ShareModal({ title, url, description, image = "/og-image.jpg" }: ShareModalProps) {
+export function ShareModal({ title, url, description }: ShareModalProps) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
@@ -41,9 +40,7 @@ export function ShareModal({ title, url, description, image = "/og-image.jpg" }:
       <DialogContent className="sm:max-w-md glass-card border-white/20">
         <DialogHeader>
           <DialogTitle>Share this calculator</DialogTitle>
-          <DialogDescription>
-            Share "{title}" with your friends and followers.
-          </DialogDescription>
+          <DialogDescription>{`Share “${title}” with your friends and followers.`}</DialogDescription>
         </DialogHeader>
         
         {/* Preview Card */}

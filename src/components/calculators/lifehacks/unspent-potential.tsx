@@ -1,203 +1,168 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { ShareResult } from "@/components/molecules/share-result"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Progress } from "@/components/ui/progress"
 import { Slider } from "@/components/ui/slider"
-import { AnimatePresence, motion } from "framer-motion"
-import {
-    AlertTriangle,
-    Coffee,
-    Frown,
-    Ghost,
-    Receipt,
-    Smile,
-    Wind,
-    Zap
-} from "lucide-react"
+import { BookOpen, Brain, DollarSign, GraduationCap, Sparkles, Trophy } from "lucide-react"
 import { useMemo, useState } from "react"
 
 export function UnspentPotentialTax() {
-  const [taskName, setTaskName] = useState("")
-  const [hoursDelayed, setHoursDelayed] = useState(1)
-  const [taskImportance, setTaskImportance] = useState(50)
-  const [isDone, setIsDone] = useState(false)
+  const [hoursPerDay, setHoursPerDay] = useState(3)
+  const [hourlyValue, setHourlyValue] = useState(25)
 
-  // Calculations
-  const metrics = useMemo(() => {
-    // Procrastination Coefficient
-    const coeff = (hoursDelayed * (taskImportance / 10)) / 2
-    const leisureFine = Math.min(hoursDelayed * 0.75, 48) // max 48 hours fine
-    const stressLevel = Math.min((hoursDelayed * taskImportance) / 10, 100)
-    
-    return { coeff, leisureFine, stressLevel }
-  }, [hoursDelayed, taskImportance])
+  const result = useMemo(() => {
+    const safeHours = Number.isFinite(hoursPerDay) ? Math.max(0, hoursPerDay) : 0
+    const safeRate = Number.isFinite(hourlyValue) ? Math.max(0, hourlyValue) : 0
+
+    const annualHours = Math.round(safeHours * 365)
+
+    return {
+      annualHours,
+      skillsStarted: Math.floor(annualHours / 20),       // ~20h to learn the basics
+      skillsCompetent: Math.floor(annualHours / 100),    // ~100h to get genuinely decent
+      skillsProficient: Math.floor(annualHours / 500),   // ~500h toward real proficiency
+      books: Math.floor(annualHours / 10),               // ~10h per book
+      money: Math.round(annualHours * safeRate),
+    }
+  }, [hoursPerDay, hourlyValue])
+
+  const tiles = [
+    { icon: Sparkles, label: "New skills to START", sub: "~20 hrs each", value: result.skillsStarted, accent: "#b6ff3c" },
+    { icon: Brain, label: "Skills to get COMPETENT at", sub: "~100 hrs each", value: result.skillsCompetent, accent: "#b6ff3c" },
+    { icon: Trophy, label: "Skills toward REAL PROFICIENCY", sub: "~500 hrs each", value: result.skillsProficient, accent: "#b6ff3c" },
+    { icon: BookOpen, label: "Books you could READ", sub: "~10 hrs each", value: result.books, accent: "#b6ff3c" },
+  ]
+
+  const moneyFormatted = result.money.toLocaleString("en-US")
+  const annualFormatted = result.annualHours.toLocaleString("en-US")
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto animate-in fade-in duration-700">
-      <AnimatePresence mode="wait">
-        {!isDone ? (
-          <motion.div
-            key="procrastination-view"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card className="white-glass-card border-rose-200/50 shadow-2xl relative overflow-hidden">
-               <div className="absolute inset-0 bg-gradient-to-br from-rose-500/[0.02] to-transparent pointer-events-none" />
-               
-               <CardHeader className="text-center pb-2">
-                  <div className="mx-auto w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mb-4 text-rose-600 animate-pulse">
-                    <Ghost className="h-8 w-8" />
-                  </div>
-                  <CardTitle className="text-4xl font-display text-slate-900 tracking-tight">The Unspent Potential Tax</CardTitle>
-                  <CardDescription className="text-slate-500 font-medium">Quantifying the hidden cost of "doing it later."</CardDescription>
-               </CardHeader>
+      <Card className="border-[#4a3f7a] bg-[#1d1442] text-[#ECEAE3] shadow-2xl overflow-hidden">
+        <CardHeader className="text-center pb-2">
+          <div className="mx-auto w-14 h-14 rounded-2xl bg-[#241a52] ring-1 ring-[#4a3f7a] flex items-center justify-center mb-4 text-[#b6ff3c]">
+            <GraduationCap className="h-7 w-7" />
+          </div>
+          <CardTitle className="text-3xl sm:text-4xl font-display tracking-tight text-[#ECEAE3]">
+            The Unspent Potential Tax
+          </CardTitle>
+          <CardDescription className="text-[#b3aae0] font-medium">
+            See what your idle hours could become over a single year.
+          </CardDescription>
+        </CardHeader>
 
-               <CardContent className="p-4 md:p-8 space-y-10">
-                  <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-                     <div className="space-y-8">
-                        <div className="space-y-3">
-                           <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">The Looming Task</Label>
-                           <Input 
-                             placeholder="e.g. Tax Returns, Gym Session, Ending a War..." 
-                             className="bg-white/50 border-slate-200 h-12 md:h-14 text-base md:text-lg font-bold"
-                             value={taskName}
-                             onChange={(e) => setTaskName(e.target.value)}
-                           />
-                        </div>
+        <CardContent className="p-4 sm:p-8 space-y-8">
+          {/* Inputs */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="space-y-3">
+              <div className="flex justify-between items-end gap-3">
+                <Label className="text-xs font-bold uppercase tracking-wider text-[#b3aae0]">
+                  Wasted / idle hours per day
+                </Label>
+                <span className="text-2xl font-black text-[#b6ff3c] shrink-0">{hoursPerDay}h</span>
+              </div>
+              <Slider
+                value={[hoursPerDay]}
+                onValueChange={([v]) => setHoursPerDay(v)}
+                min={0}
+                max={12}
+                step={0.5}
+                className="[&_.range-thumb]:bg-[#b6ff3c]"
+              />
+              <p className="text-xs text-[#b3aae0]">
+                Scrolling, autoplay, anxious avoidance. The in-between time that just leaks away.
+              </p>
+            </div>
 
-                        <div className="space-y-4">
-                           <div className="flex justify-between items-end">
-                              <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Hours Delayed Since Start</Label>
-                              <span className="text-2xl font-black text-rose-600">{hoursDelayed}h</span>
-                           </div>
-                           <Slider 
-                             value={[hoursDelayed]} 
-                             onValueChange={([v]) => setHoursDelayed(v)} 
-                             max={168} 
-                             step={1}
-                             className="[&_.range-thumb]:bg-rose-500"
-                           />
-                        </div>
+            <div className="space-y-3">
+              <Label className="text-xs font-bold uppercase tracking-wider text-[#b3aae0]">
+                Value of your time (per hour)
+              </Label>
+              <div className="flex items-center gap-2 rounded-lg bg-[#0c0824] ring-1 ring-[#4a3f7a] px-3 h-12">
+                <DollarSign className="h-4 w-4 text-[#86efac] shrink-0" />
+                <Input
+                  type="number"
+                  inputMode="numeric"
+                  min={0}
+                  value={hourlyValue}
+                  onChange={(e) => setHourlyValue(Number(e.target.value))}
+                  className="min-w-0 flex-1 border-0 bg-transparent text-lg font-bold text-[#ECEAE3] focus-visible:ring-0 px-0"
+                />
+                <span className="text-xs text-[#b3aae0] shrink-0">/ hr</span>
+              </div>
+              <p className="text-xs text-[#b3aae0]">Optional — to also see the money left on the table.</p>
+            </div>
+          </div>
 
-                        <div className="space-y-4">
-                           <div className="flex justify-between items-end">
-                              <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Psychological Weight</Label>
-                              <span className="text-sm font-bold text-slate-600">{taskImportance > 80 ? "Existential Dread" : taskImportance > 40 ? "Nagging Guilt" : "Minor Inconvenience"}</span>
-                           </div>
-                           <Slider 
-                             value={[taskImportance]} 
-                             onValueChange={([v]) => setTaskImportance(v)} 
-                             max={100} 
-                             className="[&_.range-thumb]:bg-slate-950"
-                           />
-                        </div>
-                     </div>
+          {/* Hero number */}
+          <div className="rounded-3xl bg-[#0c0824] ring-1 ring-[#4a3f7a] p-6 sm:p-8 text-center">
+            <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] text-[#b6ff3c] mb-2">
+              Your annual time budget
+            </div>
+            <div
+              className="text-5xl sm:text-6xl font-black tracking-tighter tabular-nums"
+              style={{ fontFamily: "var(--font-bungee), cursive", color: "#b6ff3c" }}
+            >
+              {annualFormatted}
+              <span className="text-2xl sm:text-3xl font-bold text-[#b3aae0] ml-2">hours</span>
+            </div>
+            <p className="text-sm text-[#b3aae0] mt-3 max-w-md mx-auto">
+              That is {hoursPerDay}h a day, reclaimed across a full year — hours genuinely available to redirect.
+            </p>
+            {result.money > 0 && (
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#241a52] ring-1 ring-[#4a3f7a] px-4 py-2">
+                <DollarSign className="h-4 w-4 text-[#86efac]" />
+                <span className="text-sm font-bold text-[#86efac] tabular-nums">
+                  ${moneyFormatted} of your time left on the table
+                </span>
+              </div>
+            )}
+          </div>
 
-                     <div className="flex flex-col justify-center gap-6">
-                        <div className="bg-slate-950 text-white p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-                           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
-                              <Receipt className="h-12 w-12" />
-                           </div>
-                           <div className="text-[10px] font-black uppercase tracking-[0.3em] text-rose-400 mb-2">Notice of Fine</div>
-                           <div className="text-5xl font-black tracking-tighter mb-4">
-                              {metrics.leisureFine.toFixed(1)}h
-                           </div>
-                           <p className="text-xs text-slate-400 leading-relaxed font-medium">
-                              This is the amount of **Pure Relaxation** you have "taxed" from your future self. 
-                              For every hour you delay, your weekend gets shorter.
-                           </p>
-                           <div className="mt-6 pt-6 border-t border-white/10 flex items-center gap-4">
-                              <AlertTriangle className="h-5 w-5 text-rose-500 shrink-0" />
-                              <div className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Interest rate: 15% per day</div>
-                           </div>
-                        </div>
+          {/* What it could become */}
+          <div>
+            <h3 className="text-xs font-black uppercase tracking-widest text-[#b3aae0] mb-4">
+              What that time could become
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {tiles.map((t, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl bg-[#241a52] ring-1 ring-[#4a3f7a] p-5 flex flex-col gap-2 transition-transform hover:-translate-y-1"
+                >
+                  <t.icon className="h-5 w-5" style={{ color: t.accent }} />
+                  <div className="text-4xl font-black text-[#ECEAE3] tabular-nums leading-none">{t.value}</div>
+                  <div className="text-xs font-bold text-[#ECEAE3] leading-snug">{t.label}</div>
+                  <div className="text-[11px] text-[#b3aae0]">{t.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-                        <div className="bg-rose-50 p-6 rounded-3xl border border-rose-100 space-y-3">
-                           <div className="flex justify-between items-center">
-                              <span className="text-[10px] font-black text-rose-800 uppercase tracking-widest leading-none flex items-center gap-2">
-                                <Zap className="h-3 w-3" /> Cortisol Index
-                              </span>
-                              <span className="text-xs font-black text-rose-900">{metrics.stressLevel}%</span>
-                           </div>
-                           <Progress value={metrics.stressLevel} className="h-2 bg-rose-200" />
-                        </div>
-                     </div>
-                  </div>
+          <div className="flex justify-center pt-2">
+            <ShareResult
+              title="My Unspent Potential Tax"
+              text={`I waste about ${hoursPerDay}h a day — that's ${annualFormatted} hours a year. Enough to start ${result.skillsStarted} new skills, get competent at ${result.skillsCompetent}, or read ${result.books} books. Time to spend that potential on purpose. ⚖️`}
+            />
+          </div>
+        </CardContent>
+      </Card>
 
-                  <div className="flex justify-center pt-8 border-t border-slate-100">
-                     <Button 
-                       onClick={() => setIsDone(true)}
-                       className="h-16 px-12 rounded-full bg-slate-950 hover:bg-black text-white font-black uppercase tracking-widest text-sm shadow-xl group"
-                     >
-                       I've Finished the Task! 
-                       <span className="ml-2 group-hover:rotate-12 transition-transform">🎉</span>
-                     </Button>
-                  </div>
-               </CardContent>
-            </Card>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="zen-view"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <Card className="white-glass-card border-emerald-200/50 shadow-2xl relative overflow-hidden p-12 text-center bg-emerald-50/30">
-               <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/[0.05] to-emerald-500/[0.05] animate-pulse pointer-events-none" />
-               
-               <motion.div 
-                 initial={{ scale: 0.5, rotate: -20 }}
-                 animate={{ scale: 1, rotate: 0 }}
-                 className="mx-auto w-24 h-24 bg-emerald-500 text-white rounded-full flex items-center justify-center mb-8 shadow-xl"
-               >
-                 <Wind className="h-12 w-12" />
-               </motion.div>
-
-               <div className="space-y-4 relative z-10 max-w-lg mx-auto">
-                  <h2 className="text-5xl font-black text-slate-900 tracking-tighter italic">Breathe In.</h2>
-                  <p className="text-slate-500 font-medium leading-relaxed">
-                    By completing <span className="font-black text-slate-950 underline decoration-emerald-400 decoration-4 underline-offset-4">{taskName || "your task"}</span>, you have officially **canceled** your potential tax.
-                  </p>
-                  <p className="text-xs text-emerald-600 font-bold uppercase tracking-[0.2em] pt-4">Leisure Reclaimed: {metrics.leisureFine.toFixed(1)} Hours</p>
-               </div>
-
-               <div className="mt-12 flex flex-col sm:flex-row justify-center gap-4">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setIsDone(false)}
-                    className="rounded-full h-12 px-8 border-emerald-500/20 text-emerald-700 hover:bg-emerald-50 font-bold"
-                  >
-                    Calculate Another Debt
-                  </Button>
-                  <Button 
-                    className="rounded-full h-12 px-8 bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-lg"
-                  >
-                    Go Play Outside ☀️
-                  </Button>
-               </div>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="grid md:grid-cols-3 gap-6">
-         {[
-           { title: "The Fine Print", desc: "Leisure debt is calculated by multiplying your avoidance time by importance.", icon: Coffee, color: "text-amber-500" },
-           { title: "Zen Equilibrium", desc: "Completing a task instantly resets your cortisol index to 0.", icon: Smile, color: "text-emerald-500" },
-           { title: "Future Self", desc: "Don't steal relaxation time from someone you haven't met yet.", icon: Frown, color: "text-rose-500" }
-         ].map((item, idx) => (
-           <Card key={idx} className="white-glass-card p-6 border-slate-100 transition-all hover:-translate-y-1">
-              <item.icon className={`h-6 w-6 ${item.color} mb-4`} />
-              <h3 className="font-black text-xs uppercase tracking-widest text-slate-900 mb-2">{item.title}</h3>
-              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">{item.desc}</p>
-           </Card>
-         ))}
+      {/* Footnotes */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {[
+          { title: "20 Hours", desc: "Roughly what it takes to go from total beginner to passably competent at a new skill.", icon: Sparkles, color: "#b6ff3c" },
+          { title: "Opportunity Cost", desc: "The real price of an idle hour is the book, project, or walk you traded it for.", icon: Brain, color: "#b6ff3c" },
+          { title: "It Compounds", desc: "One reclaimed hour a day is ~365 hours a year — over nine 40-hour work weeks.", icon: Trophy, color: "#b6ff3c" },
+        ].map((item, idx) => (
+          <Card key={idx} className="bg-[#1d1442] border-[#4a3f7a] p-5">
+            <item.icon className="h-6 w-6 mb-3" style={{ color: item.color }} />
+            <h3 className="font-black text-xs uppercase tracking-widest text-[#ECEAE3] mb-1">{item.title}</h3>
+            <p className="text-xs text-[#b3aae0] leading-relaxed">{item.desc}</p>
+          </Card>
+        ))}
       </div>
     </div>
   )

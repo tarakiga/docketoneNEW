@@ -8,6 +8,9 @@ import { GenerationalTimelineCalculator } from "./bigkidmath/generational-timeli
 import { LightningLifeCalculator } from "./bigkidmath/lightning-life"
 import { PowerFootprintCalculator } from "./bigkidmath/power-footprint"
 
+import { BioFrequencyTest } from "./brainmodes/bio-frequency-test"
+import { DecibelDetective } from "./brainmodes/decibel-detective"
+
 
 import { CaesarCipher } from "./cipherlab/caesar-cipher"
 import { MorseCode } from "./cipherlab/morse-code"
@@ -18,10 +21,15 @@ import { PigpenCipher } from "./cipherlab/pigpen-cipher"
 import { ShavianTranslator } from "./cipherlab/shavian-translator"
 import { SteganographyBrush } from "./cipherlab/steganography-brush"
 
+import { ButterflyEffect } from "./geekgalaxy/butterfly-effect"
+import { ChaosComposer } from "./geekgalaxy/chaos-composer"
+import { ChaosMicroscope } from "./geekgalaxy/chaos-microscope"
+
 // Geek Galaxy Imports
 import { AIDoomsdayCalculator } from "./geekgalaxy/ai-doomsday"
 import { AlienCommunicationCalculator } from "./geekgalaxy/alien-communication"
 import { BeskarArmorCalculator } from "./geekgalaxy/beskar-armor"
+import { DataWeightCalculator } from "./geekgalaxy/data-weight"
 import { ForceSensitivityCalculator } from "./geekgalaxy/force-sensitivity"
 import { LightsaberBatteryCalculator } from "./geekgalaxy/lightsaber-battery"
 import { PotionBrewerCalculator } from "./geekgalaxy/potion-brewer"
@@ -50,7 +58,7 @@ import { SpartanAugmentationCalculator } from "./otakuops/spartan-augmentation"
 import { WarpTravelCalculator } from "./otakuops/warp-travel"
 
 // Math Magik Imports
-import { ButterflyEffect } from "./mathmagik/butterfly-effect"
+// import { ButterflyEffect } from "./mathmagik/butterfly-effect" // REMOVED: Replaced by Geek Galaxy version
 import { ChaosExplorer } from "./mathmagik/chaos-explorer"
 import { DoublePendulum } from "./mathmagik/double-pendulum"
 import { FireCalculator } from "./mathmagik/fire-number"
@@ -59,7 +67,9 @@ import { LifeVisualized } from "./mathmagik/life-visualized"
 import { PizzaPiCalculator } from "./mathmagik/pizza-pi"
 
 // Life Hacks Imports
+import { CalorieDeficitCalculator } from "./lifehacks/calorie-deficit"
 import { CoffeeToCode } from "./lifehacks/coffee-code"
+import { ElevatorDilemmaCalculator } from "./lifehacks/elevator-efficiency"
 import { PepperScale } from "./lifehacks/pepper-scale"
 import { ProcrastinationCalculator } from "./lifehacks/procrastination-roi"
 import { ShouldIEngage } from "./lifehacks/should-i-engage"
@@ -99,9 +109,13 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "warp-speed": WarpSpeedCalculator,
   "ai-doomsday": AIDoomsdayCalculator,
   "alien-communication": AlienCommunicationCalculator,
+  "data-weight": DataWeightCalculator,
   "beskar-armor": BeskarArmorCalculator,
   "potion-brewer": PotionBrewerCalculator,
   "time-paradox": TimeParadoxDetector,
+  "chaos-microscope": ChaosMicroscope,
+  "chaos-composer": ChaosComposer,
+  "butterfly-effect": ButterflyEffect, // Moved to Geek Galaxy as requested
 
   // otakuops
   "anime-training": AnimeTrainingCalculator,
@@ -126,11 +140,12 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "chaos-explorer": ChaosExplorer,
   "inflation-impact": InflationImpact,
   "life-visualized": LifeVisualized,
-  "butterfly-effect": ButterflyEffect,
+  // "butterfly-effect": ButterflyEffect, // MOVED TO GEEK GALAXY
 
   // Life Hacks
   "unspent-potential": UnspentPotentialTax,
   "sleep-cycle": SleepCycleCalculator,
+  "calorie-deficit": CalorieDeficitCalculator,
   "procrastination-roi": ProcrastinationCalculator,
   "social-media-addiction": SocialMediaAddiction,
   "coffee-code": CoffeeToCode,
@@ -138,4 +153,9 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "should-i-engage": ShouldIEngage,
   "stress-ice-cream": StressToIceCream,
   "time-is-money": TimeIsMoney,
+  "elevator-dilemma": ElevatorDilemmaCalculator,
+
+  // brainmodes
+  "decibel-detective": DecibelDetective,
+  "bio-frequency-test": BioFrequencyTest,
 }

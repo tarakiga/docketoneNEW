@@ -1,11 +1,8 @@
 "use client"
 
 import { ShareResult } from "@/components/molecules/share-result"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
-import { TrendingUp } from "lucide-react"
+import { motion } from "framer-motion"
 import { useMemo, useState } from "react"
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
@@ -16,134 +13,171 @@ export function FireCalculator() {
   const [rate, setRate] = useState(7) // Growth rate %
   const [swr, setSwr] = useState(4) // Safe withdrawal rate %
 
-  const calculation = useMemo(() => {
-    const fireNumber = expenses / (swr / 100)
+  const calc = useMemo(() => {
+    const multiple = swr > 0 ? 100 / swr : 0
+    const fireNumber = swr > 0 ? expenses / (swr / 100) : 0
+    const reached = fireNumber > 0 && savings >= fireNumber
+
     let current = savings
     let years = 0
-    const data = []
-    
-    // Project up to 50 years max or until hit
+    const data: { year: string; amount: number; target: number }[] = []
     while (current < fireNumber && years < 50) {
-      data.push({ year: `Year ${years}`, amount: Math.round(current), target: fireNumber })
+      data.push({ year: `Year ${years}`, amount: Math.round(current), target: Math.round(fireNumber) })
       current = current * (1 + rate / 100) + contribution
       years++
     }
-    // Add the final year
-    data.push({ year: `Year ${years}`, amount: Math.round(current), target: fireNumber })
+    data.push({ year: `Year ${years}`, amount: Math.round(current), target: Math.round(fireNumber) })
 
-    return { fireNumber, years, data, reached: current >= fireNumber }
+    const progress = fireNumber > 0 ? Math.min(100, (savings / fireNumber) * 100) : 0
+    return { fireNumber, multiple, years, data, reached, progress }
   }, [expenses, savings, contribution, rate, swr])
 
+  const multLabel = Number.isInteger(calc.multiple) ? `${calc.multiple}` : calc.multiple.toFixed(1)
+  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[#b3aae0]"
+  const fieldCls =
+    "w-full min-w-0 bg-[#0c0824] border border-[#4a3f7a] rounded-lg text-[#ECEAE3] font-mono text-sm pl-7 pr-2 py-2 outline-none focus:border-[#ff3ca6]"
+
   return (
-    <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-emerald-950 border-emerald-800 text-emerald-50">
-        <CardHeader>
-          <CardTitle className="text-3xl font-display text-emerald-400 flex items-center gap-2">
-            <TrendingUp className="h-8 w-8" />
-            F.I.R.E. Countdown
-          </CardTitle>
-          <CardDescription className="text-emerald-200/60">Financial Independence, Retire Early.</CardDescription>
-        </CardHeader>
-        <CardContent className="grid lg:grid-cols-12 gap-8">
-           
-           <div className="lg:col-span-4 space-y-6">
-              <div className="space-y-4 p-4 rounded-xl bg-emerald-900/30 border border-emerald-800">
-                 <div className="space-y-2">
-                    <Label className="text-emerald-100">Annual Expenses</Label>
-                    <div className="flex gap-2 items-center">
-                       <span className="text-emerald-400">$</span>
-                       <Input type="number" 
-                              value={expenses} 
-                              onChange={(e) => setExpenses(Number(e.target.value))} 
-                              className="bg-emerald-950 border-emerald-700 text-emerald-50" />
-                    </div>
-                 </div>
+    <motion.div
+      className="w-full rounded-3xl p-5 md:p-8 border border-[#4a3f7a] shadow-2xl relative overflow-hidden"
+      style={{
+        background: "#1d1442",
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="relative z-10">
+        <span className={MONO_K + " flex items-center gap-2"}>
+          <span className="h-2 w-2 rounded-full bg-[#ff3ca6] animate-pulse" /> Math Magik · F.I.R.E.
+        </span>
+        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[#ECEAE3] leading-tight mt-1">
+          When can you <em className="italic text-[#ff3ca6]">stop working?</em>
+        </h2>
+        <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
+          Financial Independence, Retire Early — your freedom number is the pot that funds your life forever.
+        </p>
 
-                 <div className="space-y-2">
-                    <Label className="text-emerald-100">Current Savings</Label>
-                    <div className="flex gap-2 items-center">
-                       <span className="text-emerald-400">$</span>
-                       <Input type="number" 
-                              value={savings} 
-                              onChange={(e) => setSavings(Number(e.target.value))} 
-                              className="bg-emerald-950 border-emerald-700 text-emerald-50" />
-                    </div>
-                 </div>
+        <div className="grid lg:grid-cols-[320px_1fr] gap-5 items-start">
+          {/* ── inputs ──────────────────────────── */}
+          <div className="min-w-0 rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-4 space-y-4">
+            {([
+              ["Annual expenses", expenses, setExpenses],
+              ["Current savings", savings, setSavings],
+              ["Annual contribution", contribution, setContribution],
+            ] as const).map(([label, val, setter]) => (
+              <label key={label} className="block">
+                <span className="font-mono text-[9px] uppercase tracking-wide text-[#b3aae0]">{label}</span>
+                <div className="relative mt-1">
+                  <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#ff3ca6] text-sm">$</span>
+                  <input
+                    type="number"
+                    min={0}
+                    value={val}
+                    onChange={(e) => setter(Math.max(0, Number(e.target.value)))}
+                    className={fieldCls}
+                  />
+                </div>
+              </label>
+            ))}
 
-                 <div className="space-y-2">
-                    <Label className="text-emerald-100">Annual Contribution</Label>
-                    <div className="flex gap-2 items-center">
-                       <span className="text-emerald-400">$</span>
-                       <Input type="number" 
-                              value={contribution} 
-                              onChange={(e) => setContribution(Number(e.target.value))} 
-                              className="bg-emerald-950 border-emerald-700 text-emerald-50" />
-                    </div>
-                 </div>
+            <div className="pt-1">
+              <div className="flex justify-between text-[13px] text-[#ECEAE3]">
+                <span>Investment return</span>
+                <span className="font-mono text-[#ff3ca6]">{rate}%</span>
               </div>
+              <Slider value={[rate]} onValueChange={([v]) => setRate(v)} min={1} max={15} step={0.5} className="mt-2 [&_[data-slot=slider-range]]:bg-[#ff3ca6] [&_[data-slot=slider-thumb]]:border-[#ff3ca6]" />
+            </div>
 
-              <div className="space-y-4">
-                 <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                       <Label>Investment Return</Label>
-                       <span className="font-mono text-emerald-300">{rate}%</span>
-                    </div>
-                    <Slider value={[rate]} onValueChange={([v]) => setRate(v)} min={1} max={15} step={0.5} className="[&_.range-thumb]:bg-emerald-500" />
-                 </div>
-                 
-                 <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                       <Label>Safe Withdrawal Rate</Label>
-                       <span className="font-mono text-emerald-300">{swr}%</span>
-                    </div>
-                    <Slider value={[swr]} onValueChange={([v]) => setSwr(v)} min={2} max={6} step={0.1} className="[&_.range-thumb]:bg-emerald-500" />
-                    <p className="text-xs text-emerald-500/60">Standard rule is 4% (25x expenses).</p>
-                 </div>
+            <div>
+              <div className="flex justify-between text-[13px] text-[#ECEAE3]">
+                <span>Safe withdrawal rate</span>
+                <span className="font-mono text-[#ff3ca6]">{swr}%</span>
               </div>
-           </div>
+              <Slider value={[swr]} onValueChange={([v]) => setSwr(v)} min={2} max={6} step={0.1} className="mt-2 [&_[data-slot=slider-range]]:bg-[#ff3ca6] [&_[data-slot=slider-thumb]]:border-[#ff3ca6]" />
+              <p className="text-[11px] text-[#b3aae0] mt-1.5">Standard rule is 4% — i.e. {multLabel}× your expenses.</p>
+            </div>
+          </div>
 
-           <div className="lg:col-span-8 space-y-8">
-              <div className="grid md:grid-cols-2 gap-4">
-                 <div className="bg-emerald-900/40 p-6 rounded-xl border border-emerald-800">
-                    <div className="text-xs font-bold uppercase tracking-widest text-emerald-500 mb-1">Your Freedom Number</div>
-                    <div className="text-4xl font-black text-white">${calculation.fireNumber.toLocaleString()}</div>
-                    <div className="text-sm text-emerald-400 mt-2">
-                       (25x Expenses)
-                    </div>
-                 </div>
-                 <div className="bg-emerald-900/40 p-6 rounded-xl border border-emerald-800">
-                    <div className="text-xs font-bold uppercase tracking-widest text-emerald-500 mb-1">Time to Freedom</div>
-                    <div className="text-4xl font-black text-white">
-                      {calculation.years >= 50 ? "50+" : calculation.years} <span className="text-lg text-emerald-300 font-normal">Years</span>
-                    </div>
-                    <div className="text-sm text-emerald-400 mt-2">
-                       by {new Date().getFullYear() + calculation.years}
-                    </div>
-                 </div>
+          {/* ── results ─────────────────────────── */}
+          <div className="min-w-0 space-y-4">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-5">
+                <div className={MONO_K}>Your freedom number</div>
+                <div
+                  className="text-3xl md:text-4xl font-bold mt-1 break-words"
+                  style={{ fontFamily: "var(--font-bungee), cursive", color: "#ff3ca6" }}
+                >
+                  ${Math.round(calc.fireNumber).toLocaleString()}
+                </div>
+                <div className="text-sm text-[#b3aae0] mt-1">({multLabel}× expenses)</div>
               </div>
-
-              <div className="h-[300px] w-full bg-emerald-950/50 rounded-xl p-4 border border-emerald-800/50">
-                <ResponsiveContainer width="100%" height="100%">
-                   <BarChart data={calculation.data}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#064e3b" vertical={false} />
-                      <XAxis dataKey="year" hide />
-                      <YAxis hide domain={[0, 'auto']} />
-                      <Tooltip 
-                        contentStyle={{ backgroundColor: '#022c22', borderColor: '#059669', color: '#ecfdf5' }}
-                        itemStyle={{ color: '#ecfdf5' }}
-                        formatter={(value: any) => [`$${value.toLocaleString()}`, 'Savings']}
-                        labelStyle={{ color: '#6ee7b7' }}
-                      />
-                      <Bar dataKey="amount" fill="#10b981" radius={[4, 4, 0, 0]} />
-                   </BarChart>
-                </ResponsiveContainer>
+              <div className="rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-5">
+                <div className={MONO_K}>Time to freedom</div>
+                {calc.reached ? (
+                  <>
+                    <div className="font-mono text-3xl md:text-4xl font-bold text-[#86efac] mt-1">You&apos;re free 🎉</div>
+                    <div className="text-sm text-[#b3aae0] mt-1">Already past your number</div>
+                  </>
+                ) : (
+                  <>
+                    <div className="font-mono text-3xl md:text-4xl font-bold text-[#ECEAE3] mt-1">
+                      {calc.years >= 50 ? "50+" : calc.years} <span className="text-lg text-[#ff3ca6] font-normal">yrs</span>
+                    </div>
+                    <div className="text-sm text-[#b3aae0] mt-1">
+                      {calc.years >= 50 ? "Tune the dials to get there" : `by ${new Date().getFullYear() + calc.years}`}
+                    </div>
+                  </>
+                )}
               </div>
+            </div>
 
-              <ShareResult title="My FIRE Plan" text={`I'm on track to reach Financial Independence in ${calculation.years} years! My target is $${(calculation.fireNumber/1000000).toFixed(2)}M. 📈`} />
-           </div>
+            {/* progress to freedom */}
+            <div className="rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-5">
+              <div className="flex justify-between items-baseline mb-2">
+                <div className={MONO_K}>Progress to freedom</div>
+                <div className="font-mono text-[#ff3ca6] font-bold text-sm">{calc.progress.toFixed(1)}%</div>
+              </div>
+              <div className="h-3 rounded-full bg-[#0c0824] border border-[#4a3f7a] overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all"
+                  style={{ width: `${calc.progress}%`, background: "#ff3ca6" }}
+                />
+              </div>
+              <p className="text-[12px] text-[#b3aae0] mt-2">
+                You&apos;ve already banked {calc.progress.toFixed(0)}% of the pot that buys back your time.
+              </p>
+            </div>
 
-        </CardContent>
-      </Card>
-    </div>
+            {/* growth chart */}
+            <div className="h-[260px] w-full rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-4">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={calc.data}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#4a3f7a" vertical={false} />
+                  <XAxis dataKey="year" hide />
+                  <YAxis hide domain={[0, "auto"]} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: "#0c0824", borderColor: "#4a3f7a", color: "#ECEAE3", borderRadius: 8 }}
+                    itemStyle={{ color: "#ECEAE3" }}
+                    formatter={(value) => [`$${Number(value).toLocaleString()}`, "Savings"]}
+                    labelStyle={{ color: "#b3aae0" }}
+                  />
+                  <Bar dataKey="amount" fill="#ff3ca6" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <ShareResult
+              title="My FIRE Plan"
+              text={
+                calc.reached
+                  ? `I've already hit my FIRE number of $${(calc.fireNumber / 1_000_000).toFixed(2)}M. Financially free! 📈`
+                  : `I'm on track to reach Financial Independence in ${calc.years} years — target $${(calc.fireNumber / 1_000_000).toFixed(2)}M. 📈`
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </motion.div>
   )
 }
