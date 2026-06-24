@@ -2,7 +2,7 @@
 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { toPng } from "html-to-image"
-import { Copy, Download, Link2, Share2, X } from "lucide-react"
+import { Copy, Download, Share2, X } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 
@@ -19,6 +19,13 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
     const cardRef = useRef<HTMLDivElement>(null)
     const [isGenerating, setIsGenerating] = useState(false)
     const [shareFile, setShareFile] = useState<File | null>(null)
+    const [canNativeShare, setCanNativeShare] = useState(false)
+
+    // Native share (mobile) lists every app; the explicit social buttons are
+    // only the useful fallback where it's missing (most desktops).
+    useEffect(() => {
+        setCanNativeShare(typeof navigator !== "undefined" && typeof navigator.share === "function")
+    }, [])
 
     const finalUrl = url || (typeof window !== "undefined" ? window.location.href : "")
     const shareText = `${title}: ${result}`
@@ -66,7 +73,8 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
         // 1) Best case: share the actual result card as an image file (mobile).
         if (nav?.share && shareFile && nav.canShare?.({ files: [shareFile] })) {
             try {
-                await nav.share({ files: [shareFile], title, text: shareText })
+                // Link goes in the caption text so it travels alongside the image.
+                await nav.share({ files: [shareFile], title, text: `${shareText}\n${finalUrl}` })
                 return
             } catch (err) {
                 if (isAbort(err)) return // user dismissed the share sheet
@@ -118,11 +126,6 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
             name: "LinkedIn",
             icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>,
             action: () => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(finalUrl)}`, "_blank"),
-        },
-        {
-            name: "Copy link",
-            icon: <Link2 className="w-5 h-5" />,
-            action: handleCopyLink,
         },
     ]
 
@@ -198,15 +201,17 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                         </div>
                     </div>
 
-                    {/* Primary action */}
-                    <button
-                        type="button"
-                        onClick={handleShare}
-                        className="w-full flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#160e33]"
-                        style={{ fontFamily: pixel, fontSize: 11, padding: "14px", background: "#b6ff3c", color: "#160e33", border: "2px solid #fff", borderRadius: 0, cursor: "pointer", textTransform: "uppercase" }}
-                    >
-                        <Share2 className="w-4 h-4" /> Share
-                    </button>
+                    {/* Primary action — native share (mobile) sends the card image + link */}
+                    {canNativeShare && (
+                        <button
+                            type="button"
+                            onClick={handleShare}
+                            className="w-full flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#160e33]"
+                            style={{ fontFamily: pixel, fontSize: 11, padding: "14px", background: "#b6ff3c", color: "#160e33", border: "2px solid #fff", borderRadius: 0, cursor: "pointer", textTransform: "uppercase" }}
+                        >
+                            <Share2 className="w-4 h-4" /> Share
+                        </button>
+                    )}
 
                     {/* Secondary actions */}
                     <div className="grid grid-cols-2 gap-2 mt-2">
@@ -234,7 +239,8 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                         </button>
                     </div>
 
-                    {/* Social row */}
+                    {/* Social row — only where native share isn't available (desktop) */}
+                    {!canNativeShare && (
                     <div className="flex items-center gap-2 mt-4">
                         <span style={{ fontFamily: pixel, fontSize: 8, letterSpacing: ".2em", color: "#6f67a0", whiteSpace: "nowrap" }}>OR POST TO</span>
                         <div style={{ flex: 1, height: 1, background: "#2f2a5a" }} />
@@ -252,6 +258,7 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                             </button>
                         ))}
                     </div>
+                    )}
                 </div>
             </DialogContent>
         </Dialog>
