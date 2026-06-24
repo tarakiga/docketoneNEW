@@ -94,16 +94,16 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                 className="sm:max-w-[400px] p-0 border-0 bg-transparent shadow-none"
                 style={{ fontFamily: mono }}
             >
-                <div style={{ background: "#160e33", border: "3px solid #29e0ff", boxShadow: "8px 8px 0 #0c0824", borderRadius: 8 }} className="p-6">
+                <div style={{ background: "#160e33", border: "3px solid #29e0ff", boxShadow: "8px 8px 0 #0c0824", borderRadius: 8 }} className="p-4 sm:p-6 min-w-0 overflow-hidden">
                     <DialogClose
-                        className="absolute right-4 top-4 w-9 h-9 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#b6ff3c]"
+                        className="absolute right-3 top-3 w-9 h-9 flex items-center justify-center shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#b6ff3c]"
                         style={{ background: "#241a52", border: "2px solid #4a3f7a", borderRadius: 4 }}
                     >
                         <X className="w-4 h-4" style={{ color: "#b3aae0" }} />
                         <span className="sr-only">Close</span>
                     </DialogClose>
 
-                    <DialogTitle style={{ fontFamily: display, color: "#ffd23c", fontSize: 22, lineHeight: 1.1 }}>
+                    <DialogTitle style={{ fontFamily: display, color: "#ffd23c", fontSize: "clamp(17px, 5.5vw, 22px)", lineHeight: 1.1, paddingRight: 40 }}>
                         Share your score
                     </DialogTitle>
                     <DialogDescription style={{ color: "#b3aae0", fontSize: 12, marginTop: 4 }}>
@@ -115,13 +115,14 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                         <div
                             ref={cardRef}
                             style={{
-                                width: 320,
-                                minHeight: 400,
+                                width: "100%",
+                                maxWidth: 320,
+                                minHeight: 380,
                                 background: "#0c0824",
                                 backgroundImage: "repeating-linear-gradient(transparent 0 3px, rgba(0,0,0,.18) 3px 4px)",
                                 border: "3px solid #ffd23c",
                                 borderRadius: 10,
-                                padding: 26,
+                                padding: "clamp(16px, 6vw, 26px)",
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "space-between",
@@ -132,7 +133,7 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                                 <div style={{ fontFamily: pixel, fontSize: 9, letterSpacing: ".18em", color: "#29e0ff", marginBottom: 22 }}>
                                     ★ DOCKET ONE ARCADE
                                 </div>
-                                <h3 style={{ fontFamily: display, color: "#ffd23c", fontSize: 30, lineHeight: 0.95, textShadow: "3px 3px 0 #ff3ca6", margin: 0 }}>
+                                <h3 style={{ fontFamily: display, color: "#ffd23c", fontSize: "clamp(20px, 6.5vw, 30px)", lineHeight: 0.95, textShadow: "3px 3px 0 #ff3ca6", margin: 0, wordBreak: "break-word" }}>
                                     {title}
                                 </h3>
                                 <div style={{ height: 4, width: 56, background: "#29e0ff", marginTop: 16 }} />
