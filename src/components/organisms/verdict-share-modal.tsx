@@ -3,7 +3,7 @@
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { toPng } from "html-to-image"
 import { Copy, Download, Link2, Share2, X } from "lucide-react"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 
 interface ShareModalProps {
@@ -18,9 +18,37 @@ interface ShareModalProps {
 export function VerdictShareModal({ isOpen, onOpenChange, title, result, description, url }: ShareModalProps) {
     const cardRef = useRef<HTMLDivElement>(null)
     const [isGenerating, setIsGenerating] = useState(false)
+    const [shareFile, setShareFile] = useState<File | null>(null)
 
     const finalUrl = url || (typeof window !== "undefined" ? window.location.href : "")
     const shareText = `${title}: ${result}`
+
+    // Pre-render the result card to a PNG when the modal opens, so the Share
+    // button can attach it to navigator.share() synchronously within the click
+    // gesture (iOS Safari rejects share() if async work runs first).
+    useEffect(() => {
+        if (!isOpen) {
+            setShareFile(null)
+            return
+        }
+        let cancelled = false
+        const t = setTimeout(async () => {
+            if (!cardRef.current) return
+            try {
+                const dataUrl = await toPng(cardRef.current, { cacheBust: true, pixelRatio: 2 })
+                const blob = await (await fetch(dataUrl)).blob()
+                if (!cancelled) {
+                    setShareFile(new File([blob], `docket-one-${Date.now()}.png`, { type: "image/png" }))
+                }
+            } catch {
+                /* generation failed — Share will fall back to a link */
+            }
+        }, 450)
+        return () => {
+            cancelled = true
+            clearTimeout(t)
+        }
+    }, [isOpen, title, result])
 
     const handleCopyLink = async () => {
         try {
@@ -31,15 +59,30 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
         }
     }
 
+    const isAbort = (err: unknown) => (err as { name?: string })?.name === "AbortError"
+
     const handleShare = async () => {
-        if (typeof navigator !== "undefined" && navigator.share) {
+        const nav = typeof navigator !== "undefined" ? navigator : undefined
+        // 1) Best case: share the actual result card as an image file (mobile).
+        if (nav?.share && shareFile && nav.canShare?.({ files: [shareFile] })) {
             try {
-                await navigator.share({ title, text: shareText, url: finalUrl })
-            } catch {
-                /* user dismissed the share sheet - no-op */
+                await nav.share({ files: [shareFile], title, text: shareText })
+                return
+            } catch (err) {
+                if (isAbort(err)) return // user dismissed the share sheet
+                /* otherwise fall through to a link share */
             }
-            return
         }
+        // 2) Fallback: share the link + text.
+        if (nav?.share) {
+            try {
+                await nav.share({ title, text: shareText, url: finalUrl })
+                return
+            } catch (err) {
+                if (isAbort(err)) return
+            }
+        }
+        // 3) No Web Share API (most desktops): copy the link.
         handleCopyLink()
     }
 
