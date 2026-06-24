@@ -23,12 +23,12 @@ const DEST_VALS = {
 const PROPULSION = {
   'car': { name: 'Highway Speed', emoji: '🚗', speed: 0.1, label: '100 km/h', color: 'from-slate-800 to-slate-900', class: 'Civilian', isFTL: false },
   'jet': { name: 'Jet Aircraft', emoji: '✈️', speed: 0.9, label: '900 km/h', color: 'from-blue-800 to-blue-900', class: 'Aviation', isFTL: false },
-  'artemis': { name: 'Artemis SLS', emoji: '🌕', speed: 27.35, label: '27.35k km/h', color: 'from-orange-800 to-red-900', class: 'Super Heavy Lift', isFTL: false },
+  'artemis': { name: 'Artemis SLS', emoji: '🧑‍🚀', speed: 27.35, label: '27.35k km/h', color: 'from-orange-800 to-red-900', class: 'Super Heavy Lift', isFTL: false },
   'dragon': { name: 'SpaceX Dragon', emoji: '🐉', speed: 28, label: '28k km/h', color: 'from-blue-900 to-indigo-950', class: 'LEO Transport', isFTL: false },
   'starship': { name: 'SpaceX Starship', emoji: '🚀', speed: 30, label: '30k km/h', color: 'from-blue-800 to-indigo-900', class: 'Super Heavy', isFTL: false },
   'rocket': { name: 'Chemical Rocket', emoji: '🧨', speed: 40, label: '40k km/h', color: 'from-orange-900 to-red-900', class: 'Traditional', isFTL: false },
   'ion': { name: 'Ion Drive', emoji: '🔋', speed: 200, label: '200k km/h', color: 'from-emerald-900 to-teal-950', class: 'High Efficiency', isFTL: false },
-  'fusion': { name: 'Fusion Ramjet', emoji: '☢️', speed: 54000, label: '0.15c', color: 'from-purple-900 to-pink-900', class: 'Relativistic', isFTL: false },
+  'fusion': { name: 'Fusion Ramjet', emoji: '☢️', speed: 161888, label: '0.15c', color: 'from-purple-900 to-pink-900', class: 'Relativistic', isFTL: false },
   'light': { name: 'Speed of Light', emoji: '✨', speed: 1079252, label: '1.0c', color: 'from-yellow-900 to-orange-900', class: 'Universal Constant', isFTL: false },
   'nx01': { name: 'Enterprise NX-01', emoji: '🖖', speed: 125 * 1079252, label: 'Warp 5', isFTL: true, color: 'from-blue-900 to-cyan-950', class: 'Exploration' },
   'ncc1701': { name: 'USS Enterprise', emoji: '🛰️', speed: 512 * 1079252, label: 'Warp 8', isFTL: true, color: 'from-blue-800 to-cyan-900', class: 'Constitution' },
@@ -70,19 +70,21 @@ export function SpaceTravelCalculator() {
         method = "Hohmann Transfer Orbit"
       }
     } else {
-      const actualSpeed = prop.isFTL ? prop.speed : prop.speed * 1000
+      // All speeds are stored in "k km/h" (so c = 1,079,252 and Warp N = N*c).
+      const actualSpeed = prop.speed * 1000
       hours = dest.distKm / actualSpeed
       method = prop.isFTL ? "Warp Bubble" : "Direct High-Thrust Path"
     }
     
     // Formatting time
-    if (hours < 1) timeLabel = Math.round(hours * 60) + " minutes"
+    if (hours * 60 < 1) timeLabel = "Under a minute"
+    else if (hours < 1) timeLabel = Math.round(hours * 60) + " minutes"
     else if (hours < 24) timeLabel = hours.toFixed(1) + " hours"
     else if (hours < 24 * 365) timeLabel = Math.floor(hours / 24).toLocaleString() + " days"
     else if (hours < 24 * 365 * 100) timeLabel = Math.floor(hours / (24 * 365)).toLocaleString() + " years"
     else timeLabel = (hours / (24 * 365 * 1000000)).toFixed(1) + " million years"
 
-    const currentSpeedKmh = prop.isFTL ? prop.speed : prop.speed * 1000
+    const currentSpeedKmh = prop.speed * 1000
     const percentC = ((currentSpeedKmh) / c) * 100
     
     // Synodic Period (Launch Window)
