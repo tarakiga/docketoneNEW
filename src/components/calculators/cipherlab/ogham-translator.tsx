@@ -135,7 +135,7 @@ export function OghamTranslator() {
                         <div className="pt-2">
                             <Button 
                                 onClick={downloadInscription} 
-                                className="w-full h-14 gap-3 relative overflow-hidden group shadow-xl shadow-[#b388ff]/10 rounded-2xl font-black uppercase tracking-widest text-xs bg-[#b388ff] text-[#160e33] hover:bg-[#b388ff]/90"
+                                className="w-full h-14 gap-2 relative overflow-hidden group shadow-xl shadow-[#b388ff]/10 rounded-2xl font-black uppercase tracking-wide text-xs whitespace-normal leading-tight text-center bg-[#b388ff] text-[#160e33] hover:bg-[#b388ff]/90"
                                 variant="default"
                                 disabled={!text || isDownloading}
                             >

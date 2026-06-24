@@ -85,12 +85,12 @@ export function BeskarArmorCalculator() {
 
               <div className="space-y-4">
                  <h3 className="font-bold uppercase text-xs tracking-wider" style={{ color: '#b3aae0' }}>Primary Threat</h3>
-                 <div className="grid grid-cols-4 gap-2">
+                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {Object.entries(DAMAGE_TYPES).map(([k, v]) => (
                       <button
                         key={k}
                         onClick={() => setDamage(k as keyof typeof DAMAGE_TYPES)}
-                        className="p-2 py-4 rounded border text-center text-xs transition-all"
+                        className="p-2 py-4 rounded border text-center text-xs leading-tight break-words min-w-0 transition-all"
                         style={damage === k
                           ? { backgroundColor: '#241a52', borderColor: '#ff8a3c', color: '#ECEAE3' }
                           : { backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#b3aae0' }}

@@ -170,15 +170,15 @@ export function SpaceTravelCalculator() {
                     <button
                       key={key}
                       onClick={() => setPropulsion(key as keyof typeof PROPULSION)}
-                      className="flex items-center gap-4 p-4 rounded-xl border transition-all relative overflow-hidden group/btn"
+                      className="flex items-center gap-3 p-4 rounded-xl border transition-all relative overflow-hidden group/btn min-w-0"
                       style={propulsion === key
                         ? { backgroundColor: '#241a52', borderColor: '#ff8a3c' }
                         : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}
                     >
-                      <span className="text-3xl relative z-10 transition-all">{prop.emoji}</span>
-                      <div className="text-left relative z-10 flex-1">
-                        <div className="flex items-center justify-between">
-                          <div className="font-bold text-[11px] uppercase tracking-tight" style={{ color: '#ECEAE3' }}>{prop.name}</div>
+                      <span className="text-3xl relative z-10 transition-all shrink-0">{prop.emoji}</span>
+                      <div className="text-left relative z-10 flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="font-bold text-[11px] uppercase tracking-tight break-words min-w-0" style={{ color: '#ECEAE3' }}>{prop.name}</div>
                           <div className="text-[8px] font-bold uppercase" style={{ color: '#b3aae0' }}>{prop.class}</div>
                         </div>
                         <div className="text-[10px] font-bold mt-0.5" style={{ color: '#ff8a3c' }}>{prop.label}</div>

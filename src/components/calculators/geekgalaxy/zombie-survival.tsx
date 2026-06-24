@@ -157,14 +157,14 @@ export function ZombieSurvivalCalculator() {
                   <Button
                     key={opt.val}
                     variant="outline"
-                    className="h-auto flex-col py-4 gap-2 transition-all"
+                    className="h-auto flex-col py-4 gap-2 px-1 whitespace-normal min-w-0 transition-all"
                     style={isActive
                       ? { background: 'var(--accent)', color: '#0c0824', borderColor: 'var(--accent)' }
                       : { background: '#241a52', color: 'var(--ink)', borderColor: 'var(--line)' }}
                     onClick={() => setFitness(opt.val)}
                   >
                     <span className="text-2xl">{opt.icon}</span>
-                    <span className="text-xs font-bold">{opt.label}</span>
+                    <span className="text-xs font-bold text-center leading-tight break-words">{opt.label}</span>
                   </Button>
                   )
                 })}
@@ -173,7 +173,7 @@ export function ZombieSurvivalCalculator() {
 
             <div className="space-y-3">
               <Label className="flex items-center gap-2 font-bold uppercase tracking-widest text-[10px]" style={{ color: 'var(--accent)' }}><Dumbbell className="h-4 w-4" /> Survival Skillset</Label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   { key: 'melee', label: 'Melee Combat', icon: Swords },
                   { key: 'ranged', label: 'Ranged Weapons', icon: Target },
@@ -186,14 +186,14 @@ export function ZombieSurvivalCalculator() {
                     <Button
                       key={skill.key}
                       variant="outline"
-                      className="justify-start gap-3 py-6 rounded-xl transition-all"
+                      className="justify-start gap-2 py-6 px-3 rounded-xl whitespace-normal min-w-0 transition-all"
                       style={isActive
                         ? { background: 'var(--accent)', color: '#0c0824', borderColor: 'var(--accent)' }
                         : { background: '#241a52', color: 'var(--ink)', borderColor: 'var(--line)' }}
                       onClick={() => setSkills(s => ({...s, [skill.key]: !isActive}))}
                     >
-                      <Icon className="h-4 w-4" style={{ color: isActive ? '#0c0824' : 'var(--accent)' }} />
-                      <span className="font-bold text-xs">{skill.label}</span>
+                      <Icon className="h-4 w-4 shrink-0" style={{ color: isActive ? '#0c0824' : 'var(--accent)' }} />
+                      <span className="font-bold text-xs leading-tight text-left min-w-0">{skill.label}</span>
                     </Button>
                   )
                 })}
@@ -213,22 +213,22 @@ export function ZombieSurvivalCalculator() {
                   <Button
                     key={opt.val}
                     variant="outline"
-                    className="h-auto flex-col py-4 gap-2 transition-all"
+                    className="h-auto flex-col py-4 gap-2 px-1 whitespace-normal min-w-0 transition-all"
                     style={isActive
                       ? { background: 'var(--accent)', color: '#0c0824', borderColor: 'var(--accent)' }
                       : { background: '#241a52', color: 'var(--ink)', borderColor: 'var(--line)' }}
                     onClick={() => setGroupSize(opt.val)}
                   >
                     {opt.icon}
-                    <span className="text-xs font-bold">{opt.label}</span>
+                    <span className="text-xs font-bold text-center leading-tight break-words">{opt.label}</span>
                   </Button>
                   )
                 })}
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-3 min-w-0">
                 <Label className="font-bold uppercase tracking-widest text-[10px]" style={{ color: 'var(--accent)' }}>Zombie Variant</Label>
                 <Select value={zombieType} onValueChange={setZombieType}>
                   <SelectTrigger className="h-10 rounded-xl font-bold text-xs" style={{ background: '#241a52', borderColor: 'var(--line)', color: 'var(--ink)' }}>
@@ -242,7 +242,7 @@ export function ZombieSurvivalCalculator() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-3 min-w-0">
                 <Label className="font-bold uppercase tracking-widest text-[10px]" style={{ color: 'var(--accent)' }}>Safe Zone Type</Label>
                 <Select value={location} onValueChange={setLocation}>
                   <SelectTrigger className="h-10 rounded-xl font-bold text-xs" style={{ background: '#241a52', borderColor: 'var(--line)', color: 'var(--ink)' }}>
