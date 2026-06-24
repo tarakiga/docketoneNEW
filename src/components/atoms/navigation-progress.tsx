@@ -44,7 +44,7 @@ export function NavigationProgress() {
         failSafeRef.current = setTimeout(finish, 12000)
     }, [finish])
 
-    // Route landed — complete the bar.
+    // Route landed - complete the bar.
     useEffect(() => { finish() }, [pathname, finish])
 
     useEffect(() => {

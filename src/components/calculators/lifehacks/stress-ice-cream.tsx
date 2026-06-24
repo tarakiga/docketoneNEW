@@ -73,7 +73,7 @@ export function StressToIceCream() {
                     {/* Cone */}
                     <div className="w-0 h-0 border-l-[40px] border-l-transparent border-r-[40px] border-r-transparent border-t-[120px] border-t-orange-300 relative z-10 filter drop-shadow-lg"></div>
 
-                    {/* Scoops — size/overlap scale with count so the stack always fits the box */}
+                    {/* Scoops - size/overlap scale with count so the stack always fits the box */}
                     {(() => {
                        const n = result.pints
                        const size = Math.max(36, Math.min(120, 168 / (1 + 0.5 * (n - 1))))

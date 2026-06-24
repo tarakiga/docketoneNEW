@@ -204,7 +204,7 @@ export function GachaDespair() {
                         </div>
 
                         <div className="flex justify-center mt-6">
-                           <ShareResult title="Gacha Pit of Despair" text={`${stats.successChance}% chance to get my unit — $${stats.expectedCost.toLocaleString()} of suffering. 🎲😭`} />
+                           <ShareResult title="Gacha Pit of Despair" text={`${stats.successChance}% chance to get my unit - $${stats.expectedCost.toLocaleString()} of suffering. 🎲😭`} />
                         </div>
                      </motion.div>
                   </AnimatePresence>

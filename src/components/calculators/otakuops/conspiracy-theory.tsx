@@ -59,7 +59,7 @@ export function ConspiracyTheoryCalculator() {
             <Eye className="w-7 h-7 text-[#ffd23c]" /> Dept. of Truth
           </h2>
           <p className="text-center font-mono text-[#b3aae0] text-sm mt-1">
-            CASE FILE: {theory || "—"} · GRIMES PROTOCOL
+            CASE FILE: {theory || "-"} · GRIMES PROTOCOL
           </p>
         </div>
 

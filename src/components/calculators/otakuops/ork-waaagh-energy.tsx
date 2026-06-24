@@ -20,7 +20,7 @@ export function OrkWAAAGHEnergyCalculator() {
         let speed = 0
 
         if (redPaint) {
-            // Lore: red things go "10-20% fasta" — bigger mobs believe harder.
+            // Lore: red things go "10-20% fasta" - bigger mobs believe harder.
             speed = 10 + (orks / 1000) * 10
             waaghOutput *= 1.2
         }

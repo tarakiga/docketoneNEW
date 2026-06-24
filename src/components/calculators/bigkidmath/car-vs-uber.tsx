@@ -187,7 +187,7 @@ export function CarVsUberCalculator() {
                     })}
                 </div>
 
-                <div className="text-[11px] text-[#b3aae0] mt-4">*Rough projection (annual gap × 5). Doesn&apos;t model loan payoff or resale value. Insurance, APR, and rideshare distance are estimates &mdash; adjust the inputs for your situation.</div>
+                <div className="text-[11px] text-[#b3aae0] mt-4">*Rough projection (annual gap × 5). Doesn&apos;t model loan payoff or resale value. Insurance, APR, and rideshare distance are estimates - adjust the inputs for your situation.</div>
 
                 <div className="flex justify-end mt-5">
                     <ShareResult

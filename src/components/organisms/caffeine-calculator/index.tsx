@@ -75,7 +75,7 @@ export function CaffeineCalculatorPremium() {
 
     const recommendation = result.isSleepImpacted
         ? `You'll still be above the ~${result.threshold} mg sleep-disruption mark at bedtime (≈${result.bedtimeLevel.toFixed(0)} mg). Consider a later bedtime, or cut caffeine off earlier next time.`
-        : `You should be under ~${result.threshold} mg by bedtime — caffeine is unlikely to keep you up.`
+        : `You should be under ~${result.threshold} mg by bedtime - caffeine is unlikely to keep you up.`
 
     return (
         <motion.div
@@ -139,7 +139,7 @@ export function CaffeineCalculatorPremium() {
                 <div className="flex justify-end">
                     <ShareResult
                         title="Caffeine Status"
-                        text={`I'm running on ${result.currentLevel.toFixed(0)}mg of caffeine. At bedtime I'll still have ~${result.bedtimeLevel.toFixed(0)}mg — sleep forecast: ${result.isSleepImpacted ? "Risky" : "Safe"}. Calculated via Docket One.`}
+                        text={`I'm running on ${result.currentLevel.toFixed(0)}mg of caffeine. At bedtime I'll still have ~${result.bedtimeLevel.toFixed(0)}mg - sleep forecast: ${result.isSleepImpacted ? "Risky" : "Safe"}. Calculated via Docket One.`}
                         className="bg-indigo-600 hover:bg-indigo-500 text-white border-none shadow-[0_0_20px_rgba(99,102,241,0.5)]"
                     />
                 </div>

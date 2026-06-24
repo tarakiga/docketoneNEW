@@ -66,7 +66,7 @@ export function NewsletterForm({ className, dark }: NewsletterFormProps) {
         submittingTitle="Subscribing…"
         submittingMessage="Adding you to the list."
         successTitle="You're in!"
-        successMessage="Thanks for subscribing — we'll send the good stuff, no spam."
+        successMessage="Thanks for subscribing - we'll send the good stuff, no spam."
         errorMessage="We couldn't subscribe you just now. Please try again in a moment."
       />
     </div>

@@ -18,7 +18,7 @@ export function ThemeToggle() {
         try {
             localStorage.setItem("theme", next)
         } catch {
-            /* private mode — ignore */
+            /* private mode - ignore */
         }
     }
 

@@ -131,7 +131,7 @@ export function DecibelDetective() {
                             </div>
                         )}
 
-                        <p className="text-[11px] leading-relaxed" style={{ color: "#b3aae0" }}>An estimate of subjective sensory load (dB(P) is not a standard acoustic unit) — not a clinical or hearing-safety measure.</p>
+                        <p className="text-[11px] leading-relaxed" style={{ color: "#b3aae0" }}>An estimate of subjective sensory load (dB(P) is not a standard acoustic unit) - not a clinical or hearing-safety measure.</p>
 
                         <ShareResult
                             title="Sensory Load"

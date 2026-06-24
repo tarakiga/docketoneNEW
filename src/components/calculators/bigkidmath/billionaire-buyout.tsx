@@ -82,7 +82,7 @@ export function BillionaireBuyout() {
                                 </SelectTrigger>
                                 <SelectContent style={{ background: "#0c0824", border: "1px solid #4a3f7a", color: "#ECEAE3" }}>
                                     {BILLIONAIRES.map(p => (
-                                        <SelectItem key={p.id} value={p.id} className="font-semibold">{p.name} — {fmtPrice(p.wealth)}</SelectItem>
+                                        <SelectItem key={p.id} value={p.id} className="font-semibold">{p.name} - {fmtPrice(p.wealth)}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>

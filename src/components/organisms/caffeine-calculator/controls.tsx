@@ -32,7 +32,7 @@ export function CaffeineControls({
 }: CaffeineControlsProps) {
     return (
         <div className="space-y-7">
-            {/* Drink selection — full-width row */}
+            {/* Drink selection - full-width row */}
             <div>
                 <div className={`${SEC} mb-3`}>Select your drink</div>
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">

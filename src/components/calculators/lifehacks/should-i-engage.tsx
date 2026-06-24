@@ -30,14 +30,14 @@ export function ShouldIEngage() {
     // Mood
     if (mood === "angry") apply(-20, "You are angry. You will regret this.")
     else if (mood === "tired") apply(-5, "You're too tired to make sense.")
-    else if (mood === "sad") apply(-4, "You're low right now — be gentle with yourself.")
+    else if (mood === "sad") apply(-4, "You're low right now - be gentle with yourself.")
     else if (mood === "happy") apply(2, "Good mood, good odds.")
 
     // Relationship
     if (relationship === "nemesis") apply(-15, "It's your mortal enemy. Nothing good comes of this.")
     else if (relationship === "boss") apply(-5, "Professional boundary check required.")
     else if (relationship === "crush") apply(-2, "High stakes with a crush. Don't be weird.")
-    else if (relationship === "stranger") apply(-3, "A stranger — read the room first.")
+    else if (relationship === "stranger") apply(-3, "A stranger - read the room first.")
     else if (relationship === "bestie") apply(10, "It's your bestie, anything goes.")
 
     // Caffeine

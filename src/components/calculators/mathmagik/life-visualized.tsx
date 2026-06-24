@@ -73,7 +73,7 @@ export function LifeVisualized() {
           Your whole life, in <em className="italic text-[#ff3ca6]">{data.label.toLowerCase()}</em>
         </h2>
         <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
-          Every box is one {data.label.toLowerCase().replace(/s$/, "")} of an {data.years || "—"}-year life. The filled
+          Every box is one {data.label.toLowerCase().replace(/s$/, "")} of an {data.years || "-"}-year life. The filled
           ones are spent. Make the empty ones count.
         </p>
 
@@ -186,12 +186,12 @@ export function LifeVisualized() {
 
             {data.overLived && (
               <p className="text-center text-[12px] text-[#ff3ca6] mt-3">
-                You&apos;ve already outlived this estimate — every box from here is a bonus. 🍀
+                You&apos;ve already outlived this estimate - every box from here is a bonus. 🍀
               </p>
             )}
 
             <p className="text-center text-[#b3aae0] italic max-w-lg mx-auto mt-4 text-sm">
-              “It is not that we have a short time to live, but that we waste a lot of it.” — Seneca
+              “It is not that we have a short time to live, but that we waste a lot of it.” - Seneca
             </p>
 
             <div className="mt-4">

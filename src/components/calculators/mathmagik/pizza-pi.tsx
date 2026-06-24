@@ -97,7 +97,7 @@ export function PizzaPiCalculator() {
           How much pizza are you <em className="italic text-[#ff3ca6]">actually</em> buying?
         </h2>
         <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
-          Every pie drawn to true relative scale. Bigger diameters don&apos;t add area — they multiply it.
+          Every pie drawn to true relative scale. Bigger diameters don&apos;t add area - they multiply it.
         </p>
 
         <div className="grid lg:grid-cols-[320px_1fr] gap-5 items-start">
@@ -155,7 +155,7 @@ export function PizzaPiCalculator() {
                       </label>
                       <div className="ml-auto text-right leading-tight shrink-0 self-end pb-1">
                         <div className="font-mono text-[13px] font-bold" style={{ color: isBest ? "#ff3ca6" : "#ECEAE3" }}>
-                          {p.ratio > 0 ? p.ratio.toFixed(2) : "—"}
+                          {p.ratio > 0 ? p.ratio.toFixed(2) : "-"}
                         </div>
                         <div className="font-mono text-[8px] uppercase tracking-wide text-[#b3aae0]">in² / $</div>
                       </div>
@@ -244,7 +244,7 @@ export function PizzaPiCalculator() {
                         {worst?.name} · {Math.round(pctCheaper)}% cheaper per square inch
                       </>
                     ) : (
-                      <>All your options are nearly identical value — order whichever you&apos;ll enjoy most.</>
+                      <>All your options are nearly identical value - order whichever you&apos;ll enjoy most.</>
                     )}
                   </p>
                 </>
@@ -264,7 +264,7 @@ export function PizzaPiCalculator() {
                   title="Pizza Pi Maths"
                   text={`The ${best.name} (${best.size}″) gives ${best.ratio.toFixed(
                     1
-                  )} sq inches of pizza per dollar 🍕 — the mathematically superior order. Don't let geometry fool you!`}
+                  )} sq inches of pizza per dollar 🍕 - the mathematically superior order. Don't let geometry fool you!`}
                 />
               </div>
             )}

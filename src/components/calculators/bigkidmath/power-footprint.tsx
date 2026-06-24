@@ -10,7 +10,7 @@ export function PowerFootprintCalculator() {
     const [kwhPerCapita, setKwhPerCapita] = useState(12000)
 
     const r = useMemo(() => {
-        // Power density (W/m²) — standard land-use figures incl. spacing.
+        // Power density (W/m²) - standard land-use figures incl. spacing.
         const densitySolar = 10
         const densityWind = 3
         const densityNuclear = 800
@@ -88,7 +88,7 @@ export function PowerFootprintCalculator() {
                             <span className="ml-auto text-2xl font-extrabold" style={{ color: "#86efac" }}>{fmt(r.landNuclear)} <span className="text-sm">km²</span></span>
                         </div>
                         <div className="rounded-2xl p-4 border text-[12.5px] leading-relaxed text-[#b3aae0]" style={{ background: "#241a52", borderColor: "#4a3f7a" }}>
-                            Squares are sized by <b className="text-[#ECEAE3]">actual land area</b>. Nuclear&apos;s plot is the tiny green dot — about <b className="text-[#ECEAE3]">{efficiency.toLocaleString()}× less land</b> than wind.
+                            Squares are sized by <b className="text-[#ECEAE3]">actual land area</b>. Nuclear&apos;s plot is the tiny green dot - about <b className="text-[#ECEAE3]">{efficiency.toLocaleString()}× less land</b> than wind.
                         </div>
                     </div>
 
@@ -113,7 +113,7 @@ export function PowerFootprintCalculator() {
                 <div className="flex justify-end mt-5">
                     <ShareResult
                         title="Energy Land Footprint 🦶"
-                        text={`To power ${population.toLocaleString()} people you'd need ${fmt(r.landWind)} km² of wind — but only ${fmt(r.landNuclear)} km² of nuclear (~${efficiency}× less land). Calculated at Docket One.`}
+                        text={`To power ${population.toLocaleString()} people you'd need ${fmt(r.landWind)} km² of wind - but only ${fmt(r.landNuclear)} km² of nuclear (~${efficiency}× less land). Calculated at Docket One.`}
                         className="border-none text-[#160e33] bg-[#29e0ff] hover:bg-[#29e0ff]"
                     />
                 </div>

@@ -407,7 +407,8 @@
 .home-hero{text-align:center;padding:52px 0 24px;position:relative;overflow:hidden;border-top:1px solid var(--line)}
 .home-conf{position:absolute;inset:0;pointer-events:none;font-size:28px;opacity:.5}
 .home-conf span{position:absolute}
-.home-pill{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-family:var(--font-space-mono),monospace;font-size:12px;color:var(--ink-soft);margin-bottom:20px}
+.home-pill{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;max-width:100%;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-family:var(--font-space-mono),monospace;font-size:12px;color:var(--ink-soft);margin-bottom:20px}
+@media (max-width:420px){.home-pill{font-size:10px;gap:6px;padding:6px 12px;letter-spacing:0}}
 .home-pill b{color:var(--accent-2)}
 .home-h1{font-family:var(--font-fraunces),serif;font-weight:700;font-size:clamp(48px,8vw,94px);line-height:.92;letter-spacing:-.03em;color:var(--ink)}
 .home-h1 .w1{color:var(--accent-2)}.home-h1 .w2{color:var(--accent)}
@@ -480,7 +481,7 @@
 @media (prefers-reduced-motion: reduce){.np-flame,.np-trail{animation:none}.np-spark{display:none}}
 
 /* ============================================================================
-   ARCADE THEME — overrides the Almanac layer (single source of truth).
+   ARCADE THEME - overrides the Almanac layer (single source of truth).
    Re-skins the shared .almanac* / .home-* class system to the arcade look,
    so home, header, footer and all calculator pages transform together.
    Display = Bungee · pixel labels = Press Start 2P · body = Hanken · data = Space Mono
@@ -670,7 +671,7 @@ body{background:#160e33 !important}
 /* reduced motion */
 @media (prefers-reduced-motion: reduce){.almanac *,.almanac-nav *,.almanac-footer *{animation:none !important;transition:none !important}}
 
-/* calculator widget zone — always a dark "screen", pins arcade tokens so
+/* calculator widget zone - always a dark "screen", pins arcade tokens so
    widgets that reference var(--ink)/var(--card)/etc. stay dark in BOTH themes */
 .almanac-screen{
   --paper:#160e33; --paper-2:#1d1442; --card:#1d1442;
@@ -684,7 +685,7 @@ body{background:#160e33 !important}
 .almanac-themetoggle:focus-visible{outline:3px solid #b6ff3c;outline-offset:3px}
 
 /* ============================================================================
-   LIGHT MODE — chrome + reading surfaces flip to a clean (non-beige) light
+   LIGHT MODE - chrome + reading surfaces flip to a clean (non-beige) light
    arcade palette. Calculator widgets keep their dark "screen" styling.
    Neon accents are darkened via color-mix only where used as text/lines on light.
    ============================================================================ */

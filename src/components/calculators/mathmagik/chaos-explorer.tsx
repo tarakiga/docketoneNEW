@@ -71,7 +71,7 @@ export function ChaosExplorer() {
           Where order tips into <em className="italic" style={{ color: "#ff3ca6" }}>chaos</em>
         </h2>
         <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
-          The logistic map — one tiny equation that models populations. Crank the growth rate and watch a single
+          The logistic map - one tiny equation that models populations. Crank the growth rate and watch a single
           stable outcome split into 2, 4, 8… then dissolve into chaos.
         </p>
 
@@ -117,14 +117,14 @@ export function ChaosExplorer() {
               <h4 className="font-semibold mb-1.5 text-sm" style={{ color: "#ff3ca6" }}>What am I looking at?</h4>
               <p className="text-[12px] text-[#b3aae0] leading-relaxed">
                 Each vertical slice settles the equation at one growth rate. One line = one stable population. Two
-                lines = it oscillates between two values. The fuzzy clouds are <strong className="text-[#ECEAE3]">chaos</strong> —
+                lines = it oscillates between two values. The fuzzy clouds are <strong className="text-[#ECEAE3]">chaos</strong> -
                 deterministic, yet impossible to predict.
               </p>
             </div>
 
             <ShareResult
               title="Exploring Chaos"
-              text="I'm exploring the Logistic Map bifurcation diagram — where simple rules birth pure chaos. 🌀"
+              text="I'm exploring the Logistic Map bifurcation diagram - where simple rules birth pure chaos. 🌀"
             />
           </div>
         </div>

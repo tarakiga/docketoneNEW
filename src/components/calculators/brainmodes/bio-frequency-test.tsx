@@ -101,7 +101,7 @@ export function BioFrequencyTest() {
 
     const heardCount = FREQUENCIES.filter(f => f.freq <= maxHeard).length
     const earAge = maxHeard === 0 ? null : FREQUENCIES.find(f => f.freq === maxHeard)?.age ?? null
-    const sensitivity = maxHeard >= 17000 ? "Superhuman" : maxHeard >= 15000 ? "High" : maxHeard > 0 ? "Standard" : "—"
+    const sensitivity = maxHeard >= 17000 ? "Superhuman" : maxHeard >= 15000 ? "High" : maxHeard > 0 ? "Standard" : "-"
 
     const MONO_K = "font-mono text-[10px] uppercase tracking-[0.16em] text-[#b3aae0]"
 
@@ -120,7 +120,7 @@ export function BioFrequencyTest() {
                 {/* Volume note */}
                 <div className="rounded-xl px-4 py-3 text-[12.5px] text-[#b3aae0] max-w-2xl mx-auto flex gap-2.5 mb-6" style={{ background: "#0c0824", border: "1px solid #4a3f7a" }}>
                     <span>🔉</span>
-                    <span><b className="text-[#ECEAE3]">Lower your volume to ~20%</b> before testing. One tone at a time — hold the pad, listen carefully, then answer honestly.</span>
+                    <span><b className="text-[#ECEAE3]">Lower your volume to ~20%</b> before testing. One tone at a time - hold the pad, listen carefully, then answer honestly.</span>
                 </div>
 
                 {phase === "gate" && (
@@ -179,7 +179,7 @@ export function BioFrequencyTest() {
 
                         {/* running tally */}
                         <div className="mt-8 rounded-2xl px-5 py-4 flex items-center justify-between gap-5 flex-wrap max-w-3xl mx-auto" style={{ background: "#0c0824", border: "1px solid #4a3f7a" }}>
-                            <div><div className={MONO_K}>Top frequency so far</div><div className="font-bold text-lg mt-0.5" style={{ color: "#5bf0c0" }}>{maxHeard > 0 ? `${maxHeard.toLocaleString()} Hz` : "—"}</div></div>
+                            <div><div className={MONO_K}>Top frequency so far</div><div className="font-bold text-lg mt-0.5" style={{ color: "#5bf0c0" }}>{maxHeard > 0 ? `${maxHeard.toLocaleString()} Hz` : "-"}</div></div>
                             <div className="flex items-end gap-[3px] h-10 flex-1 max-w-[280px] min-w-[160px]">
                                 {BAR_HEIGHTS.map((h, i) => (
                                     <div key={i} className="flex-1 rounded-t-[2px]" style={{ height: `${h}%`, background: i < heardCount ? "#5bf0c0" : "#241a52" }} />
@@ -200,7 +200,7 @@ export function BioFrequencyTest() {
                             <div className="font-mono text-[12px] text-[#b3aae0]">
                                 {maxHeard > 0
                                     ? <>Top confirmed frequency: <b className="text-[#ECEAE3]">{maxHeard.toLocaleString()} Hz</b></>
-                                    : "No tone confirmed — check your volume and speakers, then retake."}
+                                    : "No tone confirmed - check your volume and speakers, then retake."}
                             </div>
                             <div className="flex items-end gap-1 h-24 mt-6 mb-1">
                                 {BAR_HEIGHTS.map((h, i) => (
@@ -222,7 +222,7 @@ export function BioFrequencyTest() {
                             <ShareResult
                                 title="Ear Age Test"
                                 text={maxHeard > 0
-                                    ? `I can hear frequencies up to ${maxHeard.toLocaleString()} Hz — my biological ear age is "${earAge}"! Test yours at Docket One. #EarAgeTest`
+                                    ? `I can hear frequencies up to ${maxHeard.toLocaleString()} Hz - my biological ear age is "${earAge}"! Test yours at Docket One. #EarAgeTest`
                                     : "I just took the Bio-Frequency ear age test at Docket One. #EarAgeTest"}
                                 className="!bg-[#5bf0c0] hover:!bg-[#5bf0c0] !text-[#160e33] !border-none"
                             />
@@ -232,7 +232,7 @@ export function BioFrequencyTest() {
 
                 <p className="text-[11px] text-[#b3aae0] leading-relaxed text-center max-w-2xl mx-auto mt-6">
                     {phase === "test" ? "Answering “Can't hear it” ends the climb and reveals your result. " : ""}
-                    Results depend on your speakers or headphones and volume — laptop speakers often can&apos;t reproduce the highest tones at all. A fun estimate, not a medical hearing test.
+                    Results depend on your speakers or headphones and volume - laptop speakers often can&apos;t reproduce the highest tones at all. A fun estimate, not a medical hearing test.
                 </p>
             </div>
         </motion.div>

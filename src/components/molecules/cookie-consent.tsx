@@ -35,7 +35,7 @@ export function CookieConsent() {
             className="flex items-center gap-2 mb-2"
             style={{ fontFamily: "var(--font-press), monospace", fontSize: 11, color: "#29e0ff", letterSpacing: ".04em" }}
           >
-            <span aria-hidden>🍪</span> COOKIES — YOUR CALL
+            <span aria-hidden>🍪</span> COOKIES - YOUR CALL
           </div>
 
           <h2 className="mb-2" style={{ fontFamily: "var(--font-bungee), cursive", color: "#ffd23c", fontSize: 18, lineHeight: 1.1 }}>
@@ -44,21 +44,21 @@ export function CookieConsent() {
 
           <p style={{ color: "#cfc9e6", fontSize: 13, lineHeight: 1.55 }}>
             Docket One has no sign-ups and never will. Cookies here are{" "}
-            <b style={{ color: "#fff" }}>completely optional</b> — they only let us show ads (which keep every calculator
+            <b style={{ color: "#fff" }}>completely optional</b> - they only let us show ads (which keep every calculator
             free) and count which tools people find useful. Choose{" "}
-            <b style={{ color: "#fff" }}>Essential only</b> and the whole site still works — nothing gets locked.
+            <b style={{ color: "#fff" }}>Essential only</b> and the whole site still works - nothing gets locked.
           </p>
 
           {why && (
             <ul style={{ color: "#b3aae0", fontSize: 12, lineHeight: 1.55, marginTop: 10, paddingLeft: 16, listStyle: "square" }}>
               <li>
-                <b style={{ color: "#ECEAE3" }}>Essential</b> — just remembers this choice. Always on, no tracking.
+                <b style={{ color: "#ECEAE3" }}>Essential</b> - just remembers this choice. Always on, no tracking.
               </li>
               <li>
-                <b style={{ color: "#ECEAE3" }}>Ads</b> — Google AdSense, so the calculators stay free to use.
+                <b style={{ color: "#ECEAE3" }}>Ads</b> - Google AdSense, so the calculators stay free to use.
               </li>
               <li>
-                <b style={{ color: "#ECEAE3" }}>Analytics</b> — anonymous counts of which tools are popular.
+                <b style={{ color: "#ECEAE3" }}>Analytics</b> - anonymous counts of which tools are popular.
               </li>
             </ul>
           )}

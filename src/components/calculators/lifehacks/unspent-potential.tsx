@@ -92,7 +92,7 @@ export function UnspentPotentialTax() {
                 />
                 <span className="text-xs text-[#b3aae0] shrink-0">/ hr</span>
               </div>
-              <p className="text-xs text-[#b3aae0]">Optional — to also see the money left on the table.</p>
+              <p className="text-xs text-[#b3aae0]">Optional - to also see the money left on the table.</p>
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export function UnspentPotentialTax() {
               <span className="text-2xl sm:text-3xl font-bold text-[#b3aae0] ml-2">hours</span>
             </div>
             <p className="text-sm text-[#b3aae0] mt-3 max-w-md mx-auto">
-              That is {hoursPerDay}h a day, reclaimed across a full year — hours genuinely available to redirect.
+              That is {hoursPerDay}h a day, reclaimed across a full year - hours genuinely available to redirect.
             </p>
             {result.money > 0 && (
               <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#241a52] ring-1 ring-[#4a3f7a] px-4 py-2">
@@ -144,7 +144,7 @@ export function UnspentPotentialTax() {
           <div className="flex justify-center pt-2">
             <ShareResult
               title="My Unspent Potential Tax"
-              text={`I waste about ${hoursPerDay}h a day — that's ${annualFormatted} hours a year. Enough to start ${result.skillsStarted} new skills, get competent at ${result.skillsCompetent}, or read ${result.books} books. Time to spend that potential on purpose. ⚖️`}
+              text={`I waste about ${hoursPerDay}h a day - that's ${annualFormatted} hours a year. Enough to start ${result.skillsStarted} new skills, get competent at ${result.skillsCompetent}, or read ${result.books} books. Time to spend that potential on purpose. ⚖️`}
             />
           </div>
         </CardContent>
@@ -155,7 +155,7 @@ export function UnspentPotentialTax() {
         {[
           { title: "20 Hours", desc: "Roughly what it takes to go from total beginner to passably competent at a new skill.", icon: Sparkles, color: "#b6ff3c" },
           { title: "Opportunity Cost", desc: "The real price of an idle hour is the book, project, or walk you traded it for.", icon: Brain, color: "#b6ff3c" },
-          { title: "It Compounds", desc: "One reclaimed hour a day is ~365 hours a year — over nine 40-hour work weeks.", icon: Trophy, color: "#b6ff3c" },
+          { title: "It Compounds", desc: "One reclaimed hour a day is ~365 hours a year - over nine 40-hour work weeks.", icon: Trophy, color: "#b6ff3c" },
         ].map((item, idx) => (
           <Card key={idx} className="bg-[#1d1442] border-[#4a3f7a] p-5">
             <item.icon className="h-6 w-6 mb-3" style={{ color: item.color }} />

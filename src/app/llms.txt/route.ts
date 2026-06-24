@@ -2,7 +2,7 @@ import { CATEGORY_META, calculators, isIndexable, NOINDEX_CATEGORIES } from "@/d
 
 export const dynamic = "force-static"
 
-// Generates /llms.txt — a curated, machine-readable map of the site for LLMs
+// Generates /llms.txt - a curated, machine-readable map of the site for LLMs
 // (https://llmstxt.org). Lists only indexable content, mirroring sitemap.ts.
 export function GET() {
     const base = "https://docket.one"
@@ -10,7 +10,7 @@ export function GET() {
 
     L.push("# Docket One")
     L.push("")
-    L.push("> Free online calculators that are smart, fun, and genuinely useful — from real adulting decisions to math, codes, and everyday life optimization. No sign-up, no paywall.")
+    L.push("> Free online calculators that are smart, fun, and genuinely useful - from real adulting decisions to math, codes, and everyday life optimization. No sign-up, no paywall.")
     L.push("")
     L.push("Docket One is a collection of free, single-purpose web calculators. Each tool shows its working and the formula behind the result, alongside a plain-language explainer and FAQ. The site is static and ad-supported; some playful novelty tools are intentionally excluded from this list.")
     L.push("")
@@ -24,7 +24,7 @@ export function GET() {
         L.push("")
         L.push(`${cat.description}`)
         L.push("")
-        L.push(`- [${cat.name} — all tools](${base}/calculators/${cat.id}/): ${cat.tagline}`)
+        L.push(`- [${cat.name} - all tools](${base}/calculators/${cat.id}/): ${cat.tagline}`)
         for (const c of calcs) {
             L.push(`- [${c.title}](${base}/calculators/${c.category}/${c.slug}/): ${c.description}`)
         }

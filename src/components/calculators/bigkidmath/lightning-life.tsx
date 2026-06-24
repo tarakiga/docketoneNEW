@@ -21,7 +21,7 @@ export function LightningLifeCalculator() {
         const lifestyleMultipliers = { low: 0.7, average: 1.0, high: 1.5 }
 
         // Average total per-capita energy footprint (electricity + transport + heating + everything).
-        // World per-capita primary energy is ~80 GJ/year. (Previously this was 80 MJ — 1000x too low.)
+        // World per-capita primary energy is ~80 GJ/year. (Previously this was 80 MJ - 1000x too low.)
         const baseEnergyPerYear = 80_000_000_000 // 80 GJ
         const lightningBoltEnergy = 1_000_000_000 // ~1 GJ per bolt
 
@@ -132,7 +132,7 @@ export function LightningLifeCalculator() {
                 <div className="flex justify-end mt-5">
                     <ShareResult
                         title="My Lightning Power ⚡"
-                        text={`My life has consumed ${results.lightningStrikes.toLocaleString(undefined, { maximumFractionDigits: 0 })} lightning strikes worth of energy — enough to power ${results.homesForYear.toLocaleString()} homes for a year! Calculate yours at Docket One.`}
+                        text={`My life has consumed ${results.lightningStrikes.toLocaleString(undefined, { maximumFractionDigits: 0 })} lightning strikes worth of energy - enough to power ${results.homesForYear.toLocaleString()} homes for a year! Calculate yours at Docket One.`}
                         className="border-none !bg-[#29e0ff] hover:!bg-[#29e0ff]/90 !text-[#160e33]"
                     />
                 </div>

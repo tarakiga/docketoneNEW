@@ -55,7 +55,7 @@ export function FireCalculator() {
           When can you <em className="italic text-[#ff3ca6]">stop working?</em>
         </h2>
         <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
-          Financial Independence, Retire Early — your freedom number is the pot that funds your life forever.
+          Financial Independence, Retire Early - your freedom number is the pot that funds your life forever.
         </p>
 
         <div className="grid lg:grid-cols-[320px_1fr] gap-5 items-start">
@@ -95,7 +95,7 @@ export function FireCalculator() {
                 <span className="font-mono text-[#ff3ca6]">{swr}%</span>
               </div>
               <Slider value={[swr]} onValueChange={([v]) => setSwr(v)} min={2} max={6} step={0.1} className="mt-2 [&_[data-slot=slider-range]]:bg-[#ff3ca6] [&_[data-slot=slider-thumb]]:border-[#ff3ca6]" />
-              <p className="text-[11px] text-[#b3aae0] mt-1.5">Standard rule is 4% — i.e. {multLabel}× your expenses.</p>
+              <p className="text-[11px] text-[#b3aae0] mt-1.5">Standard rule is 4% - i.e. {multLabel}× your expenses.</p>
             </div>
           </div>
 
@@ -172,7 +172,7 @@ export function FireCalculator() {
               text={
                 calc.reached
                   ? `I've already hit my FIRE number of $${(calc.fireNumber / 1_000_000).toFixed(2)}M. Financially free! 📈`
-                  : `I'm on track to reach Financial Independence in ${calc.years} years — target $${(calc.fireNumber / 1_000_000).toFixed(2)}M. 📈`
+                  : `I'm on track to reach Financial Independence in ${calc.years} years - target $${(calc.fireNumber / 1_000_000).toFixed(2)}M. 📈`
               }
             />
           </div>
