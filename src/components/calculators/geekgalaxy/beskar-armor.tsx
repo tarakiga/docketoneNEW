@@ -137,16 +137,16 @@ export function BeskarArmorCalculator() {
                  </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 w-full">
-                 <div className="p-4 rounded text-center border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+              <div className="grid grid-cols-2 gap-2 sm:gap-4 w-full">
+                 <div className="min-w-0 p-3 sm:p-4 rounded text-center border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
                     <div className="text-xs uppercase mb-1" style={{ color: '#b3aae0' }}>Survival Rate</div>
-                    <div className="text-2xl font-black" style={{ color: stats.integrity > 50 ? '#86efac' : '#ff8a8a' }}>
+                    <div className="min-w-0 text-xl sm:text-2xl font-black break-words" style={{ color: stats.integrity > 50 ? '#86efac' : '#ff8a8a' }}>
                       {Math.round(stats.integrity * 0.9 + 5)}%
                     </div>
                  </div>
-                 <div className="p-4 rounded text-center border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                 <div className="min-w-0 p-3 sm:p-4 rounded text-center border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
                     <div className="text-xs uppercase mb-1" style={{ color: '#b3aae0' }}>Repair Cost</div>
-                    <div className="text-2xl font-black flex items-center justify-center gap-1" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>
+                    <div className="min-w-0 text-xl sm:text-2xl font-black flex flex-wrap items-center justify-center gap-1 break-words" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>
                       {stats.repairCost.toLocaleString()}C
                     </div>
                  </div>

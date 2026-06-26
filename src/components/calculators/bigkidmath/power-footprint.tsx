@@ -97,7 +97,7 @@ export function PowerFootprintCalculator() {
                         <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#b3aae0]">Footprint to scale</h3>
                         <p className="text-[11px] text-[#b3aae0] mb-3.5">Each square&apos;s area is proportional to the km² needed.</p>
                         <div
-                            className="relative h-[300px] rounded-xl border"
+                            className="relative h-[300px] w-full max-w-full overflow-hidden rounded-xl border"
                             style={{ borderColor: "#4a3f7a", backgroundImage: "linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px)", backgroundSize: "24px 24px" }}
                         >
                             <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.wind, height: SQ.wind, background: "rgba(41,224,255,.18)", border: "2px solid #29e0ff" }} />

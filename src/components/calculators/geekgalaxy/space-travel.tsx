@@ -232,7 +232,7 @@ export function SpaceTravelCalculator() {
           </div>
 
           <div className="lg:col-span-8 flex flex-col gap-6">
-            <div className="rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-10 border flex flex-col justify-center gap-6 sm:gap-8 relative overflow-hidden group min-h-[280px] sm:min-h-[340px]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+            <div className="rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-6 md:p-10 border flex flex-col justify-center gap-6 sm:gap-8 relative overflow-hidden group min-h-[280px] sm:min-h-[340px]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
                <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full opacity-20 animate-blob" style={{ backgroundColor: '#241a52' }} />
                <div className="absolute -left-24 -bottom-24 w-64 h-64 rounded-full opacity-20 animate-blob [animation-delay:3s]" style={{ backgroundColor: '#241a52' }} />
 
@@ -240,24 +240,24 @@ export function SpaceTravelCalculator() {
                   <div className="uppercase text-[10px] tracking-[0.4em] mb-3 font-black flex items-center justify-center gap-3" style={{ color: '#ff8a3c' }}>
                     <Clock className="h-4 w-4 animate-pulse" /> {stats.method}
                   </div>
-                  <div className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-700" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>{stats.timeLabel}</div>
+                  <div className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-700 break-words max-w-full" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ff8a3c' }}>{stats.timeLabel}</div>
                   <div className="flex justify-center mt-6">
                     <ShareResult title="Space Travel Time" text={`It would take ${stats.timeLabel} to reach ${DEST_VALS[destination].name} by ${PROPULSION[propulsion as keyof typeof PROPULSION].name}. 🚀`} />
                   </div>
                </div>
 
-               <div className="grid sm:grid-cols-2 gap-4 relative z-10">
-                  <div className="p-5 rounded-2xl border" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
+                  <div className="min-w-0 p-5 rounded-2xl border" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                      <div className="flex items-center gap-2 mb-2" style={{ color: '#b3aae0' }}>
                         <Gauge className="h-4 w-4" />
                         <span className="text-[10px] font-black uppercase tracking-widest">Warp Profile</span>
                      </div>
-                     <div className="text-lg font-bold leading-tight" style={{ color: '#ECEAE3' }}>{PROPULSION[propulsion as keyof typeof PROPULSION].name}</div>
+                     <div className="text-lg font-bold leading-tight break-words" style={{ color: '#ECEAE3' }}>{PROPULSION[propulsion as keyof typeof PROPULSION].name}</div>
                      <div className="text-[10px] font-bold mt-1 uppercase tracking-widest" style={{ color: '#ff8a3c' }}>Active Velocity Computation</div>
                   </div>
 
                   {DEST_VALS[destination].au < 100 && (
-                    <div className="p-5 rounded-2xl border" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                    <div className="min-w-0 p-5 rounded-2xl border" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
                        <div className="flex items-center gap-2 mb-2" style={{ color: '#86efac' }}>
                           <Fuel className="h-4 w-4" />
                           <span className="text-[10px] font-black uppercase tracking-widest">Departure Window</span>

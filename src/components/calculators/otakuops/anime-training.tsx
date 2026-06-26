@@ -121,11 +121,11 @@ export function AnimeTrainingCalculator() {
                   <Slider value={[musicBonus]} onValueChange={([v]) => setMusicBonus(v)} max={100} className="[&_.range-thumb]:bg-[#ffd23c]" />
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                 <div className="space-y-3">
-                    <Label className="font-black uppercase tracking-widest text-[10px] text-[#b3aae0]">Rival Dynamics</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                 <div className="space-y-3 min-w-0">
+                    <Label className="font-black uppercase tracking-widest text-[10px] text-[#b3aae0] whitespace-normal break-words">Rival Dynamics</Label>
                     <Select value={rivalTaunts} onValueChange={setRivalTaunts}>
-                       <SelectTrigger className="font-bold border-[#4a3f7a] bg-[#0c0824] text-[#ECEAE3] h-11 rounded-2xl focus:ring-2 focus:ring-[#ffd23c] focus:border-[#ffd23c]"><SelectValue/></SelectTrigger>
+                       <SelectTrigger className="w-full min-w-0 font-bold border-[#4a3f7a] bg-[#0c0824] text-[#ECEAE3] h-11 rounded-2xl focus:ring-2 focus:ring-[#ffd23c] focus:border-[#ffd23c]"><SelectValue/></SelectTrigger>
                        <SelectContent className="rounded-2xl bg-[#241a52] border-[#4a3f7a] text-[#ECEAE3]">
                           <SelectItem value="none">None (Boring)</SelectItem>
                           <SelectItem value="occasional">Occasional Insults</SelectItem>
@@ -136,8 +136,8 @@ export function AnimeTrainingCalculator() {
                  </div>
 
                  {rivalTaunts !== 'none' && (
-                    <div className="space-y-3">
-                       <Label className="font-black uppercase tracking-widest text-[10px] text-[#b3aae0] flex justify-between">
+                    <div className="space-y-3 min-w-0">
+                       <Label className="font-black uppercase tracking-widest text-[10px] text-[#b3aae0] flex justify-between gap-2">
                          <span>Flashback</span>
                          <span className="text-[#ffd23c]">{flashback}%</span>
                        </Label>

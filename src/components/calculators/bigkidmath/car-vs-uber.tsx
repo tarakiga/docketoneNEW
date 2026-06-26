@@ -160,12 +160,12 @@ export function CarVsUberCalculator() {
                             const s = STYLES[c.type]
                             const isWin = c.type === results.winner
                             return (
-                                <div key={c.type} className="grid grid-cols-[110px_1fr_92px] sm:grid-cols-[130px_1fr_100px] items-center gap-3">
-                                    <span className="text-sm font-semibold text-[#ECEAE3] truncate">{EMOJI[c.type]} {s.label}</span>
-                                    <div className="h-8 bg-[#241a52] rounded-lg overflow-hidden">
+                                <div key={c.type} className="grid grid-cols-[88px_1fr_80px] sm:grid-cols-[130px_1fr_100px] items-center gap-2 sm:gap-3">
+                                    <span className="min-w-0 text-sm font-semibold text-[#ECEAE3] truncate">{EMOJI[c.type]} {s.label}</span>
+                                    <div className="min-w-0 h-8 bg-[#241a52] rounded-lg overflow-hidden">
                                         <div className={`h-full rounded-lg ${s.bar} ${isWin ? `ring-2 ${s.ring}` : ""}`} style={{ width: `${Math.max(6, (c.val / results.maxVal) * 100)}%` }} />
                                     </div>
-                                    <span className={`font-mono font-bold text-right text-sm ${s.text}`}>{fmt(c.val)}</span>
+                                    <span className={`min-w-0 truncate font-mono font-bold text-right text-sm ${s.text}`}>{fmt(c.val)}</span>
                                 </div>
                             )
                         })}

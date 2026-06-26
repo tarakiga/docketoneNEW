@@ -58,7 +58,7 @@ export function WarpSpeedCalculator() {
              <div className="text-[#0c0824] font-black text-2xl tracking-widest uppercase font-mono">ASTROGATION</div>
          </div>
 
-         <CardContent className="grid lg:grid-cols-12 gap-8 p-6 pl-12">
+         <CardContent className="grid lg:grid-cols-12 gap-8 p-4 sm:p-6 sm:pl-12">
 
             {/* Controls */}
             <div className="lg:col-span-5 space-y-6">
@@ -100,19 +100,19 @@ export function WarpSpeedCalculator() {
             </div>
 
             {/* Display */}
-            <div className="lg:col-span-7 bg-[#1d1442] rounded-xl p-8 flex flex-col items-center justify-center border border-[#4a3f7a]">
+            <div className="lg:col-span-7 bg-[#1d1442] rounded-xl p-4 sm:p-8 flex flex-col items-center justify-center border border-[#4a3f7a] overflow-hidden">
                <div className="text-sm text-[#b3aae0] uppercase tracking-widest mb-4">Estimated Time of Arrival</div>
-               <div className="text-6xl font-black text-[#ff8a3c] font-mono mb-2">{formattedTime}</div>
+               <div className="text-4xl sm:text-6xl font-black text-[#ff8a3c] font-mono mb-2 break-words text-center max-w-full">{formattedTime}</div>
                <div className="text-[#b3aae0] mb-8 font-mono">{distance} Light Years</div>
 
-               <div className="grid grid-cols-2 gap-8 w-full">
-                  <div className="bg-[#0c0824] p-4 rounded border-l-4 border-[#ff8a3c]">
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 w-full">
+                  <div className="min-w-0 bg-[#0c0824] p-4 rounded border-l-4 border-[#ff8a3c]">
                     <div className="text-xs text-[#b3aae0] uppercase">Velocity (c)</div>
-                    <div className="text-2xl font-mono text-[#ff8a3c]">{Math.round(speedC).toLocaleString()}x</div>
+                    <div className="text-2xl font-mono text-[#ff8a3c] break-words">{Math.round(speedC).toLocaleString()}x</div>
                   </div>
-                   <div className="bg-[#0c0824] p-4 rounded border-l-4 border-[#4a3f7a]">
+                   <div className="min-w-0 bg-[#0c0824] p-4 rounded border-l-4 border-[#4a3f7a]">
                     <div className="text-xs text-[#b3aae0] uppercase">Velocity (km/s)</div>
-                    <div className="text-2xl font-mono text-[#ECEAE3]">{(speedC * 299792).toExponential(2)}</div>
+                    <div className="text-2xl font-mono text-[#ECEAE3] break-words">{(speedC * 299792).toExponential(2)}</div>
                   </div>
                </div>
 

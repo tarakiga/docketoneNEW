@@ -98,7 +98,7 @@ export function LightningLifeCalculator() {
                     <div className="rounded-2xl border p-7 flex flex-col justify-center"
                         style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
                         <div className="text-5xl">⚡</div>
-                        <div className="text-6xl font-black tracking-tight leading-none mt-2" style={{ fontFamily: "var(--font-bungee), cursive", color: "#29e0ff" }}>
+                        <div className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-none mt-2 break-words max-w-full" style={{ fontFamily: "var(--font-bungee), cursive", color: "#29e0ff" }}>
                             {results.lightningStrikes.toLocaleString(undefined, { maximumFractionDigits: 0 })}<span className="text-2xl font-bold" style={{ color: "#29e0ff" }}> strikes</span>
                         </div>
                         <div className="text-sm mt-2" style={{ color: "#b3aae0" }}>of lightning to power your life so far</div>
@@ -118,10 +118,10 @@ export function LightningLifeCalculator() {
                     <div className="border rounded-2xl px-6" style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
                         <div className="font-mono text-[10px] uppercase tracking-[0.18em] pt-5 pb-1" style={{ color: "#b3aae0" }}>That energy is equivalent to…</div>
                         {equivalents.map((e, i) => (
-                            <div key={i} className="grid grid-cols-[44px_1fr_auto] items-center gap-4 py-4" style={i < equivalents.length - 1 ? { borderBottom: "1px solid #4a3f7a" } : undefined}>
+                            <div key={i} className="grid grid-cols-[44px_1fr_auto] items-center gap-2 sm:gap-4 py-4" style={i < equivalents.length - 1 ? { borderBottom: "1px solid #4a3f7a" } : undefined}>
                                 <span className="w-11 h-11 rounded-xl grid place-items-center text-[22px]" style={{ background: "#241a52" }}>{e.ic}</span>
-                                <span className="text-sm" style={{ color: "#b3aae0" }}>{e.nm}</span>
-                                <span className="font-mono font-bold text-xl text-right leading-tight" style={{ color: "#ECEAE3" }}>
+                                <span className="min-w-0 text-sm break-words" style={{ color: "#b3aae0" }}>{e.nm}</span>
+                                <span className="min-w-0 font-mono font-bold text-lg sm:text-xl text-right leading-tight break-words" style={{ color: "#ECEAE3" }}>
                                     {e.v}{e.unit && <span className="block text-xs font-normal" style={{ color: "#b3aae0" }}>{e.unit}</span>}
                                 </span>
                             </div>

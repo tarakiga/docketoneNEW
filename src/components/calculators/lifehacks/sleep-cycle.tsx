@@ -111,10 +111,10 @@ export function SleepCycleCalculator() {
               )}
 
               {(!now || mode === 'wake') && (
-                <div className="flex justify-center gap-2 items-center animate-in zoom-in duration-300">
-                   <div className="flex items-center gap-2 px-4 py-2 rounded-lg border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                <div className="flex flex-wrap justify-center gap-2 items-center animate-in zoom-in duration-300">
+                   <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-lg border min-w-0" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
                       <Select value={hour} onValueChange={setHour}>
-                         <SelectTrigger className="w-[70px] text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
+                         <SelectTrigger className="w-[56px] sm:w-[70px] text-xl sm:text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
                          <SelectContent className="max-h-[300px]">
                             {Array.from({length: 12}, (_, i) => i + 1).map(h => (
                                <SelectItem key={h} value={h.toString()}>{h}</SelectItem>
@@ -123,7 +123,7 @@ export function SleepCycleCalculator() {
                       </Select>
                       <span className="text-2xl font-black" style={{ color: '#b6ff3c' }}>:</span>
                       <Select value={minute} onValueChange={setMinute}>
-                         <SelectTrigger className="w-[70px] text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
+                         <SelectTrigger className="w-[56px] sm:w-[70px] text-xl sm:text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
                          <SelectContent className="max-h-[300px]">
                             {['00', '15', '30', '45'].map(m => (
                                <SelectItem key={m} value={m}>{m}</SelectItem>
@@ -131,7 +131,7 @@ export function SleepCycleCalculator() {
                          </SelectContent>
                       </Select>
                       <Select value={ampm} onValueChange={setAmpm}>
-                         <SelectTrigger className="w-[70px] text-xl font-bold border-none focus:ring-0" style={{ backgroundColor: '#0c0824', color: '#b3aae0' }}><SelectValue/></SelectTrigger>
+                         <SelectTrigger className="w-[56px] sm:w-[70px] text-base sm:text-xl font-bold border-none focus:ring-0" style={{ backgroundColor: '#0c0824', color: '#b3aae0' }}><SelectValue/></SelectTrigger>
                          <SelectContent>
                             <SelectItem value="AM">AM</SelectItem>
                             <SelectItem value="PM">PM</SelectItem>

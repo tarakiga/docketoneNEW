@@ -150,10 +150,10 @@ export function SpaceshipFuelCalculator() {
                <div className="col-span-1 text-right">Volume</div>
              </div>
              {calculation.fuelNeeds.map((fuel) => (
-               <div key={fuel.name} className="grid grid-cols-3 p-4 border-t transition-colors items-center" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
-                 <div className="col-span-1 flex items-center gap-2 font-bold" style={{ color: '#ECEAE3' }}>
-                   <div className="w-2 h-8 rounded-full" style={{ backgroundColor: fuel.color }} />
-                   <span>{fuel.name}</span>
+               <div key={fuel.name} className="grid grid-cols-3 p-2 sm:p-4 border-t transition-colors items-center" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                 <div className="col-span-1 flex items-center gap-2 font-bold min-w-0" style={{ color: '#ECEAE3' }}>
+                   <div className="w-2 h-8 rounded-full shrink-0" style={{ backgroundColor: fuel.color }} />
+                   <span className="min-w-0 truncate">{fuel.name}</span>
                  </div>
                  <div className="col-span-1 text-right" style={{ fontFamily: 'var(--font-bungee), cursive', color: fuel.textColor }}>
                     {formatAmount(fuel.amount)} kg

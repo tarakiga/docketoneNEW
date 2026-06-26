@@ -56,24 +56,24 @@ export function TimeParadoxDetector() {
           <CardDescription className="text-[#b3aae0] font-mono">Temporal Integrity Monitoring System</CardDescription>
         </CardHeader>
 
-        <CardContent className="grid lg:grid-cols-2 gap-12 p-8">
+        <CardContent className="grid grid-cols-1 lg:grid-cols-2 gap-12 p-4 sm:p-8">
 
-           <div className="space-y-6 font-mono text-[#ECEAE3]">
+           <div className="space-y-6 font-mono text-[#ECEAE3] min-w-0">
 
-             <div className="space-y-2">
-                <Label>Target Temporal Coordinate (Year)</Label>
+             <div className="space-y-2 min-w-0">
+                <Label className="whitespace-normal break-words">Target Temporal Coordinate (Year)</Label>
                 <input
                   type="number"
                   value={targetYear}
                   onChange={(e) => setTargetYear(Number(e.target.value))}
-                  className="w-full bg-[#0c0824] border border-[#4a3f7a] rounded p-2 text-[#ECEAE3] focus:outline-none focus:border-[#ff8a3c]"
+                  className="w-full min-w-0 bg-[#0c0824] border border-[#4a3f7a] rounded p-2 text-[#ECEAE3] focus:outline-none focus:border-[#ff8a3c]"
                 />
              </div>
 
-             <div className="space-y-2">
-                <Label>Target Significance</Label>
+             <div className="space-y-2 min-w-0">
+                <Label className="whitespace-normal break-words">Target Significance</Label>
                 <Select value={significance} onValueChange={setSignificance}>
-                   <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]"><SelectValue/></SelectTrigger>
+                   <SelectTrigger className="w-full min-w-0 bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]"><SelectValue/></SelectTrigger>
                    <SelectContent>
                      <SelectItem value="none">Zero Significance (Void)</SelectItem>
                      <SelectItem value="personal">Personal Ancestor</SelectItem>
@@ -83,10 +83,10 @@ export function TimeParadoxDetector() {
                 </Select>
              </div>
 
-             <div className="space-y-2">
-                <div className="flex justify-between">
-                   <Label>Interaction Intensity</Label>
-                   <span>{intensity}%</span>
+             <div className="space-y-2 min-w-0">
+                <div className="flex justify-between gap-2 min-w-0">
+                   <Label className="whitespace-normal break-words min-w-0">Interaction Intensity</Label>
+                   <span className="shrink-0">{intensity}%</span>
                 </div>
                 <Slider value={[intensity]} onValueChange={([v]) => setIntensity(v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c]" />
                 <p className="text-xs opacity-70 mt-1">
@@ -94,10 +94,10 @@ export function TimeParadoxDetector() {
                 </p>
              </div>
              
-             <div className="space-y-2">
-                <Label>Temporal Physics Model</Label>
+             <div className="space-y-2 min-w-0">
+                <Label className="whitespace-normal break-words">Temporal Physics Model</Label>
                 <Select value={paradigm} onValueChange={setParadigm}>
-                   <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]"><SelectValue/></SelectTrigger>
+                   <SelectTrigger className="w-full min-w-0 bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]"><SelectValue/></SelectTrigger>
                    <SelectContent>
                      <SelectItem value="fixed">Fixed (Novikov Principle)</SelectItem>
                      <SelectItem value="dynamic">Dynamic (Back to the Future)</SelectItem>
@@ -108,9 +108,9 @@ export function TimeParadoxDetector() {
 
            </div>
 
-           <div className="w-full flex flex-col items-center justify-center space-y-8 bg-[#0c0824] rounded-xl p-6 border border-[#4a3f7a]">
+           <div className="w-full min-w-0 flex flex-col items-center justify-center space-y-8 bg-[#0c0824] rounded-xl p-4 sm:p-6 border border-[#4a3f7a]">
 
-              <div className="relative w-64 h-64">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 max-w-full">
                  {/* Gauge Visual */}
                  <div className="absolute inset-0 rounded-full border-8 border-[#241a52]"></div>
                  <div

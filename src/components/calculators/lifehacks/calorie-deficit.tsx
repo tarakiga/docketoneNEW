@@ -200,7 +200,7 @@ export function CalorieDeficitCalculator() {
             Estimates only, not medical advice.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-8 p-6 md:p-8">
+        <CardContent className="space-y-8 p-4 sm:p-6 md:p-8">
 
           {/* ===== Calories In ===== */}
           <section className="space-y-4">
@@ -265,7 +265,7 @@ export function CalorieDeficitCalculator() {
           </section>
 
           {/* ===== Calories Out ===== */}
-          <section className="space-y-4 bg-[#0c0824] rounded-xl border border-[#4a3f7a] p-5">
+          <section className="space-y-4 bg-[#0c0824] rounded-xl border border-[#4a3f7a] p-4 sm:p-5">
             <h3 className="text-sm font-bold uppercase tracking-widest text-[#b3aae0] flex items-center gap-2">
               <Footprints className="h-4 w-4" /> What did you burn?
             </h3>
@@ -283,7 +283,7 @@ export function CalorieDeficitCalculator() {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 [&>div]:min-w-0">
               <div>
                 <Label className="text-xs text-[#b3aae0]">Sex</Label>
                 <Select value={sex} onValueChange={(v) => setSex(v as Sex)}>
@@ -343,7 +343,7 @@ export function CalorieDeficitCalculator() {
           </section>
 
           {/* ===== Result ===== */}
-          <section className="space-y-5 bg-[#0c0824] rounded-xl border border-[#4a3f7a] p-6">
+          <section className="space-y-5 bg-[#0c0824] rounded-xl border border-[#4a3f7a] p-4 sm:p-6">
             <div className="text-center space-y-1">
               <div className="text-xs uppercase tracking-widest text-[#b3aae0]">Net daily balance</div>
               <div className={`text-5xl font-black ${verdictColor}`} style={{ fontFamily: 'var(--font-bungee), cursive' }}>
@@ -363,9 +363,9 @@ export function CalorieDeficitCalculator() {
                 <div className="h-3 bg-[#241a52] rounded-full overflow-hidden"><div className="h-full bg-[#ffd23c]" style={{ width: `${inPct}%` }} /></div>
               </div>
               <div>
-                <div className="flex justify-between text-xs text-[#b3aae0] mb-1">
-                  <span>Calories Out (BMR {Math.round(results.bmr)} × activity + {Math.round(results.burnFromSteps)} steps)</span>
-                  <span>{Math.round(results.caloriesOutTotal)}</span>
+                <div className="flex justify-between gap-2 text-xs text-[#b3aae0] mb-1">
+                  <span className="min-w-0">Calories Out (BMR {Math.round(results.bmr)} × activity + {Math.round(results.burnFromSteps)} steps)</span>
+                  <span className="shrink-0">{Math.round(results.caloriesOutTotal)}</span>
                 </div>
                 <div className="h-3 bg-[#241a52] rounded-full overflow-hidden"><div className="h-full bg-[#b6ff3c]" style={{ width: `${outPct}%` }} /></div>
               </div>

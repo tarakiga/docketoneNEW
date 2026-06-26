@@ -162,7 +162,7 @@ export function ChaosMicroscope() {
                 width={width}
                 height={height}
                 onClick={handleZoom}
-                className="w-full h-[400px] lg:h-[500px] cursor-crosshair active:cursor-grabbing block touch-none"
+                className="w-full max-w-full h-[400px] lg:h-[500px] cursor-crosshair active:cursor-grabbing block touch-none"
               />
               
               {isDrawing && (
@@ -172,21 +172,21 @@ export function ChaosMicroscope() {
               )}
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 justify-between p-4 rounded-lg" style={{ backgroundColor: '#0c0824' }}>
-              <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4 justify-between p-3 sm:p-4 rounded-lg" style={{ backgroundColor: '#0c0824' }}>
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 min-w-0">
                 <Button variant="outline" size="sm" onClick={resetZoom} style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a', color: '#ECEAE3' }}>
                   <Maximize className="w-4 h-4 mr-2" />
                   Reset Zoom
                 </Button>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 min-w-0">
                     <Label htmlFor="ruler-mode" className="text-sm" style={{ color: '#ECEAE3' }}>Feigenbaum Ruler</Label>
                     <Switch id="ruler-mode" checked={showRuler} onCheckedChange={setShowRuler} className="data-[state=checked]:bg-[#ff8a3c]" />
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 flex-1 min-w-[200px]">
-                <div className="space-y-1 flex-1">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 flex-1 w-full min-w-0 sm:min-w-[200px]">
+                <div className="space-y-1 flex-1 min-w-0">
                   <div className="flex justify-between">
                     <Label className="text-xs" style={{ color: '#b3aae0' }}>Detail (Iterations)</Label>
                     <span className="text-xs" style={{ color: '#ECEAE3' }}>{resolution} pts</span>
@@ -200,7 +200,7 @@ export function ChaosMicroscope() {
                     className="cursor-pointer"
                   />
                 </div>
-                 <div className="space-y-1 flex-1">
+                 <div className="space-y-1 flex-1 min-w-0">
                   <div className="flex justify-between">
                     <Label className="text-xs" style={{ color: '#b3aae0' }}>Settle Time (Transient)</Label>
                     <span className="text-xs" style={{ color: '#ECEAE3' }}>{iterations} skips</span>
