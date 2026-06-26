@@ -1,19 +1,24 @@
 "use client"
 
-import { calculators, type Calculator } from "@/data/calculators"
+import { calculators, isIndexable, type Calculator } from "@/data/calculators"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+
+// Feature only mainstream, broadly-appealing tools. This excludes the
+// geek-targeted novelty categories (Geek Galaxy, Otaku Ops) so the daily
+// pick doesn't ward off ordinary visitors exploring the homepage.
+const COTD_POOL = calculators.filter(isIndexable)
 
 export function CalculatorOfTheDay() {
     const [calc, setCalc] = useState<Calculator | null>(null)
     const [opening, setOpening] = useState(false)
 
     // Computed in the browser so it actually advances every day without a redeploy.
-    // Date-index, in order, cycling through the entire calculator set.
+    // Date-index, in order, cycling through the eligible calculator set.
     useEffect(() => {
-        if (calculators.length === 0) return
+        if (COTD_POOL.length === 0) return
         const dayNumber = Math.floor(Date.now() / 86_400_000)
-        setCalc(calculators[dayNumber % calculators.length])
+        setCalc(COTD_POOL[dayNumber % COTD_POOL.length])
     }, [])
 
     if (!calc) {
