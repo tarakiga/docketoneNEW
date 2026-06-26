@@ -34,7 +34,7 @@ export default async function Home() {
           </div>
           <div className="home-pill">🎲 <b>65+</b> calculators · free · no sign-up</div>
           <h1 className="home-h1">Pick your flavour<br />of <span className="w1">math</span> <span className="w2">magic</span>.</h1>
-          <p className="home-sub">Smart, silly, surprisingly useful tools for everything from zombie-apocalypse odds to the true cost of your coffee habit.</p>
+          <p className="home-sub">Smart, silly, surprisingly useful tools for everything from Space travel time to the true cost of your coffee habit.</p>
           <div className="home-cta">
             <Link className="home-btn home-btn-clay" href="#categories">Explore the collections →</Link>
             <SurpriseMeButton className="home-btn home-btn-ink" />
