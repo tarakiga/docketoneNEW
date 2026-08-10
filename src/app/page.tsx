@@ -8,6 +8,16 @@ import { getLatestPosts, sanitizeBlogText } from "@/lib/blog"
 import Image from "next/image"
 import Link from "next/link"
 
+// Deliberately mixed: two things you'd genuinely look up on a Tuesday, one
+// uncomfortable truth, one that is pure nonsense. The spread is the point —
+// it shows what kind of place this is faster than a paragraph could.
+const HERO_QUESTIONS = [
+  { q: "when does my 2pm coffee wear off?", href: "/calculators/bigkidmath/caffeine-half-life/" },
+  { q: "when should I sleep to wake at 6?", href: "/calculators/lifehacks/sleep-cycle/" },
+  { q: "how much life has Instagram had?", href: "/calculators/lifehacks/social-media-addiction/" },
+  { q: "how long to Proxima Centauri?", href: "/calculators/geekgalaxy/space-travel/" },
+]
+
 const TRENDING = [
   { href: "/calculators/bigkidmath/caffeine-half-life/", e: "☕", t: "Caffeine Half-Life" },
   { href: "/calculators/lifehacks/calorie-deficit/", e: "🔥", t: "Calorie Deficit" },
@@ -26,17 +36,32 @@ export default async function Home() {
           The Calculator of the Day is the card on the right rather than a
           separate strip below, so the claim and the proof share one screen. */}
       <header className="home-hero">
-        <div className="almanac-wrap home-hero-grid">
+        <div className="almanac-wrap">
+          <div className="home-hero-grid">
           <div>
             <div className="home-pill">🎲 <b>65+</b> calculators · free · no sign-up</div>
             <h1 className="home-h1">Ask a<br />weird<br /><span className="w1">question</span>.</h1>
-            <p className="home-sub">Every calculator here shows its working, explains the formula, and never asks for your email. Serious answers to questions nobody sensible would ask.</p>
+            <p className="home-sub">Every calculator here shows its working and explains the formula. We&apos;re dead serious about deeply unserious questions.</p>
             <div className="home-cta">
               <Link className="home-btn home-btn-clay" href="#categories">Browse all 64 →</Link>
               <SurpriseMeButton className="home-btn home-btn-ink" />
             </div>
           </div>
           <CalculatorOfTheDay />
+          </div>
+
+          {/* Real questions, deliberately spanning practical to absurd, so the
+              range of the collection is legible before anyone clicks. Full width
+              under the grid so they lay out in one row instead of stacking, and
+              every one is a genuine route — navigation, not decoration. */}
+          <div className="home-asks">
+            <p className="home-asks-l">People come here asking</p>
+            <div className="home-ask-row">
+              {HERO_QUESTIONS.map(q => (
+                <Link key={q.href} className="home-ask" href={q.href}>{q.q}</Link>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
 

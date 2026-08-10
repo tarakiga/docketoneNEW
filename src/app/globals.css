@@ -661,6 +661,29 @@ body{background:var(--dk-page) !important}
 .home-pill b{color:var(--dk-on-tea);text-decoration:underline;text-underline-offset:2px}
 .home-hero .home-sub{color:var(--dk-on-yel);max-width:36ch;margin-left:0;margin-right:0}
 .home-hero .home-cta{justify-content:flex-start}
+
+/* example questions — small enough to sit under the CTAs without competing
+   with them, but real links, so they earn the space twice */
+.home-asks{margin-top:clamp(1.6rem,3vw,2.4rem);padding-top:1.3rem;
+  border-top:2.5px dashed rgba(23,22,26,.28)}
+.home-asks-l{font-family:var(--font-space-mono),monospace;font-weight:700;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dk-on-yel);opacity:.62;margin-bottom:.55rem}
+.home-ask-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.home-ask{
+  background:var(--dk-surface);border:2.5px solid var(--dk-line);border-radius:999px;
+  padding:.36em .9em;font-family:var(--font-hanken),sans-serif;font-weight:700;
+  font-size:.83rem;line-height:1.35;color:var(--dk-ink);text-decoration:none;
+  box-shadow:2px 2px 0 var(--dk-shadow);transition:transform .12s,box-shadow .12s,background .12s;
+}
+.home-ask:nth-child(odd){transform:rotate(-1deg)}
+.home-ask:nth-child(even){transform:rotate(.8deg)}
+.home-ask:hover{background:var(--dk-tea);color:var(--dk-on-tea);
+  transform:rotate(0deg) translate(2px,2px);box-shadow:0 0 0 var(--dk-shadow)}
+/* On narrow screens the chips stack one per row, so give them a real tap
+   target rather than shrinking them. */
+@media(max-width:520px){
+  .home-ask{font-size:.8rem;padding:.62em .95em;min-height:42px;display:inline-flex;align-items:center}
+}
 @media(max-width:880px){
   .home-hero-grid{grid-template-columns:minmax(0,1fr)}
   .home-hero{text-align:left}
