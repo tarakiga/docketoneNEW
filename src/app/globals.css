@@ -1,7 +1,11 @@
 ﻿@import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* The dark: utility variant was bound to a .dark class that nothing ever adds
+   — the site themes with data-theme on <html>. Every `dark:` utility in the
+   codebase was therefore dead, so things like .glass-card fell back to their
+   light branch (bg-white/50) underneath correct dark-mode token text. */
+@custom-variant dark (&:is(.dark *, [data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
   --color-background: var(--background);
