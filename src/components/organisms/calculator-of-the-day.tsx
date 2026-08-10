@@ -1,6 +1,6 @@
 "use client"
 
-import { calculators, isIndexable, type Calculator } from "@/data/calculators"
+import { calculators, CATEGORY_META, isIndexable, type Calculator } from "@/data/calculators"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -24,14 +24,19 @@ export function CalculatorOfTheDay() {
     if (!calc) {
         return (
             <div className="home-cotd" aria-hidden="true">
-                <div className="home-cotd-ico">🎲</div>
+                <div className="home-cotd-k">⭐ Calculator of the day</div>
                 <div className="home-cotd-mid">
-                    <div className="home-cotd-k">⭐ Calculator of the day</div>
                     <h3 style={{ opacity: 0.55 }}>Picking today&apos;s tool…</h3>
+                </div>
+                <div className="home-cotd-answer">
+                    <span className="home-cotd-ico">🎲</span>
+                    <span className="home-cotd-btn">open tool →</span>
                 </div>
             </div>
         )
     }
+
+    const categoryName = CATEGORY_META.find(m => m.id === calc.category)?.name || calc.category
 
     return (
         <Link
@@ -41,19 +46,24 @@ export function CalculatorOfTheDay() {
             onClick={() => setOpening(true)}
             style={opening ? { cursor: "wait" } : undefined}
         >
-            <div className="home-cotd-ico">{calc.icon || "🎲"}</div>
+            <div className="home-cotd-k">⭐ Calculator of the day</div>
             <div className="home-cotd-mid">
-                <div className="home-cotd-k">⭐ Calculator of the day</div>
                 <h3>{calc.title}</h3>
                 <p>{calc.description}</p>
             </div>
-            <span className="home-cotd-btn" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-                {opening ? (
-                    <><span className="inline-block animate-spin rounded-full" style={{ width: 13, height: 13, border: "2px solid #241F1A", borderTopColor: "transparent" }} /> Opening…</>
-                ) : (
-                    <>Open tool →</>
-                )}
-            </span>
+            <div className="home-cotd-answer">
+                <span className="home-cotd-ico" aria-hidden="true">{calc.icon || "🎲"}</span>
+                <span className="home-cotd-btn">
+                    {opening ? (
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                            <span className="inline-block animate-spin rounded-full" style={{ width: 13, height: 13, border: "2px solid currentColor", borderTopColor: "transparent" }} /> opening…
+                        </span>
+                    ) : (
+                        <>open tool →</>
+                    )}
+                </span>
+            </div>
+            <p className="home-cotd-by">From {categoryName}</p>
         </Link>
     )
 }

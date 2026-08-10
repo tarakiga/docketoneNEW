@@ -22,26 +22,25 @@ export default async function Home() {
 
   return (
     <div className="almanac">
-      <div className="almanac-wrap">
-        {/* Hero */}
-        <header className="home-hero">
-          <div className="home-conf" aria-hidden="true">
-            <span style={{ left: "8%", top: "18%" }}>✨</span>
-            <span style={{ right: "10%", top: "12%" }}>🔥</span>
-            <span style={{ left: "13%", bottom: "30%" }}>⚡</span>
-            <span style={{ right: "13%", bottom: "34%" }}>🧮</span>
-            <span style={{ left: "47%", top: "4%" }}>🚀</span>
-          </div>
-          <div className="home-pill">🎲 <b>65+</b> calculators · free · no sign-up</div>
-          <h1 className="home-h1">Pick your flavour<br />of <span className="w1">math</span> <span className="w2">magic</span>.</h1>
-          <p className="home-sub">Smart, silly, surprisingly useful tools for everything from Space travel time to the true cost of your coffee habit.</p>
-          <div className="home-cta">
-            <Link className="home-btn home-btn-clay" href="#categories">Explore the collections →</Link>
-            <SurpriseMeButton className="home-btn home-btn-ink" />
+      {/* Hero — full-bleed yellow band, so it sits outside the page wrap.
+          The Calculator of the Day is the card on the right rather than a
+          separate strip below, so the claim and the proof share one screen. */}
+      <header className="home-hero">
+        <div className="almanac-wrap home-hero-grid">
+          <div>
+            <div className="home-pill">🎲 <b>65+</b> calculators · free · no sign-up</div>
+            <h1 className="home-h1">Ask a<br />weird<br /><span className="w1">question</span>.</h1>
+            <p className="home-sub">Every calculator here shows its working, explains the formula, and never asks for your email. Serious answers to questions nobody sensible would ask.</p>
+            <div className="home-cta">
+              <Link className="home-btn home-btn-clay" href="#categories">Browse all 64 →</Link>
+              <SurpriseMeButton className="home-btn home-btn-ink" />
+            </div>
           </div>
           <CalculatorOfTheDay />
-        </header>
+        </div>
+      </header>
 
+      <div className="almanac-wrap">
         {/* Collections */}
         <CategoryGrid />
 

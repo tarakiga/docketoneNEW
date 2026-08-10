@@ -463,7 +463,6 @@
 .home-news{background:var(--ink);color:var(--paper);border-radius:24px;padding:38px;text-align:center}
 .home-news h2{font-family:var(--font-fraunces),serif;font-weight:700;font-size:32px;color:#fff}
 .home-news p{color:#b9b1a3;margin:8px 0 18px}
-@media(max-width:640px){.home-cotd{flex-direction:column;text-align:center}.home-cotd-mid{text-align:center}}
 
 /* ===== Navigation progress: anime fireball head ===== */
 .np-fire{position:absolute;top:-8px;width:40px;height:20px;pointer-events:none;transform:translateX(-82%)}
@@ -495,19 +494,20 @@
 
 :root,
 [data-theme="light"] {
-  /* surfaces */
-  --dk-page:#FFF4D9;
-  --dk-surface:#FFFDF6;
-  --dk-sunk:#FFF9EA;
-  --dk-raised:#FFEFC9;
-  --dk-mute:#F0E6CC;
+  /* surfaces — white ground. Cards are the same white as the page and are
+     defined by their outline and offset, not by a fill. */
+  --dk-page:#FFFFFF;
+  --dk-surface:#FFFFFF;
+  --dk-sunk:#F5F5F7;
+  --dk-raised:#EDEDF1;
+  --dk-mute:#E3E3E8;
   /* ink + structure */
   --dk-ink:#17161A;
-  --dk-ink-soft:#5C5852;
+  --dk-ink-soft:#5B5A63;
   --dk-line:#17161A;
-  --dk-line-soft:#D8C79B;
+  --dk-line-soft:#D3D3DA;
   --dk-shadow:#17161A;
-  --dk-shadow-soft:#E0CFA4;
+  --dk-shadow-soft:#DBDBE2;
   /* accent fills */
   --dk-yel:#FFD93B; --dk-org:#FF5E3A; --dk-tea:#00C2B2;
   --dk-lim:#7BD44F; --dk-pur:#A97BFF; --dk-pnk:#FF3E88; --dk-sky:#3FA9FF;
@@ -563,8 +563,8 @@ body{background:var(--dk-page) !important}
   color:var(--dk-ink);
   font-family:var(--font-hanken),system-ui,sans-serif;
   background-color:var(--dk-page);
-  background-image:radial-gradient(var(--dk-line-soft) 1.1px, transparent 1.1px);
-  background-size:26px 26px;
+  /* the base Almanac layer paints a dot matrix here — flat ground instead */
+  background-image:none;
   overflow-x:clip;
 }
 .almanac ::selection{background:var(--dk-yel);color:var(--dk-on-yel)}
@@ -638,13 +638,33 @@ body{background:var(--dk-page) !important}
 .almanac-footer-social a:hover{color:var(--dk-yel)}
 .almanac-footer-bottom{border-top:2.5px dashed rgba(255,255,255,.25)}
 
-/* ---- home hero --------------------------------------------------------- */
-.home-hero{border-top:none;position:relative}
+/* ---- home hero ---------------------------------------------------------
+   A full-bleed yellow band. The Calculator of the Day is not a separate strip
+   below any more — it IS the card on the right, so the hero makes its claim
+   and immediately demonstrates it with a real tool. */
+.home-hero{
+  border-top:none;position:relative;
+  background:var(--dk-yel);
+  border-bottom:3px solid var(--dk-line);
+  padding:clamp(2.4rem,5vw,4rem) 0 clamp(2.8rem,5.5vw,4.4rem);
+  margin-bottom:0;
+  text-align:left;
+}
 .home-conf{display:none}
+.home-hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(1.8rem,4vw,3.4rem);align-items:center;
+}
 .home-pill{background:var(--dk-tea);border:3px solid var(--dk-line);border-radius:999px;
   color:var(--dk-on-tea);font-family:var(--font-hanken),sans-serif;font-weight:700;
   box-shadow:3px 3px 0 var(--dk-shadow);transform:rotate(-1.5deg)}
 .home-pill b{color:var(--dk-on-tea);text-decoration:underline;text-underline-offset:2px}
+.home-hero .home-sub{color:var(--dk-on-yel);max-width:36ch;margin-left:0;margin-right:0}
+.home-hero .home-cta{justify-content:flex-start}
+@media(max-width:880px){
+  .home-hero-grid{grid-template-columns:minmax(0,1fr)}
+  .home-hero{text-align:left}
+}
 .home-h1{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
   text-transform:lowercase;letter-spacing:-.035em;line-height:.9;
   font-size:clamp(44px,9vw,96px);color:var(--dk-ink);text-shadow:5px 5px 0 var(--dk-org)}
@@ -661,19 +681,36 @@ body{background:var(--dk-page) !important}
 .home-btn:hover{filter:none;transform:translate(2px,2px);box-shadow:3px 3px 0 var(--dk-shadow)}
 .home-btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--dk-shadow)}
 
-/* ---- calculator of the day --------------------------------------------- */
-.home-cotd{background:var(--dk-tea);border:3px solid var(--dk-line);border-radius:18px;
-  color:var(--dk-on-tea);box-shadow:8px 8px 0 var(--dk-shadow)}
-.home-cotd:hover{transform:translate(3px,3px);box-shadow:5px 5px 0 var(--dk-shadow)}
-.home-cotd-ico{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:16px}
-.home-cotd-k{font-family:var(--font-space-mono),monospace;font-weight:700;color:var(--dk-on-tea);
-  letter-spacing:.16em}
+/* ---- calculator of the day (the hero card) ------------------------------
+   Structure follows the concept: kicker, the tool as a big question, a filled
+   answer block, then the attribution line. */
+.home-cotd{
+  display:block;background:var(--dk-surface);border:3px solid var(--dk-line);
+  border-radius:18px;color:var(--dk-ink);box-shadow:9px 9px 0 var(--dk-shadow);
+  padding:1.4rem 1.5rem;margin-top:0;transform:rotate(1.6deg);
+  transition:transform .14s,box-shadow .14s;text-align:left;
+}
+.home-cotd:hover{transform:rotate(0deg) translate(3px,3px);box-shadow:6px 6px 0 var(--dk-shadow)}
+.home-cotd-k{font-family:var(--font-space-mono),monospace;font-weight:700;font-size:11px;
+  color:var(--dk-ink-soft);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem}
+.home-cotd-mid{min-width:0}
 .home-cotd-mid h3{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
-  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-on-tea)}
-.home-cotd-mid p{color:var(--dk-on-tea);opacity:.82}
-.home-cotd-btn{background:var(--dk-yel);color:var(--dk-on-yel);border:3px solid var(--dk-line);
-  font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:14px;
-  text-transform:lowercase;border-radius:12px;box-shadow:4px 4px 0 var(--dk-shadow)}
+  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink);
+  font-size:clamp(1.25rem,2.4vw,1.7rem);line-height:1.1}
+.home-cotd-mid p{color:var(--dk-ink-soft);font-size:.92rem;line-height:1.5;margin-top:.4rem}
+/* the "answer" block — the loudest thing on the card, and the action */
+.home-cotd-answer{
+  display:flex;align-items:center;gap:.8rem;margin-top:1rem;
+  background:var(--dk-pnk);color:var(--dk-on-pnk);
+  border:3px solid var(--dk-line);border-radius:12px;padding:.7rem .9rem;
+}
+.home-cotd-ico{font-size:1.9rem;line-height:1;flex:0 0 auto;background:none;border:none;
+  width:auto;height:auto;display:block}
+.home-cotd-btn{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  font-size:1.05rem;text-transform:lowercase;letter-spacing:-.01em;color:var(--dk-on-pnk);
+  background:none;border:none;border-radius:0;box-shadow:none;padding:0;margin-left:auto}
+.home-cotd-by{font-family:var(--font-hanken),sans-serif;font-size:.78rem;font-weight:600;
+  color:var(--dk-ink-soft);margin-top:.7rem}
 
 /* ---- section heads + category tiles ------------------------------------ */
 .home-centerhead h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
