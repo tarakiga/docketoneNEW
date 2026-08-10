@@ -8,8 +8,8 @@ import { useMemo, useState } from "react"
 
 // Correcting the object structure to ensure consistency
 const DEST_VALS = {
-  'moon': { name: 'Moon', emoji: '🌙', distKm: 384400, color: 'text-gray-300', au: 1.002, period: 0.074 },
-  'mercury': { name: 'Mercury', emoji: '☿️', distKm: 77000000, color: 'text-gray-300', au: 0.387, period: 0.241 },
+  'moon': { name: 'Moon', emoji: '🌙', distKm: 384400, color: 'text-[var(--dk-ink-soft)]', au: 1.002, period: 0.074 },
+  'mercury': { name: 'Mercury', emoji: '☿️', distKm: 77000000, color: 'text-[var(--dk-ink-soft)]', au: 0.387, period: 0.241 },
   'venus': { name: 'Venus', emoji: '♀️', distKm: 41000000, color: 'text-yellow-300', au: 0.723, period: 0.615 },
   'mars': { name: 'Mars', emoji: '🔴', distKm: 78000000, color: 'text-red-300', au: 1.524, period: 1.881 },
   'jupiter': { name: 'Jupiter', emoji: '🪐', distKm: 628000000, color: 'text-orange-400', au: 5.204, period: 11.86 },
@@ -21,7 +21,7 @@ const DEST_VALS = {
 }
 
 const PROPULSION = {
-  'car': { name: 'Highway Speed', emoji: '🚗', speed: 0.1, label: '100 km/h', color: 'from-slate-800 to-slate-900', class: 'Civilian', isFTL: false },
+  'car': { name: 'Highway Speed', emoji: '🚗', speed: 0.1, label: '100 km/h', color: 'from-[var(--dk-sunk)] to-[var(--dk-raised)]', class: 'Civilian', isFTL: false },
   'jet': { name: 'Jet Aircraft', emoji: '✈️', speed: 0.9, label: '900 km/h', color: 'from-blue-800 to-blue-900', class: 'Aviation', isFTL: false },
   'artemis': { name: 'Artemis SLS', emoji: '🧑‍🚀', speed: 27.35, label: '27.35k km/h', color: 'from-orange-800 to-red-900', class: 'Super Heavy Lift', isFTL: false },
   'dragon': { name: 'SpaceX Dragon', emoji: '🐉', speed: 28, label: '28k km/h', color: 'from-blue-900 to-indigo-950', class: 'LEO Transport', isFTL: false },

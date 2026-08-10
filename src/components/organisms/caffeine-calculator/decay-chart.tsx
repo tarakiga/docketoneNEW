@@ -22,17 +22,17 @@ export function CaffeineDecayChart({ data, baseTime, markers, threshold }: Caffe
 
     return (
         <motion.div
-            className="bg-black/40 backdrop-blur-xl p-6 h-[400px] w-full rounded-2xl border border-white/10 shadow-xl"
+            className="bg-[var(--dk-surface)] backdrop-blur-xl p-6 h-[400px] w-full rounded-2xl border border-[var(--dk-line)] shadow-xl"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
         >
             <div className="mb-6 flex justify-between items-center flex-wrap gap-2">
-                <h3 className="text-slate-400 uppercase tracking-widest text-xs font-bold">Decay Projection (24h)</h3>
-                <div className="flex items-center gap-3 text-xs font-medium text-slate-400 flex-wrap">
-                    <div className="flex items-center gap-1"><span className="w-3 h-0.5 rounded bg-cyan-400"></span> Caffeine</div>
-                    <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_currentColor]"></span> Now</div>
-                    <div className="flex items-center gap-1"><span className="w-3 border-t border-dashed border-white/60"></span> Bedtime</div>
+                <h3 className="text-[var(--dk-ink-soft)] uppercase tracking-widest text-xs font-bold">Decay Projection (24h)</h3>
+                <div className="flex items-center gap-3 text-xs font-medium text-[var(--dk-ink-soft)] flex-wrap">
+                    <div className="flex items-center gap-1"><span className="w-3 h-0.5 rounded bg-[var(--dk-tea)]"></span> Caffeine</div>
+                    <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[var(--dk-tea)] shadow-[0_0_8px_currentColor]"></span> Now</div>
+                    <div className="flex items-center gap-1"><span className="w-3 border-t border-dashed border-[var(--dk-line-soft)]"></span> Bedtime</div>
                     <div className="flex items-center gap-1"><span className="w-3 border-t border-dashed border-red-400"></span> Sleep line</div>
                 </div>
             </div>
@@ -66,8 +66,8 @@ export function CaffeineDecayChart({ data, baseTime, markers, threshold }: Caffe
                     />
                     <Tooltip
                         contentStyle={{
-                            backgroundColor: 'rgba(5, 5, 10, 0.9)',
-                            border: '1px solid rgba(255,255,255,0.1)',
+                            backgroundColor: 'var(--dk-surface)',
+                            border: '1px solid var(--dk-line)',
                             borderRadius: '12px',
                             backdropFilter: 'blur(20px)',
                             boxShadow: '0 4px 30px rgba(0,0,0,0.8)'

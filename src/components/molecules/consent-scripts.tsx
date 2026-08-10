@@ -95,9 +95,9 @@ export function AdUnit({ className }: { className?: string }) {
 
   return (
     <div className={`my-10 ${className ?? ""}`}>
-      <div className="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-black text-center mb-3">Advertisement</div>
+      <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--dk-ink-soft)] font-black text-center mb-3">Advertisement</div>
       <ins
-        className="adsbygoogle block min-h-[90px] bg-white/70 rounded-2xl border border-slate-200/70"
+        className="adsbygoogle block min-h-[90px] bg-white/70 rounded-2xl border border-[var(--dk-line-soft)]/70"
         style={{ display: "block" }}
         data-ad-client="ca-pub-7016949439291956"
         data-ad-slot={slotId}
