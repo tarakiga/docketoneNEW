@@ -810,7 +810,13 @@ body{background:var(--dk-page) !important}
 .almanac-num{color:var(--dk-line-soft);font-family:var(--font-space-mono),monospace}
 .almanac-ico{background:var(--dk-sunk);border:3px solid var(--dk-line);border-radius:12px}
 .almanac-card:hover .almanac-ico{background:var(--dk-yel)}
-.almanac-card-media{background:var(--dk-sunk);border-bottom:3px solid var(--dk-line)}
+/* The media box already spans the full card width — its negative margin
+   cancels the card padding, so it meets the outline on all three sides.
+   The aspect ratio is the thing worth changing: the blog's featured images
+   are 1024x1024 squares, and a 16/9 box with object-fit:cover threw away 44%
+   of each one. 4/3 keeps 75% and still reads as a card banner. */
+.almanac-card-media{background:var(--dk-sunk);border-bottom:3px solid var(--dk-line);
+  aspect-ratio:4/3}
 
 /* ---- prose (the SEO surface â€” readability first) ----------------------- */
 /* Reading surface. Ink on the yellow ground clears AA comfortably (~11:1),
