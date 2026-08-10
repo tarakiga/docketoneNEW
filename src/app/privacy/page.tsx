@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 
 export const metadata = {
   title: "Privacy Policy | Docket One",
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       <div className="almanac">
         <div className="almanac-page">
           <div className="almanac-top">
-            <Link className="almanac-back" href="/">← home</Link>
+            <Link className="almanac-back" href="/">â† home</Link>
             <span>Docket One</span>
           </div>
 
@@ -26,10 +26,10 @@ export default function PrivacyPage() {
             </p>
           </header>
 
-          <div className="almanac-prose">
+          <div className="almanac-prose dk-read">
             <p>Effective Date: December 15, 2024</p>
 
-            <h3>✅ What We DO Collect</h3>
+            <h3>âœ… What We DO Collect</h3>
             <ul>
               <li>Anonymous usage analytics (Hotjar)</li>
               <li>Basic technical info (Browser type, device)</li>
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
               <li>Performance metrics</li>
             </ul>
 
-            <h3>❌ What We DON&apos;T Collect</h3>
+            <h3>âŒ What We DON&apos;T Collect</h3>
             <ul>
               <li>Your calculation inputs (processed locally)</li>
               <li>Personal identifying information</li>
@@ -97,8 +97,8 @@ export default function PrivacyPage() {
           </div>
 
           <div className="almanac-foot">
-            <span>© 2026 Docket One</span>
-            <Link href="/">Home →</Link>
+            <span>Â© 2026 Docket One</span>
+            <Link href="/">Home â†’</Link>
           </div>
         </div>
       </div>

@@ -79,7 +79,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 {about && (
                     <section className="almanac-about">
                         <h2>{about.title}</h2>
-                        <div className="almanac-body">{about.content}</div>
+                        <div className="almanac-body dk-read">{about.content}</div>
                     </section>
                 )}
 

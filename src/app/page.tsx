@@ -129,7 +129,7 @@ export default async function Home() {
 
         {/* SEO rich content */}
         <section className="almanac-section">
-          <div className="almanac-prose">
+          <div className="almanac-prose dk-read">
             <h2>Why Docket One is your ultimate calculation engine</h2>
             <p>
               Welcome to <strong>Docket One</strong>, one of the web&apos;s most comprehensive and genuinely useful

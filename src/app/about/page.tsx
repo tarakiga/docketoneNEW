@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 
 export const metadata = {
   title: "About Us | Docket One",
@@ -11,9 +11,9 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="almanac"><div className="almanac-page">
-      <div className="almanac-top"><Link className="almanac-back" href="/">← home</Link><span>Docket One</span></div>
+      <div className="almanac-top"><Link className="almanac-back" href="/">â† home</Link><span>Docket One</span></div>
       <header className="almanac-masthead"><div className="almanac-eyebrow">About</div><h1 className="almanac-h1 sm">About Docket One</h1><p className="almanac-sub">We build smart, fun, and practical calculators for modern life&apos;s many questions.</p></header>
-      <div className="almanac-prose">
+      <div className="almanac-prose dk-read">
         <h2>Our Mission</h2>
         <p>
           In a world full of data, we believe that the right tools can make all the difference. Our mission is to provide calculators that are not only functional but also fun and engaging. We want to help you make smarter decisions, whether you&apos;re figuring out the true cost of car ownership, planning for a zombie apocalypse, or just trying to understand your caffeine intake.
@@ -54,7 +54,7 @@ export default function AboutPage() {
           We also work to keep the site usable for everyone, with readable typography, keyboard-friendly controls, and clear results. If you ever spot a calculation that looks off, a tool that misbehaves, or an idea for one we should build next, we genuinely want to hear it. You can reach us any time through our contact, bug-report, and calculator-request pages.
         </p>
       </div>
-      <div className="almanac-foot"><span>© 2026 Docket One</span><Link href="/">Home →</Link></div>
+      <div className="almanac-foot"><span>Â© 2026 Docket One</span><Link href="/">Home â†’</Link></div>
     </div></div>
   )
 }

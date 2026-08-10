@@ -28,7 +28,9 @@ export const CATEGORY_ACCENT: Record<string, CategoryAccent> = {
   mathmagik:  { fill: 'var(--dk-pur)', ink: 'var(--dk-pur-ink)', on: 'var(--dk-on-pur)', tint: 'var(--dk-raised)' },
   brainmodes: { fill: 'var(--dk-sky)', ink: 'var(--dk-sky-ink)', on: 'var(--dk-on-sky)', tint: 'var(--dk-raised)' },
   geekgalaxy: { fill: 'var(--dk-pnk)', ink: 'var(--dk-pnk-ink)', on: 'var(--dk-on-pnk)', tint: 'var(--dk-raised)' },
-  otakuops:   { fill: 'var(--dk-yel)', ink: 'var(--dk-yel-ink)', on: 'var(--dk-on-yel)', tint: 'var(--dk-raised)' },
+  // amber, not yellow: the page ground is yellow, so a --dk-yel tile would
+  // disappear into it
+  otakuops:   { fill: 'var(--dk-amb)', ink: 'var(--dk-amb-ink)', on: 'var(--dk-on-amb)', tint: 'var(--dk-raised)' },
 }
 
 export const DEFAULT_ACCENT: CategoryAccent = CATEGORY_ACCENT.bigkidmath

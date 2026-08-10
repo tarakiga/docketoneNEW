@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 
 export const metadata = {
   title: "Disclaimer | Docket One",
@@ -8,13 +8,13 @@ export const metadata = {
 export default function DisclaimerPage() {
   return (
     <div className="almanac"><div className="almanac-page">
-      <div className="almanac-top"><Link className="almanac-back" href="/">← home</Link><span>Docket One</span></div>
+      <div className="almanac-top"><Link className="almanac-back" href="/">â† home</Link><span>Docket One</span></div>
       <header className="almanac-masthead">
         <div className="almanac-eyebrow">Legal</div>
         <h1 className="almanac-h1 sm">Disclaimer</h1>
         <p className="almanac-sub">Important: Please read this disclaimer carefully before using any calculators on Docket One.</p>
       </header>
-      <div className="almanac-prose">
+      <div className="almanac-prose dk-read">
         <p>Effective Date: December 20, 2024</p>
 
         <h2>No Professional Advice</h2>
@@ -51,7 +51,7 @@ export default function DisclaimerPage() {
           <a href="mailto:legal@docket.one">legal@docket.one</a>
         </p>
       </div>
-      <div className="almanac-foot"><span>© 2026 Docket One</span><Link href="/">Home →</Link></div>
+      <div className="almanac-foot"><span>Â© 2026 Docket One</span><Link href="/">Home â†’</Link></div>
     </div></div>
   )
 }

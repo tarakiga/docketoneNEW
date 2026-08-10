@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 
 export const metadata = {
   title: "Cookies Policy | Docket One",
@@ -8,13 +8,13 @@ export const metadata = {
 export default function CookiesPage() {
   return (
     <div className="almanac"><div className="almanac-page">
-      <div className="almanac-top"><Link className="almanac-back" href="/">← home</Link><span>Docket One</span></div>
+      <div className="almanac-top"><Link className="almanac-back" href="/">â† home</Link><span>Docket One</span></div>
       <header className="almanac-masthead">
         <div className="almanac-eyebrow">Legal</div>
         <h1 className="almanac-h1 sm">Cookies Policy</h1>
         <p className="almanac-sub">Effective Date: December 15, 2024</p>
       </header>
-      <div className="almanac-prose">
+      <div className="almanac-prose dk-read">
         <p>
           This section explains how Docket One (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) uses cookies and similar tracking technologies on our website.
         </p>
@@ -41,7 +41,7 @@ export default function CookiesPage() {
           <li><strong>Ad Personalization:</strong> Visit Google&apos;s Ad Settings to opt out of personalized advertising.</li>
         </ul>
       </div>
-      <div className="almanac-foot"><span>© 2026 Docket One</span><Link href="/">Home →</Link></div>
+      <div className="almanac-foot"><span>Â© 2026 Docket One</span><Link href="/">Home â†’</Link></div>
     </div></div>
   )
 }

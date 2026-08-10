@@ -494,26 +494,31 @@
 
 :root,
 [data-theme="light"] {
-  /* surfaces — white ground. Cards are the same white as the page and are
-     defined by their outline and offset, not by a fill. */
-  --dk-page:#FFFFFF;
+  /* surfaces — the ground is the hero yellow, so the band and the page are one
+     surface. Cards are white against it, which is what makes the outline-and-
+     offset sticker language read. */
+  --dk-page:#FFD93B;
   --dk-surface:#FFFFFF;
-  --dk-sunk:#F5F5F7;
-  --dk-raised:#EDEDF1;
-  --dk-mute:#E3E3E8;
+  --dk-sunk:#FFF7DE;
+  --dk-raised:#FFEFBC;
+  --dk-mute:#F3E1A2;
   /* ink + structure */
   --dk-ink:#17161A;
-  --dk-ink-soft:#5B5A63;
+  --dk-ink-soft:#4E4D56;
   --dk-line:#17161A;
-  --dk-line-soft:#D3D3DA;
+  --dk-line-soft:#DCC166;
   --dk-shadow:#17161A;
-  --dk-shadow-soft:#DBDBE2;
+  --dk-shadow-soft:#E6CE7A;
   /* accent fills */
   --dk-yel:#FFD93B; --dk-org:#FF5E3A; --dk-tea:#00C2B2;
   --dk-lim:#7BD44F; --dk-pur:#A97BFF; --dk-pnk:#FF3E88; --dk-sky:#3FA9FF;
   /* accent as text or hairline â€” darkened for AA on --dk-surface */
   --dk-yel-ink:#6E5200; --dk-org-ink:#B02D0C; --dk-tea-ink:#00655C;
   --dk-lim-ink:#3C6B21; --dk-pur-ink:#6231C9; --dk-pnk-ink:#C01356; --dk-sky-ink:#0A6BB0;
+  /* Amber exists because the ground is now yellow: an Otaku Ops tile filled
+     with --dk-yel would sit invisibly on it, so the seventh category accent
+     has to be deeper than the page. */
+  --dk-amb:#F09A1E; --dk-amb-ink:#8A5000; --dk-on-amb:#4A2A00;
   /* text sitting ON a filled accent */
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
   --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
@@ -545,6 +550,7 @@
   /* on dark, the bright accent IS the readable text colour */
   --dk-yel-ink:#FFD93B; --dk-org-ink:#FF7A5C; --dk-tea-ink:#2BD9CA;
   --dk-lim-ink:#8FE063; --dk-pur-ink:#BC96FF; --dk-pnk-ink:#FF5C9C; --dk-sky-ink:#5CBAFF;
+  --dk-amb:#FFB74D; --dk-amb-ink:#FFB74D; --dk-on-amb:#4A2A00;
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
   --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
   --dk-pos:#8FE063; --dk-pos-ink:#8FE063; --dk-on-pos:#1D4009;
@@ -802,6 +808,21 @@ body{background:var(--dk-page) !important}
 .almanac-card-media{background:var(--dk-sunk);border-bottom:3px solid var(--dk-line)}
 
 /* ---- prose (the SEO surface â€” readability first) ----------------------- */
+/* Reading surface. Ink on the yellow ground clears AA comfortably (~11:1),
+   but several hundred words of body copy on a saturated field is tiring to
+   actually read. Long-form blocks get a white panel; short prose fragments
+   stay on the ground so the page keeps its colour. */
+.dk-read,
+.almanac-article{
+  background:var(--dk-surface);
+  border:3px solid var(--dk-line);
+  border-radius:18px;
+  box-shadow:7px 7px 0 var(--dk-shadow);
+  padding:clamp(1.4rem,3.5vw,2.6rem);
+}
+.dk-read > :first-child,.almanac-article > :first-child{margin-top:0}
+.dk-read > :last-child,.almanac-article > :last-child{margin-bottom:0}
+
 .almanac-prose{color:var(--dk-ink);font-size:17px;line-height:1.75}
 .almanac-prose h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
   text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink);font-size:30px}
