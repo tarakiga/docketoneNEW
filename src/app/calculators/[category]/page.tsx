@@ -50,7 +50,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             className="almanac"
             style={{
                 // @ts-expect-error CSS custom properties
-                "--accent": acc.fill, "--accent-2": acc.ink, "--accent-tint": acc.tint,
+                // --accent binds to the INK variant: the base Almanac layer uses it
+                // as a text and hairline colour, and the saturated fill fails
+                // contrast there (lime on the yellow ground was 1.34:1).
+                // Anything that needs the fill reads --dk-cat.
+                "--accent": acc.ink, "--accent-2": acc.ink, "--accent-tint": acc.tint,
                 "--dk-cat": acc.fill, "--dk-cat-ink": acc.ink, "--dk-cat-on": acc.on,
             }}
         >

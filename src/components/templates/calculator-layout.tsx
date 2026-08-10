@@ -36,7 +36,9 @@ export function CalculatorLayout({ title, description, children, understanding, 
       className="almanac"
       style={{
         // @ts-expect-error CSS custom properties
-        "--accent": acc.fill, "--accent-2": acc.ink, "--accent-tint": acc.tint,
+        // --accent is a text/hairline colour in the base layer, so it takes the
+        // ink variant; --dk-cat carries the fill for anything that needs it.
+        "--accent": acc.ink, "--accent-2": acc.ink, "--accent-tint": acc.tint,
         "--dk-cat": acc.fill, "--dk-cat-ink": acc.ink, "--dk-cat-on": acc.on,
       }}
     >

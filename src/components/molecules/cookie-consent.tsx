@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 
@@ -35,18 +35,18 @@ export function CookieConsent() {
             className="flex items-center gap-2 mb-2"
             style={{ fontFamily: "var(--font-space-mono), monospace", fontSize: 11, color: "var(--dk-tea-ink)", letterSpacing: ".04em" }}
           >
-            <span aria-hidden>🍪</span> COOKIES - YOUR CALL
+            <span aria-hidden>ðŸª</span> COOKIES - YOUR CALL
           </div>
 
           <h2 className="mb-2" style={{ fontFamily: "var(--font-fredoka), cursive", color: "var(--dk-yel-ink)", fontSize: 18, lineHeight: 1.1 }}>
             No account. No catch.
           </h2>
 
-          <p style={{ color: "#cfc9e6", fontSize: 13, lineHeight: 1.55 }}>
+          <p style={{ color: "var(--dk-ink-soft)", fontSize: 13, lineHeight: 1.55 }}>
             Docket One has no sign-ups and never will. Cookies here are{" "}
-            <b style={{ color: "#fff" }}>completely optional</b> - they only let us show ads (which keep every calculator
+            <b style={{ color: "var(--dk-ink)" }}>completely optional</b> - they only let us show ads (which keep every calculator
             free) and count which tools people find useful. Choose{" "}
-            <b style={{ color: "#fff" }}>Essential only</b> and the whole site still works - nothing gets locked.
+            <b style={{ color: "var(--dk-ink)" }}>Essential only</b> and the whole site still works - nothing gets locked.
           </p>
 
           {why && (
@@ -84,7 +84,7 @@ export function CookieConsent() {
               type="button"
               onClick={() => choose("accepted")}
               className="flex-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--dk-line)]"
-              style={{ fontFamily: "var(--font-space-mono), monospace", fontSize: 10, padding: "12px 8px", background: "var(--dk-lim)", color: "var(--dk-on-fill)", border: "2px solid #fff", borderRadius: 0, cursor: "pointer", textTransform: "uppercase" }}
+              style={{ fontFamily: "var(--font-space-mono), monospace", fontSize: 10, padding: "12px 8px", background: "var(--dk-lim)", color: "var(--dk-on-fill)", border: "2px solid var(--dk-line)", borderRadius: 0, cursor: "pointer", textTransform: "uppercase" }}
             >
               Accept all
             </button>
@@ -96,7 +96,7 @@ export function CookieConsent() {
             rel="noopener noreferrer"
             style={{ display: "inline-block", marginTop: 12, color: "var(--dk-ink-soft)", fontSize: 11, textDecoration: "underline", textUnderlineOffset: 3 }}
           >
-            Read the privacy policy →
+            Read the privacy policy â†’
           </a>
         </div>
       </div>

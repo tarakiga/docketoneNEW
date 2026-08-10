@@ -68,7 +68,7 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.491 0.241 292.5);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.47 0 0); /* was .556 — 4.0:1 as the search placeholder */
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -90,7 +90,12 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
+/* The site switches themes with data-theme on <html>; nothing ever adds the
+   .dark class, so this whole shadcn token block was dead and every primitive
+   using bg-background / text-muted-foreground / border-border rendered its
+   LIGHT values in dark mode. Binding data-theme here activates them. */
+.dark,
+[data-theme="dark"] {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -523,6 +528,10 @@
      carry yellow text (about 1.25:1); this clears 5:1 against --dk-yel and
      7:1 against white. */
   --dk-forest:#14663D;
+  /* Dark slab for the footer. It cannot be --dk-ink: that token flips to cream
+     in dark mode, which turned the footer into a cream block still carrying its
+     light-on-dark text. This stays dark in both themes. */
+  --dk-slab:#17161A;
   /* text sitting ON a filled accent */
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
   --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
@@ -556,6 +565,7 @@
   --dk-lim-ink:#8FE063; --dk-pur-ink:#BC96FF; --dk-pnk-ink:#FF5C9C; --dk-sky-ink:#5CBAFF;
   --dk-amb:#FFB74D; --dk-amb-ink:#FFB74D; --dk-on-amb:#4A2A00;
   --dk-forest:#17754C;
+  --dk-slab:#0F0D1A;
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
   --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
   --dk-pos:#8FE063; --dk-pos-ink:#8FE063; --dk-on-pos:#1D4009;
@@ -632,9 +642,9 @@ body{background:var(--dk-page) !important}
 .almanac-sheet-item .ic{background:var(--dk-sunk);border:2.5px solid var(--dk-line);border-radius:10px}
 
 /* ---- footer (ink slab) ------------------------------------------------- */
-.almanac-footer{--bg:var(--dk-ink);--cream:var(--dk-page);--cream-soft:#C9C2B4;
+.almanac-footer{--bg:var(--dk-slab);--cream:#FFF3D6;--cream-soft:#C9C2B4;
   --line:rgba(255,255,255,.18);--accent:var(--dk-yel);
-  background:var(--dk-ink);border-top:3px solid var(--dk-line);
+  background:var(--dk-slab);border-top:3px solid var(--dk-line);
   font-family:var(--font-hanken),sans-serif}
 .almanac-footer-brand{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
   text-transform:lowercase;color:var(--dk-yel)}
@@ -677,8 +687,9 @@ body{background:var(--dk-page) !important}
    with them, but real links, so they earn the space twice */
 .home-asks{margin-top:clamp(1.6rem,3vw,2.4rem);padding-top:1.3rem;
   border-top:2.5px dashed rgba(23,22,26,.28)}
+/* opacity was .62, which faded this to 3.19:1 on the yellow band */
 .home-asks-l{font-family:var(--font-space-mono),monospace;font-weight:700;font-size:10px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--dk-on-yel);opacity:.62;margin-bottom:.55rem}
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dk-on-yel);opacity:.85;margin-bottom:.55rem}
 .home-ask-row{display:flex;flex-wrap:wrap;gap:.5rem}
 .home-ask{
   background:var(--dk-surface);border:2.5px solid var(--dk-line);border-radius:999px;
@@ -759,7 +770,9 @@ body{background:var(--dk-page) !important}
 .home-tile:hover{transform:rotate(0deg) translate(3px,3px);box-shadow:3px 3px 0 var(--dk-shadow)}
 .home-tile h3{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
   text-transform:lowercase;letter-spacing:-.025em}
-.home-tile p{opacity:.85;font-weight:600}
+/* full opacity: the tile text is already a muted dark tone on its accent, and
+   fading it dropped the darker accents (pink, purple) below 4.5:1 */
+.home-tile p{opacity:1;font-weight:600}
 .home-tile .go{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
   text-transform:lowercase;letter-spacing:-.01em;font-size:13px}
 
@@ -807,7 +820,8 @@ body{background:var(--dk-page) !important}
 .almanac-card p{color:var(--dk-ink-soft)}
 .almanac-open{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:13px;
   text-transform:lowercase;letter-spacing:-.01em;color:var(--dk-org-ink);text-decoration:none}
-.almanac-num{color:var(--dk-line-soft);font-family:var(--font-space-mono),monospace}
+/* was --dk-line-soft: a hairline colour used as text, 1.55:1 in dark */
+.almanac-num{color:var(--dk-ink-soft);font-family:var(--font-space-mono),monospace}
 .almanac-ico{background:var(--dk-sunk);border:3px solid var(--dk-line);border-radius:12px}
 .almanac-card:hover .almanac-ico{background:var(--dk-yel)}
 /* The media box already spans the full card width — its negative margin
