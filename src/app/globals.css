@@ -522,6 +522,10 @@
   --dk-pos:#7BD44F; --dk-pos-ink:#3C6B21; --dk-on-pos:#1D4009;
   --dk-neg:#F0685C; --dk-neg-ink:#B02818; --dk-on-neg:#4A0D08;
   --dk-warn:#FFB020; --dk-warn-ink:#8A5A00; --dk-on-warn:#4A3000;
+  /* Text on ANY bright accent chip, where the specific accent is not known at
+     the call site. Deliberately dark in BOTH themes: the accent fills stay
+     saturated in dark mode, so this must not flip to cream. */
+  --dk-on-fill:#17161A;
 }
 
 [data-theme="dark"] {
@@ -546,6 +550,7 @@
   --dk-pos:#8FE063; --dk-pos-ink:#8FE063; --dk-on-pos:#1D4009;
   --dk-neg:#FF8578; --dk-neg-ink:#FF8578; --dk-on-neg:#4A0D08;
   --dk-warn:#FFC24D; --dk-warn-ink:#FFC24D; --dk-on-warn:#4A3000;
+  --dk-on-fill:#17161A;
 }
 
 body{background:var(--dk-page) !important}
