@@ -96,7 +96,7 @@ export function BillionaireBuyout() {
                         <div className="grid grid-cols-2 gap-3">
                             <div className="rounded-xl p-3" style={{ background: "var(--dk-raised)", border: "1px solid var(--dk-line)" }}>
                                 <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "var(--dk-ink-soft)" }}>↗ Interest · live</div>
-                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "#86efac" }}>+${Math.floor(interestEarned).toLocaleString()}</div>
+                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "var(--dk-pos-ink)" }}>+${Math.floor(interestEarned).toLocaleString()}</div>
                             </div>
                             <div className="rounded-xl p-3" style={{ background: "var(--dk-raised)", border: "1px solid var(--dk-line)" }}>
                                 <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "var(--dk-ink-soft)" }}>$1M/day for</div>
@@ -111,7 +111,7 @@ export function BillionaireBuyout() {
                     <div>
                         <div className="flex justify-between items-baseline mb-3">
                             <div className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "var(--dk-ink-soft)" }}>The storefront</div>
-                            <div className="font-mono text-[12px]" style={{ color: "var(--dk-ink-soft)" }}>Spent so far: <b style={{ color: "#ff8a8a" }}>${spent.toLocaleString()}</b></div>
+                            <div className="font-mono text-[12px]" style={{ color: "var(--dk-ink-soft)" }}>Spent so far: <b style={{ color: "var(--dk-neg-ink)" }}>${spent.toLocaleString()}</b></div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {SHOP_ITEMS.map((item) => {

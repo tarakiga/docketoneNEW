@@ -55,7 +55,7 @@ export function SuperheroInsuranceQuote() {
   }
 
   return (
-    <div className="almanac max-w-5xl mx-auto space-y-8 animate-in fade-in duration-700" style={{ ['--card' as string]: 'var(--dk-surface)', ['--ink' as string]: 'var(--dk-ink)', ['--ink-soft' as string]: 'var(--dk-ink-soft)', ['--accent' as string]: '#ff8a3c', ['--line' as string]: 'var(--dk-line)' }}>
+    <div className="almanac max-w-5xl mx-auto space-y-8 animate-in fade-in duration-700" style={{ ['--card' as string]: 'var(--dk-surface)', ['--ink' as string]: 'var(--dk-ink)', ['--ink-soft' as string]: 'var(--dk-ink-soft)', ['--accent' as string]: 'var(--dk-org-ink)', ['--line' as string]: 'var(--dk-line)' }}>
       <Card className="border-[var(--dk-line)] shadow-2xl relative overflow-hidden" style={{ backgroundColor: 'var(--dk-surface)', color: 'var(--dk-ink)' }}>
         
         {/* Comic Overlay Effect */}
@@ -81,14 +81,14 @@ export function SuperheroInsuranceQuote() {
            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
               <div className="space-y-1">
                 <CardTitle className="text-xl md:text-3xl font-display flex items-center gap-3" style={{ color: 'var(--dk-ink)' }}>
-                  <ShieldCheck className="h-6 w-6 md:h-8 md:w-8" style={{ color: '#ff8a3c' }} />
+                  <ShieldCheck className="h-6 w-6 md:h-8 md:w-8" style={{ color: 'var(--dk-org-ink)' }} />
                   Hero-Liability Quote
                 </CardTitle>
                 <CardDescription className="text-[10px] md:text-sm font-medium" style={{ color: 'var(--dk-ink-soft)' }}>Protecting assets in the world of legends.</CardDescription>
               </div>
-              <div className="border rounded-xl px-4 py-2 flex items-center gap-3" style={{ backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c' }}>
-                 <ShieldAlert className="h-4 w-4 animate-bounce" style={{ color: '#ff8a3c' }} />
-                 <span className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: '#ff8a3c' }}>Status: {selectedCity.alert}</span>
+              <div className="border rounded-xl px-4 py-2 flex items-center gap-3" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)' }}>
+                 <ShieldAlert className="h-4 w-4 animate-bounce" style={{ color: 'var(--dk-org-ink)' }} />
+                 <span className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: 'var(--dk-org-ink)' }}>Status: {selectedCity.alert}</span>
               </div>
            </div>
         </CardHeader>
@@ -104,7 +104,7 @@ export function SuperheroInsuranceQuote() {
                            <Building className="h-3 w-3" /> Designated Jurisdiction
                         </Label>
                         <Select value={cityId} onValueChange={setCityId}>
-                           <SelectTrigger className="h-12 rounded-xl font-bold border-[var(--dk-line)] focus:border-[#ff8a3c] focus:ring-1 focus:ring-[#ff8a3c]" style={{ backgroundColor: 'var(--dk-sunk)', color: 'var(--dk-ink)' }}>
+                           <SelectTrigger className="h-12 rounded-xl font-bold border-[var(--dk-line)] focus:border-[var(--dk-org-ink)] focus:ring-1 focus:ring-[var(--dk-org-ink)]" style={{ backgroundColor: 'var(--dk-sunk)', color: 'var(--dk-ink)' }}>
                               <SelectValue placeholder="Select City" />
                            </SelectTrigger>
                            <SelectContent style={{ backgroundColor: 'var(--dk-raised)', color: 'var(--dk-ink)', borderColor: 'var(--dk-line)' }}>
@@ -123,7 +123,7 @@ export function SuperheroInsuranceQuote() {
                            <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold z-10" style={{ color: 'var(--dk-ink-soft)' }}>$</span>
                            <Input
                              type="number"
-                             className="pl-8 h-12 rounded-xl font-black text-lg border-[var(--dk-line)] focus:border-[#ff8a3c] focus:ring-1 focus:ring-[#ff8a3c]"
+                             className="pl-8 h-12 rounded-xl font-black text-lg border-[var(--dk-line)] focus:border-[var(--dk-org-ink)] focus:ring-1 focus:ring-[var(--dk-org-ink)]"
                              style={{ backgroundColor: 'var(--dk-sunk)', color: 'var(--dk-ink)' }}
                              value={propertyValue}
                              onChange={(e) => setPropertyValue(Number(e.target.value))}
@@ -146,7 +146,7 @@ export function SuperheroInsuranceQuote() {
                                className="p-3 rounded-2xl border-2 transition-all font-black text-[10px] uppercase tracking-tighter"
                                style={
                                  activeHero === h.id
-                                   ? { backgroundColor: '#ff8a3c', borderColor: '#ff8a3c', color: 'var(--dk-on-fill)', transform: 'translateY(-0.25rem)' }
+                                   ? { backgroundColor: 'var(--dk-org)', borderColor: 'var(--dk-org-ink)', color: 'var(--dk-on-fill)', transform: 'translateY(-0.25rem)' }
                                    : { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }
                                }
                              >
@@ -159,14 +159,14 @@ export function SuperheroInsuranceQuote() {
                     <div className="space-y-5 p-6 rounded-[2rem] border border-[var(--dk-line)]" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                         <div className="flex justify-between items-center text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--dk-ink-soft)' }}>
                            <span>Collateral Radius Exposure</span>
-                           <span style={{ color: '#ff8a3c' }}>{heroExposure} miles</span>
+                           <span style={{ color: 'var(--dk-org-ink)' }}>{heroExposure} miles</span>
                         </div>
                         <Slider
                           value={[heroExposure]}
                           onValueChange={([v]) => setHeroExposure(v)}
                           max={100}
                           step={1}
-                          className="[&_.range-thumb]:bg-[#ff8a3c]"
+                          className="[&_.range-thumb]:bg-[var(--dk-org)]"
                         />
                     </div>
                  </div>
@@ -175,13 +175,13 @@ export function SuperheroInsuranceQuote() {
               {/* Result Section */}
               <div className="lg:col-span-5 p-5 sm:p-8 lg:p-12 flex flex-col justify-center items-center text-center space-y-6 sm:space-y-8" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                  <div className="space-y-2">
-                    <div className="text-xs font-black uppercase tracking-[0.4em] mb-4" style={{ color: '#ff8a3c' }}>Estimated Premium</div>
+                    <div className="text-xs font-black uppercase tracking-[0.4em] mb-4" style={{ color: 'var(--dk-org-ink)' }}>Estimated Premium</div>
                     <motion.div
                       key={quote.monthly}
                       initial={{ scale: 0.95, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tighter"
-                      style={{ color: '#ff8a3c' }}
+                      style={{ color: 'var(--dk-org-ink)' }}
                     >
                        ${quote.monthly.toLocaleString()}
                        <span className="text-sm font-bold ml-1 uppercase" style={{ color: 'var(--dk-ink-soft)' }}>/ mo</span>
@@ -199,15 +199,15 @@ export function SuperheroInsuranceQuote() {
                     <div className="p-6 rounded-3xl border border-[var(--dk-line)] text-left space-y-4" style={{ backgroundColor: 'var(--dk-surface)' }}>
                        <div className="flex justify-between items-center border-b border-[var(--dk-line)] pb-3">
                           <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--dk-ink-soft)' }}>Risk Category</span>
-                          <span className="text-xs font-black italic underline underline-offset-4" style={{ color: '#ff8a3c' }}>{quote.riskLevel}</span>
+                          <span className="text-xs font-black italic underline underline-offset-4" style={{ color: 'var(--dk-org-ink)' }}>{quote.riskLevel}</span>
                        </div>
                        <div className="flex flex-col gap-3">
                           <div className="flex items-center gap-3" style={{ color: 'var(--dk-ink)' }}>
-                             <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--dk-raised)' }}><Zap className="h-4 w-4" style={{ color: '#ff8a3c' }} /></div>
+                             <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--dk-raised)' }}><Zap className="h-4 w-4" style={{ color: 'var(--dk-org-ink)' }} /></div>
                              <span className="text-[11px] font-medium leading-tight">Secondary Impact Waiver Included</span>
                           </div>
                           <div className="flex items-center gap-3" style={{ color: 'var(--dk-ink)' }}>
-                             <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--dk-raised)' }}><Flame className="h-4 w-4" style={{ color: '#ff8a3c' }} /></div>
+                             <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--dk-raised)' }}><Flame className="h-4 w-4" style={{ color: 'var(--dk-org-ink)' }} /></div>
                              <span className="text-[11px] font-medium leading-tight">Heat-Vision Fire Coverage</span>
                           </div>
                        </div>
@@ -216,7 +216,7 @@ export function SuperheroInsuranceQuote() {
                     <Button
                       onClick={triggerBlast}
                       className="w-full h-14 rounded-2xl font-black uppercase tracking-widest transition-transform active:scale-95 hover:opacity-90"
-                      style={{ backgroundColor: '#ff8a3c', color: 'var(--dk-on-fill)' }}
+                      style={{ backgroundColor: 'var(--dk-org)', color: 'var(--dk-on-fill)' }}
                     >
                       Process Claim
                     </Button>
@@ -233,8 +233,8 @@ export function SuperheroInsuranceQuote() {
            { title: "Gadget Guard", txt: "Insure high-tech bunkers against EMP or hacking.", icon: Hammer },
            { title: "Speed Claim", txt: "Instant payout for supersonic-boom window damage.", icon: Zap }
          ].map((item, idx) => (
-           <Card key={idx} className="p-5 border-[var(--dk-line)] hover:border-[#ff8a3c] transition-all cursor-default group" style={{ backgroundColor: 'var(--dk-surface)' }}>
-              <item.icon className="w-5 h-5 mb-3 group-hover:scale-110 transition-transform" style={{ color: '#ff8a3c' }} />
+           <Card key={idx} className="p-5 border-[var(--dk-line)] hover:border-[var(--dk-org-ink)] transition-all cursor-default group" style={{ backgroundColor: 'var(--dk-surface)' }}>
+              <item.icon className="w-5 h-5 mb-3 group-hover:scale-110 transition-transform" style={{ color: 'var(--dk-org-ink)' }} />
               <div className="font-black text-[10px] uppercase tracking-widest mb-1" style={{ color: 'var(--dk-ink)' }}>{item.title}</div>
               <p className="text-[9px] font-medium leading-tight" style={{ color: 'var(--dk-ink-soft)' }}>{item.txt}</p>
            </Card>

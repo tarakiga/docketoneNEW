@@ -55,7 +55,7 @@ export function FloodInfectionCalculator() {
                         <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider mb-4" style={{ backgroundColor: "var(--dk-raised)", borderColor: "var(--dk-line)", borderWidth: 1, color: "var(--dk-yel-ink)" }}>
                             From the HALO Lore
                         </div>
-                        <div className="inline-block px-4 py-2 font-bold rounded-lg" style={{ backgroundColor: "var(--dk-raised)", borderColor: "#ff8a8a", borderWidth: 1, color: "#ff8a8a" }}>
+                        <div className="inline-block px-4 py-2 font-bold rounded-lg" style={{ backgroundColor: "var(--dk-raised)", borderColor: "var(--dk-neg-ink)", borderWidth: 1, color: "var(--dk-neg-ink)" }}>
                             {status}
                         </div>
 
@@ -70,7 +70,7 @@ export function FloodInfectionCalculator() {
                 </Card>
 
                 <Alert style={{ backgroundColor: "var(--dk-surface)", borderColor: "var(--dk-line)", color: "var(--dk-ink)" }}>
-                    <AlertCircle className="h-4 w-4" style={{ color: "#ff8a8a" }} />
+                    <AlertCircle className="h-4 w-4" style={{ color: "var(--dk-neg-ink)" }} />
                     <AlertTitle style={{ color: "var(--dk-ink)" }}>Gravemind Detect</AlertTitle>
                     <AlertDescription className="text-xs" style={{ color: "var(--dk-ink-soft)" }}>
                         {`“I am a monument to all your sins.” - One spore can destroy an entire species.`}

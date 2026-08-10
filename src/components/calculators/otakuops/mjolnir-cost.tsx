@@ -75,7 +75,7 @@ export function MjolnirArmorCostCalculator() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
                             <div className="min-w-0 p-4 rounded-2xl" style={{ backgroundColor: 'var(--dk-sunk)', borderWidth: '1px', borderStyle: 'solid', borderColor: 'var(--dk-line)' }}>
                                 <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--dk-ink-soft)' }}>{inDebt ? "Your Debt" : "Your Surplus"}</div>
-                                <div className="text-lg md:text-xl font-bold break-all" style={{ color: inDebt ? '#ff8a8a' : '#86efac' }}>{inDebt ? "−" : "+"}{formattedDebt}</div>
+                                <div className="text-lg md:text-xl font-bold break-all" style={{ color: inDebt ? 'var(--dk-neg-ink)' : 'var(--dk-pos-ink)' }}>{inDebt ? "−" : "+"}{formattedDebt}</div>
                             </div>
                              <div className="min-w-0 p-4 rounded-2xl" style={{ backgroundColor: 'var(--dk-sunk)', borderWidth: '1px', borderStyle: 'solid', borderColor: 'var(--dk-line)' }}>
                                 <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--dk-ink-soft)' }}>Equivalent Carrier Groups</div>

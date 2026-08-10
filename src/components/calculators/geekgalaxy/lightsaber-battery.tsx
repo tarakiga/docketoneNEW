@@ -54,7 +54,7 @@ export function LightsaberBatteryCalculator() {
 
         <CardHeader className="relative z-10">
           <CardTitle className="text-3xl font-display text-[var(--dk-ink)] flex items-center gap-2">
-            <Zap className="h-6 w-6 text-[#ff8a3c]" />
+            <Zap className="h-6 w-6 text-[var(--dk-org-ink)]" />
             Kyber Power Analysis
           </CardTitle>
           <CardDescription className="text-[var(--dk-ink-soft)]">Optimize your blade&apos;s energy consumption.</CardDescription>
@@ -74,7 +74,7 @@ export function LightsaberBatteryCalculator() {
                     onClick={() => setCrystal(key as keyof typeof CRYSTALS)}
                     className={`p-3 rounded-lg border transition-all text-sm font-bold flex flex-col items-center gap-2 ${
                       crystal === key
-                        ? "bg-[var(--dk-raised)] border-[#ff8a3c] text-[var(--dk-ink)] ring-1 ring-[#ff8a3c]/40"
+                        ? "bg-[var(--dk-raised)] border-[var(--dk-org-ink)] text-[var(--dk-ink)] ring-1 ring-[var(--dk-org-ink)]/40"
                         : "bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink-soft)] hover:bg-[var(--dk-raised)]"
                     }`}
                   >
@@ -97,7 +97,7 @@ export function LightsaberBatteryCalculator() {
                 value={[intensity]}
                 onValueChange={([v]) => setIntensity(v)}
                 min={1} max={10} step={1}
-                className="[&_.range-thumb]:bg-[#ff8a3c]"
+                className="[&_.range-thumb]:bg-[var(--dk-org)]"
               />
               <p className="text-xs text-[var(--dk-ink-soft)]">
                 {intensity < 4 ? "Meditation & Form Practice" : intensity < 8 ? "Active Combat & Deflection" : "Duel of the Fates Intensity"}
@@ -113,7 +113,7 @@ export function LightsaberBatteryCalculator() {
                 value={[mastery]}
                 onValueChange={([v]) => setMastery(v)}
                 min={1} max={10} step={1}
-                className="[&_.range-thumb]:bg-[#ff8a3c]"
+                className="[&_.range-thumb]:bg-[var(--dk-org)]"
               />
               <p className="text-xs text-[var(--dk-ink-soft)]">
                 {mastery < 4 ? "Padawan Learner" : mastery < 8 ? "Jedi Knight" : "Council Master"}
@@ -129,7 +129,7 @@ export function LightsaberBatteryCalculator() {
                 value={[age]}
                 onValueChange={([v]) => setAge(v)}
                 min={0} max={100} step={1}
-                className="[&_.range-thumb]:bg-[#ff8a3c]"
+                className="[&_.range-thumb]:bg-[var(--dk-org)]"
               />
             </div>
 
@@ -163,7 +163,7 @@ export function LightsaberBatteryCalculator() {
             </div>
 
             <div className="text-center space-y-2">
-              <div className="text-5xl font-black" style={{ fontFamily: 'var(--font-fredoka), cursive', color: '#ff8a3c', textShadow: `0 0 20px ${CRYSTALS[crystal].color}` }}>
+              <div className="text-5xl font-black" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-org-ink)', textShadow: `0 0 20px ${CRYSTALS[crystal].color}` }}>
                 {result.toFixed(1)} hrs
               </div>
               <div className="text-sm text-[var(--dk-ink-soft)] uppercase tracking-widest">Est. Continuous Runtime</div>

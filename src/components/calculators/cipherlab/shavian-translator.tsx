@@ -54,7 +54,7 @@ export function ShavianTranslator() {
                 ['--card' as string]: 'var(--dk-surface)',
                 ['--ink' as string]: 'var(--dk-ink)',
                 ['--ink-soft' as string]: 'var(--dk-ink-soft)',
-                ['--accent' as string]: '#b388ff',
+                ['--accent' as string]: 'var(--dk-pur-ink)',
                 ['--line' as string]: 'var(--dk-line)',
             }}
         >
@@ -71,7 +71,7 @@ export function ShavianTranslator() {
                             placeholder="Type English..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[150px] text-lg focus-visible:ring-[#b388ff]"
+                            className="min-h-[150px] text-lg focus-visible:ring-[var(--dk-pur-ink)]"
                             style={{ background: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                          <p className="mt-2 text-xs" style={{ color: 'var(--dk-ink-soft)' }}>
@@ -85,7 +85,7 @@ export function ShavianTranslator() {
                     style={{ background: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}
                 >
                      <CardContent className="pt-6">
-                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--dk-pur-ink)' }}>
                              🇬🇧 George Bernard Shaw&apos;s Dream
                         </h4>
                         <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
@@ -110,7 +110,7 @@ export function ShavianTranslator() {
                             style={{ background: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}
                         >
                             {shavian ? (
-                                <p className="text-4xl leading-relaxed font-serif" style={{ color: '#b388ff' }}>
+                                <p className="text-4xl leading-relaxed font-serif" style={{ color: 'var(--dk-pur-ink)' }}>
                                     {shavian}
                                 </p>
                             ) : (

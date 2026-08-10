@@ -17,7 +17,7 @@ const NOISE_SOURCES = [
     { id: "traffic", label: "Traffic Outside", db: 80, icon: "🚗" },
 ]
 
-const SEG_COLORS = ["#86efac", "#86efac", "#86efac", "var(--dk-yel-ink)", "var(--dk-yel-ink)", "var(--dk-yel-ink)", "#ff8a8a", "#ff8a8a"]
+const SEG_COLORS = ["var(--dk-pos-ink)", "var(--dk-pos-ink)", "var(--dk-pos-ink)", "var(--dk-yel-ink)", "var(--dk-yel-ink)", "var(--dk-yel-ink)", "var(--dk-neg-ink)", "#ff8a8a"]
 
 export function DecibelDetective() {
     const [activeSources, setActiveSources] = useState<string[]>([])
@@ -65,7 +65,7 @@ export function DecibelDetective() {
             <div className="relative z-10">
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
                     <h2 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: "var(--dk-ink)" }}><span className="text-3xl">🔊</span> Decibel Detective</h2>
-                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "#5bf0c0" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "#5bf0c0" }} /> Sensory load model</span>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "var(--dk-tea-ink)" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "var(--dk-tea)" }} /> Sensory load model</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-5">
@@ -79,7 +79,7 @@ export function DecibelDetective() {
                                     <span className="block text-[13px] font-semibold" style={{ color: "var(--dk-ink)" }}>{s.label}</span>
                                     <span className="block font-mono text-[10px]" style={{ color: "var(--dk-ink-soft)" }}>{s.db} dB</span>
                                 </span>
-                                <Switch id={s.id} checked={activeSources.includes(s.id)} onCheckedChange={() => toggleSource(s.id)} className="data-[state=checked]:bg-[#5bf0c0]" />
+                                <Switch id={s.id} checked={activeSources.includes(s.id)} onCheckedChange={() => toggleSource(s.id)} className="data-[state=checked]:bg-[var(--dk-tea)]" />
                             </label>
                         ))}
                         <div className="mt-3 pt-3 border-t border-dashed" style={{ borderColor: "var(--dk-line)" }}>
@@ -136,7 +136,7 @@ export function DecibelDetective() {
                         <ShareResult
                             title="Sensory Load"
                             text={`My environment measures ${totalDB.toFixed(0)}dB, but with my sensitivity it feels like ${perceivedLoad.toFixed(0)}dB(P). Comfortable for: ${timeLimit}. #DecibelDetective #Neurodivergent`}
-                            className="border-none text-[var(--dk-on-fill)] bg-[#5bf0c0] hover:bg-[#5bf0c0]"
+                            className="border-none text-[var(--dk-on-fill)] bg-[var(--dk-tea)] hover:bg-[var(--dk-tea)]"
                         />
                     </div>
                 </div>

@@ -115,9 +115,9 @@ export function CostOfWar() {
               <div className="border border-[var(--dk-line)] rounded-2xl p-4 flex items-center gap-4 shadow-sm" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                  <div className="text-right">
                     <div className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: 'var(--ink-soft)' }}>Global Impact</div>
-                    <div className="text-xl font-black text-[#ff8a8a]">$2.4T+ / yr</div>
+                    <div className="text-xl font-black text-[var(--dk-neg-ink)]">$2.4T+ / yr</div>
                  </div>
-                 <Globe className="h-8 w-8 text-[#ff8a8a] animate-pulse" />
+                 <Globe className="h-8 w-8 text-[var(--dk-neg-ink)] animate-pulse" />
               </div>
            </div>
         </CardHeader>
@@ -173,7 +173,7 @@ export function CostOfWar() {
                     <div className="pt-4 border-t border-[var(--dk-line)]">
                        <div className="flex items-start gap-3 sm:gap-4">
                           <div className="p-1.5 sm:p-2 rounded-xl mt-1" style={{ backgroundColor: 'var(--dk-raised)' }}>
-                             <ShieldAlert className="h-4 w-4 text-[#86efac]" />
+                             <ShieldAlert className="h-4 w-4 text-[var(--dk-pos-ink)]" />
                           </div>
                           <div className="space-y-1">
                              <div className="text-base sm:text-lg font-black leading-none" style={{ color: 'var(--ink)' }}>
@@ -191,7 +191,7 @@ export function CostOfWar() {
               {/* Opportunity Pane */}
               <div className="p-8 lg:p-12 flex flex-col justify-center gap-12 relative" style={{ backgroundColor: 'var(--card)' }}>
                  <div className="text-center space-y-2 relative z-10">
-                    <div className="text-[#ff8a8a] font-black uppercase text-[10px] md:text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
+                    <div className="text-[var(--dk-neg-ink)] font-black uppercase text-[10px] md:text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
                        <Flame className="h-4 w-4 animate-bounce" /> The Destruction
                     </div>
                     <div className="text-5xl md:text-7xl font-black tracking-tighter" style={{ color: 'var(--ink)' }}>
@@ -218,7 +218,7 @@ export function CostOfWar() {
                           {activeMunition.equivalents.map((eq, i) => (
                              <div key={i} className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] border border-[var(--dk-line)] shadow-xl group hover:scale-[1.02] transition-transform" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                                 <div className="p-3 md:p-4 rounded-xl md:rounded-3xl transition-colors shrink-0" style={{ backgroundColor: 'var(--dk-raised)' }}>
-                                   <eq.icon className="h-6 w-6 md:h-8 md:w-8 text-[#86efac]" />
+                                   <eq.icon className="h-6 w-6 md:h-8 md:w-8 text-[var(--dk-pos-ink)]" />
                                 </div>
                                 <div className="min-w-0">
                                    <div className="text-2xl md:text-4xl font-black tracking-tighter text-[var(--dk-tea-ink)]">
@@ -250,9 +250,9 @@ export function CostOfWar() {
       {/* Educational Footer */}
       <div className="grid md:grid-cols-3 gap-6">
          {[
-           { title: "Opportunity Cost", desc: "Every dollar spent on munitions is a dollar that cannot be used for healthcare, housing, or education.", icon: Heart, color: "text-[#ff8a8a]" },
+           { title: "Opportunity Cost", desc: "Every dollar spent on munitions is a dollar that cannot be used for healthcare, housing, or education.", icon: Heart, color: "text-[var(--dk-neg-ink)]" },
            { title: "The Industrial Cycle", desc: "Military spending is often locked into multi-decade contracts that persist regardless of peace.", icon: ShieldAlert, color: "text-[var(--dk-yel-ink)]" },
-           { title: "Long-term Debt", desc: "Wars are rarely funded by current taxes; they are funded by borrowing against future generations.", icon: DollarSign, color: "text-[#86efac]" }
+           { title: "Long-term Debt", desc: "Wars are rarely funded by current taxes; they are funded by borrowing against future generations.", icon: DollarSign, color: "text-[var(--dk-pos-ink)]" }
          ].map((item, idx) => (
            <Card key={idx} className="p-6 border-[var(--dk-line)] hover:shadow-lg transition-all group" style={{ backgroundColor: 'var(--card)' }}>
               <div className={`${item.color} mb-4 flex justify-between items-center`}>

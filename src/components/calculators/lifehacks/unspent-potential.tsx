@@ -81,7 +81,7 @@ export function UnspentPotentialTax() {
                 Value of your time (per hour)
               </Label>
               <div className="flex items-center gap-2 rounded-lg bg-[var(--dk-sunk)] ring-1 ring-[var(--dk-line)] px-3 h-12">
-                <DollarSign className="h-4 w-4 text-[#86efac] shrink-0" />
+                <DollarSign className="h-4 w-4 text-[var(--dk-pos-ink)] shrink-0" />
                 <Input
                   type="number"
                   inputMode="numeric"
@@ -113,8 +113,8 @@ export function UnspentPotentialTax() {
             </p>
             {result.money > 0 && (
               <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--dk-raised)] ring-1 ring-[var(--dk-line)] px-4 py-2">
-                <DollarSign className="h-4 w-4 text-[#86efac]" />
-                <span className="text-sm font-bold text-[#86efac] tabular-nums">
+                <DollarSign className="h-4 w-4 text-[var(--dk-pos-ink)]" />
+                <span className="text-sm font-bold text-[var(--dk-pos-ink)] tabular-nums">
                   ${moneyFormatted} of your time left on the table
                 </span>
               </div>

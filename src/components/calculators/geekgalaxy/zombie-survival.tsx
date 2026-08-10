@@ -128,7 +128,7 @@ export function ZombieSurvivalCalculator() {
       ['--card' as string]: 'var(--dk-surface)',
       ['--ink' as string]: 'var(--dk-ink)',
       ['--ink-soft' as string]: 'var(--dk-ink-soft)',
-      ['--accent' as string]: '#ff8a3c',
+      ['--accent' as string]: 'var(--dk-org-ink)',
       ['--line' as string]: 'var(--dk-line)',
     }}>
       <Card className="shadow-xl" style={{ background: 'var(--card)', borderColor: 'var(--line)', color: 'var(--ink)' }}>
@@ -268,7 +268,7 @@ export function ZombieSurvivalCalculator() {
                 <div className="text-center space-y-3 relative z-10">
                   <h3 className="uppercase text-[10px] font-black tracking-[0.2em]" style={{ color: 'var(--ink-soft)' }}>Causal Probability</h3>
                   <div className="text-7xl font-black flex items-center justify-center gap-2 tracking-tighter">
-                    <span style={{ color: result.chance > 60 ? '#86efac' : result.chance > 30 ? '#ff8a3c' : '#ff8a8a' }}>
+                    <span style={{ color: result.chance > 60 ? 'var(--dk-pos-ink)' : result.chance > 30 ? '#ff8a3c' : '#ff8a8a' }}>
                       {result.chance}%
                     </span>
                   </div>
@@ -283,33 +283,33 @@ export function ZombieSurvivalCalculator() {
                       <span>Combat Readiness</span>
                       <span>{result.subScores.combat}%</span>
                     </div>
-                    <Progress value={result.subScores.combat} className="h-2.5 rounded-full" style={{ background: 'var(--dk-raised)' }} indicatorClassName="bg-[#ff8a3c]" />
+                    <Progress value={result.subScores.combat} className="h-2.5 rounded-full" style={{ background: 'var(--dk-raised)' }} indicatorClassName="bg-[var(--dk-org)]" />
                   </div>
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--accent)' }}>
                       <span>Resourcefulness</span>
                       <span>{result.subScores.resource}%</span>
                     </div>
-                    <Progress value={result.subScores.resource} className="h-2.5 rounded-full" style={{ background: 'var(--dk-raised)' }} indicatorClassName="bg-[#ff8a3c]" />
+                    <Progress value={result.subScores.resource} className="h-2.5 rounded-full" style={{ background: 'var(--dk-raised)' }} indicatorClassName="bg-[var(--dk-org)]" />
                   </div>
                   <div className="space-y-1.5">
                     <div className="flex justify-between text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--accent)' }}>
                       <span>Security Density</span>
                       <span>{result.subScores.security}%</span>
                     </div>
-                    <Progress value={result.subScores.security} className="h-2.5 rounded-full" style={{ background: 'var(--dk-raised)' }} indicatorClassName="bg-[#ff8a3c]" />
+                    <Progress value={result.subScores.security} className="h-2.5 rounded-full" style={{ background: 'var(--dk-raised)' }} indicatorClassName="bg-[var(--dk-org)]" />
                   </div>
                 </div>
 
                 <div className="grid gap-4 text-sm relative z-10">
                   <div className="p-4 rounded-xl border" style={{ background: 'var(--dk-surface)', borderColor: 'var(--line)' }}>
-                    <h4 className="font-black mb-2 flex items-center gap-2 text-[10px] uppercase tracking-widest" style={{ color: '#86efac' }}><Brain className="h-3 w-3"/> Mission Logistics</h4>
+                    <h4 className="font-black mb-2 flex items-center gap-2 text-[10px] uppercase tracking-widest" style={{ color: 'var(--dk-pos-ink)' }}><Brain className="h-3 w-3"/> Mission Logistics</h4>
                      <ul className="space-y-1.5 font-bold text-xs list-disc pl-4 leading-relaxed" style={{ color: 'var(--ink-soft)' }}>
                        {result.strategies.map((s: string, i: number) => <li key={i}>{s}</li>)}
                      </ul>
                   </div>
                   <div className="p-4 rounded-xl border" style={{ background: 'var(--dk-surface)', borderColor: 'var(--line)' }}>
-                    <h4 className="font-black mb-2 flex items-center gap-2 text-[10px] uppercase tracking-widest" style={{ color: '#ff8a8a' }}><ShieldAlert className="h-3 w-3"/> Tactical Deficit</h4>
+                    <h4 className="font-black mb-2 flex items-center gap-2 text-[10px] uppercase tracking-widest" style={{ color: 'var(--dk-neg-ink)' }}><ShieldAlert className="h-3 w-3"/> Tactical Deficit</h4>
                      <ul className="space-y-1.5 font-bold text-xs list-disc pl-4 leading-relaxed" style={{ color: 'var(--ink-soft)' }}>
                        {result.weaknesses.map((s: string, i: number) => <li key={i}>{s}</li>)}
                      </ul>

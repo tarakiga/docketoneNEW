@@ -61,8 +61,8 @@ export function PigpenCipher() {
 
         if (config.type === 'square') {
             return (
-                <div key={index} className={`w-12 h-12 relative flex items-center justify-center border-[#b388ff]/50 ${config.border.replace(/border-/g, 'border-2 border-transparent ').replace(/border-t/g, '!border-t-[#b388ff]').replace(/border-b/g, '!border-b-[#b388ff]').replace(/border-l/g, '!border-l-[#b388ff]').replace(/border-r/g, '!border-r-[#b388ff]')}`}>
-                    {config.dot && <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#b388ff' }} />}
+                <div key={index} className={`w-12 h-12 relative flex items-center justify-center border-[var(--dk-pur-ink)]/50 ${config.border.replace(/border-/g, 'border-2 border-transparent ').replace(/border-t/g, '!border-t-[var(--dk-pur-ink)]').replace(/border-b/g, '!border-b-[var(--dk-pur-ink)]').replace(/border-l/g, '!border-l-[var(--dk-pur-ink)]').replace(/border-r/g, '!border-r-[var(--dk-pur-ink)]')}`}>
+                    {config.dot && <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--dk-pur)' }} />}
                 </div>
             )
         }
@@ -73,7 +73,7 @@ export function PigpenCipher() {
         
         return (
             <div key={index} className="w-12 h-12 relative flex items-center justify-center">
-                 <svg viewBox="0 0 100 100" className="w-full h-full stroke-[8] fill-none" style={{ stroke: '#b388ff' }}>
+                 <svg viewBox="0 0 100 100" className="w-full h-full stroke-[8] fill-none" style={{ stroke: 'var(--dk-pur-ink)' }}>
                     {/* S / W (Top V) */}
                     {(config.border === 'v-top') && <polyline points="0,0 50,50 100,0" />}
                     {/* U / Y (Left V) */}
@@ -83,7 +83,7 @@ export function PigpenCipher() {
                     {/* V / Z (Bottom V) */}
                     {(config.border === 'v-bottom') && <polyline points="0,100 50,50 100,100" />}
                  </svg>
-                 {isDot && <div className="absolute w-2 h-2 rounded-full" style={{ backgroundColor: '#b388ff' }} />}
+                 {isDot && <div className="absolute w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--dk-pur)' }} />}
             </div>
         )
     }
@@ -100,7 +100,7 @@ export function PigpenCipher() {
                             placeholder="Enter text to encode (A-Z)..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[150px] text-lg uppercase focus-visible:ring-[#b388ff] focus-visible:border-[#b388ff]"
+                            className="min-h-[150px] text-lg uppercase focus-visible:ring-[var(--dk-pur-ink)] focus-visible:border-[var(--dk-pur-ink)]"
                             style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                     </CardContent>
@@ -108,7 +108,7 @@ export function PigpenCipher() {
 
                 <Card className="glass-card" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                      <CardContent className="pt-6">
-                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--dk-pur-ink)' }}>
                              🐷 Geometric Cipher
                         </h4>
                         <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
@@ -136,7 +136,7 @@ export function PigpenCipher() {
                          <ShareResult
                             title="Pigpen Secret Message"
                             text="I created a secret Masonic cipher! Decode it at Docket One."
-                            className="w-full text-[var(--dk-on-fill)] hover:opacity-90 bg-[#b388ff] hover:bg-[#b388ff]"
+                            className="w-full text-[var(--dk-on-fill)] hover:opacity-90 bg-[var(--dk-pur)] hover:bg-[var(--dk-pur)]"
                         />
                     </div>
                 </Card>

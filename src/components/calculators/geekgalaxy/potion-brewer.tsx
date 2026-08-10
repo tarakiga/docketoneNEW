@@ -93,7 +93,7 @@ export function PotionBrewerCalculator() {
       {/* Shelf */}
       <Card className="lg:col-span-4 h-fit" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader>
-           <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c' }}><FlaskConical/> Ingredients</CardTitle>
+           <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}><FlaskConical/> Ingredients</CardTitle>
            <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>Select up to 3</CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-3">
@@ -105,7 +105,7 @@ export function PotionBrewerCalculator() {
                className="p-3 rounded-lg border text-left transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                style={
                  selected.includes(ing.id)
-                   ? { backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c', boxShadow: '0 0 0 1px #ff8a3c' }
+                   ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)', boxShadow: '0 0 0 1px var(--dk-org)' }
                    : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }
                }
              >
@@ -119,7 +119,7 @@ export function PotionBrewerCalculator() {
       {/* Cauldron */}
       <Card className="lg:col-span-8 relative overflow-hidden" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
          <CardHeader>
-           <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c' }}><Sparkles/> Alchemy Station</CardTitle>
+           <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}><Sparkles/> Alchemy Station</CardTitle>
          </CardHeader>
          <CardContent className="flex flex-col items-center justify-center space-y-8 min-h-[400px]">
             
@@ -147,11 +147,11 @@ export function PotionBrewerCalculator() {
             <div className="w-full max-w-md space-y-4">
                {lastResult && !brewing && (
                  <div className="p-4 rounded-xl border text-center animate-in zoom-in" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
-                    <div className="text-sm uppercase tracking-widest mb-1" style={{ color: '#ff8a3c', fontFamily: 'var(--font-fredoka), cursive' }}>{lastResult.tier}</div>
+                    <div className="text-sm uppercase tracking-widest mb-1" style={{ color: 'var(--dk-org-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>{lastResult.tier}</div>
                     <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--dk-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>{lastResult.name}</h3>
                    <p className="italic mb-3" style={{ color: 'var(--dk-ink-soft)' }}>&quot;{lastResult.desc}&quot;</p>
                     {lastResult.warn && (
-                      <div className="flex items-center justify-center gap-2 text-sm font-bold p-2 rounded" style={{ color: '#ff8a8a', backgroundColor: 'var(--dk-raised)' }}>
+                      <div className="flex items-center justify-center gap-2 text-sm font-bold p-2 rounded" style={{ color: 'var(--dk-neg-ink)', backgroundColor: 'var(--dk-raised)' }}>
                         <AlertTriangle className="h-4 w-4"/> {lastResult.warn}
                       </div>
                     )}
@@ -162,7 +162,7 @@ export function PotionBrewerCalculator() {
                 onClick={brew}
                 disabled={selected.length === 0 || brewing}
                 className="w-full text-lg h-12"
-                style={{ backgroundColor: '#ff8a3c', color: 'var(--dk-on-fill)' }}
+                style={{ backgroundColor: 'var(--dk-org)', color: 'var(--dk-on-fill)' }}
                >
                  {brewing ? "Brewing..." : "Mix Ingredients"}
                </Button>
@@ -187,7 +187,7 @@ export function PotionBrewerCalculator() {
              return (
                <div key={key} className={`p-4 rounded border ${isFound ? '' : 'opacity-50'}`} style={isFound ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' } : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                  <div className="font-bold" style={{ color: 'var(--dk-ink)' }}>{isFound ? r.name : "???"}</div>
-                 <div className="text-xs uppercase" style={{ color: '#ff8a3c' }}>{isFound ? r.tier : "Locked"}</div>
+                 <div className="text-xs uppercase" style={{ color: 'var(--dk-org-ink)' }}>{isFound ? r.tier : "Locked"}</div>
                </div>
              )
            })}

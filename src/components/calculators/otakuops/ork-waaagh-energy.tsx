@@ -29,7 +29,7 @@ export function OrkWAAAGHEnergyCalculator() {
             energy: waaghOutput,
             speedBoost: speed,
             chartData: [
-                { name: 'Base Power', val: waaghOutput * 0.8, fill: '#86efac' },
+                { name: 'Base Power', val: waaghOutput * 0.8, fill: 'var(--dk-pos-ink)' },
                 { name: 'Belief Bonus', val: waaghOutput * 0.2, fill: 'var(--dk-yel-ink)' },
             ]
         }
@@ -46,7 +46,7 @@ export function OrkWAAAGHEnergyCalculator() {
             <Card className="glass-card lg:col-span-1 h-fit" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                 <CardHeader>
                     <div className="flex items-center justify-between mb-2">
-                        <div className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: '#86efac' }}>
+                        <div className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-pos-ink)' }}>
                             Warhammer 40,000
                         </div>
                     </div>
@@ -59,7 +59,7 @@ export function OrkWAAAGHEnergyCalculator() {
                      <div className="space-y-2">
                         <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--dk-ink-soft)' }}>Boyz Count</Label>
                         <Slider value={[orks]} onValueChange={(v) => setOrks(v[0])} min={10} max={1000} step={10} className="py-4" />
-                        <div className="text-right text-xs font-mono font-bold" style={{ color: '#86efac' }}>{orks} Boyz</div>
+                        <div className="text-right text-xs font-mono font-bold" style={{ color: 'var(--dk-pos-ink)' }}>{orks} Boyz</div>
                     </div>
                      <div className="space-y-2">
                         <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--dk-ink-soft)' }}>Loudness (dB)</Label>
@@ -69,7 +69,7 @@ export function OrkWAAAGHEnergyCalculator() {
                      <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
                         <div className="flex flex-col gap-1">
                             <Label className="font-bold flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
-                                <Paintbrush className="w-4 h-4" style={{ color: '#ff8a8a' }} />
+                                <Paintbrush className="w-4 h-4" style={{ color: 'var(--dk-neg-ink)' }} />
                                 Da Red Paint
                             </Label>
                             <span className="text-[10px]" style={{ color: 'var(--dk-ink-soft)' }}>Does it go fasta?</span>
@@ -100,7 +100,7 @@ export function OrkWAAAGHEnergyCalculator() {
 
                             <div className="text-center p-8 rounded-3xl w-full md:w-auto md:min-w-[200px]" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
                                 <div className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: 'var(--dk-ink-soft)' }}>Speed Boost</div>
-                                <div className="text-4xl font-black animate-pulse" style={{ color: '#ff8a8a' }}>
+                                <div className="text-4xl font-black animate-pulse" style={{ color: 'var(--dk-neg-ink)' }}>
                                     +{speedBoost.toFixed(0)}%
                                 </div>
                                 <div className="text-xs mt-1" style={{ color: 'var(--dk-ink-soft)' }}>Cuz red ones go fasta</div>

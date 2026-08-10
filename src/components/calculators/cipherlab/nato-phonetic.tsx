@@ -95,7 +95,7 @@ export function NATOPhonetic() {
                 <Card className="glass-card" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
                          <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
-                             <FileText className="w-5 h-5" style={{ color: '#b388ff' }} />
+                             <FileText className="w-5 h-5" style={{ color: 'var(--dk-pur-ink)' }} />
                             Input Message
                         </CardTitle>
                     </CardHeader>
@@ -104,7 +104,7 @@ export function NATOPhonetic() {
                             placeholder="Type text to convert (e.g., 'Hello Control')..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[150px] text-lg focus-visible:ring-[#b388ff]"
+                            className="min-h-[150px] text-lg focus-visible:ring-[var(--dk-pur-ink)]"
                             style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                         <div className="flex gap-2">
@@ -114,7 +114,7 @@ export function NATOPhonetic() {
                                 disabled={phoneticWords.length === 0}
                                 style={isPlaying
                                     ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink)' }
-                                    : { backgroundColor: '#b388ff', color: 'var(--dk-on-fill)' }}
+                                    : { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }}
                             >
                                 {isPlaying ? <Square className="w-4 h-4 fill-current"/> : <Play className="w-4 h-4 fill-current"/>}
                                 {isPlaying ? "Stop Transmission" : "Transmit Audio"}
@@ -125,7 +125,7 @@ export function NATOPhonetic() {
 
                 <Card className="glass-card" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                      <CardContent className="pt-6">
-                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--dk-pur-ink)' }}>
                              ✈️ Pilot Protocol
                         </h4>
                         <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
@@ -141,7 +141,7 @@ export function NATOPhonetic() {
                  <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
                          <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
-                             <Volume2 className="w-5 h-5" style={{ color: '#b388ff' }} />
+                             <Volume2 className="w-5 h-5" style={{ color: 'var(--dk-pur-ink)' }} />
                             Phonetic Output
                         </CardTitle>
                     </CardHeader>
@@ -163,7 +163,7 @@ export function NATOPhonetic() {
                                         px-3 py-1.5 rounded-md font-mono font-bold text-sm border
                                         ${word === '[SPACE]' ? 'opacity-0 w-4' : ''}
                                     `}
-                                    style={word === '[SPACE]' ? undefined : { borderColor: 'var(--dk-line)', color: '#b388ff' }}
+                                    style={word === '[SPACE]' ? undefined : { borderColor: 'var(--dk-line)', color: 'var(--dk-pur-ink)' }}
                                 >
                                     {word !== '[SPACE]' && word}
                                 </motion.div>

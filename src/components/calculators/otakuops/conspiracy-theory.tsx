@@ -41,9 +41,9 @@ export function ConspiracyTheoryCalculator() {
     !Number.isFinite(y) ? "∞" : y >= 1000 ? `${Math.round(y).toLocaleString()}` : y >= 1 ? Math.round(y).toString() : "<1"
 
   const tone =
-    result.exposurePct >= 50 ? "text-[#ff8a8a] border-[#ff8a8a]" :
+    result.exposurePct >= 50 ? "text-[var(--dk-neg-ink)] border-[var(--dk-neg-ink)]" :
     result.exposurePct >= 15 ? "text-[var(--dk-yel-ink)] border-[var(--dk-yel-ink)]" :
-    "text-[#86efac] border-[#86efac]"
+    "text-[var(--dk-pos-ink)] border-[var(--dk-pos-ink)]"
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700 font-serif">
@@ -52,7 +52,7 @@ export function ConspiracyTheoryCalculator() {
 
         {/* header */}
         <div className="border-b-2 border-[var(--dk-line)] pb-6 pt-6 px-4 sm:px-8 relative z-10">
-          <div className="absolute top-2 right-2 sm:right-4 rotate-12 border-4 border-[#ff8a8a] text-sm sm:text-xl font-black text-[#ff8a8a] px-2 sm:px-4 py-1 sm:py-2 opacity-80 rounded-sm pointer-events-none">
+          <div className="absolute top-2 right-2 sm:right-4 rotate-12 border-4 border-[var(--dk-neg-ink)] text-sm sm:text-xl font-black text-[var(--dk-neg-ink)] px-2 sm:px-4 py-1 sm:py-2 opacity-80 rounded-sm pointer-events-none">
             TOP SECRET
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-[var(--dk-ink)] text-center uppercase tracking-widest flex items-center justify-center gap-2">

@@ -85,7 +85,7 @@ export function PowerFootprintCalculator() {
                         <div className="flex items-center gap-3.5 rounded-2xl p-4 border" style={{ background: "var(--dk-raised)", borderColor: "var(--dk-line)" }}>
                             <span className="text-2xl">⚛️</span>
                             <div><div className="text-[13px] font-semibold text-[var(--dk-ink)]">Nuclear</div><div className="font-mono text-[10px] text-[var(--dk-ink-soft)]">800 W/m²</div></div>
-                            <span className="ml-auto text-2xl font-extrabold" style={{ color: "#86efac" }}>{fmt(r.landNuclear)} <span className="text-sm">km²</span></span>
+                            <span className="ml-auto text-2xl font-extrabold" style={{ color: "var(--dk-pos-ink)" }}>{fmt(r.landNuclear)} <span className="text-sm">km²</span></span>
                         </div>
                         <div className="rounded-2xl p-4 border text-[12.5px] leading-relaxed text-[var(--dk-ink-soft)]" style={{ background: "var(--dk-raised)", borderColor: "var(--dk-line)" }}>
                             Squares are sized by <b className="text-[var(--dk-ink)]">actual land area</b>. Nuclear&apos;s plot is the tiny green dot - about <b className="text-[var(--dk-ink)]">{efficiency.toLocaleString()}× less land</b> than wind.
@@ -102,10 +102,10 @@ export function PowerFootprintCalculator() {
                         >
                             <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.wind, height: SQ.wind, background: "rgba(41,224,255,.18)", border: "2px solid var(--dk-tea-ink)" }} />
                             <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.solar, height: SQ.solar, background: "rgba(255,210,60,.28)", border: "2px solid var(--dk-yel-ink)" }} />
-                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.nuclear, height: SQ.nuclear, background: "#86efac", border: "2px solid #86efac" }} />
+                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.nuclear, height: SQ.nuclear, background: "var(--dk-pos)", border: "2px solid var(--dk-pos-ink)" }} />
                             <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-tea-ink)", right: 14, top: 14 }}>Wind {fmt(r.landWind)}<span className="block text-[9px] text-[var(--dk-ink-soft)] font-normal">km²</span></span>
                             <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-yel-ink)", left: 18 + SQ.solar + 10, bottom: 18 + SQ.solar - 24 }}>Solar {fmt(r.landSolar)}<span className="block text-[9px] text-[var(--dk-ink-soft)] font-normal">km²</span></span>
-                            <span className="absolute font-mono text-[11px] font-bold" style={{ color: "#86efac", left: 18 + SQ.nuclear + 10, bottom: 14 }}>⚛ {fmt(r.landNuclear)}</span>
+                            <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-pos-ink)", left: 18 + SQ.nuclear + 10, bottom: 14 }}>⚛ {fmt(r.landNuclear)}</span>
                         </div>
                     </div>
                 </div>

@@ -81,7 +81,7 @@ export function OghamTranslator() {
                 className="mx-auto relative py-20 min-h-[500px] flex flex-col items-center justify-end px-10 sm:px-24 bg-[var(--dk-sunk)] rounded-3xl"
             >
                 {/* Stem Line (Continuous line) */}
-                <div className="absolute top-0 bottom-12 left-1/2 w-[3px] bg-[#b388ff]/80 -translate-x-1/2" />
+                <div className="absolute top-0 bottom-12 left-1/2 w-[3px] bg-[var(--dk-pur)]/80 -translate-x-1/2" />
                 
                 {/* Characters Container */}
                 <div className="relative z-10 flex flex-col gap-10 w-full mb-12">
@@ -104,7 +104,7 @@ export function OghamTranslator() {
                 
                 {/* Footer arrowhead (V-shape at the bottom) */}
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                    <div className="w-10 h-10 border-b-[4px] border-l-[4px] border-[#b388ff]/60 rotate-45 -translate-y-4" />
+                    <div className="w-10 h-10 border-b-[4px] border-l-[4px] border-[var(--dk-pur-ink)]/60 rotate-45 -translate-y-4" />
                 </div>
 
                 {chars.length === 0 && (
@@ -130,12 +130,12 @@ export function OghamTranslator() {
                             placeholder="Type English text to inscribe (e.g., 'DOCKET')..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[160px] text-lg uppercase font-black tracking-widest border-[var(--dk-line)] bg-[var(--dk-sunk)] text-[var(--dk-ink)] placeholder:text-[var(--dk-ink-soft)] shadow-inner rounded-2xl resize-none focus:border-[#b388ff] transition-all"
+                            className="min-h-[160px] text-lg uppercase font-black tracking-widest border-[var(--dk-line)] bg-[var(--dk-sunk)] text-[var(--dk-ink)] placeholder:text-[var(--dk-ink-soft)] shadow-inner rounded-2xl resize-none focus:border-[var(--dk-pur-ink)] transition-all"
                         />
                         <div className="pt-2">
                             <Button 
                                 onClick={downloadInscription} 
-                                className="w-full h-14 gap-2 relative overflow-hidden group shadow-xl shadow-[#b388ff]/10 rounded-2xl font-black uppercase tracking-wide text-xs whitespace-normal leading-tight text-center bg-[#b388ff] text-[var(--dk-on-fill)] hover:bg-[#b388ff]/90"
+                                className="w-full h-14 gap-2 relative overflow-hidden group shadow-xl shadow-[var(--dk-pur)]/10 rounded-2xl font-black uppercase tracking-wide text-xs whitespace-normal leading-tight text-center bg-[var(--dk-pur)] text-[var(--dk-on-fill)] hover:bg-[var(--dk-pur)]/90"
                                 variant="default"
                                 disabled={!text || isDownloading}
                             >
@@ -168,13 +168,13 @@ export function OghamTranslator() {
                  <Card className="white-glass-card h-full flex flex-col bg-[var(--dk-surface)] border-[var(--dk-line)] overflow-hidden shadow-2xl shadow-black/50">
                     <CardHeader className="flex flex-row items-center justify-between border-b border-[var(--dk-line)] bg-[var(--dk-raised)] pb-4 p-6">
                         <CardTitle className="text-[var(--dk-ink)] font-bold">Inscription Preview</CardTitle>
-                        <div className="text-[9px] uppercase tracking-[0.25em] font-black text-[#b388ff] bg-[#b388ff]/10 px-4 py-1.5 rounded-full border border-[#b388ff]/30">
+                        <div className="text-[9px] uppercase tracking-[0.25em] font-black text-[var(--dk-pur-ink)] bg-[var(--dk-pur)]/10 px-4 py-1.5 rounded-full border border-[var(--dk-pur-ink)]/30">
                             Read Bottom Up
                         </div>
                     </CardHeader>
                     <CardContent className="flex-1 p-12 flex flex-col items-center justify-center relative overflow-hidden bg-[var(--dk-sunk)]">
                         {/* Decorative subtle texture/dots */}
-                        <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-[radial-gradient(#b388ff_1px,transparent_1px)] [background-size:20px_20px]" />
+                        <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-[radial-gradient(var(--dk-pur)_1px,transparent_1px)] [background-size:20px_20px]" />
                         
                         <div className="relative z-10 scale-90 sm:scale-110 transition-all duration-700 ease-out">
                              {renderInscription()}

@@ -71,7 +71,7 @@ export function DataWeightCalculator() {
 
         <CardHeader className="relative z-10">
           <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
-            <Scale className="h-6 w-6" style={{ color: '#ff8a3c' }} />
+            <Scale className="h-6 w-6" style={{ color: 'var(--dk-org-ink)' }} />
             The Weight of Data
           </CardTitle>
           <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>Quantify the physical mass of your digital existence.</CardDescription>
@@ -85,7 +85,7 @@ export function DataWeightCalculator() {
               <button onClick={() => { setPhotos(500); setVideoHrs(10); setEmails(5000); setSongs(200); setCloudGB(5); setPosts(500) }} className="px-3 py-1 rounded-full text-xs" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink-soft)' }}>Casual</button>
               <button onClick={() => { setPhotos(15000); setVideoHrs(200); setEmails(100000); setSongs(5000); setCloudGB(200); setPosts(10000) }} className="px-3 py-1 rounded-full text-xs" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink-soft)' }}>Power User</button>
               <button onClick={() => { setPhotos(100000); setVideoHrs(1000); setEmails(500000); setSongs(25000); setCloudGB(2000); setPosts(50000) }} className="px-3 py-1 rounded-full text-xs" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink-soft)' }}>Digital Hoarder</button>
-              <button onClick={() => { setPhotos(1e12); setVideoHrs(1e10); setEmails(1e13); setSongs(1e12); setCloudGB(1e11); setPosts(1e12) }} className="px-3 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: '#ff8a3c', color: 'var(--dk-on-fill)' }}>The Whole Internet</button>
+              <button onClick={() => { setPhotos(1e12); setVideoHrs(1e10); setEmails(1e13); setSongs(1e12); setCloudGB(1e11); setPosts(1e12) }} className="px-3 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: 'var(--dk-org)', color: 'var(--dk-on-fill)' }}>The Whole Internet</button>
             </div>
 
             <div className="space-y-3">
@@ -93,7 +93,7 @@ export function DataWeightCalculator() {
                 <Label style={{ color: 'var(--dk-ink)' }}>Photos</Label>
                 <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>{photos.toLocaleString()}</span>
               </div>
-              <Slider value={[Math.log10(Math.max(1, photos))]} onValueChange={([v]) => setPhotos(Math.round(Math.pow(10, v)))} min={0} max={12} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c]" />
+              <Slider value={[Math.log10(Math.max(1, photos))]} onValueChange={([v]) => setPhotos(Math.round(Math.pow(10, v)))} min={0} max={12} step={0.1} className="[&_.range-thumb]:bg-[var(--dk-org)]" />
             </div>
 
             <div className="space-y-3">
@@ -101,7 +101,7 @@ export function DataWeightCalculator() {
                 <Label style={{ color: 'var(--dk-ink)' }}>Video Hours</Label>
                 <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>{videoHrs.toLocaleString()}</span>
               </div>
-              <Slider value={[Math.log10(Math.max(1, videoHrs))]} onValueChange={([v]) => setVideoHrs(Math.round(Math.pow(10, v)))} min={0} max={10} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c]" />
+              <Slider value={[Math.log10(Math.max(1, videoHrs))]} onValueChange={([v]) => setVideoHrs(Math.round(Math.pow(10, v)))} min={0} max={10} step={0.1} className="[&_.range-thumb]:bg-[var(--dk-org)]" />
             </div>
 
             <div className="space-y-3">
@@ -109,7 +109,7 @@ export function DataWeightCalculator() {
                 <Label style={{ color: 'var(--dk-ink)' }}>Emails</Label>
                 <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>{emails.toLocaleString()}</span>
               </div>
-              <Slider value={[Math.log10(Math.max(1, emails))]} onValueChange={([v]) => setEmails(Math.round(Math.pow(10, v)))} min={0} max={13} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c]" />
+              <Slider value={[Math.log10(Math.max(1, emails))]} onValueChange={([v]) => setEmails(Math.round(Math.pow(10, v)))} min={0} max={13} step={0.1} className="[&_.range-thumb]:bg-[var(--dk-org)]" />
             </div>
 
             <div className="space-y-3">
@@ -117,7 +117,7 @@ export function DataWeightCalculator() {
                 <Label style={{ color: 'var(--dk-ink)' }}>Songs</Label>
                 <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>{songs.toLocaleString()}</span>
               </div>
-              <Slider value={[Math.log10(Math.max(1, songs))]} onValueChange={([v]) => setSongs(Math.round(Math.pow(10, v)))} min={0} max={12} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c]" />
+              <Slider value={[Math.log10(Math.max(1, songs))]} onValueChange={([v]) => setSongs(Math.round(Math.pow(10, v)))} min={0} max={12} step={0.1} className="[&_.range-thumb]:bg-[var(--dk-org)]" />
             </div>
 
             <div className="space-y-3">
@@ -125,7 +125,7 @@ export function DataWeightCalculator() {
                 <Label style={{ color: 'var(--dk-ink)' }}>Cloud Storage (GB)</Label>
                 <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>{cloudGB.toLocaleString()}</span>
               </div>
-              <Slider value={[Math.log10(Math.max(1, cloudGB))]} onValueChange={([v]) => setCloudGB(Math.round(Math.pow(10, v)))} min={0} max={11} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c]" />
+              <Slider value={[Math.log10(Math.max(1, cloudGB))]} onValueChange={([v]) => setCloudGB(Math.round(Math.pow(10, v)))} min={0} max={11} step={0.1} className="[&_.range-thumb]:bg-[var(--dk-org)]" />
             </div>
 
             <div className="space-y-3">
@@ -133,7 +133,7 @@ export function DataWeightCalculator() {
                 <Label style={{ color: 'var(--dk-ink)' }}>Social Posts</Label>
                 <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>{posts.toLocaleString()}</span>
               </div>
-              <Slider value={[Math.log10(Math.max(1, posts))]} onValueChange={([v]) => setPosts(Math.round(Math.pow(10, v)))} min={0} max={12} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c]" />
+              <Slider value={[Math.log10(Math.max(1, posts))]} onValueChange={([v]) => setPosts(Math.round(Math.pow(10, v)))} min={0} max={12} step={0.1} className="[&_.range-thumb]:bg-[var(--dk-org)]" />
             </div>
 
           </div>
@@ -151,12 +151,12 @@ export function DataWeightCalculator() {
                  {result.comparison.emoji}
               </div>
               <div className="text-xl font-bold mt-4 text-center" style={{ color: 'var(--dk-ink)' }}>
-                 <span style={{ color: '#ff8a3c' }}>≈ {result.compCount < 1 ? result.compCount.toExponential(2) : result.compCount.toLocaleString('en-US', { maximumFractionDigits: 1 })}</span> {result.comparison.label}
+                 <span style={{ color: 'var(--dk-org-ink)' }}>≈ {result.compCount < 1 ? result.compCount.toExponential(2) : result.compCount.toLocaleString('en-US', { maximumFractionDigits: 1 })}</span> {result.comparison.label}
               </div>
             </div>
 
             <div className="text-center space-y-2 relative z-10 w-full">
-              <div className="text-4xl md:text-5xl font-black break-all" style={{ fontFamily: 'var(--font-fredoka), cursive', color: '#ff8a3c' }}>
+              <div className="text-4xl md:text-5xl font-black break-all" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-org-ink)' }}>
                 {result.weightGrams < 1e-10 ? result.weightGrams.toExponential(2) : result.weightGrams.toLocaleString('en-US', { maximumFractionDigits: 15 })} g
               </div>
               <div className="text-sm uppercase tracking-widest flex items-center justify-center gap-2" style={{ color: 'var(--dk-ink-soft)' }}>
@@ -174,7 +174,7 @@ export function DataWeightCalculator() {
               </div>
               <div className="p-3 rounded text-center" style={{ backgroundColor: 'var(--dk-raised)', border: '1px solid var(--dk-line)' }}>
                 <div className="text-xs mb-1 line-clamp-1" style={{ color: 'var(--dk-ink-soft)' }}>% of Whole Internet</div>
-                <div className="font-mono break-all" style={{ color: '#ff8a3c' }}>
+                <div className="font-mono break-all" style={{ color: 'var(--dk-org-ink)' }}>
                    {result.percentOfInternet.toExponential(2)}%
                 </div>
               </div>

@@ -59,7 +59,7 @@ export function MACRoundImpactCalculator() {
                         </div>
 
                         <div className="p-6 rounded-3xl max-w-sm mx-auto" style={{ backgroundColor: 'var(--dk-sunk)', borderWidth: 1, borderStyle: 'solid', borderColor: 'var(--dk-line)' }}>
-                            <div className="flex items-center justify-center gap-4 mb-2" style={{ color: '#ff8a8a' }}>
+                            <div className="flex items-center justify-center gap-4 mb-2" style={{ color: 'var(--dk-neg-ink)' }}>
                                 <Target className="w-6 h-6" />
                                 <span className="font-black text-2xl">{shipsGutted} Targets</span>
                             </div>

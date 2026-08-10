@@ -56,7 +56,7 @@ export function BeskarArmorCalculator() {
       <Card className="shadow-2xl overflow-hidden" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader className="border-b" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
            <CardTitle className="text-2xl font-bold flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
-             <Shield className="h-6 w-6" style={{ color: '#ff8a3c' }}/> Mandalorian Forge
+             <Shield className="h-6 w-6" style={{ color: 'var(--dk-org-ink)' }}/> Mandalorian Forge
            </CardTitle>
            <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>Configure your loadout. This is the Way.</CardDescription>
         </CardHeader>
@@ -73,7 +73,7 @@ export function BeskarArmorCalculator() {
                         onClick={() => setBeskar(k as keyof typeof BESKAR_TYPES)}
                         className="p-4 rounded border text-left transition-all"
                         style={beskar === k
-                          ? { backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c', color: 'var(--dk-ink)' }
+                          ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)', color: 'var(--dk-ink)' }
                           : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink-soft)' }}
                       >
                         <div className="font-bold">{v.name}</div>
@@ -92,7 +92,7 @@ export function BeskarArmorCalculator() {
                         onClick={() => setDamage(k as keyof typeof DAMAGE_TYPES)}
                         className="p-2 py-4 rounded border text-center text-xs leading-tight break-words min-w-0 transition-all"
                         style={damage === k
-                          ? { backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c', color: 'var(--dk-ink)' }
+                          ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)', color: 'var(--dk-ink)' }
                           : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink-soft)' }}
                       >
                         {v.name}
@@ -107,13 +107,13 @@ export function BeskarArmorCalculator() {
                    <div className="flex justify-between text-sm" style={{ color: 'var(--dk-ink)' }}>
                      <span>Intensity Level</span><span>{intensity}/10</span>
                    </div>
-                   <input type="range" min="1" max="10" value={intensity} onChange={(e) => setIntensity(Number(e.target.value))} className="w-full" style={{ accentColor: '#ff8a3c' }}/>
+                   <input type="range" min="1" max="10" value={intensity} onChange={(e) => setIntensity(Number(e.target.value))} className="w-full" style={{ accentColor: 'var(--dk-org-ink)' }}/>
                  </div>
                  <div className="space-y-2">
                    <div className="flex justify-between text-sm" style={{ color: 'var(--dk-ink)' }}>
                      <span>Armor Age</span><span>{age} Years</span>
                    </div>
-                   <input type="range" min="0" max="50" value={age} onChange={(e) => setAge(Number(e.target.value))} className="w-full" style={{ accentColor: '#ff8a3c' }}/>
+                   <input type="range" min="0" max="50" value={age} onChange={(e) => setAge(Number(e.target.value))} className="w-full" style={{ accentColor: 'var(--dk-org-ink)' }}/>
                  </div>
               </div>
            </div>
@@ -140,13 +140,13 @@ export function BeskarArmorCalculator() {
               <div className="grid grid-cols-2 gap-2 sm:gap-4 w-full">
                  <div className="min-w-0 p-3 sm:p-4 rounded text-center border" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                     <div className="text-xs uppercase mb-1" style={{ color: 'var(--dk-ink-soft)' }}>Survival Rate</div>
-                    <div className="min-w-0 text-xl sm:text-2xl font-black break-words" style={{ color: stats.integrity > 50 ? '#86efac' : '#ff8a8a' }}>
+                    <div className="min-w-0 text-xl sm:text-2xl font-black break-words" style={{ color: stats.integrity > 50 ? 'var(--dk-pos-ink)' : 'var(--dk-neg-ink)' }}>
                       {Math.round(stats.integrity * 0.9 + 5)}%
                     </div>
                  </div>
                  <div className="min-w-0 p-3 sm:p-4 rounded text-center border" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                     <div className="text-xs uppercase mb-1" style={{ color: 'var(--dk-ink-soft)' }}>Repair Cost</div>
-                    <div className="min-w-0 text-xl sm:text-2xl font-black flex flex-wrap items-center justify-center gap-1 break-words" style={{ fontFamily: 'var(--font-fredoka), cursive', color: '#ff8a3c' }}>
+                    <div className="min-w-0 text-xl sm:text-2xl font-black flex flex-wrap items-center justify-center gap-1 break-words" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-org-ink)' }}>
                       {stats.repairCost.toLocaleString()}C
                     </div>
                  </div>

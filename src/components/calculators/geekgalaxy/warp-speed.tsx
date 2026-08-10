@@ -51,10 +51,10 @@ export function WarpSpeedCalculator() {
 
   return (
     <div className="almanac space-y-8 animate-in fade-in duration-700 font-sans">
-      <Card className="bg-[var(--dk-sunk)] border-[var(--dk-line)] rounded-2xl overflow-hidden border-[6px] border-r-[40px] border-t-0 border-b-0" style={{ borderRightColor: '#ff8a3c', borderLeftColor: 'var(--dk-line)' }}>
+      <Card className="bg-[var(--dk-sunk)] border-[var(--dk-line)] rounded-2xl overflow-hidden border-[6px] border-r-[40px] border-t-0 border-b-0" style={{ borderRightColor: 'var(--dk-org-ink)', borderLeftColor: 'var(--dk-line)' }}>
          {/* LCARS Header */}
-         <div className="bg-[#ff8a3c] h-16 flex items-end justify-end px-4 pb-1 rounded-bl-3xl ml-[200px] mb-4 relative">
-             <div className="absolute left-[-212px] top-0 bottom-0 w-[200px] bg-[#ff8a3c] rounded-r-3xl"></div>
+         <div className="bg-[var(--dk-org)] h-16 flex items-end justify-end px-4 pb-1 rounded-bl-3xl ml-[200px] mb-4 relative">
+             <div className="absolute left-[-212px] top-0 bottom-0 w-[200px] bg-[var(--dk-org)] rounded-r-3xl"></div>
              <div className="text-[var(--dk-on-fill)] font-black text-2xl tracking-widest uppercase font-mono">ASTROGATION</div>
          </div>
 
@@ -63,10 +63,10 @@ export function WarpSpeedCalculator() {
             {/* Controls */}
             <div className="lg:col-span-5 space-y-6">
                <div className="space-y-4">
-                 <Label className="text-[#ff8a3c] font-bold uppercase tracking-wider">Warp Scale Era</Label>
+                 <Label className="text-[var(--dk-org-ink)] font-bold uppercase tracking-wider">Warp Scale Era</Label>
                   <div className="flex gap-2">
                    {['TOS', 'TNG'].map(e => (
-                     <button key={e} onClick={() => setEra(e as 'TOS' | 'TNG')} className={`flex-1 py-2 font-bold rounded-full transition-colors ${era === e ? 'bg-[#ff8a3c] text-[var(--dk-on-fill)]' : 'bg-[var(--dk-raised)] text-[var(--dk-ink-soft)] hover:bg-[#2e2363] hover:text-[var(--dk-ink)]'}`}>
+                     <button key={e} onClick={() => setEra(e as 'TOS' | 'TNG')} className={`flex-1 py-2 font-bold rounded-full transition-colors ${era === e ? 'bg-[var(--dk-org)] text-[var(--dk-on-fill)]' : 'bg-[var(--dk-raised)] text-[var(--dk-ink-soft)] hover:bg-[#2e2363] hover:text-[var(--dk-ink)]'}`}>
                        {e === 'TOS' ? '23rd Century' : '24th Century'}
                      </button>
                    ))}
@@ -75,24 +75,24 @@ export function WarpSpeedCalculator() {
 
                <div className="space-y-4">
                  <div className="flex justify-between">
-                    <Label className="text-[#ff8a3c] font-bold uppercase">Warp Factor</Label>
-                    <span className="text-[#ff8a3c] font-mono text-xl">{warp.toFixed(2)}</span>
+                    <Label className="text-[var(--dk-org-ink)] font-bold uppercase">Warp Factor</Label>
+                    <span className="text-[var(--dk-org-ink)] font-mono text-xl">{warp.toFixed(2)}</span>
                  </div>
-                 <Slider value={[warp]} onValueChange={([v]) => setWarp(v)} min={1} max={era === 'TOS' ? 9 : 9.9} step={0.1} className="[&_.range-thumb]:bg-[#ff8a3c] [&_.range-track]:bg-[var(--dk-raised)]" />
+                 <Slider value={[warp]} onValueChange={([v]) => setWarp(v)} min={1} max={era === 'TOS' ? 9 : 9.9} step={0.1} className="[&_.range-thumb]:bg-[var(--dk-org)] [&_.range-track]:bg-[var(--dk-raised)]" />
                </div>
 
                <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-2">
-                    <Label className="text-[#ff8a3c]">Origin</Label>
+                    <Label className="text-[var(--dk-org-ink)]">Origin</Label>
                     <Select value={origin} onValueChange={(value) => setOrigin(value as LocationKey)}>
-                      <SelectTrigger className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[#ff8a3c] focus:border-[#ff8a3c] focus:ring-[#ff8a3c]"><SelectValue/></SelectTrigger>
+                      <SelectTrigger className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[var(--dk-org-ink)] focus:border-[var(--dk-org-ink)] focus:ring-[var(--dk-org-ink)]"><SelectValue/></SelectTrigger>
                       <SelectContent>{Object.keys(LOCATIONS).map(l => <SelectItem key={l} value={l}>{l}</SelectItem>)}</SelectContent>
                     </Select>
                  </div>
                  <div className="space-y-2">
-                    <Label className="text-[#ff8a3c]">Destination</Label>
+                    <Label className="text-[var(--dk-org-ink)]">Destination</Label>
                     <Select value={dest} onValueChange={(value) => setDest(value as LocationKey)}>
-                      <SelectTrigger className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[#ff8a3c] focus:border-[#ff8a3c] focus:ring-[#ff8a3c]"><SelectValue/></SelectTrigger>
+                      <SelectTrigger className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[var(--dk-org-ink)] focus:border-[var(--dk-org-ink)] focus:ring-[var(--dk-org-ink)]"><SelectValue/></SelectTrigger>
                       <SelectContent>{Object.keys(LOCATIONS).map(l => <SelectItem key={l} value={l}>{l}</SelectItem>)}</SelectContent>
                     </Select>
                  </div>
@@ -102,13 +102,13 @@ export function WarpSpeedCalculator() {
             {/* Display */}
             <div className="lg:col-span-7 bg-[var(--dk-surface)] rounded-xl p-4 sm:p-8 flex flex-col items-center justify-center border border-[var(--dk-line)] overflow-hidden">
                <div className="text-sm text-[var(--dk-ink-soft)] uppercase tracking-widest mb-4">Estimated Time of Arrival</div>
-               <div className="text-4xl sm:text-6xl font-black text-[#ff8a3c] font-mono mb-2 break-words text-center max-w-full">{formattedTime}</div>
+               <div className="text-4xl sm:text-6xl font-black text-[var(--dk-org-ink)] font-mono mb-2 break-words text-center max-w-full">{formattedTime}</div>
                <div className="text-[var(--dk-ink-soft)] mb-8 font-mono">{distance} Light Years</div>
 
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 w-full">
-                  <div className="min-w-0 bg-[var(--dk-sunk)] p-4 rounded border-l-4 border-[#ff8a3c]">
+                  <div className="min-w-0 bg-[var(--dk-sunk)] p-4 rounded border-l-4 border-[var(--dk-org-ink)]">
                     <div className="text-xs text-[var(--dk-ink-soft)] uppercase">Velocity (c)</div>
-                    <div className="text-2xl font-mono text-[#ff8a3c] break-words">{Math.round(speedC).toLocaleString()}x</div>
+                    <div className="text-2xl font-mono text-[var(--dk-org-ink)] break-words">{Math.round(speedC).toLocaleString()}x</div>
                   </div>
                    <div className="min-w-0 bg-[var(--dk-sunk)] p-4 rounded border-l-4 border-[var(--dk-line)]">
                     <div className="text-xs text-[var(--dk-ink-soft)] uppercase">Velocity (km/s)</div>

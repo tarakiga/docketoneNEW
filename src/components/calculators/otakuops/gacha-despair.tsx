@@ -69,7 +69,7 @@ export function GachaDespair() {
                      <div className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--dk-yel-ink)' }}>Active Salt Accumulation</div>
                      <div className="text-2xl font-black" style={{ color: 'var(--dk-ink)' }}>{stats.saltLevel}%</div>
                   </div>
-                  <HeartCrack className="h-8 w-8 animate-pulse" style={{ color: '#ff8a8a' }} />
+                  <HeartCrack className="h-8 w-8 animate-pulse" style={{ color: 'var(--dk-neg-ink)' }} />
                </div>
             </div>
          </CardHeader>
@@ -142,7 +142,7 @@ export function GachaDespair() {
                      <Button
                        onClick={() => setHasFailed(!hasFailed)}
                        className="w-full h-16 rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-lg"
-                       style={hasFailed ? { backgroundColor: '#ff8a8a', color: 'var(--dk-on-fill)' } : { backgroundColor: 'var(--dk-yel)', color: 'var(--dk-on-fill)' }}
+                       style={hasFailed ? { backgroundColor: 'var(--dk-neg)', color: 'var(--dk-on-fill)' } : { backgroundColor: 'var(--dk-yel)', color: 'var(--dk-on-fill)' }}
                      >
                         {hasFailed ? "RECOVERY MODE ACTIVE" : "EXECUTE SUMMON SEQUENCE"}
                      </Button>
@@ -175,7 +175,7 @@ export function GachaDespair() {
                         <div className="space-y-6">
                            <div className="flex justify-between items-center border-b pb-3" style={{ borderColor: 'var(--dk-line)' }}>
                               <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--dk-ink-soft)' }}>Psychological Warning</span>
-                              <span className="text-[10px] font-black uppercase italic" style={{ color: stats.saltLevel > 70 ? '#ff8a8a' : '#86efac' }}>
+                              <span className="text-[10px] font-black uppercase italic" style={{ color: stats.saltLevel > 70 ? 'var(--dk-neg-ink)' : 'var(--dk-pos-ink)' }}>
                                  {stats.saltLevel > 70 ? "CRITICAL SALT RISK" : "STABLE EMOTIONAL STATE"}
                               </span>
                            </div>
@@ -193,7 +193,7 @@ export function GachaDespair() {
 
                               <div className="flex items-center gap-6 p-6 rounded-3xl border group transition-colors hover:border-[var(--dk-yel-ink)]" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                                  <div className="p-4 rounded-2xl group-hover:scale-110 transition-transform" style={{ backgroundColor: 'var(--dk-raised)' }}>
-                                    <Bomb className="h-8 w-8" style={{ color: '#ff8a8a' }} />
+                                    <Bomb className="h-8 w-8" style={{ color: 'var(--dk-neg-ink)' }} />
                                  </div>
                                  <div className="space-y-1 text-left">
                                     <div className="text-xl font-black tracking-tight" style={{ color: 'var(--dk-ink)' }}>{Math.round(stats.expectedCost * 1.5)}$</div>
@@ -217,9 +217,9 @@ export function GachaDespair() {
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
          {[
            { title: "Pity Meta", txt: "Calculates the exact moment your luck is forced by code.", icon: Timer, color: "var(--dk-yel-ink)" },
-           { title: "Emotional Debt", txt: "The non-refundable cost of expectations.", icon: HeartCrack, color: "#ff8a8a" },
+           { title: "Emotional Debt", txt: "The non-refundable cost of expectations.", icon: HeartCrack, color: "var(--dk-neg-ink)" },
            { title: "Currency Drain", txt: "Visualize how fast your gems become dust.", icon: Coins, color: "var(--dk-yel-ink)" },
-           { title: "RNG Aura", txt: "Simulated luck based on celestial (random) alignment.", icon: Sparkles, color: "#86efac" }
+           { title: "RNG Aura", txt: "Simulated luck based on celestial (random) alignment.", icon: Sparkles, color: "var(--dk-pos-ink)" }
          ].map((item, idx) => (
            <Card key={idx} className="p-5 transition-all cursor-default hover:border-[var(--dk-yel-ink)]" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
               <item.icon className="w-5 h-5 mb-3" style={{ color: item.color }} />

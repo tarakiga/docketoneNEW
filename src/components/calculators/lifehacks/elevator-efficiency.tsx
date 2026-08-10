@@ -52,7 +52,7 @@ export function ElevatorDilemmaCalculator() {
         let decisionColor: string
         if (totalStairsTime < totalElevatorTime - 15) {
             decision = "TAKE THE STAIRS"
-            decisionColor = "text-[#86efac]"
+            decisionColor = "text-[var(--dk-pos-ink)]"
         } else if (totalStairsTime <= totalElevatorTime + 15) {
             decision = "TOO CLOSE TO CALL"
             decisionColor = "text-[var(--dk-yel-ink)]"

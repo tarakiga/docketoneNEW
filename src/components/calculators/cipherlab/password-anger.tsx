@@ -28,10 +28,10 @@ export function PasswordAnger() {
     
     const getAngerLevel = () => {
         if (password.length === 0) return { level: 0, text: "Waiting...", emoji: "😐", color: "var(--dk-ink-soft)" }
-        if (score < 2) return { level: 10, text: "Hacker is Laughing at you", emoji: "🤣", color: "#ff8a8a" }
+        if (score < 2) return { level: 10, text: "Hacker is Laughing at you", emoji: "🤣", color: "var(--dk-neg-ink)" }
         if (score < 4) return { level: 40, text: "Hacker is Mildly Annoyed", emoji: "🙄", color: "var(--dk-yel-ink)" }
         if (score < 6) return { level: 80, text: "Hacker is Frustrated", emoji: "😤", color: "var(--dk-yel-ink)" }
-        return { level: 100, text: "Hacker is Furious!", emoji: "🤬", color: "#86efac" } // Green because it's good for YOU
+        return { level: 100, text: "Hacker is Furious!", emoji: "🤬", color: "var(--dk-pos-ink)" } // Green because it's good for YOU
     }
 
     const feedback = getAngerLevel()
@@ -50,7 +50,7 @@ export function PasswordAnger() {
                                 placeholder="Type a password..."
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="text-lg font-mono focus-visible:ring-[#b388ff] focus-visible:border-[#b388ff]"
+                                className="text-lg font-mono focus-visible:ring-[var(--dk-pur-ink)] focus-visible:border-[var(--dk-pur-ink)]"
                                 style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                              />
                              <p className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>
@@ -64,29 +64,29 @@ export function PasswordAnger() {
                                 <span className="font-bold">{feedback.level}%</span>
                              </div>
                              <Progress value={feedback.level} className="h-4" style={{ backgroundColor: 'var(--dk-sunk)' }} indicatorClassName={
-                                 feedback.level < 30 ? "bg-[#ff8a8a]" :
+                                 feedback.level < 30 ? "bg-[var(--dk-neg)]" :
                                  feedback.level < 70 ? "bg-[var(--dk-yel)]" :
-                                 "bg-[#86efac]"
+                                 "bg-[var(--dk-pos)]"
                              } />
                         </div>
 
                         <div className="grid grid-cols-2 gap-2 text-sm">
-                             <div className="flex items-center gap-2" style={{ color: hasLower ? '#86efac' : 'var(--dk-ink-soft)' }}>
+                             <div className="flex items-center gap-2" style={{ color: hasLower ? 'var(--dk-pos-ink)' : 'var(--dk-ink-soft)' }}>
                                 {hasLower ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />} Lowercase
                              </div>
-                             <div className="flex items-center gap-2" style={{ color: hasUpper ? '#86efac' : 'var(--dk-ink-soft)' }}>
+                             <div className="flex items-center gap-2" style={{ color: hasUpper ? 'var(--dk-pos-ink)' : 'var(--dk-ink-soft)' }}>
                                 {hasUpper ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />} Uppercase
                              </div>
-                             <div className="flex items-center gap-2" style={{ color: hasNumber ? '#86efac' : 'var(--dk-ink-soft)' }}>
+                             <div className="flex items-center gap-2" style={{ color: hasNumber ? 'var(--dk-pos-ink)' : 'var(--dk-ink-soft)' }}>
                                 {hasNumber ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />} Numbers
                              </div>
-                             <div className="flex items-center gap-2" style={{ color: hasSpecial ? '#86efac' : 'var(--dk-ink-soft)' }}>
+                             <div className="flex items-center gap-2" style={{ color: hasSpecial ? 'var(--dk-pos-ink)' : 'var(--dk-ink-soft)' }}>
                                 {hasSpecial ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />} Symbols
                              </div>
-                             <div className="flex items-center gap-2" style={{ color: isLong ? '#86efac' : 'var(--dk-ink-soft)' }}>
+                             <div className="flex items-center gap-2" style={{ color: isLong ? 'var(--dk-pos-ink)' : 'var(--dk-ink-soft)' }}>
                                 {isLong ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />} 12+ Chars
                              </div>
-                             <div className="flex items-center gap-2" style={{ color: isVeryLong ? '#86efac' : 'var(--dk-ink-soft)' }}>
+                             <div className="flex items-center gap-2" style={{ color: isVeryLong ? 'var(--dk-pos-ink)' : 'var(--dk-ink-soft)' }}>
                                 {isVeryLong ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />} 16+ Chars
                              </div>
                         </div>

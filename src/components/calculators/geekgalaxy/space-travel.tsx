@@ -133,8 +133,8 @@ export function SpaceTravelCalculator() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <Card className="shadow-2xl" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader className="border-b" style={{ borderColor: 'var(--dk-line)' }}>
-          <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: '#ff8a3c' }}>
-            <Rocket className="h-8 w-8" style={{ color: '#ff8a3c' }} />
+          <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}>
+            <Rocket className="h-8 w-8" style={{ color: 'var(--dk-org-ink)' }} />
             Interstellar Voyager
           </CardTitle>
           <CardDescription className="font-medium" style={{ color: 'var(--dk-ink-soft)' }}>Orbital dynamics & cosmic mission planning center.</CardDescription>
@@ -143,7 +143,7 @@ export function SpaceTravelCalculator() {
           
           <div className="lg:col-span-4 space-y-6">
             <div className="space-y-3">
-              <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: '#ff8a3c' }}>Target Destination</Label>
+              <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: 'var(--dk-org-ink)' }}>Target Destination</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {Object.entries(DEST_VALS).map(([key, data]) => (
                   <button
@@ -151,7 +151,7 @@ export function SpaceTravelCalculator() {
                     onClick={() => setDestination(key as keyof typeof DEST_VALS)}
                     className="flex items-center gap-3 p-3 rounded-xl border transition-all"
                     style={destination === key
-                      ? { backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c' }
+                      ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)' }
                       : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}
                   >
                     <span className="text-2xl">{data.emoji}</span>
@@ -165,7 +165,7 @@ export function SpaceTravelCalculator() {
             </div>
 
             <div className="space-y-3">
-              <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: '#ff8a3c' }}>Propulsion System</Label>
+              <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: 'var(--dk-org-ink)' }}>Propulsion System</Label>
               <div className="relative group/scroll">
                 <div className="grid grid-cols-1 gap-2 max-h-[300px] sm:max-h-[360px] overflow-y-auto pr-2 scrollbar-thin scrollbar-track-transparent">
                   {Object.entries(PROPULSION).map(([key, prop]) => (
@@ -174,7 +174,7 @@ export function SpaceTravelCalculator() {
                       onClick={() => setPropulsion(key as keyof typeof PROPULSION)}
                       className="flex items-center gap-3 p-4 rounded-xl border transition-all relative overflow-hidden group/btn min-w-0"
                       style={propulsion === key
-                        ? { backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c' }
+                        ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)' }
                         : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}
                     >
                       <span className="text-3xl relative z-10 transition-all shrink-0">{prop.emoji}</span>
@@ -183,7 +183,7 @@ export function SpaceTravelCalculator() {
                           <div className="font-bold text-[11px] uppercase tracking-tight break-words min-w-0" style={{ color: 'var(--dk-ink)' }}>{prop.name}</div>
                           <div className="text-[8px] font-bold uppercase" style={{ color: 'var(--dk-ink-soft)' }}>{prop.class}</div>
                         </div>
-                        <div className="text-[10px] font-bold mt-0.5" style={{ color: '#ff8a3c' }}>{prop.label}</div>
+                        <div className="text-[10px] font-bold mt-0.5" style={{ color: 'var(--dk-org-ink)' }}>{prop.label}</div>
                       </div>
                     </button>
                   ))}
@@ -199,13 +199,13 @@ export function SpaceTravelCalculator() {
 
             {['rocket', 'starship', 'dragon', 'artemis'].includes(propulsion) && DEST_VALS[destination].au < 100 && (
               <div className="space-y-3 pt-2">
-                <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: '#ff8a3c' }}>Trajectory Mode</Label>
+                <Label className="uppercase tracking-widest text-[10px] font-bold" style={{ color: 'var(--dk-org-ink)' }}>Trajectory Mode</Label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setUseHohmann(true)}
                     className="text-[10px] p-2.5 rounded-lg border uppercase tracking-widest font-black transition-all"
                     style={useHohmann
-                      ? { backgroundColor: '#ff8a3c', borderColor: '#ff8a3c', color: 'var(--dk-on-fill)' }
+                      ? { backgroundColor: 'var(--dk-org)', borderColor: 'var(--dk-org-ink)', color: 'var(--dk-on-fill)' }
                       : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink-soft)' }}
                   >
                     Hohmann
@@ -214,7 +214,7 @@ export function SpaceTravelCalculator() {
                     onClick={() => setUseHohmann(false)}
                     className="text-[10px] p-2.5 rounded-lg border uppercase tracking-widest font-black transition-all"
                     style={!useHohmann
-                      ? { backgroundColor: '#ff8a3c', borderColor: '#ff8a3c', color: 'var(--dk-on-fill)' }
+                      ? { backgroundColor: 'var(--dk-org)', borderColor: 'var(--dk-org-ink)', color: 'var(--dk-on-fill)' }
                       : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink-soft)' }}
                   >
                     Direct
@@ -237,10 +237,10 @@ export function SpaceTravelCalculator() {
                <div className="absolute -left-24 -bottom-24 w-64 h-64 rounded-full opacity-20 animate-blob [animation-delay:3s]" style={{ backgroundColor: 'var(--dk-raised)' }} />
 
                <div className="relative z-10 text-center space-y-4">
-                  <div className="uppercase text-[10px] tracking-[0.4em] mb-3 font-black flex items-center justify-center gap-3" style={{ color: '#ff8a3c' }}>
+                  <div className="uppercase text-[10px] tracking-[0.4em] mb-3 font-black flex items-center justify-center gap-3" style={{ color: 'var(--dk-org-ink)' }}>
                     <Clock className="h-4 w-4 animate-pulse" /> {stats.method}
                   </div>
-                  <div className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-700 break-words max-w-full" style={{ fontFamily: 'var(--font-fredoka), cursive', color: '#ff8a3c' }}>{stats.timeLabel}</div>
+                  <div className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter group-hover:scale-105 transition-transform duration-700 break-words max-w-full" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-org-ink)' }}>{stats.timeLabel}</div>
                   <div className="flex justify-center mt-6">
                     <ShareResult title="Space Travel Time" text={`It would take ${stats.timeLabel} to reach ${DEST_VALS[destination].name} by ${PROPULSION[propulsion as keyof typeof PROPULSION].name}. 🚀`} />
                   </div>
@@ -253,26 +253,26 @@ export function SpaceTravelCalculator() {
                         <span className="text-[10px] font-black uppercase tracking-widest">Warp Profile</span>
                      </div>
                      <div className="text-lg font-bold leading-tight break-words" style={{ color: 'var(--dk-ink)' }}>{PROPULSION[propulsion as keyof typeof PROPULSION].name}</div>
-                     <div className="text-[10px] font-bold mt-1 uppercase tracking-widest" style={{ color: '#ff8a3c' }}>Active Velocity Computation</div>
+                     <div className="text-[10px] font-bold mt-1 uppercase tracking-widest" style={{ color: 'var(--dk-org-ink)' }}>Active Velocity Computation</div>
                   </div>
 
                   {DEST_VALS[destination].au < 100 && (
                     <div className="min-w-0 p-5 rounded-2xl border" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
-                       <div className="flex items-center gap-2 mb-2" style={{ color: '#86efac' }}>
+                       <div className="flex items-center gap-2 mb-2" style={{ color: 'var(--dk-pos-ink)' }}>
                           <Fuel className="h-4 w-4" />
                           <span className="text-[10px] font-black uppercase tracking-widest">Departure Window</span>
                        </div>
-                       <div className="text-lg font-bold leading-tight underline decoration-[#86efac]/50 underline-offset-4" style={{ color: 'var(--dk-ink)' }}>{stats.windows[0].month} {stats.windows[0].year}</div>
-                       <div className="text-[10px] font-bold mt-1 uppercase tracking-widest italic font-mono" style={{ color: '#86efac' }}>Launch Gate Primed</div>
+                       <div className="text-lg font-bold leading-tight underline decoration-[var(--dk-pos-ink)]/50 underline-offset-4" style={{ color: 'var(--dk-ink)' }}>{stats.windows[0].month} {stats.windows[0].year}</div>
+                       <div className="text-[10px] font-bold mt-1 uppercase tracking-widest italic font-mono" style={{ color: 'var(--dk-pos-ink)' }}>Launch Gate Primed</div>
                     </div>
                   )}
                </div>
 
                {stats.percentC >= 100 && (
-                 <div className="p-4 rounded-xl flex gap-3 items-start relative z-10 border" style={{ backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c' }}>
-                   <Clock className="h-5 w-5 shrink-0 mt-0.5" style={{ color: '#ff8a3c' }} />
+                 <div className="p-4 rounded-xl flex gap-3 items-start relative z-10 border" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)' }}>
+                   <Clock className="h-5 w-5 shrink-0 mt-0.5" style={{ color: 'var(--dk-org-ink)' }} />
                    <div className="text-[10px] leading-relaxed" style={{ color: 'var(--dk-ink-soft)' }}>
-                     <span className="font-black uppercase pr-1" style={{ color: '#ff8a3c' }}>Causality Violation:</span>
+                     <span className="font-black uppercase pr-1" style={{ color: 'var(--dk-org-ink)' }}>Causality Violation:</span>
                      Time dilation is significant. Perceived mission time follows crew-relative temporal flow.
                    </div>
                  </div>
@@ -283,7 +283,7 @@ export function SpaceTravelCalculator() {
               {DEST_VALS[destination].au < 100 ? (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between px-2">
-                    <h3 className="font-black uppercase tracking-[0.4em] text-[10px] flex items-center gap-2" style={{ color: '#ff8a3c' }}>
+                    <h3 className="font-black uppercase tracking-[0.4em] text-[10px] flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}>
                       <Rocket className="h-3 w-3" /> Flight Manifest: {DEST_VALS[destination].name}
                     </h3>
                     <div className="h-px flex-1 ml-6" style={{ backgroundColor: 'var(--dk-mute)' }} />
@@ -300,22 +300,22 @@ export function SpaceTravelCalculator() {
 
                           <div className="space-y-1">
                             <div className="uppercase text-[9px] font-black tracking-widest" style={{ color: 'var(--dk-ink-soft)' }}>Window</div>
-                            <div className="text-xl font-bold leading-tight" style={{ color: '#ff8a3c' }}>{win.month}</div>
+                            <div className="text-xl font-bold leading-tight" style={{ color: 'var(--dk-org-ink)' }}>{win.month}</div>
                           </div>
 
                           <div className="pt-3 border-t flex items-center justify-between" style={{ borderColor: 'var(--dk-line)' }}>
                             <div className="flex items-center gap-2">
-                               <Fuel className="h-3 w-3" style={{ color: '#86efac' }} />
+                               <Fuel className="h-3 w-3" style={{ color: 'var(--dk-pos-ink)' }} />
                                <span className="text-[10px] font-bold uppercase tracking-tight" style={{ color: 'var(--dk-ink-soft)' }}>Window</span>
                             </div>
-                            <span className="text-[10px] font-black px-2.5 py-1 rounded-full border" style={{ color: '#86efac', backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>{win.days}</span>
+                            <span className="text-[10px] font-black px-2.5 py-1 rounded-full border" style={{ color: 'var(--dk-pos-ink)', backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>{win.days}</span>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
                   <div className="px-5 py-4 rounded-2xl italic text-[11px] leading-relaxed border" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink-soft)' }}>
-                    <span className="font-black uppercase pr-2" style={{ color: '#ff8a3c' }}>Mission Log:</span>
+                    <span className="font-black uppercase pr-2" style={{ color: 'var(--dk-org-ink)' }}>Mission Log:</span>
                     Hohmann orbital arcs are prioritized for Delta-V efficiency. Gates occur at optimal planetary conjunctions.
                   </div>
                 </div>
@@ -324,7 +324,7 @@ export function SpaceTravelCalculator() {
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--dk-raised)_1px,_transparent_1px)] [background-size:24px_24px] opacity-30" />
                   <div className="relative z-10 space-y-4">
                     <div className="italic text-lg font-semibold tracking-wide" style={{ color: 'var(--dk-ink-soft)' }}>Launch windows are nullified for extragalactic transit.</div>
-                    <div className="text-[10px] font-black uppercase tracking-[0.4em] animate-pulse" style={{ color: '#ff8a3c' }}>Deep Space Protocol: Active</div>
+                    <div className="text-[10px] font-black uppercase tracking-[0.4em] animate-pulse" style={{ color: 'var(--dk-org-ink)' }}>Deep Space Protocol: Active</div>
                   </div>
                 </Card>
               )}
@@ -332,10 +332,10 @@ export function SpaceTravelCalculator() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { title: '🌐 Orbital Arc', text: 'Gravity-assisted drifting between planetary spheres. High efficiency, low speed.', color: '#ff8a3c' },
+                { title: '🌐 Orbital Arc', text: 'Gravity-assisted drifting between planetary spheres. High efficiency, low speed.', color: 'var(--dk-org-ink)' },
                 { title: '🎯 Launch Gate', text: "Alignment-critical temporal window for mission start. Missing this gate causes indefinite stall.", color: 'var(--dk-yel-ink)' },
-                { title: '⏳ Gate Lifecycle', text: "The operational duration of the departure window. Fuel costs scale exponentially pre/post gate.", color: '#86efac' },
-                { title: '⚡ Brute Force', text: 'Direct High-Thrust trajectories ignoring orbital mechanics. Extreme energy cost.', color: '#ff8a3c' }
+                { title: '⏳ Gate Lifecycle', text: "The operational duration of the departure window. Fuel costs scale exponentially pre/post gate.", color: 'var(--dk-pos-ink)' },
+                { title: '⚡ Brute Force', text: 'Direct High-Thrust trajectories ignoring orbital mechanics. Extreme energy cost.', color: 'var(--dk-org-ink)' }
               ].map((card, i) => (
                 <Card key={i} className="transition-all group overflow-hidden relative rounded-2xl" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                   <CardHeader className="pb-2 relative z-10">

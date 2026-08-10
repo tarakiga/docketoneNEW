@@ -46,6 +46,15 @@ const MAP = {
   '#ff3ca6': { bg: '--dk-pnk',     border: '--dk-pnk-ink',   fill: '--dk-pnk-ink',  shadow: '--dk-pnk' },
   '#b6ff3c': { bg: '--dk-lim',     border: '--dk-lim-ink',   fill: '--dk-lim-ink',  shadow: '--dk-lim' },
   '#ffd23c': { bg: '--dk-yel',     border: '--dk-yel-ink',   fill: '--dk-yel-ink',  shadow: '--dk-yel' },
+
+  // Second wave: ad-hoc colours the widgets reached for beyond the core 12.
+  // The long tail is 48 distinct hexes but these five are 85% of the volume,
+  // and each has a clear semantic — three category accents, two status colours.
+  '#ff8a3c': { bg: '--dk-org',     border: '--dk-org-ink',   fill: '--dk-org-ink',  shadow: '--dk-org' },
+  '#b388ff': { bg: '--dk-pur',     border: '--dk-pur-ink',   fill: '--dk-pur-ink',  shadow: '--dk-pur' },
+  '#5bf0c0': { bg: '--dk-tea',     border: '--dk-tea-ink',   fill: '--dk-tea-ink',  shadow: '--dk-tea' },
+  '#86efac': { bg: '--dk-pos',     border: '--dk-pos-ink',   fill: '--dk-pos-ink',  shadow: '--dk-pos' },
+  '#ff8a8a': { bg: '--dk-neg',     border: '--dk-neg-ink',   fill: '--dk-neg-ink',  shadow: '--dk-neg' },
 };
 
 const FONT_MAP = {

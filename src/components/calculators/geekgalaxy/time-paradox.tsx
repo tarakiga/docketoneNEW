@@ -42,7 +42,7 @@ export function TimeParadoxDetector() {
     return { 
       risk: Math.round(finalRisk), 
       paradoxType,
-      color: finalRisk > 80 ? 'text-[#ff8a8a]' : finalRisk > 50 ? 'text-[#ff8a3c]' : finalRisk > 20 ? 'text-[var(--dk-yel-ink)]' : 'text-[#86efac]'
+      color: finalRisk > 80 ? 'text-[var(--dk-neg-ink)]' : finalRisk > 50 ? 'text-[var(--dk-org-ink)]' : finalRisk > 20 ? 'text-[var(--dk-yel-ink)]' : 'text-[var(--dk-pos-ink)]'
     }
   }, [targetYear, significance, intensity, paradigm])
 
@@ -50,7 +50,7 @@ export function TimeParadoxDetector() {
     <div className="space-y-8 animate-in fade-in duration-700">
       <Card className="bg-[var(--dk-surface)] border-[var(--dk-line)] overflow-hidden">
         <CardHeader className="border-b border-[var(--dk-line)]">
-          <CardTitle className="text-3xl font-mono text-[#ff8a3c] flex items-center gap-2">
+          <CardTitle className="text-3xl font-mono text-[var(--dk-org-ink)] flex items-center gap-2">
             <Clock className="h-6 w-6"/> CHRONOS ANOMALY DETECTOR
           </CardTitle>
           <CardDescription className="text-[var(--dk-ink-soft)] font-mono">Temporal Integrity Monitoring System</CardDescription>
@@ -66,7 +66,7 @@ export function TimeParadoxDetector() {
                   type="number"
                   value={targetYear}
                   onChange={(e) => setTargetYear(Number(e.target.value))}
-                  className="w-full min-w-0 bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded p-2 text-[var(--dk-ink)] focus:outline-none focus:border-[#ff8a3c]"
+                  className="w-full min-w-0 bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded p-2 text-[var(--dk-ink)] focus:outline-none focus:border-[var(--dk-org-ink)]"
                 />
              </div>
 
@@ -88,7 +88,7 @@ export function TimeParadoxDetector() {
                    <Label className="whitespace-normal break-words min-w-0">Interaction Intensity</Label>
                    <span className="shrink-0">{intensity}%</span>
                 </div>
-                <Slider value={[intensity]} onValueChange={([v]) => setIntensity(v)} max={100} className="[&_.range-thumb]:bg-[#ff8a3c]" />
+                <Slider value={[intensity]} onValueChange={([v]) => setIntensity(v)} max={100} className="[&_.range-thumb]:bg-[var(--dk-org)]" />
                 <p className="text-xs opacity-70 mt-1">
                   {intensity < 20 ? "Observation Only" : intensity < 50 ? "Minor Interaction" : intensity < 80 ? "Significant Alteration" : "Timeline Erasure"}
                 </p>
@@ -116,7 +116,7 @@ export function TimeParadoxDetector() {
                  <div
                    className="absolute inset-0 rounded-full border-8 border-transparent transition-all duration-1000"
                    style={{
-                     borderTopColor: results.risk > 80 ? '#ff8a8a' : results.risk > 50 ? '#ff8a3c' : results.risk > 20 ? '#ffd23c' : '#86efac',
+                     borderTopColor: results.risk > 80 ? 'var(--dk-neg-ink)' : results.risk > 50 ? '#ff8a3c' : results.risk > 20 ? '#ffd23c' : '#86efac',
                      transform: `rotate(${results.risk * 3.6}deg)`
                    }}
                  ></div>

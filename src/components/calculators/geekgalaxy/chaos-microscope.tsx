@@ -131,7 +131,7 @@ export function ChaosMicroscope() {
     <div className="space-y-6">
       <Card style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader>
-          <CardTitle style={{ color: '#ff8a3c', fontFamily: 'var(--font-fredoka), cursive' }}>
+          <CardTitle style={{ color: 'var(--dk-org-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
             The Chaos Microscope
           </CardTitle>
           <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>
@@ -181,7 +181,7 @@ export function ChaosMicroscope() {
 
                 <div className="flex items-center space-x-2 min-w-0">
                     <Label htmlFor="ruler-mode" className="text-sm" style={{ color: 'var(--dk-ink)' }}>Feigenbaum Ruler</Label>
-                    <Switch id="ruler-mode" checked={showRuler} onCheckedChange={setShowRuler} className="data-[state=checked]:bg-[#ff8a3c]" />
+                    <Switch id="ruler-mode" checked={showRuler} onCheckedChange={setShowRuler} className="data-[state=checked]:bg-[var(--dk-org)]" />
                 </div>
               </div>
 

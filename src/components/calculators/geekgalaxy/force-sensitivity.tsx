@@ -82,7 +82,7 @@ export function ForceSensitivityCalculator() {
        <Card className="bg-[var(--dk-surface)] border-[var(--dk-line)] overflow-hidden relative">
          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none"></div>
          <CardHeader>
-           <CardTitle className="text-3xl font-display text-[#ff8a3c] text-center flex items-center justify-center gap-2">
+           <CardTitle className="text-3xl font-display text-[var(--dk-org-ink)] text-center flex items-center justify-center gap-2">
              <Zap className="h-6 w-6"/> Holocron Aptitude Test
            </CardTitle>
            <CardDescription className="text-center text-[var(--dk-ink-soft)]">Trial {step} of 3</CardDescription>
@@ -95,12 +95,12 @@ export function ForceSensitivityCalculator() {
                  <p className="text-[var(--dk-ink-soft)] text-center">From where does your connection stem?</p>
                  <div className="grid gap-3">
                    {[['unknown', 'Unknown Heritage'], ['skywalker', 'Skywalker Bloodline'], ['kenobi', 'Kenobi Lineage'], ['palpatine', 'Palpatine Heritage'], ['yoda', 'Unknown Species']].map(([val, label]) => (
-                     <button key={val} onClick={() => setLineage(val)} className={`p-4 rounded border font-medium ${lineage === val ? 'bg-[var(--dk-raised)] border-[#ff8a3c] text-[#ff8a3c]' : 'bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] hover:bg-[var(--dk-raised)]'} transition focus:ring-2 focus:ring-[#ff8a3c]`}>
+                     <button key={val} onClick={() => setLineage(val)} className={`p-4 rounded border font-medium ${lineage === val ? 'bg-[var(--dk-raised)] border-[var(--dk-org-ink)] text-[var(--dk-org-ink)]' : 'bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] hover:bg-[var(--dk-raised)]'} transition focus:ring-2 focus:ring-[var(--dk-org-ink)]`}>
                        {label}
                      </button>
                    ))}
                  </div>
-                 <Button onClick={() => setStep(2)} className="w-full bg-[#ff8a3c] hover:bg-[#ff8a3c] text-[var(--dk-on-fill)] font-bold">Next Trial</Button>
+                 <Button onClick={() => setStep(2)} className="w-full bg-[var(--dk-org)] hover:bg-[var(--dk-org)] text-[var(--dk-on-fill)] font-bold">Next Trial</Button>
                </div>
             )}
 
@@ -114,14 +114,14 @@ export function ForceSensitivityCalculator() {
                       onClick={clickOrb}
                       disabled={gameState === 'complete'}
                       aria-label="Focus Orb"
-                      className="rounded-full bg-[var(--dk-tea)] transition-transform duration-75 focus:ring-4 focus:ring-[#ff8a3c]"
+                      className="rounded-full bg-[var(--dk-tea)] transition-transform duration-75 focus:ring-4 focus:ring-[var(--dk-org-ink)]"
                       style={{ width: '60px', height: '60px', transform: `scale(${orbSize})` }}
                     />
                  </div>
 
                  {gameState === 'idle' && <Button onClick={() => setGameState('active')} className="bg-[var(--dk-raised)] hover:bg-[var(--dk-raised)] text-[var(--dk-ink)] border border-[var(--dk-line)]">Begin Meditation</Button>}
                  {gameState === 'active' && <p className="text-[var(--dk-tea-ink)] animate-pulse font-bold">Focus...</p>}
-                 {gameState === 'complete' && <Button onClick={() => setStep(3)} className="w-full bg-[#ff8a3c] hover:bg-[#ff8a3c] text-[var(--dk-on-fill)] font-bold">Trial Complete</Button>}
+                 {gameState === 'complete' && <Button onClick={() => setStep(3)} className="w-full bg-[var(--dk-org)] hover:bg-[var(--dk-org)] text-[var(--dk-on-fill)] font-bold">Trial Complete</Button>}
                </div>
             )}
 
@@ -136,21 +136,21 @@ export function ForceSensitivityCalculator() {
                       ['convince', 'Persuade the Lock', 'The mind is the key.'],
                       ['break', 'Break the Wall', 'Power is to be taken.']
                     ].map(([val, label, sub]) => (
-                      <button key={val} onClick={() => setVision(val)} className={`p-4 rounded border text-left ${vision === val ? 'bg-[var(--dk-raised)] border-[#ff8a3c] text-[#ff8a3c]' : 'bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] hover:bg-[var(--dk-raised)]'} transition focus:ring-2 focus:ring-[#ff8a3c]`}>
+                      <button key={val} onClick={() => setVision(val)} className={`p-4 rounded border text-left ${vision === val ? 'bg-[var(--dk-raised)] border-[var(--dk-org-ink)] text-[var(--dk-org-ink)]' : 'bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] hover:bg-[var(--dk-raised)]'} transition focus:ring-2 focus:ring-[var(--dk-org-ink)]`}>
                         <div className="font-bold">{label}</div>
                         <div className="text-xs opacity-70 text-[var(--dk-ink-soft)]">{sub}</div>
                       </button>
                     ))}
                  </div>
-                 <Button onClick={calculate} disabled={!vision} className="w-full bg-[#ff8a3c] hover:bg-[#ff8a3c] text-[var(--dk-on-fill)] font-bold">Reveal Path</Button>
+                 <Button onClick={calculate} disabled={!vision} className="w-full bg-[var(--dk-org)] hover:bg-[var(--dk-org)] text-[var(--dk-on-fill)] font-bold">Reveal Path</Button>
                </div>
             )}
 
             {step === 4 && result && (
                <div className="space-y-8 animate-in zoom-in text-center">
                  <div>
-                    <div className="text-sm text-[#ff8a3c] uppercase tracking-widest mb-2">Midichlorian Count</div>
-                    <div className="text-6xl font-black" style={{ fontFamily: 'var(--font-fredoka), cursive', color: '#ff8a3c' }}>{result.midichlorian.toLocaleString()}</div>
+                    <div className="text-sm text-[var(--dk-org-ink)] uppercase tracking-widest mb-2">Midichlorian Count</div>
+                    <div className="text-6xl font-black" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-org-ink)' }}>{result.midichlorian.toLocaleString()}</div>
                     <div className="text-2xl mt-2 text-[var(--dk-ink)]">{result.title} Potential</div>
                  </div>
 
@@ -160,7 +160,7 @@ export function ForceSensitivityCalculator() {
                     </div>
                     <div className="h-4 bg-[var(--dk-sunk)] rounded-full overflow-hidden border border-[var(--dk-line)] relative">
                        <div className="absolute top-0 bottom-0 w-1 bg-[var(--dk-surface)]" style={{ left: result.alignment + '%' }} />
-                       <div className="h-full w-full bg-gradient-to-r from-[#ff8a8a] via-[var(--dk-raised)] to-[var(--dk-tea)] opacity-50"/>
+                       <div className="h-full w-full bg-gradient-to-r from-[var(--dk-neg)] via-[var(--dk-raised)] to-[var(--dk-tea)] opacity-50"/>
                     </div>
                     <div className="text-[var(--dk-ink-soft)] text-sm">{result.alignment < 40 ? "Dark Tendencies" : result.alignment > 60 ? "Light Adherent" : "Gray Alignment"}</div>
                  </div>

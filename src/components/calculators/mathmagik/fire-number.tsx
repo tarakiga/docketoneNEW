@@ -116,7 +116,7 @@ export function FireCalculator() {
                 <div className={MONO_K}>Time to freedom</div>
                 {calc.reached ? (
                   <>
-                    <div className="font-mono text-3xl md:text-4xl font-bold text-[#86efac] mt-1">You&apos;re free 🎉</div>
+                    <div className="font-mono text-3xl md:text-4xl font-bold text-[var(--dk-pos-ink)] mt-1">You&apos;re free 🎉</div>
                     <div className="text-sm text-[var(--dk-ink-soft)] mt-1">Already past your number</div>
                   </>
                 ) : (

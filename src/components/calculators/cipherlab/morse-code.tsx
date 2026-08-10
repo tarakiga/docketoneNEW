@@ -169,8 +169,8 @@ export function MorseCode() {
                                 className="flex-1 gap-2"
                                 disabled={!morse}
                                 style={isPlaying
-                                    ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: '#ff8a8a' }
-                                    : { backgroundColor: '#b388ff', color: 'var(--dk-on-fill)' }}
+                                    ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-neg-ink)' }
+                                    : { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }}
                             >
                                 {isPlaying ? <Square className="w-4 h-4 fill-current"/> : <Play className="w-4 h-4 fill-current"/>}
                                 {isPlaying ? "Stop Signal" : "Play Signal"}
@@ -180,7 +180,7 @@ export function MorseCode() {
                                 className="flex-initial gap-2"
                                 title="Toggle Screen Flash"
                                 style={isFlashlight
-                                    ? { backgroundColor: '#b388ff', color: 'var(--dk-on-fill)' }
+                                    ? { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }
                                     : { backgroundColor: 'var(--dk-raised)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink)' }}
                             >
                                 <Flashlight className="w-4 h-4" style={{ color: isFlashlight ? 'var(--dk-on-fill)' : 'var(--dk-ink-soft)' }} />
@@ -202,8 +202,8 @@ export function MorseCode() {
                                     key={i}
                                     className="transition-colors duration-100 ease-linear rounded px-0.5"
                                     style={activeChar === i
-                                        ? { backgroundColor: '#b388ff', color: 'var(--dk-on-fill)' }
-                                        : { color: '#b388ff' }}
+                                        ? { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }
+                                        : { color: 'var(--dk-pur-ink)' }}
                                 >
                                     {char}
                                 </span>

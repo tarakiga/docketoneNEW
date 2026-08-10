@@ -117,7 +117,7 @@ export function SpaceMarineSurvivalCalculator() {
 
                             <div className="text-center p-8 rounded-3xl border min-w-[200px]" style={{ backgroundColor: "var(--dk-raised)", borderColor: "var(--dk-line)" }}>
                                 <div className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: "var(--dk-ink-soft)" }}>Cause of Death</div>
-                                <div className="text-xl font-bold max-w-[150px] mx-auto leading-tight" style={{ color: "#ff8a8a" }}>
+                                <div className="text-xl font-bold max-w-[150px] mx-auto leading-tight" style={{ color: "var(--dk-neg-ink)" }}>
                                     {deathCause}
                                 </div>
                             </div>

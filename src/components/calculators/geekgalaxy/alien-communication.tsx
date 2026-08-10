@@ -53,8 +53,8 @@ export function AlienCommunicationCalculator() {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 pointer-events-none"></div>
 
         <CardHeader>
-          <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: '#ff8a3c' }}>
-            <Radio className="h-6 w-6 animate-pulse" style={{ color: '#ff8a3c' }} />
+          <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}>
+            <Radio className="h-6 w-6 animate-pulse" style={{ color: 'var(--dk-org-ink)' }} />
             Drake Equation Simulator
           </CardTitle>
           <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>
@@ -67,12 +67,12 @@ export function AlienCommunicationCalculator() {
           <div className="space-y-6">
             
             <div className="space-y-4 p-4 rounded" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
-              <h3 className="font-bold flex items-center gap-2" style={{ color: '#ff8a3c' }}><Star className="h-4 w-4"/> Astrophysical Factors</h3>
+              <h3 className="font-bold flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}><Star className="h-4 w-4"/> Astrophysical Factors</h3>
 
               <div>
                 <div className="flex justify-between text-sm mb-2">
                    <Label style={{ color: 'var(--dk-ink)' }}>R* (Star Formation Rate)</Label>
-                   <span className="font-mono" style={{ color: '#ff8a3c' }}>{drake.rStar} / yr</span>
+                   <span className="font-mono" style={{ color: 'var(--dk-org-ink)' }}>{drake.rStar} / yr</span>
                 </div>
                 <Slider value={[drake.rStar]} onValueChange={([v]) => setD('rStar', v)} max={10} step={0.1} />
               </div>
@@ -80,7 +80,7 @@ export function AlienCommunicationCalculator() {
                <div>
                 <div className="flex justify-between text-sm mb-2">
                    <Label style={{ color: 'var(--dk-ink)' }}>fₚ (Planetary Systems)</Label>
-                   <span className="font-mono" style={{ color: '#ff8a3c' }}>{Math.round(drake.fp * 100)}%</span>
+                   <span className="font-mono" style={{ color: 'var(--dk-org-ink)' }}>{Math.round(drake.fp * 100)}%</span>
                 </div>
                 <Slider value={[drake.fp]} onValueChange={([v]) => setD('fp', v)} max={1} step={0.01} />
               </div>
@@ -88,19 +88,19 @@ export function AlienCommunicationCalculator() {
                <div>
                 <div className="flex justify-between text-sm mb-2">
                    <Label style={{ color: 'var(--dk-ink)' }}>nₑ (Habitable Planets)</Label>
-                   <span className="font-mono" style={{ color: '#ff8a3c' }}>{drake.ne} / system</span>
+                   <span className="font-mono" style={{ color: 'var(--dk-org-ink)' }}>{drake.ne} / system</span>
                 </div>
                 <Slider value={[drake.ne]} onValueChange={([v]) => setD('ne', v)} max={5} step={0.1} />
               </div>
             </div>
 
             <div className="space-y-4 p-4 rounded" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
-              <h3 className="font-bold flex items-center gap-2" style={{ color: '#ff8a3c' }}><Atom className="h-4 w-4"/> Biological Factors</h3>
+              <h3 className="font-bold flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}><Atom className="h-4 w-4"/> Biological Factors</h3>
 
               <div>
                 <div className="flex justify-between text-sm mb-2">
                    <Label style={{ color: 'var(--dk-ink)' }}>fₗ (Life Evolves)</Label>
-                   <span className="font-mono" style={{ color: '#ff8a3c' }}>{Math.round(drake.fl * 100)}%</span>
+                   <span className="font-mono" style={{ color: 'var(--dk-org-ink)' }}>{Math.round(drake.fl * 100)}%</span>
                 </div>
                 <Slider value={[drake.fl]} onValueChange={([v]) => setD('fl', v)} max={1} step={0.01} />
               </div>
@@ -108,19 +108,19 @@ export function AlienCommunicationCalculator() {
                <div>
                 <div className="flex justify-between text-sm mb-2">
                    <Label style={{ color: 'var(--dk-ink)' }}>fᵢ (Intelligence Emerges)</Label>
-                   <span className="font-mono" style={{ color: '#ff8a3c' }}>{Math.round(drake.fi * 100)}%</span>
+                   <span className="font-mono" style={{ color: 'var(--dk-org-ink)' }}>{Math.round(drake.fi * 100)}%</span>
                 </div>
                 <Slider value={[drake.fi]} onValueChange={([v]) => setD('fi', v)} max={1} step={0.001} />
               </div>
             </div>
 
             <div className="space-y-4 p-4 rounded" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
-              <h3 className="font-bold flex items-center gap-2" style={{ color: '#ff8a3c' }}><Globe className="h-4 w-4"/> Sociological Factors</h3>
+              <h3 className="font-bold flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}><Globe className="h-4 w-4"/> Sociological Factors</h3>
 
               <div>
                 <div className="flex justify-between text-sm mb-2">
                    <Label style={{ color: 'var(--dk-ink)' }}>f꜀ (Communicative)</Label>
-                   <span className="font-mono" style={{ color: '#ff8a3c' }}>{Math.round(drake.fc * 100)}%</span>
+                   <span className="font-mono" style={{ color: 'var(--dk-org-ink)' }}>{Math.round(drake.fc * 100)}%</span>
                 </div>
                 <Slider value={[drake.fc]} onValueChange={([v]) => setD('fc', v)} max={1} step={0.001} />
               </div>
@@ -128,7 +128,7 @@ export function AlienCommunicationCalculator() {
                <div>
                 <div className="flex justify-between text-sm mb-2">
                    <Label style={{ color: 'var(--dk-ink)' }}>L (Civilization Lifespan)</Label>
-                   <span className="font-mono" style={{ color: '#ff8a3c' }}>{drake.l.toLocaleString()} yrs</span>
+                   <span className="font-mono" style={{ color: 'var(--dk-org-ink)' }}>{drake.l.toLocaleString()} yrs</span>
                 </div>
                 <Slider value={[Math.log10(drake.l)]} onValueChange={([v]) => setD('l', Math.round(Math.pow(10, v)))} min={1} max={9} step={0.1} />
               </div>
@@ -140,8 +140,8 @@ export function AlienCommunicationCalculator() {
           <div className="flex flex-col items-center justify-center space-y-8 rounded-xl p-6" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
 
              <div className="text-center space-y-4">
-               <div className="text-sm uppercase tracking-widest" style={{ color: '#ff8a3c' }}>Active Civilizations in Milky Way</div>
-               <div className="text-6xl md:text-8xl font-black transition-all duration-300" style={{ fontFamily: 'var(--font-fredoka), cursive', color: '#ff8a3c' }}>
+               <div className="text-sm uppercase tracking-widest" style={{ color: 'var(--dk-org-ink)' }}>Active Civilizations in Milky Way</div>
+               <div className="text-6xl md:text-8xl font-black transition-all duration-300" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-org-ink)' }}>
                  {N.toLocaleString()}
                </div>
                <p className="max-w-sm mx-auto" style={{ color: 'var(--dk-ink-soft)' }}>
@@ -171,7 +171,7 @@ export function AlienCommunicationCalculator() {
                       }}
                     />
                 ))}
-                {N > 1000 && <div className="absolute inset-0 flex items-center justify-center font-bold opacity-30 text-4xl" style={{ color: '#ff8a3c' }}>ACTIVE SIGNAL</div>}
+                {N > 1000 && <div className="absolute inset-0 flex items-center justify-center font-bold opacity-30 text-4xl" style={{ color: 'var(--dk-org-ink)' }}>ACTIVE SIGNAL</div>}
              </div>
 
              <ShareResult 

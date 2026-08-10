@@ -21,7 +21,7 @@ export function ProcrastinationCalculator() {
 
     const status = panicScore < 30 ? "Chill Mode" : panicScore < 70 ? "Mild Concern" : panicScore < 90 ? "Panic Monster Awakening" : "FULL MELTDOWN"
     // Status colors kept by meaning but tuned for readability on the dark arcade theme.
-    const color = panicScore < 30 ? "bg-[#86efac]" : panicScore < 70 ? "bg-[var(--dk-yel)]" : panicScore < 90 ? "bg-[#ff8a3c]" : "bg-[#ff8a8a] animate-pulse"
+    const color = panicScore < 30 ? "bg-[var(--dk-pos)]" : panicScore < 70 ? "bg-[var(--dk-yel)]" : panicScore < 90 ? "bg-[var(--dk-org)]" : "bg-[var(--dk-neg)] animate-pulse"
     // All status pills use dark ink for contrast against their bright fills.
     const textColor = "text-[var(--dk-on-fill)]"
 
@@ -68,7 +68,7 @@ export function ProcrastinationCalculator() {
                        <Label>Procrastination Level</Label>
                        <span>{procrastinationLevel}%</span>
                     </div>
-                    <Slider value={[procrastinationLevel]} onValueChange={([v]) => setProcrastinationLevel(v)} min={0} max={99} step={1} className="[&_[data-slot=slider-track]]:bg-[var(--dk-sunk)] [&_[data-slot=slider-range]]:bg-[#ff8a8a] [&_[data-slot=slider-thumb]]:border-[#ff8a8a] [&_[data-slot=slider-thumb]]:bg-[var(--dk-sunk)] [&_[data-slot=slider-thumb]]:focus-visible:ring-[#ff8a8a]" />
+                    <Slider value={[procrastinationLevel]} onValueChange={([v]) => setProcrastinationLevel(v)} min={0} max={99} step={1} className="[&_[data-slot=slider-track]]:bg-[var(--dk-sunk)] [&_[data-slot=slider-range]]:bg-[var(--dk-neg)] [&_[data-slot=slider-thumb]]:border-[var(--dk-neg-ink)] [&_[data-slot=slider-thumb]]:bg-[var(--dk-sunk)] [&_[data-slot=slider-thumb]]:focus-visible:ring-[var(--dk-neg-ink)]" />
                     <p className="text-xs text-[var(--dk-ink-soft)]">How long will you define &quot;doing research&quot; as watching YouTube?</p>
                  </div>
               </div>
@@ -89,7 +89,7 @@ export function ProcrastinationCalculator() {
                         fill="transparent"
                         stroke="currentColor"
                         strokeWidth="8"
-                        className={`${result.panicScore > 80 ? 'text-[#ff8a8a]' : 'text-[var(--dk-lim-ink)]'} transition-all duration-1000`}
+                        className={`${result.panicScore > 80 ? 'text-[var(--dk-neg-ink)]' : 'text-[var(--dk-lim-ink)]'} transition-all duration-1000`}
                         strokeDasharray={`${result.panicScore * 2.51} 251.2`} 
                         strokeLinecap="round"
                       />

@@ -517,6 +517,11 @@
   /* text sitting ON a filled accent */
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
   --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
+  /* semantic status — separate from the brand accents on purpose, so a
+     re-skin never accidentally makes "over budget" read as decoration */
+  --dk-pos:#7BD44F; --dk-pos-ink:#3C6B21; --dk-on-pos:#1D4009;
+  --dk-neg:#F0685C; --dk-neg-ink:#B02818; --dk-on-neg:#4A0D08;
+  --dk-warn:#FFB020; --dk-warn-ink:#8A5A00; --dk-on-warn:#4A3000;
 }
 
 [data-theme="dark"] {
@@ -538,6 +543,9 @@
   --dk-lim-ink:#8FE063; --dk-pur-ink:#BC96FF; --dk-pnk-ink:#FF5C9C; --dk-sky-ink:#5CBAFF;
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
   --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
+  --dk-pos:#8FE063; --dk-pos-ink:#8FE063; --dk-on-pos:#1D4009;
+  --dk-neg:#FF8578; --dk-neg-ink:#FF8578; --dk-on-neg:#4A0D08;
+  --dk-warn:#FFC24D; --dk-warn-ink:#FFC24D; --dk-on-warn:#4A3000;
 }
 
 body{background:var(--dk-page) !important}
@@ -850,6 +858,27 @@ body{background:var(--dk-page) !important}
 .almanac-screen input,.almanac-screen textarea,.almanac-screen select,
 .almanac-screen [role="combobox"]{color:var(--dk-ink)}
 .almanac-screen input::placeholder,.almanac-screen textarea::placeholder{color:var(--dk-ink-soft);opacity:.7}
+
+/* Sticker treatment, applied once for all 64 widgets.
+   The widgets were built as shadcn Cards and bordered divs with a 1px hairline;
+   rather than hand-editing ~1,900 JSX sites, the outline + hard offset is
+   applied here and inherited. Nested borders stay hairline so a card inside a
+   card does not read as two stickers. */
+.almanac-screen [data-slot="card"],
+.almanac-screen > .border,
+.almanac-screen > * > .border,
+.almanac-screen > * > * > .border{
+  border-width:3px;
+  border-color:var(--dk-line);
+  box-shadow:4px 4px 0 var(--dk-shadow);
+}
+/* blur shadows fight the flat sticker language — flatten every Tailwind shadow */
+.almanac-screen [class*="shadow-"]{box-shadow:4px 4px 0 var(--dk-shadow)}
+.almanac-screen [class*="shadow-none"]{box-shadow:none}
+/* controls read as pressable stickers */
+.almanac-screen button:not([data-slot="card"]){border-radius:11px}
+.almanac-screen [role="combobox"],.almanac-screen select,.almanac-screen input[type="text"],
+.almanac-screen input[type="number"]{border-width:3px;border-color:var(--dk-line);border-radius:11px}
 
 /* ---- theme toggle ------------------------------------------------------ */
 .almanac-themetoggle{display:inline-flex;align-items:center;justify-content:center;

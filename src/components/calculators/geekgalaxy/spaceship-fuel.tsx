@@ -26,10 +26,10 @@ const SHIPS = {
 
 const FUELS = [
   { name: 'Kerosene (RP-1)', density: 34.2, color: 'var(--dk-yel-ink)', textColor: 'var(--dk-yel-ink)' },
-  { name: 'Liquid Hydrogen', density: 143, color: '#86efac', textColor: '#86efac' },
-  { name: 'Nuclear Fission', density: 8.2e7, color: '#86efac', textColor: '#86efac' },
-  { name: 'Fusion Plasma', density: 3.0e11, color: '#ff8a3c', textColor: '#ff8a3c' },
-  { name: 'Antimatter', density: 8.9e16, color: '#ff8a8a', textColor: '#ff8a8a' },
+  { name: 'Liquid Hydrogen', density: 143, color: 'var(--dk-pos-ink)', textColor: 'var(--dk-pos-ink)' },
+  { name: 'Nuclear Fission', density: 8.2e7, color: 'var(--dk-pos-ink)', textColor: 'var(--dk-pos-ink)' },
+  { name: 'Fusion Plasma', density: 3.0e11, color: 'var(--dk-org-ink)', textColor: 'var(--dk-org-ink)' },
+  { name: 'Antimatter', density: 8.9e16, color: 'var(--dk-neg-ink)', textColor: 'var(--dk-neg-ink)' },
 ]
 
 export function SpaceshipFuelCalculator() {
@@ -74,8 +74,8 @@ export function SpaceshipFuelCalculator() {
   return (
     <Card style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
       <CardHeader>
-        <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: '#ff8a3c' }}>
-          <Flame className="h-8 w-8" style={{ color: '#ff8a3c' }} />
+        <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}>
+          <Flame className="h-8 w-8" style={{ color: 'var(--dk-org-ink)' }} />
           Fuel Logistics
         </CardTitle>
         <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>Plan energy requirements for your interstellar voyage.</CardDescription>
@@ -95,7 +95,7 @@ export function SpaceshipFuelCalculator() {
           </div>
           <div className="flex items-center justify-center pt-6">
             <div className="h-0.5 w-full relative" style={{ backgroundColor: 'var(--dk-mute)' }}>
-              <div className="absolute -top-1.5 left-1/2 -ml-1" style={{ color: '#ff8a3c' }}>➜</div>
+              <div className="absolute -top-1.5 left-1/2 -ml-1" style={{ color: 'var(--dk-org-ink)' }}>➜</div>
             </div>
           </div>
           <div className="space-y-2">
@@ -124,7 +124,7 @@ export function SpaceshipFuelCalculator() {
                 className="p-3 rounded-lg border text-left transition-all"
                 style={
                   ship === key
-                    ? { backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c' }
+                    ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)' }
                     : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }
                 }
               >

@@ -171,7 +171,7 @@ export function CalorieDeficitCalculator() {
 
   const verdictColor =
     results.verdict === "deficit"
-      ? "text-[#86efac]"
+      ? "text-[var(--dk-pos-ink)]"
       : results.verdict === "surplus"
       ? "text-[var(--dk-yel-ink)]"
       : "text-[var(--dk-ink-soft)]"
@@ -256,7 +256,7 @@ export function CalorieDeficitCalculator() {
                       <span className="w-6 text-center font-bold text-white">{p.qty}</span>
                       <button aria-label={`Increase ${p.name}`} onClick={() => changeQty(p.name, 1)} className="p-1 rounded bg-[var(--dk-raised)] hover:bg-[var(--dk-mute)]"><Plus className="h-3 w-3" /></button>
                       <span className="w-16 text-right text-[var(--dk-lim-ink)] font-bold">{p.kcal * p.qty}</span>
-                      <button aria-label={`Remove ${p.name}`} onClick={() => removeFood(p.name)} className="p-1 rounded text-[var(--dk-ink-soft)] hover:text-[#ff8a8a]"><Trash2 className="h-3 w-3" /></button>
+                      <button aria-label={`Remove ${p.name}`} onClick={() => removeFood(p.name)} className="p-1 rounded text-[var(--dk-ink-soft)] hover:text-[var(--dk-neg-ink)]"><Trash2 className="h-3 w-3" /></button>
                     </div>
                   </div>
                 ))}

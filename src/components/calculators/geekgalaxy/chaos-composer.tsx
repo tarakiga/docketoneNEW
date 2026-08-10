@@ -150,7 +150,7 @@ export function ChaosComposer() {
     <div className="space-y-6">
       <Card className="border" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c', fontFamily: 'var(--font-fredoka), cursive' }}>
+          <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-org-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
             <Music className="w-6 h-6" />
             The Chaos Composer
           </CardTitle>
@@ -184,7 +184,7 @@ export function ChaosComposer() {
                 {/* R Control */}
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                        <Label className="text-lg font-bold" style={{ color: '#ff8a3c', fontFamily: 'var(--font-fredoka), cursive' }}>Growth Rate (r): {r.toFixed(2)}</Label>
+                        <Label className="text-lg font-bold" style={{ color: 'var(--dk-org-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>Growth Rate (r): {r.toFixed(2)}</Label>
                         <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>
                             {r < 3.0 ? "Stable (Period 1)" :
                              r < 3.45 ? "Period 2" :
@@ -214,8 +214,8 @@ export function ChaosComposer() {
                             <Button
                                 className="w-12 h-12 rounded-full"
                                 style={isPlaying
-                                    ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: '#ff8a8a' }
-                                    : { backgroundColor: '#ff8a3c', color: 'var(--dk-on-fill)' }}
+                                    ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-neg-ink)' }
+                                    : { backgroundColor: 'var(--dk-org)', color: 'var(--dk-on-fill)' }}
                                 onClick={() => setIsPlaying(!isPlaying)}
                             >
                                 {isPlaying ? <Pause className="fill-current" /> : <Play className="fill-current pl-1" />}
@@ -250,7 +250,7 @@ export function ChaosComposer() {
             
              <div className="border p-4 rounded-lg text-sm" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink-soft)' }}>
                 <p>
-                    <strong style={{ color: '#ff8a3c' }}>How to use:</strong> Slide the Growth Rate ($r$) slowly from left to right.
+                    <strong style={{ color: 'var(--dk-org-ink)' }}>How to use:</strong> Slide the Growth Rate ($r$) slowly from left to right.
                 </p>
                 <ul className="list-disc pl-4 mt-2 space-y-1">
                     <li>At <strong>r=2.5</strong>, you will hear a single steady beat. The population is stable.</li>

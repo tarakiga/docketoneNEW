@@ -100,11 +100,11 @@ export function SlipspaceDebtCalculator() {
                          <div className="mt-8 flex justify-center gap-8">
                              <div>
                                  <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: 'var(--dk-ink-soft)' }}>Exit Drift</div>
-                                 <div className="text-xl font-bold" style={{ color: '#ff8a8a' }}>{drift > 0 ? `± ${(drift/1000).toFixed(1)} km` : "Pinpoint"}</div>
+                                 <div className="text-xl font-bold" style={{ color: 'var(--dk-neg-ink)' }}>{drift > 0 ? `± ${(drift/1000).toFixed(1)} km` : "Pinpoint"}</div>
                              </div>
                              <div>
                                  <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: 'var(--dk-ink-soft)' }}>Shaw-Fujikawa Rating</div>
-                                 <div className="text-xl font-bold" style={{ color: '#86efac' }}>{forerunnerTech ? "Class-12" : "Class-2"}</div>
+                                 <div className="text-xl font-bold" style={{ color: 'var(--dk-pos-ink)' }}>{forerunnerTech ? "Class-12" : "Class-2"}</div>
                              </div>
                          </div>
 

@@ -176,7 +176,7 @@ export function ButterflyEffect() {
     <div className="space-y-6">
       <Card className="border" style={{ backgroundColor: "var(--dk-surface)", borderColor: "var(--dk-line)" }}>
         <CardHeader>
-          <CardTitle style={{ color: "#ff8a3c" }}>
+          <CardTitle style={{ color: "var(--dk-org-ink)" }}>
             The Butterfly Effect Simulator
           </CardTitle>
           <CardDescription style={{ color: "var(--dk-ink-soft)" }}>
@@ -194,8 +194,8 @@ export function ButterflyEffect() {
                     />
                     
                      <div className="absolute top-4 left-4 space-y-2 p-3 rounded-lg border" style={{ backgroundColor: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
-                        <div className="flex items-center gap-2 text-sm font-mono" style={{ color: "#ff8a3c" }}>
-                            <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: "#ff8a3c" }}></span>
+                        <div className="flex items-center gap-2 text-sm font-mono" style={{ color: "var(--dk-org-ink)" }}>
+                            <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: "var(--dk-org)" }}></span>
                             System A: Start + 0.0000
                         </div>
                         <div className="flex items-center gap-2 text-sm font-mono" style={{ color: "var(--dk-ink-soft)" }}>
@@ -209,7 +209,7 @@ export function ButterflyEffect() {
                     <Button
                         size="lg"
                         onClick={toggleSim}
-                        style={isRunning ? { backgroundColor: "#ff8a8a", color: "var(--dk-on-fill)" } : { backgroundColor: "#ff8a3c", color: "var(--dk-on-fill)" }}
+                        style={isRunning ? { backgroundColor: "var(--dk-neg)", color: "var(--dk-on-fill)" } : { backgroundColor: "var(--dk-org)", color: "var(--dk-on-fill)" }}
                     >
                          {isRunning ? "Pause Simulation" : "Start Chaos"}
                     </Button>
@@ -222,7 +222,7 @@ export function ButterflyEffect() {
                             <span>Synchronization</span>
                             <span>{Math.max(0, 100 - divergence).toFixed(0)}% Match</span>
                         </div>
-                        <Progress value={Math.max(0, 100 - divergence)} className="h-2" style={{ backgroundColor: "var(--dk-sunk)" }} indicatorClassName={divergence > 50 ? "bg-[#ff8a8a]" : "bg-[#86efac]"} />
+                        <Progress value={Math.max(0, 100 - divergence)} className="h-2" style={{ backgroundColor: "var(--dk-sunk)" }} indicatorClassName={divergence > 50 ? "bg-[var(--dk-neg)]" : "bg-[var(--dk-pos)]"} />
                         <p className="text-xs pt-1" style={{ color: "var(--dk-ink-soft)" }}>
                             {divergence < 5 ? "Systems are effectively identical." :
                              divergence < 50 ? "Divergence detected. Outcomes splitting." :

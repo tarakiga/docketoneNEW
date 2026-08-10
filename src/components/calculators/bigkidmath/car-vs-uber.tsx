@@ -11,7 +11,7 @@ type Mode = "car" | "ev" | "uber"
 const STYLES: Record<Mode, { label: string; text: string; bar: string; ring: string }> = {
     car: { label: "Gas Car", text: "text-[var(--dk-tea-ink)]", bar: "bg-[var(--dk-tea)]", ring: "ring-[var(--dk-tea-ink)]/60" },
     ev: { label: "Electric", text: "text-[var(--dk-ink-soft)]", bar: "bg-[var(--dk-mute)]", ring: "ring-[var(--dk-line-soft)]/60" },
-    uber: { label: "Rideshare", text: "text-[#86efac]", bar: "bg-[#86efac]", ring: "ring-[#86efac]/60" },
+    uber: { label: "Rideshare", text: "text-[var(--dk-pos-ink)]", bar: "bg-[var(--dk-pos)]", ring: "ring-[var(--dk-pos-ink)]/60" },
 }
 const EMOJI: Record<Mode, string> = { car: "⛽", ev: "⚡", uber: "🚕" }
 const AVG_RIDE_MILES = 15
@@ -125,13 +125,13 @@ export function CarVsUberCalculator() {
                             </div>
                         </div>
                         <div>
-                            <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-[#86efac] mb-2.5">🚕 Rideshare</div>
+                            <div className="font-mono text-[11px] uppercase tracking-[0.1em] text-[var(--dk-pos-ink)] mb-2.5">🚕 Rideshare</div>
                             <div className="space-y-2.5">
                                 <div><label className={LBL}>Avg cost / ride ($)</label><input type="number" min={0} value={uberCostPerRide} onChange={(e) => setUberCostPerRide(clamp(Number(e.target.value)))} className={INP} /></div>
                                 <div>
                                     <label className={LBL}>Rides / week</label>
                                     <Slider value={[ridesPerWeek]} onValueChange={(v) => setRidesPerWeek(v[0])} max={50} step={1} className="py-3" />
-                                    <div className="font-mono text-[12px] text-[#86efac]">{ridesPerWeek} rides / week</div>
+                                    <div className="font-mono text-[12px] text-[var(--dk-pos-ink)]">{ridesPerWeek} rides / week</div>
                                 </div>
                                 <div className="text-[11px] text-[var(--dk-ink-soft)] leading-snug">≈ {results.impliedMiles.toLocaleString()} mi/yr of travel (at {AVG_RIDE_MILES} mi/ride) vs {milesDriven.toLocaleString()} for the cars.</div>
                             </div>

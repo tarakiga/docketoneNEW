@@ -26,9 +26,9 @@ export function SpartanAugmentationCalculator() {
             washoutRate: washout * 100,
             deathRate: death * 100,
             chartData: [
-                { name: 'Success (Spartan)', value: baseSurvival * 100, fill: '#86efac' },
+                { name: 'Success (Spartan)', value: baseSurvival * 100, fill: 'var(--dk-pos-ink)' },
                 { name: 'Washout (Crippled)', value: washout * 100, fill: 'var(--dk-yel-ink)' },
-                { name: 'KIA (Deceased)', value: death * 100, fill: '#ff8a8a' },
+                { name: 'KIA (Deceased)', value: death * 100, fill: 'var(--dk-neg-ink)' },
             ]
         }
     }, [genetics, luck])
@@ -69,7 +69,7 @@ export function SpartanAugmentationCalculator() {
                             <div className="text-4xl font-black mb-2" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-yel-ink)' }}>
                                 {survivalRate > 50 ? "SPARTAN" : deathRate > washoutRate ? "DECEASED" : "WASHOUT"}
                             </div>
-                            <div className="font-mono font-bold" style={{ color: '#86efac' }}>
+                            <div className="font-mono font-bold" style={{ color: 'var(--dk-pos-ink)' }}>
                                 {survivalRate.toFixed(1)}% Survival Chance
                             </div>
                             <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider mt-4" style={{ backgroundColor: 'var(--dk-raised)', borderWidth: 1, borderStyle: 'solid', borderColor: 'var(--dk-line)', color: 'var(--dk-yel-ink)' }}>

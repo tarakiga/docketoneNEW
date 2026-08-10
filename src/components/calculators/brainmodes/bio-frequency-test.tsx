@@ -114,7 +114,7 @@ export function BioFrequencyTest() {
             <div className="relative z-10">
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-5">
                     <h2 className="text-2xl font-extrabold text-[var(--dk-ink)] flex items-center gap-3"><span className="text-3xl">👂</span> Bio-Frequency Test</h2>
-                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "#5bf0c0" }}><span className={`h-2 w-2 rounded-full ${isPlaying ? "animate-ping" : "animate-pulse"}`} style={{ background: "#5bf0c0" }} /> Live tone generator</span>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "var(--dk-tea-ink)" }}><span className={`h-2 w-2 rounded-full ${isPlaying ? "animate-ping" : "animate-pulse"}`} style={{ background: "var(--dk-tea)" }} /> Live tone generator</span>
                 </div>
 
                 {/* Volume note */}
@@ -128,7 +128,7 @@ export function BioFrequencyTest() {
                         <div className="text-3xl mb-3">⚠️</div>
                         <h3 className="font-bold mb-2" style={{ color: "var(--dk-yel-ink)" }}>Safety first!</h3>
                         <p className="text-sm text-[var(--dk-ink-soft)] mb-5">High-frequency tones can be piercing. Please lower your device volume to about 20% before starting.</p>
-                        <button onClick={() => setPhase("test")} className="font-mono font-bold text-sm uppercase tracking-wide rounded-xl px-7 py-3.5 transition-colors" style={{ background: "#5bf0c0", color: "var(--dk-on-fill)" }}>
+                        <button onClick={() => setPhase("test")} className="font-mono font-bold text-sm uppercase tracking-wide rounded-xl px-7 py-3.5 transition-colors" style={{ background: "var(--dk-tea)", color: "var(--dk-on-fill)" }}>
                             I&apos;ve lowered my volume →
                         </button>
                     </div>
@@ -139,14 +139,14 @@ export function BioFrequencyTest() {
                         {/* progress dots */}
                         <div className="flex gap-1.5 justify-center mb-6">
                             {FREQUENCIES.map((f, i) => (
-                                <div key={f.freq} className="h-1.5 w-8 rounded-full" style={{ background: i < step ? "#5bf0c0" : i === step ? "#5bf0c0" : "#241a52" }} />
+                                <div key={f.freq} className="h-1.5 w-8 rounded-full" style={{ background: i < step ? "var(--dk-tea)" : i === step ? "#5bf0c0" : "#241a52" }} />
                             ))}
                         </div>
 
                         <div className="text-center max-w-xl mx-auto">
                             <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--dk-ink-soft)]">Tone {step + 1} of {FREQUENCIES.length}</div>
                             <div className="text-5xl md:text-6xl font-black tracking-tight text-[var(--dk-ink)] leading-none mt-2">{current.label}</div>
-                            <div className="font-mono text-[12px] uppercase tracking-[0.1em] mt-2" style={{ color: "#5bf0c0" }}>Typically heard by: {current.age}</div>
+                            <div className="font-mono text-[12px] uppercase tracking-[0.1em] mt-2" style={{ color: "var(--dk-tea-ink)" }}>Typically heard by: {current.age}</div>
 
                             {/* Hold-to-play pad */}
                             <div className="relative w-[190px] h-[190px] mx-auto my-8 grid place-items-center select-none">
@@ -162,27 +162,27 @@ export function BioFrequencyTest() {
                                     onPointerLeave={stopTone}
                                     onContextMenu={(e) => e.preventDefault()}
                                     className={`relative z-10 w-[150px] h-[150px] rounded-full border-2 grid place-items-center transition-transform touch-none ${isPlaying ? "scale-95" : ""}`}
-                                    style={{ background: "var(--dk-sunk)", borderColor: "#5bf0c0", WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
+                                    style={{ background: "var(--dk-sunk)", borderColor: "var(--dk-tea-ink)", WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
                                 >
                                     <span>
                                         <span className="block text-3xl">{isPlaying ? "🔊" : "🔈"}</span>
-                                        <span className="block font-mono text-[10px] uppercase tracking-[0.14em] mt-1.5" style={{ color: "#5bf0c0" }}>{isPlaying ? "Playing…" : "Hold to play"}</span>
+                                        <span className="block font-mono text-[10px] uppercase tracking-[0.14em] mt-1.5" style={{ color: "var(--dk-tea-ink)" }}>{isPlaying ? "Playing…" : "Hold to play"}</span>
                                     </span>
                                 </button>
                             </div>
 
                             <div className="flex gap-3.5 justify-center flex-wrap">
-                                <button onClick={answerHeard} className="font-mono font-bold text-[13px] uppercase tracking-wide rounded-xl px-7 py-3.5 transition-colors" style={{ background: "#5bf0c0", color: "var(--dk-on-fill)" }}>✓ I hear it</button>
+                                <button onClick={answerHeard} className="font-mono font-bold text-[13px] uppercase tracking-wide rounded-xl px-7 py-3.5 transition-colors" style={{ background: "var(--dk-tea)", color: "var(--dk-on-fill)" }}>✓ I hear it</button>
                                 <button onClick={answerNotHeard} className="font-mono font-bold text-[13px] uppercase tracking-wide text-[var(--dk-ink)] rounded-xl px-7 py-3.5 transition-colors" style={{ background: "var(--dk-raised)", border: "1px solid var(--dk-line)" }}>✗ Can&apos;t hear it</button>
                             </div>
                         </div>
 
                         {/* running tally */}
                         <div className="mt-8 rounded-2xl px-5 py-4 flex items-center justify-between gap-5 flex-wrap max-w-3xl mx-auto" style={{ background: "var(--dk-sunk)", border: "1px solid var(--dk-line)" }}>
-                            <div><div className={MONO_K}>Top frequency so far</div><div className="font-bold text-lg mt-0.5" style={{ color: "#5bf0c0" }}>{maxHeard > 0 ? `${maxHeard.toLocaleString()} Hz` : "-"}</div></div>
+                            <div><div className={MONO_K}>Top frequency so far</div><div className="font-bold text-lg mt-0.5" style={{ color: "var(--dk-tea-ink)" }}>{maxHeard > 0 ? `${maxHeard.toLocaleString()} Hz` : "-"}</div></div>
                             <div className="flex items-end gap-[3px] h-10 flex-1 max-w-[280px] min-w-[160px]">
                                 {BAR_HEIGHTS.map((h, i) => (
-                                    <div key={i} className="flex-1 rounded-t-[2px]" style={{ height: `${h}%`, background: i < heardCount ? "#5bf0c0" : "var(--dk-raised)" }} />
+                                    <div key={i} className="flex-1 rounded-t-[2px]" style={{ height: `${h}%`, background: i < heardCount ? "var(--dk-tea)" : "var(--dk-raised)" }} />
                                 ))}
                             </div>
                             <div className="text-right"><div className={MONO_K}>Ear age estimate</div><div className="font-bold text-[var(--dk-ink)] text-lg mt-0.5">{earAge ?? "Testing…"}</div></div>
@@ -194,7 +194,7 @@ export function BioFrequencyTest() {
                     <div className="text-center max-w-2xl mx-auto">
                         <div className="rounded-2xl p-8 mb-4" style={{ background: "var(--dk-sunk)", border: "1px solid var(--dk-line)" }}>
                             <div className={MONO_K}>Your biological ear age</div>
-                            <div className="text-6xl md:text-7xl font-black tracking-tight leading-none my-3" style={{ color: "#5bf0c0", fontFamily: "var(--font-fredoka), cursive" }}>
+                            <div className="text-6xl md:text-7xl font-black tracking-tight leading-none my-3" style={{ color: "var(--dk-tea-ink)", fontFamily: "var(--font-fredoka), cursive" }}>
                                 {earAge ?? "Hmm…"}
                             </div>
                             <div className="font-mono text-[12px] text-[var(--dk-ink-soft)]">
@@ -204,7 +204,7 @@ export function BioFrequencyTest() {
                             </div>
                             <div className="flex items-end gap-1 h-24 mt-6 mb-1">
                                 {BAR_HEIGHTS.map((h, i) => (
-                                    <div key={i} className="flex-1 rounded-t-[4px]" style={{ height: `${h}%`, background: i < heardCount ? "#5bf0c0" : "var(--dk-raised)" }} />
+                                    <div key={i} className="flex-1 rounded-t-[4px]" style={{ height: `${h}%`, background: i < heardCount ? "var(--dk-tea)" : "var(--dk-raised)" }} />
                                 ))}
                             </div>
                             <div className="flex justify-between font-mono text-[9px] uppercase text-[var(--dk-ink-soft)] px-1">
@@ -224,7 +224,7 @@ export function BioFrequencyTest() {
                                 text={maxHeard > 0
                                     ? `I can hear frequencies up to ${maxHeard.toLocaleString()} Hz - my biological ear age is "${earAge}"! Test yours at Docket One. #EarAgeTest`
                                     : "I just took the Bio-Frequency ear age test at Docket One. #EarAgeTest"}
-                                className="!bg-[#5bf0c0] hover:!bg-[#5bf0c0] !text-[var(--dk-on-fill)] !border-none"
+                                className="!bg-[var(--dk-tea)] hover:!bg-[var(--dk-tea)] !text-[var(--dk-on-fill)] !border-none"
                             />
                         </div>
                     </div>
