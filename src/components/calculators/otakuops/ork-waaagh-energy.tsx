@@ -30,7 +30,7 @@ export function OrkWAAAGHEnergyCalculator() {
             speedBoost: speed,
             chartData: [
                 { name: 'Base Power', val: waaghOutput * 0.8, fill: '#86efac' },
-                { name: 'Belief Bonus', val: waaghOutput * 0.2, fill: '#ffd23c' },
+                { name: 'Belief Bonus', val: waaghOutput * 0.2, fill: 'var(--dk-yel-ink)' },
             ]
         }
     }, [orks, loudness, redPaint])
@@ -43,36 +43,36 @@ export function OrkWAAAGHEnergyCalculator() {
 
     return (
         <div className="grid lg:grid-cols-3 gap-8">
-            <Card className="glass-card lg:col-span-1 h-fit" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+            <Card className="glass-card lg:col-span-1 h-fit" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                 <CardHeader>
                     <div className="flex items-center justify-between mb-2">
-                        <div className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: '#0c0824', border: '1px solid #4a3f7a', color: '#86efac' }}>
+                        <div className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: '#86efac' }}>
                             Warhammer 40,000
                         </div>
                     </div>
-                    <CardTitle className="flex items-center gap-2" style={{ color: '#ECEAE3' }}>
-                        <Megaphone className="w-5 h-5" style={{ color: '#ffd23c' }} />
+                    <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
+                        <Megaphone className="w-5 h-5" style={{ color: 'var(--dk-yel-ink)' }} />
                         Inputs
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                      <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: '#b3aae0' }}>Boyz Count</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--dk-ink-soft)' }}>Boyz Count</Label>
                         <Slider value={[orks]} onValueChange={(v) => setOrks(v[0])} min={10} max={1000} step={10} className="py-4" />
                         <div className="text-right text-xs font-mono font-bold" style={{ color: '#86efac' }}>{orks} Boyz</div>
                     </div>
                      <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: '#b3aae0' }}>Loudness (dB)</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--dk-ink-soft)' }}>Loudness (dB)</Label>
                         <Slider value={[loudness]} onValueChange={(v) => setLoudness(v[0])} min={80} max={160} step={1} className="py-4" />
-                        <div className="text-right text-xs font-mono font-bold" style={{ color: '#ffd23c' }}>{loudness} dB</div>
+                        <div className="text-right text-xs font-mono font-bold" style={{ color: 'var(--dk-yel-ink)' }}>{loudness} dB</div>
                     </div>
-                     <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: '#0c0824', border: '1px solid #4a3f7a' }}>
+                     <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
                         <div className="flex flex-col gap-1">
-                            <Label className="font-bold flex items-center gap-2" style={{ color: '#ECEAE3' }}>
+                            <Label className="font-bold flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
                                 <Paintbrush className="w-4 h-4" style={{ color: '#ff8a8a' }} />
                                 Da Red Paint
                             </Label>
-                            <span className="text-[10px]" style={{ color: '#b3aae0' }}>Does it go fasta?</span>
+                            <span className="text-[10px]" style={{ color: 'var(--dk-ink-soft)' }}>Does it go fasta?</span>
                         </div>
                         <Switch checked={redPaint} onCheckedChange={setRedPaint} />
                     </div>
@@ -80,30 +80,30 @@ export function OrkWAAAGHEnergyCalculator() {
             </Card>
 
             <div className="lg:col-span-2 space-y-6">
-                <Card className="glass-card border-none p-1 relative overflow-hidden" style={{ backgroundColor: '#1d1442' }}>
+                <Card className="glass-card border-none p-1 relative overflow-hidden" style={{ backgroundColor: 'var(--dk-surface)' }}>
                     <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                     <CardContent className="relative pt-8 pb-10">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-8 px-4">
                             <div className="space-y-4 text-center md:text-left">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest" style={{ backgroundColor: '#0c0824', border: '1px solid #4a3f7a', color: '#b3aae0' }}>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink-soft)' }}>
                                     Psychic Output
                                 </div>
                                 <div className="space-y-1">
-                                    <h3 className="text-4xl md:text-6xl font-black tracking-tighter uppercase font-serif" style={{ color: '#ECEAE3' }}>
+                                    <h3 className="text-4xl md:text-6xl font-black tracking-tighter uppercase font-serif" style={{ color: 'var(--dk-ink)' }}>
                                         WAAAGH!
                                     </h3>
-                                    <p className="font-bold" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ffd23c' }}>
+                                    <p className="font-bold" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-yel-ink)' }}>
                                         {formatEnergy(energy)}
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="text-center p-8 rounded-3xl w-full md:w-auto md:min-w-[200px]" style={{ backgroundColor: '#0c0824', border: '1px solid #4a3f7a' }}>
-                                <div className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: '#b3aae0' }}>Speed Boost</div>
+                            <div className="text-center p-8 rounded-3xl w-full md:w-auto md:min-w-[200px]" style={{ backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
+                                <div className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: 'var(--dk-ink-soft)' }}>Speed Boost</div>
                                 <div className="text-4xl font-black animate-pulse" style={{ color: '#ff8a8a' }}>
                                     +{speedBoost.toFixed(0)}%
                                 </div>
-                                <div className="text-xs mt-1" style={{ color: '#b3aae0' }}>Cuz red ones go fasta</div>
+                                <div className="text-xs mt-1" style={{ color: 'var(--dk-ink-soft)' }}>Cuz red ones go fasta</div>
                             </div>
                         </div>
 
@@ -111,18 +111,18 @@ export function OrkWAAAGHEnergyCalculator() {
                             <ShareResult
                                 title="WAAAGH! Energy"
                                 text={`With ${orks} Boyz and some red paint, I generated ${formatEnergy(energy)} of pure WAAAGH! energy. Speed increased by ${speedBoost.toFixed(0)}%.`}
-                                className="w-full py-6 text-lg font-black tracking-tight rounded-2xl border-none uppercase !bg-[#ffd23c] hover:!bg-[#ffd23c] !text-[#160e33]"
+                                className="w-full py-6 text-lg font-black tracking-tight rounded-2xl border-none uppercase !bg-[var(--dk-yel)] hover:!bg-[var(--dk-yel)] !text-[var(--dk-on-fill)]"
                             />
                         </div>
                     </CardContent>
                 </Card>
 
-                <Card className="glass-card" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
-                    <CardHeader><CardTitle className="text-lg font-bold" style={{ color: '#ECEAE3' }}>Gestalt Field Visualizer</CardTitle></CardHeader>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
+                    <CardHeader><CardTitle className="text-lg font-bold" style={{ color: 'var(--dk-ink)' }}>Gestalt Field Visualizer</CardTitle></CardHeader>
                     <CardContent className="h-[150px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={chartData} layout="vertical">
-                                <YAxis dataKey="name" type="category" width={100} tick={{fill: '#b3aae0', fontSize: 10}} />
+                                <YAxis dataKey="name" type="category" width={100} tick={{fill: 'var(--dk-ink-soft)', fontSize: 10}} />
                                 <Bar dataKey="val" radius={[0, 4, 4, 0]} barSize={20}>
                                     {chartData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
                                 </Bar>

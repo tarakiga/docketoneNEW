@@ -50,27 +50,27 @@ export function ChaosExplorer() {
     draw()
   }, [draw])
 
-  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[#b3aae0]"
+  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--dk-ink-soft)]"
 
   return (
     <motion.div
       className="w-full rounded-3xl p-5 md:p-8 border shadow-2xl relative overflow-hidden"
       style={{
-        background: "#1d1442",
-        borderColor: "#4a3f7a",
+        background: "var(--dk-surface)",
+        borderColor: "var(--dk-line)",
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       <div className="relative z-10">
-        <span className={MONO_K + " flex items-center gap-2"} style={{ fontFamily: "var(--font-bungee), cursive" }}>
-          <span className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: "#ff3ca6" }} /> Math Magik · Bifurcation
+        <span className={MONO_K + " flex items-center gap-2"} style={{ fontFamily: "var(--font-fredoka), cursive" }}>
+          <span className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: "var(--dk-pnk)" }} /> Math Magik · Bifurcation
         </span>
-        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[#ECEAE3] leading-tight mt-1">
-          Where order tips into <em className="italic" style={{ color: "#ff3ca6" }}>chaos</em>
+        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[var(--dk-ink)] leading-tight mt-1">
+          Where order tips into <em className="italic" style={{ color: "var(--dk-pnk-ink)" }}>chaos</em>
         </h2>
-        <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
+        <p className="text-[var(--dk-ink-soft)] text-sm mt-1 mb-6 max-w-2xl">
           The logistic map - one tiny equation that models populations. Crank the growth rate and watch a single
           stable outcome split into 2, 4, 8… then dissolve into chaos.
         </p>
@@ -78,46 +78,46 @@ export function ChaosExplorer() {
         <div className="grid lg:grid-cols-[1fr_300px] gap-5 items-start">
           {/* ── canvas ──────────────────────────── */}
           <div className="min-w-0 order-1">
-            <div className="rounded-2xl overflow-hidden border" style={{ borderColor: "#4a3f7a", backgroundColor: "#0c0824" }}>
+            <div className="rounded-2xl overflow-hidden border" style={{ borderColor: "var(--dk-line)", backgroundColor: "var(--dk-sunk)" }}>
               <canvas ref={canvasRef} width={800} height={500} className="w-full h-auto block" />
             </div>
             {/* r-axis */}
-            <div className="flex justify-between font-mono text-[11px] mt-2 px-1" style={{ color: "#b3aae0" }}>
+            <div className="flex justify-between font-mono text-[11px] mt-2 px-1" style={{ color: "var(--dk-ink-soft)" }}>
               <span>r = {minR.toFixed(3)}</span>
-              <span className="text-[#b3aae0]">growth rate →</span>
+              <span className="text-[var(--dk-ink-soft)]">growth rate →</span>
               <span>r = {maxR.toFixed(3)}</span>
             </div>
           </div>
 
           {/* ── controls ────────────────────────── */}
           <div className="min-w-0 order-2 space-y-4">
-            <div className="rounded-2xl border p-4 space-y-5" style={{ borderColor: "#4a3f7a", backgroundColor: "#0c0824" }}>
+            <div className="rounded-2xl border p-4 space-y-5" style={{ borderColor: "var(--dk-line)", backgroundColor: "var(--dk-sunk)" }}>
               <div>
-                <div className="flex justify-between text-[13px] text-[#ECEAE3]">
+                <div className="flex justify-between text-[13px] text-[var(--dk-ink)]">
                   <span>Generations</span>
-                  <span className="font-mono" style={{ color: "#ff3ca6" }}>{generations}</span>
+                  <span className="font-mono" style={{ color: "var(--dk-pnk-ink)" }}>{generations}</span>
                 </div>
-                <Slider value={[generations]} onValueChange={([v]) => setGenerations(v)} min={50} max={500} step={10} className="mt-2 [&_[data-slot=slider-range]]:bg-[#ff3ca6] [&_[data-slot=slider-thumb]]:border-[#ff3ca6]" />
-                <p className="text-[11px] text-[#b3aae0] mt-1.5">More points = denser, sharper bands.</p>
+                <Slider value={[generations]} onValueChange={([v]) => setGenerations(v)} min={50} max={500} step={10} className="mt-2 [&_[data-slot=slider-range]]:bg-[var(--dk-pnk)] [&_[data-slot=slider-thumb]]:border-[var(--dk-pnk-ink)]" />
+                <p className="text-[11px] text-[var(--dk-ink-soft)] mt-1.5">More points = denser, sharper bands.</p>
               </div>
 
               <div>
-                <div className="flex justify-between text-[13px] text-[#ECEAE3]">
+                <div className="flex justify-between text-[13px] text-[var(--dk-ink)]">
                   <span>Zoom</span>
-                  <span className="font-mono" style={{ color: "#ff3ca6" }}>{zoom.toFixed(1)}×</span>
+                  <span className="font-mono" style={{ color: "var(--dk-pnk-ink)" }}>{zoom.toFixed(1)}×</span>
                 </div>
-                <Slider value={[zoom]} onValueChange={([v]) => setZoom(v)} min={1} max={10} step={0.1} className="mt-2 [&_[data-slot=slider-range]]:bg-[#ff3ca6] [&_[data-slot=slider-thumb]]:border-[#ff3ca6]" />
-                <p className="text-[11px] text-[#b3aae0] mt-1.5">
+                <Slider value={[zoom]} onValueChange={([v]) => setZoom(v)} min={1} max={10} step={0.1} className="mt-2 [&_[data-slot=slider-range]]:bg-[var(--dk-pnk)] [&_[data-slot=slider-thumb]]:border-[var(--dk-pnk-ink)]" />
+                <p className="text-[11px] text-[var(--dk-ink-soft)] mt-1.5">
                   Dive into the chaotic region near r ≈ 3.7 to see fractal, self-similar detail.
                 </p>
               </div>
             </div>
 
-            <div className="rounded-2xl border p-4" style={{ borderColor: "#4a3f7a", backgroundColor: "#241a52" }}>
-              <h4 className="font-semibold mb-1.5 text-sm" style={{ color: "#ff3ca6" }}>What am I looking at?</h4>
-              <p className="text-[12px] text-[#b3aae0] leading-relaxed">
+            <div className="rounded-2xl border p-4" style={{ borderColor: "var(--dk-line)", backgroundColor: "var(--dk-raised)" }}>
+              <h4 className="font-semibold mb-1.5 text-sm" style={{ color: "var(--dk-pnk-ink)" }}>What am I looking at?</h4>
+              <p className="text-[12px] text-[var(--dk-ink-soft)] leading-relaxed">
                 Each vertical slice settles the equation at one growth rate. One line = one stable population. Two
-                lines = it oscillates between two values. The fuzzy clouds are <strong className="text-[#ECEAE3]">chaos</strong> -
+                lines = it oscillates between two values. The fuzzy clouds are <strong className="text-[var(--dk-ink)]">chaos</strong> -
                 deterministic, yet impossible to predict.
               </p>
             </div>

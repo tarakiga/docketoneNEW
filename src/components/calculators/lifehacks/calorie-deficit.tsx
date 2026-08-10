@@ -173,8 +173,8 @@ export function CalorieDeficitCalculator() {
     results.verdict === "deficit"
       ? "text-[#86efac]"
       : results.verdict === "surplus"
-      ? "text-[#ffd23c]"
-      : "text-[#b3aae0]"
+      ? "text-[var(--dk-yel-ink)]"
+      : "text-[var(--dk-ink-soft)]"
 
   const verdictLabel =
     results.verdict === "deficit"
@@ -189,13 +189,13 @@ export function CalorieDeficitCalculator() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700 almanac-darktool">
-      <Card className="bg-[#1d1442] border-[#4a3f7a]">
+      <Card className="bg-[var(--dk-surface)] border-[var(--dk-line)]">
         <CardHeader>
-          <CardTitle className="text-3xl font-display text-[#b6ff3c] flex items-center gap-2">
-            <Flame className="h-8 w-8 text-[#b6ff3c]" />
+          <CardTitle className="text-3xl font-display text-[var(--dk-lim-ink)] flex items-center gap-2">
+            <Flame className="h-8 w-8 text-[var(--dk-lim-ink)]" />
             Calorie Deficit Calculator
           </CardTitle>
-          <CardDescription className="text-[#b3aae0]">
+          <CardDescription className="text-[var(--dk-ink-soft)]">
             Log what you ate and a few body basics. We compare calories in vs calories out.
             Estimates only, not medical advice.
           </CardDescription>
@@ -204,7 +204,7 @@ export function CalorieDeficitCalculator() {
 
           {/* ===== Calories In ===== */}
           <section className="space-y-4">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-[#b3aae0] flex items-center gap-2">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--dk-ink-soft)] flex items-center gap-2">
               <Utensils className="h-4 w-4" /> What did you eat?
             </h3>
             <Tabs defaultValue={GROUP_NAMES[0]} className="w-full">
@@ -220,9 +220,9 @@ export function CalorieDeficitCalculator() {
                       <button
                         key={item.name}
                         onClick={() => addFood(item)}
-                        className="px-3 py-2 rounded-lg bg-[#241a52] border border-[#4a3f7a] text-sm text-[#ECEAE3] hover:border-[#b6ff3c] hover:text-white transition-all"
+                        className="px-3 py-2 rounded-lg bg-[var(--dk-raised)] border border-[var(--dk-line)] text-sm text-[var(--dk-ink)] hover:border-[var(--dk-lim-ink)] hover:text-white transition-all"
                       >
-                        {item.name} <span className="text-[#b6ff3c] font-bold">{item.kcal}</span>
+                        {item.name} <span className="text-[var(--dk-lim-ink)] font-bold">{item.kcal}</span>
                       </button>
                     ))}
                   </div>
@@ -233,30 +233,30 @@ export function CalorieDeficitCalculator() {
             {/* Custom food */}
             <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-end">
               <div className="flex-1">
-                <Label className="text-xs text-[#b3aae0]">Custom food</Label>
-                <Input value={customName} onChange={(e) => setCustomName(e.target.value)} placeholder="e.g. Mom's lasagna" className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                <Label className="text-xs text-[var(--dk-ink-soft)]">Custom food</Label>
+                <Input value={customName} onChange={(e) => setCustomName(e.target.value)} placeholder="e.g. Mom's lasagna" className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
               </div>
               <div className="w-full sm:w-28">
-                <Label className="text-xs text-[#b3aae0]">Calories</Label>
-                <Input type="number" value={customKcal} onChange={(e) => setCustomKcal(e.target.value)} placeholder="kcal" className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                <Label className="text-xs text-[var(--dk-ink-soft)]">Calories</Label>
+                <Input type="number" value={customKcal} onChange={(e) => setCustomKcal(e.target.value)} placeholder="kcal" className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
               </div>
-              <Button onClick={addCustom} variant="secondary" className="shrink-0 bg-[#0c0824] border border-[#4a3f7a] text-[#ECEAE3] hover:bg-[#241a52]">
+              <Button onClick={addCustom} variant="secondary" className="shrink-0 bg-[var(--dk-sunk)] border border-[var(--dk-line)] text-[var(--dk-ink)] hover:bg-[var(--dk-raised)]">
                 <Plus className="h-4 w-4 mr-1" /> Add
               </Button>
             </div>
 
             {/* Today's plate */}
             {plate.length > 0 && (
-              <div className="space-y-2 bg-[#0c0824] rounded-xl border border-[#4a3f7a] p-4">
+              <div className="space-y-2 bg-[var(--dk-sunk)] rounded-xl border border-[var(--dk-line)] p-4">
                 {plate.map((p) => (
                   <div key={p.name} className="flex items-center justify-between gap-2 text-sm">
-                    <span className="text-[#ECEAE3] flex-1 truncate">{p.name}</span>
+                    <span className="text-[var(--dk-ink)] flex-1 truncate">{p.name}</span>
                     <div className="flex items-center gap-2">
-                      <button aria-label={`Decrease ${p.name}`} onClick={() => changeQty(p.name, -1)} className="p-1 rounded bg-[#241a52] hover:bg-[#4a3f7a]"><Minus className="h-3 w-3" /></button>
+                      <button aria-label={`Decrease ${p.name}`} onClick={() => changeQty(p.name, -1)} className="p-1 rounded bg-[var(--dk-raised)] hover:bg-[var(--dk-mute)]"><Minus className="h-3 w-3" /></button>
                       <span className="w-6 text-center font-bold text-white">{p.qty}</span>
-                      <button aria-label={`Increase ${p.name}`} onClick={() => changeQty(p.name, 1)} className="p-1 rounded bg-[#241a52] hover:bg-[#4a3f7a]"><Plus className="h-3 w-3" /></button>
-                      <span className="w-16 text-right text-[#b6ff3c] font-bold">{p.kcal * p.qty}</span>
-                      <button aria-label={`Remove ${p.name}`} onClick={() => removeFood(p.name)} className="p-1 rounded text-[#b3aae0] hover:text-[#ff8a8a]"><Trash2 className="h-3 w-3" /></button>
+                      <button aria-label={`Increase ${p.name}`} onClick={() => changeQty(p.name, 1)} className="p-1 rounded bg-[var(--dk-raised)] hover:bg-[var(--dk-mute)]"><Plus className="h-3 w-3" /></button>
+                      <span className="w-16 text-right text-[var(--dk-lim-ink)] font-bold">{p.kcal * p.qty}</span>
+                      <button aria-label={`Remove ${p.name}`} onClick={() => removeFood(p.name)} className="p-1 rounded text-[var(--dk-ink-soft)] hover:text-[#ff8a8a]"><Trash2 className="h-3 w-3" /></button>
                     </div>
                   </div>
                 ))}
@@ -265,18 +265,18 @@ export function CalorieDeficitCalculator() {
           </section>
 
           {/* ===== Calories Out ===== */}
-          <section className="space-y-4 bg-[#0c0824] rounded-xl border border-[#4a3f7a] p-4 sm:p-5">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-[#b3aae0] flex items-center gap-2">
+          <section className="space-y-4 bg-[var(--dk-sunk)] rounded-xl border border-[var(--dk-line)] p-4 sm:p-5">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--dk-ink-soft)] flex items-center gap-2">
               <Footprints className="h-4 w-4" /> What did you burn?
             </h3>
 
             {/* Unit toggle */}
-            <div className="flex gap-1 p-1 bg-[#1d1442] rounded-lg w-fit border border-[#4a3f7a]">
+            <div className="flex gap-1 p-1 bg-[var(--dk-surface)] rounded-lg w-fit border border-[var(--dk-line)]">
               {(["metric", "imperial"] as UnitSystem[]).map((u) => (
                 <button
                   key={u}
                   onClick={() => setUnits(u)}
-                  className={`px-4 py-1.5 rounded-md text-xs font-bold capitalize transition-all ${units === u ? "bg-[#b6ff3c] text-[#160e33]" : "text-[#b3aae0] hover:text-white"}`}
+                  className={`px-4 py-1.5 rounded-md text-xs font-bold capitalize transition-all ${units === u ? "bg-[var(--dk-lim)] text-[var(--dk-on-fill)]" : "text-[var(--dk-ink-soft)] hover:text-white"}`}
                 >
                   {u}
                 </button>
@@ -285,9 +285,9 @@ export function CalorieDeficitCalculator() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 [&>div]:min-w-0">
               <div>
-                <Label className="text-xs text-[#b3aae0]">Sex</Label>
+                <Label className="text-xs text-[var(--dk-ink-soft)]">Sex</Label>
                 <Select value={sex} onValueChange={(v) => setSex(v as Sex)}>
-                  <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#b6ff3c]"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus:ring-[var(--dk-lim-ink)]"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="male">Male</SelectItem>
                     <SelectItem value="female">Female</SelectItem>
@@ -295,36 +295,36 @@ export function CalorieDeficitCalculator() {
                 </Select>
               </div>
               <div>
-                <Label className="text-xs text-[#b3aae0]">Age</Label>
-                <Input type="number" value={age} onChange={(e) => setAge(e.target.value)} className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                <Label className="text-xs text-[var(--dk-ink-soft)]">Age</Label>
+                <Input type="number" value={age} onChange={(e) => setAge(e.target.value)} className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
               </div>
               <div>
-                <Label className="text-xs text-[#b3aae0]">Weight ({units === "metric" ? "kg" : "lb"})</Label>
-                <Input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                <Label className="text-xs text-[var(--dk-ink-soft)]">Weight ({units === "metric" ? "kg" : "lb"})</Label>
+                <Input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
               </div>
 
               {units === "metric" ? (
                 <div>
-                  <Label className="text-xs text-[#b3aae0]">Height (cm)</Label>
-                  <Input type="number" value={heightCm} onChange={(e) => setHeightCm(e.target.value)} className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                  <Label className="text-xs text-[var(--dk-ink-soft)]">Height (cm)</Label>
+                  <Input type="number" value={heightCm} onChange={(e) => setHeightCm(e.target.value)} className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
                 </div>
               ) : (
                 <>
                   <div>
-                    <Label className="text-xs text-[#b3aae0]">Height (ft)</Label>
-                    <Input type="number" value={heightFt} onChange={(e) => setHeightFt(e.target.value)} className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                    <Label className="text-xs text-[var(--dk-ink-soft)]">Height (ft)</Label>
+                    <Input type="number" value={heightFt} onChange={(e) => setHeightFt(e.target.value)} className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
                   </div>
                   <div>
-                    <Label className="text-xs text-[#b3aae0]">Height (in)</Label>
-                    <Input type="number" value={heightIn} onChange={(e) => setHeightIn(e.target.value)} className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                    <Label className="text-xs text-[var(--dk-ink-soft)]">Height (in)</Label>
+                    <Input type="number" value={heightIn} onChange={(e) => setHeightIn(e.target.value)} className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
                   </div>
                 </>
               )}
 
               <div>
-                <Label className="text-xs text-[#b3aae0]">Daily activity</Label>
+                <Label className="text-xs text-[var(--dk-ink-soft)]">Daily activity</Label>
                 <Select value={lifestyle} onValueChange={(v) => setLifestyle(v as LifestyleKey)}>
-                  <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#b6ff3c]"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus:ring-[var(--dk-lim-ink)]"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {(Object.keys(LIFESTYLE_MULTIPLIERS) as LifestyleKey[]).map((k) => (
                       <SelectItem key={k} value={k}>{LIFESTYLE_MULTIPLIERS[k].label}</SelectItem>
@@ -333,41 +333,41 @@ export function CalorieDeficitCalculator() {
                 </Select>
               </div>
               <div>
-                <Label className="text-xs text-[#b3aae0]">Steps walked</Label>
-                <Input type="number" value={steps} onChange={(e) => setSteps(e.target.value)} className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#b6ff3c]" />
+                <Label className="text-xs text-[var(--dk-ink-soft)]">Steps walked</Label>
+                <Input type="number" value={steps} onChange={(e) => setSteps(e.target.value)} className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-lim-ink)]" />
               </div>
             </div>
-            <p className="text-xs text-[#b3aae0]">
+            <p className="text-xs text-[var(--dk-ink-soft)]">
               Pick your baseline day above. It should <strong>not</strong> count the steps you log here; those are added on top.
             </p>
           </section>
 
           {/* ===== Result ===== */}
-          <section className="space-y-5 bg-[#0c0824] rounded-xl border border-[#4a3f7a] p-4 sm:p-6">
+          <section className="space-y-5 bg-[var(--dk-sunk)] rounded-xl border border-[var(--dk-line)] p-4 sm:p-6">
             <div className="text-center space-y-1">
-              <div className="text-xs uppercase tracking-widest text-[#b3aae0]">Net daily balance</div>
-              <div className={`text-5xl font-black ${verdictColor}`} style={{ fontFamily: 'var(--font-bungee), cursive' }}>
+              <div className="text-xs uppercase tracking-widest text-[var(--dk-ink-soft)]">Net daily balance</div>
+              <div className={`text-5xl font-black ${verdictColor}`} style={{ fontFamily: 'var(--font-fredoka), cursive' }}>
                 {results.net > 0 ? "+" : ""}{Math.round(results.net)} <span className="text-2xl">kcal</span>
               </div>
               <div className={`text-sm font-bold uppercase tracking-wide ${verdictColor}`}>{verdictLabel}</div>
-              <div className="text-[#ECEAE3] text-sm pt-1">
+              <div className="text-[var(--dk-ink)] text-sm pt-1">
                 ≈ <strong>{results.lbWeek > 0 ? "+" : ""}{results.lbWeek.toFixed(1)} lb / week</strong> at this rate
-                <span className="block text-xs text-[#b3aae0]">(real-world change is slower &amp; non-linear)</span>
+                <span className="block text-xs text-[var(--dk-ink-soft)]">(real-world change is slower &amp; non-linear)</span>
               </div>
             </div>
 
             {/* In vs Out bars */}
             <div className="space-y-3 pt-2">
               <div>
-                <div className="flex justify-between text-xs text-[#b3aae0] mb-1"><span>Calories In</span><span>{Math.round(results.caloriesIn)}</span></div>
-                <div className="h-3 bg-[#241a52] rounded-full overflow-hidden"><div className="h-full bg-[#ffd23c]" style={{ width: `${inPct}%` }} /></div>
+                <div className="flex justify-between text-xs text-[var(--dk-ink-soft)] mb-1"><span>Calories In</span><span>{Math.round(results.caloriesIn)}</span></div>
+                <div className="h-3 bg-[var(--dk-raised)] rounded-full overflow-hidden"><div className="h-full bg-[var(--dk-yel)]" style={{ width: `${inPct}%` }} /></div>
               </div>
               <div>
-                <div className="flex justify-between gap-2 text-xs text-[#b3aae0] mb-1">
+                <div className="flex justify-between gap-2 text-xs text-[var(--dk-ink-soft)] mb-1">
                   <span className="min-w-0">Calories Out (BMR {Math.round(results.bmr)} × activity + {Math.round(results.burnFromSteps)} steps)</span>
                   <span className="shrink-0">{Math.round(results.caloriesOutTotal)}</span>
                 </div>
-                <div className="h-3 bg-[#241a52] rounded-full overflow-hidden"><div className="h-full bg-[#b6ff3c]" style={{ width: `${outPct}%` }} /></div>
+                <div className="h-3 bg-[var(--dk-raised)] rounded-full overflow-hidden"><div className="h-full bg-[var(--dk-lim)]" style={{ width: `${outPct}%` }} /></div>
               </div>
             </div>
 

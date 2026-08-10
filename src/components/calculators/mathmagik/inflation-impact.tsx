@@ -65,32 +65,32 @@ export function InflationImpact() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-[#1d1442] border-[#4a3f7a]">
+      <Card className="bg-[var(--dk-surface)] border-[var(--dk-line)]">
         <CardHeader>
-          <CardTitle className="text-3xl font-display text-[#ECEAE3] flex items-center gap-2">
-            <TrendingDown className="h-8 w-8 text-[#ff3ca6]" />
+          <CardTitle className="text-3xl font-display text-[var(--dk-ink)] flex items-center gap-2">
+            <TrendingDown className="h-8 w-8 text-[var(--dk-pnk-ink)]" />
             The Silent Thief (Inflation)
           </CardTitle>
-          <CardDescription className="text-[#b3aae0]">Visualize how inflation erodes value or increases costs over time.</CardDescription>
+          <CardDescription className="text-[var(--dk-ink-soft)]">Visualize how inflation erodes value or increases costs over time.</CardDescription>
         </CardHeader>
         <CardContent className="grid lg:grid-cols-12 gap-8">
            
            <div className="lg:col-span-4 space-y-6">
-              <div className="space-y-4 p-4 rounded-xl bg-[#0c0824] border border-[#4a3f7a]">
-                 <div className="flex bg-[#241a52] p-1 rounded-lg">
-                    <button onClick={() => setMode('historic')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'historic' ? 'bg-[#ff3ca6] text-[#0c0824]' : 'text-[#b3aae0] hover:text-[#ECEAE3]'}`}>
+              <div className="space-y-4 p-4 rounded-xl bg-[var(--dk-sunk)] border border-[var(--dk-line)]">
+                 <div className="flex bg-[var(--dk-raised)] p-1 rounded-lg">
+                    <button onClick={() => setMode('historic')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'historic' ? 'bg-[var(--dk-pnk)] text-[var(--dk-on-fill)]' : 'text-[var(--dk-ink-soft)] hover:text-[var(--dk-ink)]'}`}>
                        Past (History)
                     </button>
-                    <button onClick={() => setMode('future')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'future' ? 'bg-[#ff3ca6] text-[#0c0824]' : 'text-[#b3aae0] hover:text-[#ECEAE3]'}`}>
+                    <button onClick={() => setMode('future')} className={`flex-1 py-2 text-sm font-bold rounded-md transition-all ${mode === 'future' ? 'bg-[var(--dk-pnk)] text-[var(--dk-on-fill)]' : 'text-[var(--dk-ink-soft)] hover:text-[var(--dk-ink)]'}`}>
                        Future (Projection)
                     </button>
                  </div>
 
                  <div className="space-y-2">
-                    <Label className="text-[#b3aae0]">{mode === 'historic' ? 'Start Year' : 'Current Year'}</Label>
+                    <Label className="text-[var(--dk-ink-soft)]">{mode === 'historic' ? 'Start Year' : 'Current Year'}</Label>
                     <Select value={startYear.toString()} onValueChange={(v) => setStartYear(Number(v))}>
-                      <SelectTrigger className="bg-[#241a52] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#ff3ca6] focus:border-[#ff3ca6]"><SelectValue/></SelectTrigger>
-                      <SelectContent className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
+                      <SelectTrigger className="bg-[var(--dk-raised)] border-[var(--dk-line)] text-[var(--dk-ink)] focus:ring-[var(--dk-pnk-ink)] focus:border-[var(--dk-pnk-ink)]"><SelectValue/></SelectTrigger>
+                      <SelectContent className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                         {mode === 'historic' 
                            ? Object.keys(HISTORIC_RATES).map(y => <SelectItem key={y} value={y}>{y}</SelectItem>)
                            : <SelectItem value={new Date().getFullYear().toString()}>{new Date().getFullYear()}</SelectItem>
@@ -100,17 +100,17 @@ export function InflationImpact() {
                  </div>
 
                  <div className="space-y-2">
-                    <Label className="text-[#b3aae0]">Amount ($)</Label>
-                    <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} className="bg-[#241a52] border-[#4a3f7a] text-[#ECEAE3] focus-visible:ring-[#ff3ca6] focus-visible:border-[#ff3ca6]" />
+                    <Label className="text-[var(--dk-ink-soft)]">Amount ($)</Label>
+                    <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} className="bg-[var(--dk-raised)] border-[var(--dk-line)] text-[var(--dk-ink)] focus-visible:ring-[var(--dk-pnk-ink)] focus-visible:border-[var(--dk-pnk-ink)]" />
                  </div>
 
                  {mode === 'future' && (
                     <div className="space-y-4 pt-2">
                        <div className="flex justify-between text-sm">
-                          <Label className="text-[#b3aae0]">Assumed Inflation Rate</Label>
-                          <span className="font-mono text-[#ff3ca6]">{customRate}%</span>
+                          <Label className="text-[var(--dk-ink-soft)]">Assumed Inflation Rate</Label>
+                          <span className="font-mono text-[var(--dk-pnk-ink)]">{customRate}%</span>
                        </div>
-                       <Slider value={[customRate]} onValueChange={([v]) => setCustomRate(v)} min={1} max={15} step={0.5} className="[&_.range-thumb]:bg-[#ff3ca6] [&_[role=slider]]:border-[#ff3ca6]" />
+                       <Slider value={[customRate]} onValueChange={([v]) => setCustomRate(v)} min={1} max={15} step={0.5} className="[&_.range-thumb]:bg-[var(--dk-pnk)] [&_[role=slider]]:border-[var(--dk-pnk-ink)]" />
                     </div>
                  )}
               </div>
@@ -118,43 +118,43 @@ export function InflationImpact() {
 
            <div className="lg:col-span-8 space-y-8">
               <div className="grid md:grid-cols-2 gap-4">
-                 <div className="bg-[#0c0824] p-6 rounded-xl border border-[#4a3f7a]">
-                    <div className="text-xs font-bold uppercase tracking-widest text-[#b3aae0] mb-1">Original Amount</div>
-                    <div className="text-4xl font-black text-[#ECEAE3]">${amount.toLocaleString()}</div>
-                    <div className="text-sm text-[#b3aae0] mt-2">
+                 <div className="bg-[var(--dk-sunk)] p-6 rounded-xl border border-[var(--dk-line)]">
+                    <div className="text-xs font-bold uppercase tracking-widest text-[var(--dk-ink-soft)] mb-1">Original Amount</div>
+                    <div className="text-4xl font-black text-[var(--dk-ink)]">${amount.toLocaleString()}</div>
+                    <div className="text-sm text-[var(--dk-ink-soft)] mt-2">
                        in {startYear}
                     </div>
                  </div>
-                 <div className="bg-[#0c0824] p-6 rounded-xl border border-[#4a3f7a]">
-                    <div className="text-xs font-bold uppercase tracking-widest text-[#b3aae0] mb-1">{calculation.label}</div>
-                    <div className="text-4xl font-black text-[#ff3ca6]">
+                 <div className="bg-[var(--dk-sunk)] p-6 rounded-xl border border-[var(--dk-line)]">
+                    <div className="text-xs font-bold uppercase tracking-widest text-[var(--dk-ink-soft)] mb-1">{calculation.label}</div>
+                    <div className="text-4xl font-black text-[var(--dk-pnk-ink)]">
                       ${calculation.final.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                     </div>
-                    <div className="text-sm text-[#b3aae0] mt-2">
+                    <div className="text-sm text-[var(--dk-ink-soft)] mt-2">
                        in {mode === 'historic' ? '2023' : startYear + 30}
                     </div>
                  </div>
               </div>
 
-              <div className="h-[300px] w-full bg-[#0c0824] rounded-xl p-4 border border-[#4a3f7a]">
+              <div className="h-[300px] w-full bg-[var(--dk-sunk)] rounded-xl p-4 border border-[var(--dk-line)]">
                 <ResponsiveContainer width="100%" height="100%">
                    <LineChart data={calculation.data}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#4a3f7a" />
-                      <XAxis dataKey="year" tick={{ fontSize: 12, fill: '#b3aae0' }} stroke="#4a3f7a" />
-                      <YAxis domain={['auto', 'auto']} tick={{ fontSize: 12, fill: '#b3aae0' }} stroke="#4a3f7a" tickFormatter={(val) => `$${val}`} />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--dk-ink-soft)" />
+                      <XAxis dataKey="year" tick={{ fontSize: 12, fill: 'var(--dk-ink-soft)' }} stroke="var(--dk-ink-soft)" />
+                      <YAxis domain={['auto', 'auto']} tick={{ fontSize: 12, fill: 'var(--dk-ink-soft)' }} stroke="var(--dk-ink-soft)" tickFormatter={(val) => `$${val}`} />
                       <Tooltip
                         formatter={(value) => [`$${Number(value).toFixed(2)}`, "Value"]}
-                        contentStyle={{ backgroundColor: '#1d1442', border: '1px solid #4a3f7a', color: '#ECEAE3' }}
-                        labelStyle={{ color: '#ECEAE3' }}
-                        itemStyle={{ color: '#ff3ca6' }}
+                        contentStyle={{ backgroundColor: 'var(--dk-surface)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink)' }}
+                        labelStyle={{ color: 'var(--dk-ink)' }}
+                        itemStyle={{ color: 'var(--dk-pnk-ink)' }}
                       />
-                      <Line type="monotone" dataKey="value" stroke="#ff3ca6" strokeWidth={3} dot={false} />
+                      <Line type="monotone" dataKey="value" stroke="var(--dk-pnk-ink)" strokeWidth={3} dot={false} />
                    </LineChart>
                 </ResponsiveContainer>
               </div>
 
-              <div className="bg-[#0c0824] border border-[#4a3f7a] p-4 rounded-lg text-sm text-[#ECEAE3] flex gap-3">
-                 <Banknote className="h-5 w-5 shrink-0 text-[#ff3ca6]" />
+              <div className="bg-[var(--dk-sunk)] border border-[var(--dk-line)] p-4 rounded-lg text-sm text-[var(--dk-ink)] flex gap-3">
+                 <Banknote className="h-5 w-5 shrink-0 text-[var(--dk-pnk-ink)]" />
                  <p>
                     {mode === 'historic' 
                        ? `That's a ${(calculation.final / amount * 100 - 100).toFixed(0)}% increase in prices since ${startYear}. Ouch.` 

@@ -56,7 +56,7 @@ export function PigpenCipher() {
         if (!config) {
             // Visualize spaces or unknown chars
             if (char === ' ') return <div key={index} className="w-8 h-8" />
-            return <div key={index} className="w-8 h-12 flex items-center justify-center font-mono text-xl" style={{ color: '#ECEAE3' }}>{char}</div>
+            return <div key={index} className="w-8 h-12 flex items-center justify-center font-mono text-xl" style={{ color: 'var(--dk-ink)' }}>{char}</div>
         }
 
         if (config.type === 'square') {
@@ -91,9 +91,9 @@ export function PigpenCipher() {
     return (
         <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-6">
-                <Card className="glass-card" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                        <CardTitle style={{ color: '#ECEAE3' }}>Message Encoder</CardTitle>
+                        <CardTitle style={{ color: 'var(--dk-ink)' }}>Message Encoder</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <Textarea
@@ -101,17 +101,17 @@ export function PigpenCipher() {
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             className="min-h-[150px] text-lg uppercase focus-visible:ring-[#b388ff] focus-visible:border-[#b388ff]"
-                            style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
+                            style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                     </CardContent>
                 </Card>
 
-                <Card className="glass-card" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                      <CardContent className="pt-6">
                         <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
                              🐷 Geometric Cipher
                         </h4>
-                        <p className="text-sm" style={{ color: '#b3aae0' }}>
+                        <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
                             Used by Freemasons in the 18th century to keep records private.
                             Also known as the Masonic Cipher. It replaces letters with fragments of a grid.
                         </p>
@@ -120,14 +120,14 @@ export function PigpenCipher() {
             </div>
 
             <div className="space-y-6">
-                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                        <CardTitle style={{ color: '#ECEAE3' }}>Pigpen Visuals</CardTitle>
+                        <CardTitle style={{ color: 'var(--dk-ink)' }}>Pigpen Visuals</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
-                        <div className="flex flex-wrap gap-2 content-start p-6 rounded-xl border min-h-[300px]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                        <div className="flex flex-wrap gap-2 content-start p-6 rounded-xl border min-h-[300px]" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                              {text.length === 0 && (
-                                <span className="italic w-full text-center mt-10" style={{ color: '#b3aae0' }}>Symbols will appear here...</span>
+                                <span className="italic w-full text-center mt-10" style={{ color: 'var(--dk-ink-soft)' }}>Symbols will appear here...</span>
                             )}
                             {text.split('').map((char, i) => renderPigpenChar(char, i))}
                         </div>
@@ -136,7 +136,7 @@ export function PigpenCipher() {
                          <ShareResult
                             title="Pigpen Secret Message"
                             text="I created a secret Masonic cipher! Decode it at Docket One."
-                            className="w-full text-[#160e33] hover:opacity-90 bg-[#b388ff] hover:bg-[#b388ff]"
+                            className="w-full text-[var(--dk-on-fill)] hover:opacity-90 bg-[#b388ff] hover:bg-[#b388ff]"
                         />
                     </div>
                 </Card>

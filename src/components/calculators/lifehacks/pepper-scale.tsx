@@ -35,13 +35,13 @@ export function PepperScale() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
+      <Card className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[var(--dk-ink)]">
         <CardHeader>
-           <CardTitle className="text-3xl font-display text-[#b6ff3c] flex items-center gap-3">
-              <Flame className="h-8 w-8 fill-[#b6ff3c]" />
+           <CardTitle className="text-3xl font-display text-[var(--dk-lim-ink)] flex items-center gap-3">
+              <Flame className="h-8 w-8 fill-[var(--dk-lim-ink)]" />
               How Hot Is That Pepper?
            </CardTitle>
-           <CardDescription className="text-[#b3aae0]">
+           <CardDescription className="text-[var(--dk-ink-soft)]">
               Scoville Scale Visualizer & Survival Guide.
            </CardDescription>
         </CardHeader>
@@ -50,9 +50,9 @@ export function PepperScale() {
            <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6 min-w-0">
                  <div className="space-y-2">
-                    <Label className="uppercase text-xs font-bold text-[#b6ff3c] tracking-widest">Select a Pepper</Label>
+                    <Label className="uppercase text-xs font-bold text-[var(--dk-lim-ink)] tracking-widest">Select a Pepper</Label>
                     <Select value={selectedPepper.name} onValueChange={handleSelect}>
-                       <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] h-12 text-lg font-bold focus:ring-2 focus:ring-[#b6ff3c]"><SelectValue/></SelectTrigger>
+                       <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] h-12 text-lg font-bold focus:ring-2 focus:ring-[var(--dk-lim-ink)]"><SelectValue/></SelectTrigger>
                        <SelectContent>
                           {PEPPERS.map(p => (
                              <SelectItem key={p.name} value={p.name}>{p.name}</SelectItem>
@@ -62,14 +62,14 @@ export function PepperScale() {
                  </div>
 
                  <div className="space-y-4">
-                    <div className="bg-[#0c0824] p-6 rounded-xl border border-[#4a3f7a] space-y-4 min-w-0">
+                    <div className="bg-[var(--dk-sunk)] p-6 rounded-xl border border-[var(--dk-line)] space-y-4 min-w-0">
                        <div className="flex justify-between items-end gap-3">
-                          <div className="text-sm text-[#b3aae0] uppercase font-bold min-w-0">Scoville Heat Units (SHU)</div>
-                          <div className="text-3xl sm:text-4xl font-black shrink-0 tabular-nums" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#b6ff3c' }}>{selectedPepper.shu.toLocaleString()}</div>
+                          <div className="text-sm text-[var(--dk-ink-soft)] uppercase font-bold min-w-0">Scoville Heat Units (SHU)</div>
+                          <div className="text-3xl sm:text-4xl font-black shrink-0 tabular-nums" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-lim-ink)' }}>{selectedPepper.shu.toLocaleString()}</div>
                        </div>
 
                        {/* Thermometer Bar */}
-                       <div className="relative w-full h-6 bg-[#0c0824] rounded-full overflow-hidden border border-[#4a3f7a]">
+                       <div className="relative w-full h-6 bg-[var(--dk-sunk)] rounded-full overflow-hidden border border-[var(--dk-line)]">
                           <div 
                             className="h-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 transition-all duration-700 ease-out"
                             style={{ width: `${Math.max(1, heatPercent)}%` }} // Minimum 1% to show something
@@ -77,18 +77,18 @@ export function PepperScale() {
                        </div>
                     </div>
 
-                    <div className="bg-[#241a52] p-4 rounded-xl space-y-2">
-                       <div className="flex gap-2 font-bold text-[#b6ff3c] items-center">
+                    <div className="bg-[var(--dk-raised)] p-4 rounded-xl space-y-2">
+                       <div className="flex gap-2 font-bold text-[var(--dk-lim-ink)] items-center">
                           <Info className="w-4 h-4" /> Description
                        </div>
-                      <p className="text-[#ECEAE3] italic">&quot;{selectedPepper.desc}&quot;</p>
+                      <p className="text-[var(--dk-ink)] italic">&quot;{selectedPepper.desc}&quot;</p>
                     </div>
 
-                    <div className="bg-[#241a52] p-4 rounded-xl space-y-2 border border-[#4a3f7a]">
-                       <div className="flex gap-2 font-bold text-[#b6ff3c] items-center">
+                    <div className="bg-[var(--dk-raised)] p-4 rounded-xl space-y-2 border border-[var(--dk-line)]">
+                       <div className="flex gap-2 font-bold text-[var(--dk-lim-ink)] items-center">
                           <Milk className="w-4 h-4" /> Survival Kit
                        </div>
-                       <p className="text-[#ECEAE3] font-mono">{selectedPepper.survival}</p>
+                       <p className="text-[var(--dk-ink)] font-mono">{selectedPepper.survival}</p>
                     </div>
                  </div>
               </div>

@@ -51,7 +51,7 @@ export function OghamTranslator() {
             const dataUrl = await toPng(stoneRef.current, {
                 quality: 1,
                 pixelRatio: 3, // High resolution for printing
-                backgroundColor: '#0c0824',
+                backgroundColor: 'var(--dk-sunk)',
                 style: {
                     margin: '0',
                     transform: 'none'
@@ -78,7 +78,7 @@ export function OghamTranslator() {
         return (
             <div
                 ref={stoneRef}
-                className="mx-auto relative py-20 min-h-[500px] flex flex-col items-center justify-end px-10 sm:px-24 bg-[#0c0824] rounded-3xl"
+                className="mx-auto relative py-20 min-h-[500px] flex flex-col items-center justify-end px-10 sm:px-24 bg-[var(--dk-sunk)] rounded-3xl"
             >
                 {/* Stem Line (Continuous line) */}
                 <div className="absolute top-0 bottom-12 left-1/2 w-[3px] bg-[#b388ff]/80 -translate-x-1/2" />
@@ -88,13 +88,13 @@ export function OghamTranslator() {
                     {chars.map((char, i) => (
                         <div key={i} className="flex items-center justify-center h-12 relative w-full group/char">
                             {/* Ogham character - The strokes centered on the line */}
-                            <div className="text-6xl font-bold text-[#ECEAE3] rotate-90 absolute left-1/2 -translate-x-1/2 flex items-center justify-center min-w-[100px]">
+                            <div className="text-6xl font-bold text-[var(--dk-ink)] rotate-90 absolute left-1/2 -translate-x-1/2 flex items-center justify-center min-w-[100px]">
                                 {OGHAM_MAP[char]?.char || ''}
                             </div>
 
                             {/* Latin label (on the right) */}
                             {char !== ' ' && (
-                                <div className="text-3xl font-mono font-black text-[#b3aae0] absolute left-1/2 translate-x-12 opacity-40 group-hover/char:opacity-100 transition-opacity">
+                                <div className="text-3xl font-mono font-black text-[var(--dk-ink-soft)] absolute left-1/2 translate-x-12 opacity-40 group-hover/char:opacity-100 transition-opacity">
                                     {char}
                                 </div>
                             )}
@@ -108,7 +108,7 @@ export function OghamTranslator() {
                 </div>
 
                 {chars.length === 0 && (
-                    <div className="text-[#b3aae0] italic text-lg font-bold opacity-30">
+                    <div className="text-[var(--dk-ink-soft)] italic text-lg font-bold opacity-30">
                         Awaiting inscription...
                     </div>
                 )}
@@ -119,9 +119,9 @@ export function OghamTranslator() {
     return (
         <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-6 min-w-0">
-                <Card className="white-glass-card bg-[#1d1442] border-[#4a3f7a]">
-                    <CardHeader className="border-b border-[#4a3f7a] bg-[#241a52]">
-                        <CardTitle className="flex items-center gap-2 text-[#ECEAE3] font-bold">
+                <Card className="white-glass-card bg-[var(--dk-surface)] border-[var(--dk-line)]">
+                    <CardHeader className="border-b border-[var(--dk-line)] bg-[var(--dk-raised)]">
+                        <CardTitle className="flex items-center gap-2 text-[var(--dk-ink)] font-bold">
                              🖋️ Inscription Editor
                         </CardTitle>
                     </CardHeader>
@@ -130,12 +130,12 @@ export function OghamTranslator() {
                             placeholder="Type English text to inscribe (e.g., 'DOCKET')..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[160px] text-lg uppercase font-black tracking-widest border-[#4a3f7a] bg-[#0c0824] text-[#ECEAE3] placeholder:text-[#b3aae0] shadow-inner rounded-2xl resize-none focus:border-[#b388ff] transition-all"
+                            className="min-h-[160px] text-lg uppercase font-black tracking-widest border-[var(--dk-line)] bg-[var(--dk-sunk)] text-[var(--dk-ink)] placeholder:text-[var(--dk-ink-soft)] shadow-inner rounded-2xl resize-none focus:border-[#b388ff] transition-all"
                         />
                         <div className="pt-2">
                             <Button 
                                 onClick={downloadInscription} 
-                                className="w-full h-14 gap-2 relative overflow-hidden group shadow-xl shadow-[#b388ff]/10 rounded-2xl font-black uppercase tracking-wide text-xs whitespace-normal leading-tight text-center bg-[#b388ff] text-[#160e33] hover:bg-[#b388ff]/90"
+                                className="w-full h-14 gap-2 relative overflow-hidden group shadow-xl shadow-[#b388ff]/10 rounded-2xl font-black uppercase tracking-wide text-xs whitespace-normal leading-tight text-center bg-[#b388ff] text-[var(--dk-on-fill)] hover:bg-[#b388ff]/90"
                                 variant="default"
                                 disabled={!text || isDownloading}
                             >
@@ -150,12 +150,12 @@ export function OghamTranslator() {
                     </CardContent>
                 </Card>
 
-                <Card className="white-glass-card bg-[#241a52] border-[#4a3f7a]" style={{ backgroundColor: "#241a52", borderColor: "#4a3f7a" }}>
+                <Card className="white-glass-card bg-[var(--dk-raised)] border-[var(--dk-line)]" style={{ backgroundColor: "var(--dk-raised)", borderColor: "var(--dk-line)" }}>
                      <CardContent className="p-8">
                         <h4 className="font-black text-[#6ee7b7] mb-3 flex items-center gap-2 text-[10px] uppercase tracking-widest">
                              📜 The Druim Backline
                         </h4>
-                        <p className="text-sm text-[#b3aae0] font-medium leading-relaxed">
+                        <p className="text-sm text-[var(--dk-ink-soft)] font-medium leading-relaxed">
                             Ogham is read from the bottom upwards. The central line, known as the <strong className="text-[#6ee7b7]">druim</strong> (ridge),
                             acts as the backbone of the script. Strokes are carved to the left, right, or across 
                             this line to represent different vowel and consonant sounds.
@@ -165,14 +165,14 @@ export function OghamTranslator() {
             </div>
 
             <div className="space-y-6 min-w-0">
-                 <Card className="white-glass-card h-full flex flex-col bg-[#1d1442] border-[#4a3f7a] overflow-hidden shadow-2xl shadow-black/50">
-                    <CardHeader className="flex flex-row items-center justify-between border-b border-[#4a3f7a] bg-[#241a52] pb-4 p-6">
-                        <CardTitle className="text-[#ECEAE3] font-bold">Inscription Preview</CardTitle>
+                 <Card className="white-glass-card h-full flex flex-col bg-[var(--dk-surface)] border-[var(--dk-line)] overflow-hidden shadow-2xl shadow-black/50">
+                    <CardHeader className="flex flex-row items-center justify-between border-b border-[var(--dk-line)] bg-[var(--dk-raised)] pb-4 p-6">
+                        <CardTitle className="text-[var(--dk-ink)] font-bold">Inscription Preview</CardTitle>
                         <div className="text-[9px] uppercase tracking-[0.25em] font-black text-[#b388ff] bg-[#b388ff]/10 px-4 py-1.5 rounded-full border border-[#b388ff]/30">
                             Read Bottom Up
                         </div>
                     </CardHeader>
-                    <CardContent className="flex-1 p-12 flex flex-col items-center justify-center relative overflow-hidden bg-[#0c0824]">
+                    <CardContent className="flex-1 p-12 flex flex-col items-center justify-center relative overflow-hidden bg-[var(--dk-sunk)]">
                         {/* Decorative subtle texture/dots */}
                         <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-[radial-gradient(#b388ff_1px,transparent_1px)] [background-size:20px_20px]" />
                         
@@ -180,7 +180,7 @@ export function OghamTranslator() {
                              {renderInscription()}
                         </div>
                     </CardContent>
-                     <div className="p-8 pt-0 bg-[#1d1442]">
+                     <div className="p-8 pt-0 bg-[var(--dk-surface)]">
                          <ShareResult 
                             title="Ogham Inscription 🗿"
                             text={`I've created an Ogham inscription: "${text}"`}

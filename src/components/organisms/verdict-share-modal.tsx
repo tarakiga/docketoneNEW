@@ -130,8 +130,8 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
     ]
 
     const mono = "var(--font-space-mono), monospace"
-    const pixel = "var(--font-press), monospace"
-    const display = "var(--font-bungee), cursive"
+    const pixel = "var(--font-space-mono), monospace"
+    const display = "var(--font-fredoka), cursive"
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -140,19 +140,19 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                 className="sm:max-w-[400px] p-0 border-0 bg-transparent shadow-none"
                 style={{ fontFamily: mono }}
             >
-                <div style={{ background: "#160e33", border: "3px solid #29e0ff", boxShadow: "8px 8px 0 #0c0824", borderRadius: 8 }} className="p-4 sm:p-6 min-w-0 overflow-hidden">
+                <div style={{ background: "var(--dk-sunk)", border: "3px solid var(--dk-tea-ink)", boxShadow: "8px 8px 0 var(--dk-shadow)", borderRadius: 8 }} className="p-4 sm:p-6 min-w-0 overflow-hidden">
                     <DialogClose
-                        className="absolute right-3 top-3 w-9 h-9 flex items-center justify-center shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#b6ff3c]"
-                        style={{ background: "#241a52", border: "2px solid #4a3f7a", borderRadius: 4 }}
+                        className="absolute right-3 top-3 w-9 h-9 flex items-center justify-center shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--dk-lim-ink)]"
+                        style={{ background: "var(--dk-raised)", border: "2px solid var(--dk-line)", borderRadius: 4 }}
                     >
-                        <X className="w-4 h-4" style={{ color: "#b3aae0" }} />
+                        <X className="w-4 h-4" style={{ color: "var(--dk-ink-soft)" }} />
                         <span className="sr-only">Close</span>
                     </DialogClose>
 
-                    <DialogTitle style={{ fontFamily: display, color: "#ffd23c", fontSize: "clamp(17px, 5.5vw, 22px)", lineHeight: 1.1, paddingRight: 40 }}>
+                    <DialogTitle style={{ fontFamily: display, color: "var(--dk-yel-ink)", fontSize: "clamp(17px, 5.5vw, 22px)", lineHeight: 1.1, paddingRight: 40 }}>
                         Share your score
                     </DialogTitle>
-                    <DialogDescription style={{ color: "#b3aae0", fontSize: 12, marginTop: 4 }}>
+                    <DialogDescription style={{ color: "var(--dk-ink-soft)", fontSize: 12, marginTop: 4 }}>
                         Save the card or send the link - brag a little.
                     </DialogDescription>
 
@@ -164,29 +164,29 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                                 width: "100%",
                                 maxWidth: 320,
                                 minHeight: 380,
-                                background: "#0c0824",
+                                background: "var(--dk-sunk)",
                                 backgroundImage: "repeating-linear-gradient(transparent 0 3px, rgba(0,0,0,.18) 3px 4px)",
-                                border: "3px solid #ffd23c",
+                                border: "3px solid var(--dk-yel-ink)",
                                 borderRadius: 10,
                                 padding: "clamp(16px, 6vw, 26px)",
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "space-between",
-                                color: "#ECEAE3",
+                                color: "var(--dk-ink)",
                             }}
                         >
                             <div>
-                                <div style={{ fontFamily: pixel, fontSize: 9, letterSpacing: ".18em", color: "#29e0ff", marginBottom: 22 }}>
+                                <div style={{ fontFamily: pixel, fontSize: 9, letterSpacing: ".18em", color: "var(--dk-tea-ink)", marginBottom: 22 }}>
                                     ★ DOCKET ONE ARCADE
                                 </div>
-                                <h3 style={{ fontFamily: display, color: "#ffd23c", fontSize: "clamp(20px, 6.5vw, 30px)", lineHeight: 0.95, textShadow: "3px 3px 0 #ff3ca6", margin: 0, wordBreak: "break-word" }}>
+                                <h3 style={{ fontFamily: display, color: "var(--dk-yel-ink)", fontSize: "clamp(20px, 6.5vw, 30px)", lineHeight: 0.95, textShadow: "3px 3px 0 var(--dk-pnk)", margin: 0, wordBreak: "break-word" }}>
                                     {title}
                                 </h3>
-                                <div style={{ height: 4, width: 56, background: "#29e0ff", marginTop: 16 }} />
+                                <div style={{ height: 4, width: 56, background: "var(--dk-tea)", marginTop: 16 }} />
                             </div>
 
                             <div>
-                                <div style={{ fontFamily: pixel, fontSize: 8, letterSpacing: ".24em", color: "#b6ff3c", marginBottom: 10 }}>
+                                <div style={{ fontFamily: pixel, fontSize: 8, letterSpacing: ".24em", color: "var(--dk-lim-ink)", marginBottom: 10 }}>
                                     ▚ YOUR RESULT
                                 </div>
                                 <div style={{ fontSize: 17, fontWeight: 700, lineHeight: 1.35, color: "#fff" }}>
@@ -194,9 +194,9 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                                 </div>
                             </div>
 
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid #4a3f7a", paddingTop: 14 }}>
-                                <span style={{ fontFamily: display, color: "#29e0ff", fontSize: 14 }}>DOCKET ONE</span>
-                                <span style={{ fontFamily: mono, color: "#b3aae0", fontSize: 11 }}>docket.one</span>
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid var(--dk-line)", paddingTop: 14 }}>
+                                <span style={{ fontFamily: display, color: "var(--dk-tea-ink)", fontSize: 14 }}>DOCKET ONE</span>
+                                <span style={{ fontFamily: mono, color: "var(--dk-ink-soft)", fontSize: 11 }}>docket.one</span>
                             </div>
                         </div>
                     </div>
@@ -206,8 +206,8 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                         <button
                             type="button"
                             onClick={handleShare}
-                            className="w-full flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#160e33]"
-                            style={{ fontFamily: pixel, fontSize: 11, padding: "14px", background: "#b6ff3c", color: "#160e33", border: "2px solid #fff", borderRadius: 0, cursor: "pointer", textTransform: "uppercase" }}
+                            className="w-full flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--dk-line)]"
+                            style={{ fontFamily: pixel, fontSize: 11, padding: "14px", background: "var(--dk-lim)", color: "var(--dk-on-fill)", border: "2px solid #fff", borderRadius: 0, cursor: "pointer", textTransform: "uppercase" }}
                         >
                             <Share2 className="w-4 h-4" /> Share
                         </button>
@@ -219,11 +219,11 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                             type="button"
                             onClick={handleDownload}
                             disabled={isGenerating}
-                            className="flex items-center justify-center gap-2 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b6ff3c]"
-                            style={{ fontFamily: mono, fontWeight: 700, fontSize: 12, padding: "12px", background: "#241a52", color: "#ECEAE3", border: "2px solid #4a3f7a", borderRadius: 0, cursor: "pointer" }}
+                            className="flex items-center justify-center gap-2 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--dk-lim-ink)]"
+                            style={{ fontFamily: mono, fontWeight: 700, fontSize: 12, padding: "12px", background: "var(--dk-raised)", color: "var(--dk-ink)", border: "2px solid var(--dk-line)", borderRadius: 0, cursor: "pointer" }}
                         >
                             {isGenerating ? (
-                                <span className="animate-spin" style={{ display: "inline-block", width: 14, height: 14, border: "2px solid #4a3f7a", borderTopColor: "#b6ff3c", borderRadius: "50%" }} />
+                                <span className="animate-spin" style={{ display: "inline-block", width: 14, height: 14, border: "2px solid var(--dk-line)", borderTopColor: "var(--dk-lim-ink)", borderRadius: "50%" }} />
                             ) : (
                                 <Download className="w-4 h-4" />
                             )}
@@ -232,8 +232,8 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                         <button
                             type="button"
                             onClick={handleCopyLink}
-                            className="flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b6ff3c]"
-                            style={{ fontFamily: mono, fontWeight: 700, fontSize: 12, padding: "12px", background: "#241a52", color: "#ECEAE3", border: "2px solid #4a3f7a", borderRadius: 0, cursor: "pointer" }}
+                            className="flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--dk-lim-ink)]"
+                            style={{ fontFamily: mono, fontWeight: 700, fontSize: 12, padding: "12px", background: "var(--dk-raised)", color: "var(--dk-ink)", border: "2px solid var(--dk-line)", borderRadius: 0, cursor: "pointer" }}
                         >
                             <Copy className="w-4 h-4" /> Copy link
                         </button>
@@ -251,8 +251,8 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                                 onClick={s.action}
                                 title={s.name}
                                 aria-label={s.name}
-                                className="flex items-center justify-center hover:border-[#29e0ff] hover:text-[#29e0ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#b6ff3c]"
-                                style={{ width: 38, height: 38, background: "#241a52", color: "#ECEAE3", border: "2px solid #4a3f7a", borderRadius: 4, cursor: "pointer", transition: "border-color .15s, color .15s" }}
+                                className="flex items-center justify-center hover:border-[var(--dk-tea-ink)] hover:text-[var(--dk-tea-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--dk-lim-ink)]"
+                                style={{ width: 38, height: 38, background: "var(--dk-raised)", color: "var(--dk-ink)", border: "2px solid var(--dk-line)", borderRadius: 4, cursor: "pointer", transition: "border-color .15s, color .15s" }}
                             >
                                 {s.icon}
                             </button>

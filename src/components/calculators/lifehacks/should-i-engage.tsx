@@ -51,12 +51,12 @@ export function ShouldIEngage() {
 
     // Verdict pills: bright fill + DARK ink for AA contrast on the dark arcade theme.
     let advice = "PROCEED WITH CAUTION"
-    let color = "bg-yellow-400 text-[#0c0824]"
+    let color = "bg-yellow-400 text-[var(--dk-on-fill)]"
     let icon = <ShieldAlert className="w-12 h-12" />
 
     if (score > 8) {
        advice = "ENGAGE IMMEDIATELY"
-       color = "bg-green-400 text-[#0c0824]"
+       color = "bg-green-400 text-[var(--dk-on-fill)]"
        icon = <ThumbsUp className="w-12 h-12" />
     } else if (score < -5) {
        advice = "ABORT MISSION / RUN AWAY"
@@ -71,20 +71,20 @@ export function ShouldIEngage() {
     <div
       className="almanac space-y-8 animate-in fade-in duration-700"
       style={{
-        ["--card" as string]: "#1d1442",
-        ["--ink" as string]: "#ECEAE3",
-        ["--ink-soft" as string]: "#b3aae0",
-        ["--accent" as string]: "#b6ff3c",
-        ["--line" as string]: "#4a3f7a",
+        ["--card" as string]: "var(--dk-surface)",
+        ["--ink" as string]: "var(--dk-ink)",
+        ["--ink-soft" as string]: "var(--dk-ink-soft)",
+        ["--accent" as string]: "var(--dk-lim-ink)",
+        ["--line" as string]: "var(--dk-line)",
       }}
     >
-      <Card className="bg-[#1d1442] border-4 border-[#4a3f7a] text-[#ECEAE3] shadow-[8px_8px_0px_0px_rgba(12,8,36,1)]">
-        <CardHeader className="bg-[#0c0824] text-[#ECEAE3] py-6 border-b-4 border-[#4a3f7a]">
+      <Card className="bg-[var(--dk-surface)] border-4 border-[var(--dk-line)] text-[var(--dk-ink)] shadow-[8px_8px_0px_0px_rgba(12,8,36,1)]">
+        <CardHeader className="bg-[var(--dk-sunk)] text-[var(--dk-ink)] py-6 border-b-4 border-[var(--dk-line)]">
            <CardTitle className="text-3xl font-display flex items-center gap-3">
-              <MessageSquare className="h-8 w-8 text-[#b6ff3c]" />
+              <MessageSquare className="h-8 w-8 text-[var(--dk-lim-ink)]" />
               Should I Engage?
            </CardTitle>
-           <CardDescription className="text-[#b3aae0]">
+           <CardDescription className="text-[var(--dk-ink-soft)]">
               A tactical decision engine for social interaction.
            </CardDescription>
         </CardHeader>
@@ -93,10 +93,10 @@ export function ShouldIEngage() {
            <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                  <div className="space-y-2">
-                    <Label className="uppercase text-xs font-bold text-[#b3aae0] tracking-widest">Topic of Conversation</Label>
+                    <Label className="uppercase text-xs font-bold text-[var(--dk-ink-soft)] tracking-widest">Topic of Conversation</Label>
                     <Select value={topic} onValueChange={setTopic}>
-                       <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#b6ff3c] focus:border-[#b6ff3c]"><SelectValue/></SelectTrigger>
-                       <SelectContent className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]">
+                       <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus:ring-[var(--dk-lim-ink)] focus:border-[var(--dk-lim-ink)]"><SelectValue/></SelectTrigger>
+                       <SelectContent className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                           <SelectItem value="casual">Casual / Small Talk</SelectItem>
                           <SelectItem value="hobbies">Shared Hobbies</SelectItem>
                           <SelectItem value="money">Money / Debt</SelectItem>
@@ -108,10 +108,10 @@ export function ShouldIEngage() {
                  </div>
 
                  <div className="space-y-2">
-                    <Label className="uppercase text-xs font-bold text-[#b3aae0] tracking-widest">Your Current Mood</Label>
+                    <Label className="uppercase text-xs font-bold text-[var(--dk-ink-soft)] tracking-widest">Your Current Mood</Label>
                     <Select value={mood} onValueChange={setMood}>
-                       <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#b6ff3c] focus:border-[#b6ff3c]"><SelectValue/></SelectTrigger>
-                       <SelectContent className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]">
+                       <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus:ring-[var(--dk-lim-ink)] focus:border-[var(--dk-lim-ink)]"><SelectValue/></SelectTrigger>
+                       <SelectContent className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                           <SelectItem value="happy">Happy / Energetic</SelectItem>
                           <SelectItem value="neutral">Neutral</SelectItem>
                           <SelectItem value="tired">Tired / Groggy</SelectItem>
@@ -122,10 +122,10 @@ export function ShouldIEngage() {
                  </div>
 
                  <div className="space-y-2">
-                    <Label className="uppercase text-xs font-bold text-[#b3aae0] tracking-widest">Wait, who is this?</Label>
+                    <Label className="uppercase text-xs font-bold text-[var(--dk-ink-soft)] tracking-widest">Wait, who is this?</Label>
                     <Select value={relationship} onValueChange={setRelationship}>
-                       <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#b6ff3c] focus:border-[#b6ff3c]"><SelectValue/></SelectTrigger>
-                       <SelectContent className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]">
+                       <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus:ring-[var(--dk-lim-ink)] focus:border-[var(--dk-lim-ink)]"><SelectValue/></SelectTrigger>
+                       <SelectContent className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                           <SelectItem value="stranger">Stranger</SelectItem>
                           <SelectItem value="friend">Friend</SelectItem>
                           <SelectItem value="bestie">Best Friend (Ride or Die)</SelectItem>
@@ -137,10 +137,10 @@ export function ShouldIEngage() {
                  </div>
 
                  <div className="space-y-2">
-                    <Label className="uppercase text-xs font-bold text-[#b3aae0] tracking-widest">Caffeine Level</Label>
+                    <Label className="uppercase text-xs font-bold text-[var(--dk-ink-soft)] tracking-widest">Caffeine Level</Label>
                     <Select value={caffeine} onValueChange={setCaffeine}>
-                       <SelectTrigger className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] focus:ring-[#b6ff3c] focus:border-[#b6ff3c]"><SelectValue/></SelectTrigger>
-                       <SelectContent className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3]">
+                       <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] focus:ring-[var(--dk-lim-ink)] focus:border-[var(--dk-lim-ink)]"><SelectValue/></SelectTrigger>
+                       <SelectContent className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                           <SelectItem value="none">None (Decaf)</SelectItem>
                           <SelectItem value="adequate">Adequate (Functioning)</SelectItem>
                           <SelectItem value="too_much">Too Much (Vibrating)</SelectItem>
@@ -149,15 +149,15 @@ export function ShouldIEngage() {
                  </div>
               </div>
 
-              <div className="flex flex-col justify-center items-center gap-6 p-6 bg-[#241a52] rounded-xl border-dashed border-2 border-[#4a3f7a]">
+              <div className="flex flex-col justify-center items-center gap-6 p-6 bg-[var(--dk-raised)] rounded-xl border-dashed border-2 border-[var(--dk-line)]">
 
                  <div className={`w-40 h-40 rounded-full flex items-center justify-center shadow-xl transition-all duration-500 ${result.color}`}>
                     {result.icon}
                  </div>
 
                  <div className="text-center space-y-2 animate-in slide-in-from-bottom-5">
-                    <div className="text-3xl font-black uppercase tracking-tighter text-[#ECEAE3]">{result.advice}</div>
-                    <div className="text-lg font-medium text-[#b3aae0] bg-[#0c0824] px-4 py-2 rounded-lg border border-[#4a3f7a]">
+                    <div className="text-3xl font-black uppercase tracking-tighter text-[var(--dk-ink)]">{result.advice}</div>
+                    <div className="text-lg font-medium text-[var(--dk-ink-soft)] bg-[var(--dk-sunk)] px-4 py-2 rounded-lg border border-[var(--dk-line)]">
                        &quot;{result.reason}&quot;
                     </div>
                  </div>

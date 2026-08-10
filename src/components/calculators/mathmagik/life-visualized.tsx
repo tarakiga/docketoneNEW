@@ -50,16 +50,16 @@ export function LifeVisualized() {
     return { livedUnits, livedClamped, remaining, totalUnits, label, gridRows, pct, overLived, validDate, years }
   }, [birthday, expectancy, viewMode])
 
-  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[#b3aae0]"
+  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--dk-ink-soft)]"
   const cols = viewMode === "months" ? 12 : 52
   const fieldCls =
-    "w-full min-w-0 bg-[#0c0824] border border-[#4a3f7a] rounded-lg text-[#ECEAE3] font-mono text-sm px-3 py-2 outline-none focus:border-[#ff3ca6] [color-scheme:dark]"
+    "w-full min-w-0 bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded-lg text-[var(--dk-ink)] font-mono text-sm px-3 py-2 outline-none focus:border-[var(--dk-pnk-ink)] [color-scheme:dark]"
 
   return (
     <motion.div
-      className="w-full rounded-3xl p-5 md:p-8 border border-[#4a3f7a] shadow-2xl relative overflow-hidden"
+      className="w-full rounded-3xl p-5 md:p-8 border border-[var(--dk-line)] shadow-2xl relative overflow-hidden"
       style={{
-        background: "#1d1442",
+        background: "var(--dk-surface)",
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -67,12 +67,12 @@ export function LifeVisualized() {
     >
       <div className="relative z-10">
         <span className={MONO_K + " flex items-center gap-2"}>
-          <span className="h-2 w-2 rounded-full bg-[#ff3ca6]" /> Math Magik · Memento Mori
+          <span className="h-2 w-2 rounded-full bg-[var(--dk-pnk)]" /> Math Magik · Memento Mori
         </span>
-        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[#ECEAE3] leading-tight mt-1">
-          Your whole life, in <em className="italic text-[#ff3ca6]">{data.label.toLowerCase()}</em>
+        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[var(--dk-ink)] leading-tight mt-1">
+          Your whole life, in <em className="italic text-[var(--dk-pnk-ink)]">{data.label.toLowerCase()}</em>
         </h2>
-        <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
+        <p className="text-[var(--dk-ink-soft)] text-sm mt-1 mb-6 max-w-2xl">
           Every box is one {data.label.toLowerCase().replace(/s$/, "")} of an {data.years || "-"}-year life. The filled
           ones are spent. Make the empty ones count.
         </p>
@@ -80,11 +80,11 @@ export function LifeVisualized() {
         {/* controls */}
         <div className="flex flex-col sm:flex-row gap-3 sm:items-end mb-6">
           <label className="block flex-1 min-w-0">
-            <span className="font-mono text-[9px] uppercase tracking-wide text-[#b3aae0]">Date of birth</span>
+            <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--dk-ink-soft)]">Date of birth</span>
             <input type="date" value={birthday} onChange={(e) => setBirthday(e.target.value)} className={fieldCls + " mt-1"} />
           </label>
           <label className="block flex-1 min-w-0">
-            <span className="font-mono text-[9px] uppercase tracking-wide text-[#b3aae0]">Life expectancy (yrs)</span>
+            <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--dk-ink-soft)]">Life expectancy (yrs)</span>
             <input
               type="number"
               min={1}
@@ -94,13 +94,13 @@ export function LifeVisualized() {
               className={fieldCls + " mt-1"}
             />
           </label>
-          <div className="flex bg-[#0c0824] border border-[#4a3f7a] rounded-lg p-1 shrink-0">
+          <div className="flex bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded-lg p-1 shrink-0">
             {modes.map((m) => (
               <button
                 key={m}
                 onClick={() => setViewMode(m)}
                 className={`px-3 py-1.5 text-[13px] font-semibold rounded-md capitalize transition-all ${
-                  viewMode === m ? "bg-[#ff3ca6] text-[#160e33]" : "text-[#b3aae0] hover:text-[#ECEAE3]"
+                  viewMode === m ? "bg-[var(--dk-pnk)] text-[var(--dk-on-fill)]" : "text-[var(--dk-ink-soft)] hover:text-[var(--dk-ink)]"
                 }`}
               >
                 {m}
@@ -110,18 +110,18 @@ export function LifeVisualized() {
         </div>
 
         {data.years === 0 ? (
-          <div className="rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-8 text-center text-[#b3aae0]">
+          <div className="rounded-2xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-8 text-center text-[var(--dk-ink-soft)]">
             Enter a life expectancy to draw your grid.
           </div>
         ) : (
           <>
             {/* legend */}
-            <div className="flex gap-5 text-[12px] font-mono text-[#b3aae0] justify-center mb-3">
+            <div className="flex gap-5 text-[12px] font-mono text-[var(--dk-ink-soft)] justify-center mb-3">
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-[2px]" style={{ background: "#ff3ca6" }} /> Lived
+                <span className="w-3 h-3 rounded-[2px]" style={{ background: "var(--dk-pnk)" }} /> Lived
               </span>
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-[2px] border border-[#4a3f7a]" style={{ background: "#241a52" }} /> Remaining
+                <span className="w-3 h-3 rounded-[2px] border border-[var(--dk-line)]" style={{ background: "var(--dk-raised)" }} /> Remaining
               </span>
             </div>
 
@@ -136,7 +136,7 @@ export function LifeVisualized() {
                         key={i}
                         title={`Age ${i}`}
                         className="w-5 h-5 rounded-[2px] transition-transform hover:scale-125"
-                        style={{ background: lived ? "#ff3ca6" : "#241a52", border: lived ? "none" : "1px solid #4a3f7a" }}
+                        style={{ background: lived ? "var(--dk-pnk)" : "var(--dk-raised)", border: lived ? "none" : "1px solid var(--dk-line)" }}
                       />
                     )
                   })}
@@ -146,7 +146,7 @@ export function LifeVisualized() {
                 <div className="min-w-[560px] space-y-1">
                   {data.gridRows.map((rowKey) => (
                     <div key={rowKey} className={`flex gap-1 items-center ${viewMode === "months" ? "h-5" : "h-2.5"}`}>
-                      <div className="w-7 text-[9px] font-mono text-right pr-1.5 shrink-0" style={{ color: "#b3aae0" }}>
+                      <div className="w-7 text-[9px] font-mono text-right pr-1.5 shrink-0" style={{ color: "var(--dk-ink-soft)" }}>
                         {rowKey % 5 === 0 ? rowKey : ""}
                       </div>
                       {Array.from({ length: cols }, (_, k) => {
@@ -157,7 +157,7 @@ export function LifeVisualized() {
                             key={k}
                             title={`Age ${rowKey}, ${viewMode === "months" ? "Month" : "Week"} ${k + 1}`}
                             className="flex-1 h-full rounded-[1px] transition-transform hover:scale-150"
-                            style={{ background: lived ? "#ff3ca6" : "#241a52", border: lived ? "none" : "1px solid #4a3f7a" }}
+                            style={{ background: lived ? "var(--dk-pnk)" : "var(--dk-raised)", border: lived ? "none" : "1px solid var(--dk-line)" }}
                           />
                         )
                       })}
@@ -175,22 +175,22 @@ export function LifeVisualized() {
                 ["Remaining", data.remaining.toLocaleString(), "#b3aae0"],
                 ["Complete", `${data.pct}%`, "#ff3ca6"],
               ].map(([k, v, c]) => (
-                <div key={k} className="rounded-xl border border-[#4a3f7a] bg-[#0c0824] p-3 text-center">
-                  <div className="text-xl font-bold" style={{ color: c as string, fontFamily: "var(--font-bungee), cursive" }}>
+                <div key={k} className="rounded-xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-3 text-center">
+                  <div className="text-xl font-bold" style={{ color: c as string, fontFamily: "var(--font-fredoka), cursive" }}>
                     {v}
                   </div>
-                  <div className="font-mono text-[9px] uppercase tracking-wide text-[#b3aae0] mt-0.5">{k}</div>
+                  <div className="font-mono text-[9px] uppercase tracking-wide text-[var(--dk-ink-soft)] mt-0.5">{k}</div>
                 </div>
               ))}
             </div>
 
             {data.overLived && (
-              <p className="text-center text-[12px] text-[#ff3ca6] mt-3">
+              <p className="text-center text-[12px] text-[var(--dk-pnk-ink)] mt-3">
                 You&apos;ve already outlived this estimate - every box from here is a bonus. 🍀
               </p>
             )}
 
-            <p className="text-center text-[#b3aae0] italic max-w-lg mx-auto mt-4 text-sm">
+            <p className="text-center text-[var(--dk-ink-soft)] italic max-w-lg mx-auto mt-4 text-sm">
               “It is not that we have a short time to live, but that we waste a lot of it.” - Seneca
             </p>
 

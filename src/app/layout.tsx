@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Fraunces, Hanken_Grotesk, Space_Mono, Bungee, Press_Start_2P } from "next/font/google";
+import { Inter, JetBrains_Mono, Fraunces, Hanken_Grotesk, Space_Mono, Fredoka } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,17 +30,11 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-// Arcade theme display + pixel faces
-const bungee = Bungee({
-  variable: "--font-bungee",
+// Saturday Morning display face — rounded, chunky, reads well lowercase
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
   subsets: ["latin"],
-  weight: "400",
-});
-
-const pressStart = Press_Start_2P({
-  variable: "--font-press",
-  subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -127,7 +121,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${hankenGrotesk.variable} ${spaceMono.variable} ${bungee.variable} ${pressStart.variable} antialiased bg-background text-foreground font-sans min-h-screen flex flex-col relative`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable} ${hankenGrotesk.variable} ${spaceMono.variable} ${fredoka.variable} antialiased bg-background text-foreground font-sans min-h-screen flex flex-col relative`}
       >
         <Script id="theme-init" strategy="beforeInteractive">
           {`(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`}

@@ -92,27 +92,27 @@ export function CostOfWar() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="border-[#4a3f7a] shadow-2xl relative overflow-hidden" style={{ backgroundColor: 'var(--card)' }}>
+      <Card className="border-[var(--dk-line)] shadow-2xl relative overflow-hidden" style={{ backgroundColor: 'var(--card)' }}>
         {/* Background Grid Pattern */}
         <div className="absolute inset-0 z-0 opacity-[0.06] pointer-events-none"
              style={{
-               backgroundImage: 'radial-gradient(#29e0ff 1px, transparent 1px)',
+               backgroundImage: 'radial-gradient(var(--dk-tea) 1px, transparent 1px)',
                backgroundSize: '24px 24px'
              }}>
         </div>
 
-        <CardHeader className="border-b border-[#4a3f7a] relative z-10 p-8" style={{ backgroundColor: '#241a52' }}>
+        <CardHeader className="border-b border-[var(--dk-line)] relative z-10 p-8" style={{ backgroundColor: 'var(--dk-raised)' }}>
            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="space-y-1 text-center md:text-left">
                 <CardTitle className="text-4xl font-display flex items-center justify-center md:justify-start gap-4" style={{ color: 'var(--ink)' }}>
-                  <span className="p-2 rounded-lg" style={{ backgroundColor: '#29e0ff', color: '#160e33' }}><Crosshair className="h-6 w-6"/></span>
+                  <span className="p-2 rounded-lg" style={{ backgroundColor: 'var(--dk-tea)', color: 'var(--dk-on-fill)' }}><Crosshair className="h-6 w-6"/></span>
                   The Cost of War
                 </CardTitle>
                 <CardDescription className="font-medium max-w-lg" style={{ color: 'var(--ink-soft)' }}>
                   Educational comparison of military procurement costs and societal opportunity benefits.
                 </CardDescription>
               </div>
-              <div className="border border-[#4a3f7a] rounded-2xl p-4 flex items-center gap-4 shadow-sm" style={{ backgroundColor: '#0c0824' }}>
+              <div className="border border-[var(--dk-line)] rounded-2xl p-4 flex items-center gap-4 shadow-sm" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                  <div className="text-right">
                     <div className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: 'var(--ink-soft)' }}>Global Impact</div>
                     <div className="text-xl font-black text-[#ff8a8a]">$2.4T+ / yr</div>
@@ -126,7 +126,7 @@ export function CostOfWar() {
            <div className="grid lg:grid-cols-2">
               
               {/* Tactical Pane */}
-              <div className="p-4 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#4a3f7a] space-y-8 sm:space-y-10">
+              <div className="p-4 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[var(--dk-line)] space-y-8 sm:space-y-10">
                  <div className="space-y-5 sm:space-y-6">
                     <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em]" style={{ color: 'var(--ink-soft)' }}>Weapon Selection</Label>
                     <div className="grid grid-cols-1 gap-3">
@@ -137,8 +137,8 @@ export function CostOfWar() {
                           className="flex items-center justify-between p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl md:rounded-3xl border-2 transition-all group gap-3 sm:gap-4 min-h-[64px]"
                           style={
                             selectedIndex === idx
-                              ? { backgroundColor: '#29e0ff', borderColor: '#29e0ff', color: '#160e33' }
-                              : { backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: 'var(--ink-soft)' }
+                              ? { backgroundColor: 'var(--dk-tea)', borderColor: 'var(--dk-tea-ink)', color: 'var(--dk-on-fill)' }
+                              : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--ink-soft)' }
                           }
                          >
                             <div className="text-left flex-1 min-w-0">
@@ -157,10 +157,10 @@ export function CostOfWar() {
                     </div>
                  </div>
 
-                 <div className="rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 border border-[#4a3f7a] space-y-5 sm:space-y-6 shadow-inner" style={{ backgroundColor: '#0c0824' }}>
+                 <div className="rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 border border-[var(--dk-line)] space-y-5 sm:space-y-6 shadow-inner" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2">
                        <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest" style={{ color: 'var(--ink-soft)' }}>Your Annual Tax Contribution</Label>
-                       <span className="text-lg sm:text-xl font-black text-[#29e0ff]">${taxContribution.toLocaleString()}</span>
+                       <span className="text-lg sm:text-xl font-black text-[var(--dk-tea-ink)]">${taxContribution.toLocaleString()}</span>
                     </div>
                     <Slider
                       value={[taxContribution]}
@@ -168,11 +168,11 @@ export function CostOfWar() {
                       min={1000}
                       max={100000}
                       step={500}
-                      className="[&_.range-thumb]:bg-[#29e0ff]"
+                      className="[&_.range-thumb]:bg-[var(--dk-tea)]"
                     />
-                    <div className="pt-4 border-t border-[#4a3f7a]">
+                    <div className="pt-4 border-t border-[var(--dk-line)]">
                        <div className="flex items-start gap-3 sm:gap-4">
-                          <div className="p-1.5 sm:p-2 rounded-xl mt-1" style={{ backgroundColor: '#241a52' }}>
+                          <div className="p-1.5 sm:p-2 rounded-xl mt-1" style={{ backgroundColor: 'var(--dk-raised)' }}>
                              <ShieldAlert className="h-4 w-4 text-[#86efac]" />
                           </div>
                           <div className="space-y-1">
@@ -202,9 +202,9 @@ export function CostOfWar() {
 
                  <div className="grid gap-4 relative z-10">
                     <div className="flex items-center gap-4 px-2">
-                       <div className="h-px flex-1 bg-[#4a3f7a]" />
+                       <div className="h-px flex-1 bg-[var(--dk-mute)]" />
                        <div className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: 'var(--ink-soft)' }}>Socio-Economic Value</div>
-                       <div className="h-px flex-1 bg-[#4a3f7a]" />
+                       <div className="h-px flex-1 bg-[var(--dk-mute)]" />
                     </div>
 
                     <AnimatePresence mode="wait">
@@ -216,12 +216,12 @@ export function CostOfWar() {
                          className="grid gap-4"
                        >
                           {activeMunition.equivalents.map((eq, i) => (
-                             <div key={i} className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] border border-[#4a3f7a] shadow-xl group hover:scale-[1.02] transition-transform" style={{ backgroundColor: '#0c0824' }}>
-                                <div className="p-3 md:p-4 rounded-xl md:rounded-3xl transition-colors shrink-0" style={{ backgroundColor: '#241a52' }}>
+                             <div key={i} className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] border border-[var(--dk-line)] shadow-xl group hover:scale-[1.02] transition-transform" style={{ backgroundColor: 'var(--dk-sunk)' }}>
+                                <div className="p-3 md:p-4 rounded-xl md:rounded-3xl transition-colors shrink-0" style={{ backgroundColor: 'var(--dk-raised)' }}>
                                    <eq.icon className="h-6 w-6 md:h-8 md:w-8 text-[#86efac]" />
                                 </div>
                                 <div className="min-w-0">
-                                   <div className="text-2xl md:text-4xl font-black tracking-tighter text-[#29e0ff]">
+                                   <div className="text-2xl md:text-4xl font-black tracking-tighter text-[var(--dk-tea-ink)]">
                                       {eq.val}x
                                    </div>
                                    <div className="text-[10px] md:text-xs font-bold uppercase tracking-widest truncate" style={{ color: 'var(--ink-soft)' }}>
@@ -251,10 +251,10 @@ export function CostOfWar() {
       <div className="grid md:grid-cols-3 gap-6">
          {[
            { title: "Opportunity Cost", desc: "Every dollar spent on munitions is a dollar that cannot be used for healthcare, housing, or education.", icon: Heart, color: "text-[#ff8a8a]" },
-           { title: "The Industrial Cycle", desc: "Military spending is often locked into multi-decade contracts that persist regardless of peace.", icon: ShieldAlert, color: "text-[#ffd23c]" },
+           { title: "The Industrial Cycle", desc: "Military spending is often locked into multi-decade contracts that persist regardless of peace.", icon: ShieldAlert, color: "text-[var(--dk-yel-ink)]" },
            { title: "Long-term Debt", desc: "Wars are rarely funded by current taxes; they are funded by borrowing against future generations.", icon: DollarSign, color: "text-[#86efac]" }
          ].map((item, idx) => (
-           <Card key={idx} className="p-6 border-[#4a3f7a] hover:shadow-lg transition-all group" style={{ backgroundColor: 'var(--card)' }}>
+           <Card key={idx} className="p-6 border-[var(--dk-line)] hover:shadow-lg transition-all group" style={{ backgroundColor: 'var(--card)' }}>
               <div className={`${item.color} mb-4 flex justify-between items-center`}>
                  <item.icon className="h-6 w-6" />
                  <span className="text-[10px] font-black uppercase" style={{ color: 'var(--ink-soft)' }}>Section 0{idx+1}</span>

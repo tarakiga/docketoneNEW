@@ -33,15 +33,15 @@ export function FireCalculator() {
   }, [expenses, savings, contribution, rate, swr])
 
   const multLabel = Number.isInteger(calc.multiple) ? `${calc.multiple}` : calc.multiple.toFixed(1)
-  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[#b3aae0]"
+  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--dk-ink-soft)]"
   const fieldCls =
-    "w-full min-w-0 bg-[#0c0824] border border-[#4a3f7a] rounded-lg text-[#ECEAE3] font-mono text-sm pl-7 pr-2 py-2 outline-none focus:border-[#ff3ca6]"
+    "w-full min-w-0 bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded-lg text-[var(--dk-ink)] font-mono text-sm pl-7 pr-2 py-2 outline-none focus:border-[var(--dk-pnk-ink)]"
 
   return (
     <motion.div
-      className="w-full rounded-3xl p-5 md:p-8 border border-[#4a3f7a] shadow-2xl relative overflow-hidden"
+      className="w-full rounded-3xl p-5 md:p-8 border border-[var(--dk-line)] shadow-2xl relative overflow-hidden"
       style={{
-        background: "#1d1442",
+        background: "var(--dk-surface)",
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -49,27 +49,27 @@ export function FireCalculator() {
     >
       <div className="relative z-10">
         <span className={MONO_K + " flex items-center gap-2"}>
-          <span className="h-2 w-2 rounded-full bg-[#ff3ca6] animate-pulse" /> Math Magik · F.I.R.E.
+          <span className="h-2 w-2 rounded-full bg-[var(--dk-pnk)] animate-pulse" /> Math Magik · F.I.R.E.
         </span>
-        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[#ECEAE3] leading-tight mt-1">
-          When can you <em className="italic text-[#ff3ca6]">stop working?</em>
+        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[var(--dk-ink)] leading-tight mt-1">
+          When can you <em className="italic text-[var(--dk-pnk-ink)]">stop working?</em>
         </h2>
-        <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
+        <p className="text-[var(--dk-ink-soft)] text-sm mt-1 mb-6 max-w-2xl">
           Financial Independence, Retire Early - your freedom number is the pot that funds your life forever.
         </p>
 
         <div className="grid lg:grid-cols-[320px_1fr] gap-5 items-start">
           {/* ── inputs ──────────────────────────── */}
-          <div className="min-w-0 rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-4 space-y-4">
+          <div className="min-w-0 rounded-2xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-4 space-y-4">
             {([
               ["Annual expenses", expenses, setExpenses],
               ["Current savings", savings, setSavings],
               ["Annual contribution", contribution, setContribution],
             ] as const).map(([label, val, setter]) => (
               <label key={label} className="block">
-                <span className="font-mono text-[9px] uppercase tracking-wide text-[#b3aae0]">{label}</span>
+                <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--dk-ink-soft)]">{label}</span>
                 <div className="relative mt-1">
-                  <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#ff3ca6] text-sm">$</span>
+                  <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--dk-pnk-ink)] text-sm">$</span>
                   <input
                     type="number"
                     min={0}
@@ -82,49 +82,49 @@ export function FireCalculator() {
             ))}
 
             <div className="pt-1">
-              <div className="flex justify-between text-[13px] text-[#ECEAE3]">
+              <div className="flex justify-between text-[13px] text-[var(--dk-ink)]">
                 <span>Investment return</span>
-                <span className="font-mono text-[#ff3ca6]">{rate}%</span>
+                <span className="font-mono text-[var(--dk-pnk-ink)]">{rate}%</span>
               </div>
-              <Slider value={[rate]} onValueChange={([v]) => setRate(v)} min={1} max={15} step={0.5} className="mt-2 [&_[data-slot=slider-range]]:bg-[#ff3ca6] [&_[data-slot=slider-thumb]]:border-[#ff3ca6]" />
+              <Slider value={[rate]} onValueChange={([v]) => setRate(v)} min={1} max={15} step={0.5} className="mt-2 [&_[data-slot=slider-range]]:bg-[var(--dk-pnk)] [&_[data-slot=slider-thumb]]:border-[var(--dk-pnk-ink)]" />
             </div>
 
             <div>
-              <div className="flex justify-between text-[13px] text-[#ECEAE3]">
+              <div className="flex justify-between text-[13px] text-[var(--dk-ink)]">
                 <span>Safe withdrawal rate</span>
-                <span className="font-mono text-[#ff3ca6]">{swr}%</span>
+                <span className="font-mono text-[var(--dk-pnk-ink)]">{swr}%</span>
               </div>
-              <Slider value={[swr]} onValueChange={([v]) => setSwr(v)} min={2} max={6} step={0.1} className="mt-2 [&_[data-slot=slider-range]]:bg-[#ff3ca6] [&_[data-slot=slider-thumb]]:border-[#ff3ca6]" />
-              <p className="text-[11px] text-[#b3aae0] mt-1.5">Standard rule is 4% - i.e. {multLabel}× your expenses.</p>
+              <Slider value={[swr]} onValueChange={([v]) => setSwr(v)} min={2} max={6} step={0.1} className="mt-2 [&_[data-slot=slider-range]]:bg-[var(--dk-pnk)] [&_[data-slot=slider-thumb]]:border-[var(--dk-pnk-ink)]" />
+              <p className="text-[11px] text-[var(--dk-ink-soft)] mt-1.5">Standard rule is 4% - i.e. {multLabel}× your expenses.</p>
             </div>
           </div>
 
           {/* ── results ─────────────────────────── */}
           <div className="min-w-0 space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-5">
+              <div className="rounded-2xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-5">
                 <div className={MONO_K}>Your freedom number</div>
                 <div
                   className="text-3xl md:text-4xl font-bold mt-1 break-words"
-                  style={{ fontFamily: "var(--font-bungee), cursive", color: "#ff3ca6" }}
+                  style={{ fontFamily: "var(--font-fredoka), cursive", color: "var(--dk-pnk-ink)" }}
                 >
                   ${Math.round(calc.fireNumber).toLocaleString()}
                 </div>
-                <div className="text-sm text-[#b3aae0] mt-1">({multLabel}× expenses)</div>
+                <div className="text-sm text-[var(--dk-ink-soft)] mt-1">({multLabel}× expenses)</div>
               </div>
-              <div className="rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-5">
+              <div className="rounded-2xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-5">
                 <div className={MONO_K}>Time to freedom</div>
                 {calc.reached ? (
                   <>
                     <div className="font-mono text-3xl md:text-4xl font-bold text-[#86efac] mt-1">You&apos;re free 🎉</div>
-                    <div className="text-sm text-[#b3aae0] mt-1">Already past your number</div>
+                    <div className="text-sm text-[var(--dk-ink-soft)] mt-1">Already past your number</div>
                   </>
                 ) : (
                   <>
-                    <div className="font-mono text-3xl md:text-4xl font-bold text-[#ECEAE3] mt-1">
-                      {calc.years >= 50 ? "50+" : calc.years} <span className="text-lg text-[#ff3ca6] font-normal">yrs</span>
+                    <div className="font-mono text-3xl md:text-4xl font-bold text-[var(--dk-ink)] mt-1">
+                      {calc.years >= 50 ? "50+" : calc.years} <span className="text-lg text-[var(--dk-pnk-ink)] font-normal">yrs</span>
                     </div>
-                    <div className="text-sm text-[#b3aae0] mt-1">
+                    <div className="text-sm text-[var(--dk-ink-soft)] mt-1">
                       {calc.years >= 50 ? "Tune the dials to get there" : `by ${new Date().getFullYear() + calc.years}`}
                     </div>
                   </>
@@ -133,36 +133,36 @@ export function FireCalculator() {
             </div>
 
             {/* progress to freedom */}
-            <div className="rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-5">
+            <div className="rounded-2xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-5">
               <div className="flex justify-between items-baseline mb-2">
                 <div className={MONO_K}>Progress to freedom</div>
-                <div className="font-mono text-[#ff3ca6] font-bold text-sm">{calc.progress.toFixed(1)}%</div>
+                <div className="font-mono text-[var(--dk-pnk-ink)] font-bold text-sm">{calc.progress.toFixed(1)}%</div>
               </div>
-              <div className="h-3 rounded-full bg-[#0c0824] border border-[#4a3f7a] overflow-hidden">
+              <div className="h-3 rounded-full bg-[var(--dk-sunk)] border border-[var(--dk-line)] overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all"
-                  style={{ width: `${calc.progress}%`, background: "#ff3ca6" }}
+                  style={{ width: `${calc.progress}%`, background: "var(--dk-pnk)" }}
                 />
               </div>
-              <p className="text-[12px] text-[#b3aae0] mt-2">
+              <p className="text-[12px] text-[var(--dk-ink-soft)] mt-2">
                 You&apos;ve already banked {calc.progress.toFixed(0)}% of the pot that buys back your time.
               </p>
             </div>
 
             {/* growth chart */}
-            <div className="h-[260px] w-full rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-4">
+            <div className="h-[260px] w-full rounded-2xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-4">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={calc.data}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#4a3f7a" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--dk-ink-soft)" vertical={false} />
                   <XAxis dataKey="year" hide />
                   <YAxis hide domain={[0, "auto"]} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: "#0c0824", borderColor: "#4a3f7a", color: "#ECEAE3", borderRadius: 8 }}
-                    itemStyle={{ color: "#ECEAE3" }}
+                    contentStyle={{ backgroundColor: "var(--dk-sunk)", borderColor: "var(--dk-line)", color: "var(--dk-ink)", borderRadius: 8 }}
+                    itemStyle={{ color: "var(--dk-ink)" }}
                     formatter={(value) => [`$${Number(value).toLocaleString()}`, "Savings"]}
-                    labelStyle={{ color: "#b3aae0" }}
+                    labelStyle={{ color: "var(--dk-ink-soft)" }}
                   />
-                  <Bar dataKey="amount" fill="#ff3ca6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="amount" fill="var(--dk-pnk-ink)" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

@@ -23,7 +23,7 @@ export function ShareResult({ title, text, url, className, resultValue }: ShareR
             <Button 
                 onClick={() => setIsOpen(true)} 
                 variant="outline"
-                className={`gap-2 w-full sm:w-auto bg-[#241a52] hover:bg-[#2f2466] border border-[#4a3f7a] text-[#ECEAE3] ${className}`}
+                className={`gap-2 w-full sm:w-auto bg-[var(--dk-raised)] hover:bg-[#2f2466] border border-[var(--dk-line)] text-[var(--dk-ink)] ${className}`}
             >
                 <Share2 className="w-4 h-4" />
                 Share Result

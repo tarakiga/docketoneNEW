@@ -91,10 +91,10 @@ export function PotionBrewerCalculator() {
     <div className="grid lg:grid-cols-12 gap-8 animate-in fade-in duration-700">
       
       {/* Shelf */}
-      <Card className="lg:col-span-4 h-fit" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+      <Card className="lg:col-span-4 h-fit" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader>
            <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c' }}><FlaskConical/> Ingredients</CardTitle>
-           <CardDescription style={{ color: '#b3aae0' }}>Select up to 3</CardDescription>
+           <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>Select up to 3</CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-3">
            {INGREDIENTS.map(ing => (
@@ -105,19 +105,19 @@ export function PotionBrewerCalculator() {
                className="p-3 rounded-lg border text-left transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                style={
                  selected.includes(ing.id)
-                   ? { backgroundColor: '#241a52', borderColor: '#ff8a3c', boxShadow: '0 0 0 1px #ff8a3c' }
-                   : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }
+                   ? { backgroundColor: 'var(--dk-raised)', borderColor: '#ff8a3c', boxShadow: '0 0 0 1px #ff8a3c' }
+                   : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }
                }
              >
                <div className="text-2xl mb-1">{ing.icon}</div>
-               <div className="font-bold text-sm" style={{ color: '#ECEAE3' }}>{ing.name}</div>
+               <div className="font-bold text-sm" style={{ color: 'var(--dk-ink)' }}>{ing.name}</div>
              </button>
            ))}
         </CardContent>
       </Card>
 
       {/* Cauldron */}
-      <Card className="lg:col-span-8 relative overflow-hidden" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+      <Card className="lg:col-span-8 relative overflow-hidden" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
          <CardHeader>
            <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c' }}><Sparkles/> Alchemy Station</CardTitle>
          </CardHeader>
@@ -125,7 +125,7 @@ export function PotionBrewerCalculator() {
             
             {/* Cauldron Visual */}
             <div className="relative w-48 h-48 flex items-center justify-center">
-               <div className="absolute bottom-0 w-32 h-32 rounded-b-full border-4 flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+               <div className="absolute bottom-0 w-32 h-32 rounded-b-full border-4 flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                   <div
                     className={`absolute bottom-0 left-0 right-0 bg-purple-600 transition-all duration-1000 ${brewing ? 'animate-bounce' : ''}`}
                     style={{ height: selected.length * 33 + '%', opacity: 0.8 }}
@@ -138,20 +138,20 @@ export function PotionBrewerCalculator() {
                </div>
                {/* Legs */}
                <div className="absolute bottom-[-10px] w-40 flex justify-between px-2">
-                 <div className="w-4 h-8 -rotate-12 rounded" style={{ backgroundColor: '#241a52' }}/>
-                 <div className="w-4 h-8 rotate-12 rounded" style={{ backgroundColor: '#241a52' }}/>
+                 <div className="w-4 h-8 -rotate-12 rounded" style={{ backgroundColor: 'var(--dk-raised)' }}/>
+                 <div className="w-4 h-8 rotate-12 rounded" style={{ backgroundColor: 'var(--dk-raised)' }}/>
                </div>
             </div>
 
             {/* Action */}
             <div className="w-full max-w-md space-y-4">
                {lastResult && !brewing && (
-                 <div className="p-4 rounded-xl border text-center animate-in zoom-in" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
-                    <div className="text-sm uppercase tracking-widest mb-1" style={{ color: '#ff8a3c', fontFamily: 'var(--font-bungee), cursive' }}>{lastResult.tier}</div>
-                    <h3 className="text-2xl font-bold mb-2" style={{ color: '#ECEAE3', fontFamily: 'var(--font-bungee), cursive' }}>{lastResult.name}</h3>
-                   <p className="italic mb-3" style={{ color: '#b3aae0' }}>&quot;{lastResult.desc}&quot;</p>
+                 <div className="p-4 rounded-xl border text-center animate-in zoom-in" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
+                    <div className="text-sm uppercase tracking-widest mb-1" style={{ color: '#ff8a3c', fontFamily: 'var(--font-fredoka), cursive' }}>{lastResult.tier}</div>
+                    <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--dk-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>{lastResult.name}</h3>
+                   <p className="italic mb-3" style={{ color: 'var(--dk-ink-soft)' }}>&quot;{lastResult.desc}&quot;</p>
                     {lastResult.warn && (
-                      <div className="flex items-center justify-center gap-2 text-sm font-bold p-2 rounded" style={{ color: '#ff8a8a', backgroundColor: '#241a52' }}>
+                      <div className="flex items-center justify-center gap-2 text-sm font-bold p-2 rounded" style={{ color: '#ff8a8a', backgroundColor: 'var(--dk-raised)' }}>
                         <AlertTriangle className="h-4 w-4"/> {lastResult.warn}
                       </div>
                     )}
@@ -162,7 +162,7 @@ export function PotionBrewerCalculator() {
                 onClick={brew}
                 disabled={selected.length === 0 || brewing}
                 className="w-full text-lg h-12"
-                style={{ backgroundColor: '#ff8a3c', color: '#160e33' }}
+                style={{ backgroundColor: '#ff8a3c', color: 'var(--dk-on-fill)' }}
                >
                  {brewing ? "Brewing..." : "Mix Ingredients"}
                </Button>
@@ -177,7 +177,7 @@ export function PotionBrewerCalculator() {
       
       {/* Grimoire */}
       <div className="lg:col-span-12">
-        <div className="flex items-center gap-2 text-lg font-bold mb-4 px-2" style={{ color: '#b3aae0' }}>
+        <div className="flex items-center gap-2 text-lg font-bold mb-4 px-2" style={{ color: 'var(--dk-ink-soft)' }}>
            <Scroll className="h-5 w-5"/> Discovered Recipes ({discovered.length}/{Object.keys(RECIPES).length})
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -185,8 +185,8 @@ export function PotionBrewerCalculator() {
              const key = Object.keys(RECIPES)[i]
              const isFound = discovered.includes(key)
              return (
-               <div key={key} className={`p-4 rounded border ${isFound ? '' : 'opacity-50'}`} style={isFound ? { backgroundColor: '#241a52', borderColor: '#4a3f7a' } : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
-                 <div className="font-bold" style={{ color: '#ECEAE3' }}>{isFound ? r.name : "???"}</div>
+               <div key={key} className={`p-4 rounded border ${isFound ? '' : 'opacity-50'}`} style={isFound ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' } : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
+                 <div className="font-bold" style={{ color: 'var(--dk-ink)' }}>{isFound ? r.name : "???"}</div>
                  <div className="text-xs uppercase" style={{ color: '#ff8a3c' }}>{isFound ? r.tier : "Locked"}</div>
                </div>
              )

@@ -35,7 +35,7 @@ export function NewsletterForm({ className, dark }: NewsletterFormProps) {
 
   return (
     <div className={cn(dark ? "home-news" : "almanac-callout", className)}>
-      <h2 style={{ fontFamily: dark ? "var(--font-bungee), cursive" : "var(--font-fraunces), serif", fontWeight: dark ? 400 : 600, fontSize: dark ? 30 : 24, color: dark ? "#ffd23c" : "var(--ink)", marginBottom: 6 }}>
+      <h2 style={{ fontFamily: dark ? "var(--font-fredoka), cursive" : "var(--font-fraunces), serif", fontWeight: dark ? 400 : 600, fontSize: dark ? 30 : 24, color: dark ? "var(--dk-yel-ink)" : "var(--ink)", marginBottom: 6 }}>
         {dark ? "Join the calculation nation" : "Stay calculated"}
       </h2>
       <p style={{ color: dark ? "#b9b1a3" : "var(--ink-soft)", fontSize: 15, marginBottom: 16 }}>
@@ -51,7 +51,7 @@ export function NewsletterForm({ className, dark }: NewsletterFormProps) {
           required
           placeholder="you@email.com"
           className="almanac-input"
-          style={{ flex: "1 1 220px", ...(dark ? { background: "#0c0824", borderColor: "#4a3f7a", color: "#fff" } : {}) }}
+          style={{ flex: "1 1 220px", ...(dark ? { background: "var(--dk-sunk)", borderColor: "var(--dk-line)", color: "#fff" } : {}) }}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />

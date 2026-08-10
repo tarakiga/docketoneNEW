@@ -17,10 +17,10 @@ export function UniversalCalculator() {
   const { setCategory, values, convert, units } = useUnitConverter()
 
   return (
-    <Card className="almanac-panel w-full max-w-4xl mx-auto" style={{ backgroundColor: "#0c0824" }}>
+    <Card className="almanac-panel w-full max-w-4xl mx-auto" style={{ backgroundColor: "var(--dk-sunk)" }}>
       <CardHeader>
-        <CardTitle className="text-2xl text-center text-[#ECEAE3]">Universal Converter</CardTitle>
-        <CardDescription className="text-center text-[#b3aae0]">Convert between common units instantly.</CardDescription>
+        <CardTitle className="text-2xl text-center text-[var(--dk-ink)]">Universal Converter</CardTitle>
+        <CardDescription className="text-center text-[var(--dk-ink-soft)]">Convert between common units instantly.</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="length" onValueChange={(val) => setCategory(val as Category)} className="w-full">
@@ -30,7 +30,7 @@ export function UniversalCalculator() {
                   <TabsTrigger
                     key={cat}
                     value={cat}
-                    className="capitalize rounded-full px-4 py-2 border text-[#b3aae0] border-[#4a3f7a] hover:bg-[#241a52] hover:text-[#ECEAE3] data-[state=active]:bg-[#29e0ff] data-[state=active]:text-[#160e33] data-[state=active]:border-[#29e0ff] transition-colors"
+                    className="capitalize rounded-full px-4 py-2 border text-[var(--dk-ink-soft)] border-[var(--dk-line)] hover:bg-[var(--dk-raised)] hover:text-[var(--dk-ink)] data-[state=active]:bg-[var(--dk-tea)] data-[state=active]:text-[var(--dk-on-fill)] data-[state=active]:border-[var(--dk-tea-ink)] transition-colors"
                   >
                     {cat}
                   </TabsTrigger>
@@ -47,7 +47,7 @@ export function UniversalCalculator() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 animate-in fade-in zoom-in duration-300">
                         {units.map((unit) => (
                         <div key={unit} className="space-y-2">
-                            <Label htmlFor={unit} className="capitalize text-[#b3aae0] font-medium">
+                            <Label htmlFor={unit} className="capitalize text-[var(--dk-ink-soft)] font-medium">
                                 {UNIT_LABELS[unit] || unit}
                             </Label>
                             <Input
@@ -56,7 +56,7 @@ export function UniversalCalculator() {
                             placeholder="0"
                             value={values[unit] || ""}
                             onChange={(e) => convert(e.target.value, unit)}
-                            className="bg-[#160e33] border-[#4a3f7a] text-[#ECEAE3] placeholder:text-[#8a83b0] focus-visible:ring-[#29e0ff] focus-visible:border-[#29e0ff]"
+                            className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] placeholder:text-[#8a83b0] focus-visible:ring-[var(--dk-tea-ink)] focus-visible:border-[var(--dk-tea-ink)]"
                             />
                         </div>
                         ))}

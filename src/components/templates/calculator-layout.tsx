@@ -2,6 +2,7 @@ import { AdUnit } from "@/components/molecules/consent-scripts"
 import { RelatedCalculators } from "@/components/organisms/related-calculators"
 import { CalculatorSchema } from "@/components/seo/CalculatorSchema"
 import { CATEGORY_META } from "@/data/calculators"
+import { accentFor } from "@/data/category-palette"
 import Link from "next/link"
 import { ReactNode } from "react"
 
@@ -24,29 +25,19 @@ interface CalculatorLayoutProps {
   articleContent?: ReactNode
 }
 
-// Calm per-category accents (mirrors the category landing pages)
-const ACCENTS: Record<string, { a: string; a2: string; tint: string }> = {
-  bigkidmath: { a: "#29e0ff", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
-  cipherlab: { a: "#b388ff", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
-  geekgalaxy: { a: "#ff8a3c", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
-  lifehacks: { a: "#b6ff3c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
-  mathmagik: { a: "#ff3ca6", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
-  otakuops: { a: "#ffd23c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
-  brainmodes: { a: "#5bf0c0", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
-}
-
 export function CalculatorLayout({ title, description, children, understanding, origin, howTo, tips = [], faq, slug, category, articleContent }: CalculatorLayoutProps) {
   const key = category.toLowerCase()
   const meta = CATEGORY_META.find(m => m.id.toLowerCase() === key)
   const catName = meta?.name || category
-  const acc = ACCENTS[key] || ACCENTS.lifehacks
+  const acc = accentFor(key)
 
   return (
     <div
       className="almanac"
       style={{
         // @ts-expect-error CSS custom properties
-        "--accent": acc.a, "--accent-2": acc.a2, "--accent-tint": acc.tint,
+        "--accent": acc.fill, "--accent-2": acc.ink, "--accent-tint": acc.tint,
+        "--dk-cat": acc.fill, "--dk-cat-ink": acc.ink, "--dk-cat-on": acc.on,
       }}
     >
       <div className="almanac-wrap">

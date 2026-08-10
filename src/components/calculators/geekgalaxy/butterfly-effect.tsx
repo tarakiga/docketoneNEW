@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress"
 import { ShareResult } from "@/components/molecules/share-result"
 import { RotateCcw } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { token } from "@/lib/token"
 
 export function ButterflyEffect() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -50,7 +51,7 @@ export function ButterflyEffect() {
     if (canvas) {
         const ctx = canvas.getContext("2d")
         if (ctx) {
-            ctx.fillStyle = "#0c0824" // deep inset panel
+            ctx.fillStyle = token("--dk-sunk", canvas) // deep inset panel
             ctx.fillRect(0, 0, canvas.width, canvas.height)
         }
     }
@@ -133,7 +134,7 @@ export function ButterflyEffect() {
 
     // Draw P2 (Muted lavender)
     ctx.beginPath()
-    ctx.strokeStyle = "#b3aae0" // muted arcade text tone
+    ctx.strokeStyle = token("--dk-ink-soft", canvas) // muted arcade text tone
     ctx.lineWidth = 2
     history2.current.forEach((p, i) => {
         const [px, py] = project(p)
@@ -146,7 +147,7 @@ export function ButterflyEffect() {
     const head1 = project(p1.current)
     const head2 = project(p2.current)
     
-    ctx.fillStyle = "#ECEAE3"
+    ctx.fillStyle = token("--dk-ink", canvas)
     ctx.beginPath()
     ctx.arc(head1[0], head1[1], 3, 0, Math.PI * 2)
     ctx.arc(head2[0], head2[1], 3, 0, Math.PI * 2)
@@ -173,18 +174,18 @@ export function ButterflyEffect() {
 
   return (
     <div className="space-y-6">
-      <Card className="border" style={{ backgroundColor: "#1d1442", borderColor: "#4a3f7a" }}>
+      <Card className="border" style={{ backgroundColor: "var(--dk-surface)", borderColor: "var(--dk-line)" }}>
         <CardHeader>
           <CardTitle style={{ color: "#ff8a3c" }}>
             The Butterfly Effect Simulator
           </CardTitle>
-          <CardDescription style={{ color: "#b3aae0" }}>
+          <CardDescription style={{ color: "var(--dk-ink-soft)" }}>
             See how a microscopic difference (0.0001) in starting conditions leads to completely different outcomes.
           </CardDescription>
         </CardHeader>
         <CardContent>
             <div className="space-y-4">
-                <div className="rounded-lg overflow-hidden border relative" style={{ borderColor: "#4a3f7a", backgroundColor: "#0c0824" }}>
+                <div className="rounded-lg overflow-hidden border relative" style={{ borderColor: "var(--dk-line)", backgroundColor: "var(--dk-sunk)" }}>
                     <canvas 
                         ref={canvasRef}
                         width={800}
@@ -192,37 +193,37 @@ export function ButterflyEffect() {
                         className="w-full h-[300px] md:h-[500px]"
                     />
                     
-                     <div className="absolute top-4 left-4 space-y-2 p-3 rounded-lg border" style={{ backgroundColor: "#0c0824", borderColor: "#4a3f7a" }}>
+                     <div className="absolute top-4 left-4 space-y-2 p-3 rounded-lg border" style={{ backgroundColor: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
                         <div className="flex items-center gap-2 text-sm font-mono" style={{ color: "#ff8a3c" }}>
                             <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: "#ff8a3c" }}></span>
                             System A: Start + 0.0000
                         </div>
-                        <div className="flex items-center gap-2 text-sm font-mono" style={{ color: "#b3aae0" }}>
-                             <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: "#b3aae0" }}></span>
+                        <div className="flex items-center gap-2 text-sm font-mono" style={{ color: "var(--dk-ink-soft)" }}>
+                             <span className="w-3 h-3 rounded-full inline-block" style={{ backgroundColor: "var(--dk-mute)" }}></span>
                             System B: Start + 0.0001
                         </div>
                     </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 p-4 rounded-lg border" style={{ backgroundColor: "#0c0824", borderColor: "#4a3f7a" }}>
+                <div className="flex flex-wrap items-center gap-4 p-4 rounded-lg border" style={{ backgroundColor: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
                     <Button
                         size="lg"
                         onClick={toggleSim}
-                        style={isRunning ? { backgroundColor: "#ff8a8a", color: "#160e33" } : { backgroundColor: "#ff8a3c", color: "#160e33" }}
+                        style={isRunning ? { backgroundColor: "#ff8a8a", color: "var(--dk-on-fill)" } : { backgroundColor: "#ff8a3c", color: "var(--dk-on-fill)" }}
                     >
                          {isRunning ? "Pause Simulation" : "Start Chaos"}
                     </Button>
-                    <Button variant="outline" size="icon" onClick={resetSimulation} title="Reset" style={{ backgroundColor: "#241a52", borderColor: "#4a3f7a", color: "#ECEAE3" }}>
+                    <Button variant="outline" size="icon" onClick={resetSimulation} title="Reset" style={{ backgroundColor: "var(--dk-raised)", borderColor: "var(--dk-line)", color: "var(--dk-ink)" }}>
                         <RotateCcw className="w-4 h-4" />
                     </Button>
 
                     <div className="flex-1 space-y-1 ml-4">
-                        <div className="flex justify-between text-xs font-semibold uppercase tracking-wider" style={{ color: "#b3aae0" }}>
+                        <div className="flex justify-between text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--dk-ink-soft)" }}>
                             <span>Synchronization</span>
                             <span>{Math.max(0, 100 - divergence).toFixed(0)}% Match</span>
                         </div>
-                        <Progress value={Math.max(0, 100 - divergence)} className="h-2" style={{ backgroundColor: "#0c0824" }} indicatorClassName={divergence > 50 ? "bg-[#ff8a8a]" : "bg-[#86efac]"} />
-                        <p className="text-xs pt-1" style={{ color: "#b3aae0" }}>
+                        <Progress value={Math.max(0, 100 - divergence)} className="h-2" style={{ backgroundColor: "var(--dk-sunk)" }} indicatorClassName={divergence > 50 ? "bg-[#ff8a8a]" : "bg-[#86efac]"} />
+                        <p className="text-xs pt-1" style={{ color: "var(--dk-ink-soft)" }}>
                             {divergence < 5 ? "Systems are effectively identical." :
                              divergence < 50 ? "Divergence detected. Outcomes splitting." :
                              "Systems are now completely chaotic and unrelated."}
@@ -231,18 +232,18 @@ export function ButterflyEffect() {
                 </div>
 
                 <div className="flex justify-center mt-6">
-                    <ShareResult title="Butterfly Effect" text={`Small input, wild divergence: ${divergence.toFixed(0)}% chaos. 🦋`} />
+                    <ShareResult title="Butterfly Effect" text={`Small input, wild divergence: ${divergence.toFixed(0)}% chaos. ðŸ¦‹`} />
                 </div>
             </div>
         </CardContent>
       </Card>
       
        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="border" style={{ backgroundColor: "#1d1442", borderColor: "#4a3f7a" }}>
+            <Card className="border" style={{ backgroundColor: "var(--dk-surface)", borderColor: "var(--dk-line)" }}>
                 <CardHeader>
-                    <CardTitle className="text-lg" style={{ color: "#ECEAE3" }}>Sensitive Dependence</CardTitle>
+                    <CardTitle className="text-lg" style={{ color: "var(--dk-ink)" }}>Sensitive Dependence</CardTitle>
                 </CardHeader>
-                <CardContent className="text-sm" style={{ color: "#b3aae0" }}>
+                <CardContent className="text-sm" style={{ color: "var(--dk-ink-soft)" }}>
                     <p>
                         This is the <strong>Lorenz Attractor</strong>, a set of differential equations originally intended to model weather patterns.
                     </p>
@@ -252,11 +253,11 @@ export function ButterflyEffect() {
                     </p>
                 </CardContent>
             </Card>
-            <Card className="border" style={{ backgroundColor: "#1d1442", borderColor: "#4a3f7a" }}>
+            <Card className="border" style={{ backgroundColor: "var(--dk-surface)", borderColor: "var(--dk-line)" }}>
                  <CardHeader>
-                    <CardTitle className="text-lg" style={{ color: "#ECEAE3" }}>The Butterfly Pattern</CardTitle>
+                    <CardTitle className="text-lg" style={{ color: "var(--dk-ink)" }}>The Butterfly Pattern</CardTitle>
                 </CardHeader>
-                <CardContent className="text-sm" style={{ color: "#b3aae0" }}>
+                <CardContent className="text-sm" style={{ color: "var(--dk-ink-soft)" }}>
                     <p>
                         Notice how the trails never cross themselves, and they stay confined within a specific shape (the "Attractor").
                     </p>
