@@ -159,7 +159,7 @@ export function ZombieSurvivalCalculator() {
                     variant="outline"
                     className="h-auto flex-col py-4 gap-2 px-1 whitespace-normal min-w-0 transition-all"
                     style={isActive
-                      ? { background: 'var(--accent)', color: 'var(--dk-on-fill)', borderColor: 'var(--accent)' }
+                      ? { background: 'var(--dk-cat)', color: 'var(--dk-on-fill)', borderColor: 'var(--accent)' }
                       : { background: 'var(--dk-raised)', color: 'var(--ink)', borderColor: 'var(--line)' }}
                     onClick={() => setFitness(opt.val)}
                   >
@@ -188,7 +188,7 @@ export function ZombieSurvivalCalculator() {
                       variant="outline"
                       className="justify-start gap-2 py-6 px-3 rounded-xl whitespace-normal min-w-0 transition-all"
                       style={isActive
-                        ? { background: 'var(--accent)', color: 'var(--dk-on-fill)', borderColor: 'var(--accent)' }
+                        ? { background: 'var(--dk-cat)', color: 'var(--dk-on-fill)', borderColor: 'var(--accent)' }
                         : { background: 'var(--dk-raised)', color: 'var(--ink)', borderColor: 'var(--line)' }}
                       onClick={() => setSkills(s => ({...s, [skill.key]: !isActive}))}
                     >
@@ -215,7 +215,7 @@ export function ZombieSurvivalCalculator() {
                     variant="outline"
                     className="h-auto flex-col py-4 gap-2 px-1 whitespace-normal min-w-0 transition-all"
                     style={isActive
-                      ? { background: 'var(--accent)', color: 'var(--dk-on-fill)', borderColor: 'var(--accent)' }
+                      ? { background: 'var(--dk-cat)', color: 'var(--dk-on-fill)', borderColor: 'var(--accent)' }
                       : { background: 'var(--dk-raised)', color: 'var(--ink)', borderColor: 'var(--line)' }}
                     onClick={() => setGroupSize(opt.val)}
                   >
