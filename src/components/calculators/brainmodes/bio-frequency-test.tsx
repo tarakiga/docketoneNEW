@@ -139,7 +139,7 @@ export function BioFrequencyTest() {
                         {/* progress dots */}
                         <div className="flex gap-1.5 justify-center mb-6">
                             {FREQUENCIES.map((f, i) => (
-                                <div key={f.freq} className="h-1.5 w-8 rounded-full" style={{ background: i < step ? "var(--dk-tea)" : i === step ? "#5bf0c0" : "#241a52" }} />
+                                <div key={f.freq} className="h-1.5 w-8 rounded-full" style={{ background: i < step ? "var(--dk-tea)" : i === step ? "#5bf0c0" : "var(--dk-raised)" }} />
                             ))}
                         </div>
 

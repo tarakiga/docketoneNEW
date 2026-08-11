@@ -116,7 +116,7 @@ export function TimeParadoxDetector() {
                  <div
                    className="absolute inset-0 rounded-full border-8 border-transparent transition-all duration-1000"
                    style={{
-                     borderTopColor: results.risk > 80 ? 'var(--dk-neg-ink)' : results.risk > 50 ? '#ff8a3c' : results.risk > 20 ? '#ffd23c' : '#86efac',
+                     borderTopColor: results.risk > 80 ? 'var(--dk-neg-ink)' : results.risk > 50 ? '#ff8a3c' : results.risk > 20 ? 'var(--dk-yel-ink)' : '#86efac',
                      transform: `rotate(${results.risk * 3.6}deg)`
                    }}
                  ></div>

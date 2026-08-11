@@ -142,13 +142,13 @@ export function CostOfWar() {
                           }
                          >
                             <div className="text-left flex-1 min-w-0">
-                               <div className="font-black text-[11px] sm:text-[12px] md:text-sm uppercase tracking-tight whitespace-normal break-words" style={{ color: selectedIndex === idx ? '#160e33' : 'var(--ink)' }}>
+                               <div className="font-black text-[11px] sm:text-[12px] md:text-sm uppercase tracking-tight whitespace-normal break-words" style={{ color: selectedIndex === idx ? 'var(--dk-on-fill)' : 'var(--ink)' }}>
                                   {m.name}
                                </div>
                                <div className="text-[8px] sm:text-[9px] md:text-[10px] font-medium opacity-60 truncate">{m.desc}</div>
                             </div>
                             <div className="text-right shrink-0">
-                               <div className="font-mono text-xs sm:text-sm md:text-lg font-bold tabular-nums" style={{ color: selectedIndex === idx ? '#160e33' : 'var(--ink-soft)' }}>
+                               <div className="font-mono text-xs sm:text-sm md:text-lg font-bold tabular-nums" style={{ color: selectedIndex === idx ? 'var(--dk-on-fill)' : 'var(--ink-soft)' }}>
                                   ${(m.cost / 1000).toLocaleString()}k
                                </div>
                             </div>

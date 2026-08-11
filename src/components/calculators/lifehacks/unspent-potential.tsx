@@ -29,10 +29,10 @@ export function UnspentPotentialTax() {
   }, [hoursPerDay, hourlyValue])
 
   const tiles = [
-    { icon: Sparkles, label: "New skills to START", sub: "~20 hrs each", value: result.skillsStarted, accent: "#b6ff3c" },
-    { icon: Brain, label: "Skills to get COMPETENT at", sub: "~100 hrs each", value: result.skillsCompetent, accent: "#b6ff3c" },
-    { icon: Trophy, label: "Skills toward REAL PROFICIENCY", sub: "~500 hrs each", value: result.skillsProficient, accent: "#b6ff3c" },
-    { icon: BookOpen, label: "Books you could READ", sub: "~10 hrs each", value: result.books, accent: "#b6ff3c" },
+    { icon: Sparkles, label: "New skills to START", sub: "~20 hrs each", value: result.skillsStarted, accent: "var(--dk-lim-ink)" },
+    { icon: Brain, label: "Skills to get COMPETENT at", sub: "~100 hrs each", value: result.skillsCompetent, accent: "var(--dk-lim-ink)" },
+    { icon: Trophy, label: "Skills toward REAL PROFICIENCY", sub: "~500 hrs each", value: result.skillsProficient, accent: "var(--dk-lim-ink)" },
+    { icon: BookOpen, label: "Books you could READ", sub: "~10 hrs each", value: result.books, accent: "var(--dk-lim-ink)" },
   ]
 
   const moneyFormatted = result.money.toLocaleString("en-US")

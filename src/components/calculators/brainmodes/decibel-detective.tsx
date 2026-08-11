@@ -53,7 +53,7 @@ export function DecibelDetective() {
         setActiveSources(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
 
     const zone = perceivedLoad <= 0 ? "idle" : perceivedLoad < 50 ? "safe" : perceivedLoad < 70 ? "mod" : perceivedLoad < 90 ? "high" : "extreme"
-    const bigColor = zone === "extreme" ? "#ff8a8a" : zone === "high" ? "#ffd23c" : zone === "mod" ? "#ffd23c" : zone === "safe" ? "#86efac" : "#5bf0c0"
+    const bigColor = zone === "extreme" ? "#ff8a8a" : zone === "high" ? "var(--dk-yel-ink)" : zone === "mod" ? "var(--dk-yel-ink)" : zone === "safe" ? "#86efac" : "#5bf0c0"
     const litCount = perceivedLoad <= 0 ? 0 : Math.min(8, Math.ceil((perceivedLoad / 120) * 8))
 
     return (

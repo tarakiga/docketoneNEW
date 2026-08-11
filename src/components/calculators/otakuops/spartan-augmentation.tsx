@@ -90,7 +90,7 @@ export function SpartanAugmentationCalculator() {
                                     </Pie>
                                     <RechartsTooltip contentStyle={{backgroundColor: 'var(--dk-sunk)', border: 'none', color: 'var(--dk-ink)'}} />
                                     <Legend formatter={(value, entry) => (
-                                        <span style={{ color: entry?.value === 'Washout (Crippled)' ? '#ffd23c' : (entry?.color as string) }}>{value}</span>
+                                        <span style={{ color: entry?.value === 'Washout (Crippled)' ? 'var(--dk-yel-ink)' : (entry?.color as string) }}>{value}</span>
                                     )} />
                                 </PieChart>
                             </ResponsiveContainer>

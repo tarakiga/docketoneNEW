@@ -171,9 +171,9 @@ export function LifeVisualized() {
             {/* stats */}
             <div className="grid grid-cols-3 gap-3 mt-5 max-w-md mx-auto">
               {[
-                ["Lived", data.livedClamped.toLocaleString(), "#ff3ca6"],
-                ["Remaining", data.remaining.toLocaleString(), "#b3aae0"],
-                ["Complete", `${data.pct}%`, "#ff3ca6"],
+                ["Lived", data.livedClamped.toLocaleString(), "var(--dk-pnk-ink)"],
+                ["Remaining", data.remaining.toLocaleString(), "var(--dk-ink-soft)"],
+                ["Complete", `${data.pct}%`, "var(--dk-pnk-ink)"],
               ].map(([k, v, c]) => (
                 <div key={k} className="rounded-xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-3 text-center">
                   <div className="text-xl font-bold" style={{ color: c as string, fontFamily: "var(--font-fredoka), cursive" }}>
