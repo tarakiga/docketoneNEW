@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 @import "tw-animate-css";
 
 /* The dark: utility variant was bound to a .dark class that nothing ever adds
@@ -538,7 +538,7 @@
   --dk-slab:#17161A;
   /* text sitting ON a filled accent */
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
-  --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
+  --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#480922; --dk-on-sky:#04304F;
   /* semantic status — separate from the brand accents on purpose, so a
      re-skin never accidentally makes "over budget" read as decoration */
   --dk-pos:#7BD44F; --dk-pos-ink:#3C6B21; --dk-on-pos:#1D4009;
@@ -571,7 +571,7 @@
   --dk-forest:#17754C;
   --dk-slab:#0F0D1A;
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
-  --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
+  --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#480922; --dk-on-sky:#04304F;
   --dk-pos:#8FE063; --dk-pos-ink:#8FE063; --dk-on-pos:#1D4009;
   --dk-neg:#FF8578; --dk-neg-ink:#FF8578; --dk-on-neg:#4A0D08;
   --dk-warn:#FFC24D; --dk-warn-ink:#FFC24D; --dk-on-warn:#4A3000;
