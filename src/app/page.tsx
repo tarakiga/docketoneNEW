@@ -39,7 +39,7 @@ export default async function Home() {
         <div className="almanac-wrap">
           <div className="home-hero-grid">
           <div>
-            <div className="home-pill">🎲 <b>65+</b> calculators · free · no sign-up</div>
+            <div className="home-pill">🎲 <b>65+</b> Interactive visual calculators</div>
             <h1 className="home-h1">Ask a<br />weird<br /><span className="w1">question</span>.</h1>
             <p className="home-sub">Every calculator here shows its working and explains the formula. We&apos;re dead serious about deeply unserious questions.</p>
             <div className="home-cta">
