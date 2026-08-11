@@ -25,11 +25,11 @@ const SHIPS = {
 }
 
 const FUELS = [
-  { name: 'Kerosene (RP-1)', density: 34.2, color: '#ffd23c', textColor: '#ffd23c' },
-  { name: 'Liquid Hydrogen', density: 143, color: '#86efac', textColor: '#86efac' },
-  { name: 'Nuclear Fission', density: 8.2e7, color: '#86efac', textColor: '#86efac' },
-  { name: 'Fusion Plasma', density: 3.0e11, color: '#ff8a3c', textColor: '#ff8a3c' },
-  { name: 'Antimatter', density: 8.9e16, color: '#ff8a8a', textColor: '#ff8a8a' },
+  { name: 'Kerosene (RP-1)', density: 34.2, color: 'var(--dk-yel-ink)', textColor: 'var(--dk-yel-ink)' },
+  { name: 'Liquid Hydrogen', density: 143, color: 'var(--dk-pos-ink)', textColor: 'var(--dk-pos-ink)' },
+  { name: 'Nuclear Fission', density: 8.2e7, color: 'var(--dk-pos-ink)', textColor: 'var(--dk-pos-ink)' },
+  { name: 'Fusion Plasma', density: 3.0e11, color: 'var(--dk-org-ink)', textColor: 'var(--dk-org-ink)' },
+  { name: 'Antimatter', density: 8.9e16, color: 'var(--dk-neg-ink)', textColor: 'var(--dk-neg-ink)' },
 ]
 
 export function SpaceshipFuelCalculator() {
@@ -72,36 +72,36 @@ export function SpaceshipFuelCalculator() {
   }
 
   return (
-    <Card style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+    <Card style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
       <CardHeader>
-        <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: '#ff8a3c' }}>
-          <Flame className="h-8 w-8" style={{ color: '#ff8a3c' }} />
+        <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: 'var(--dk-org-ink)' }}>
+          <Flame className="h-8 w-8" style={{ color: 'var(--dk-org-ink)' }} />
           Fuel Logistics
         </CardTitle>
-        <CardDescription style={{ color: '#b3aae0' }}>Plan energy requirements for your interstellar voyage.</CardDescription>
+        <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>Plan energy requirements for your interstellar voyage.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
 
         {/* Route Selection */}
-        <div className="grid md:grid-cols-3 gap-4 p-4 rounded-xl border" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+        <div className="grid md:grid-cols-3 gap-4 p-4 rounded-xl border" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
           <div className="space-y-2">
-            <Label style={{ color: '#ECEAE3' }}>Origin</Label>
+            <Label style={{ color: 'var(--dk-ink)' }}>Origin</Label>
             <Select value={origin} onValueChange={(value) => setOrigin(value as Origin)}>
-              <SelectTrigger className="border" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
+              <SelectTrigger className="border" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}><SelectValue/></SelectTrigger>
               <SelectContent>
                 {Object.keys(DISTANCES).map(k => <SelectItem key={k} value={k}>{k}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
           <div className="flex items-center justify-center pt-6">
-            <div className="h-0.5 w-full relative" style={{ backgroundColor: '#4a3f7a' }}>
-              <div className="absolute -top-1.5 left-1/2 -ml-1" style={{ color: '#ff8a3c' }}>➜</div>
+            <div className="h-0.5 w-full relative" style={{ backgroundColor: 'var(--dk-mute)' }}>
+              <div className="absolute -top-1.5 left-1/2 -ml-1" style={{ color: 'var(--dk-org-ink)' }}>➜</div>
             </div>
           </div>
           <div className="space-y-2">
-            <Label style={{ color: '#ECEAE3' }}>Destination</Label>
+            <Label style={{ color: 'var(--dk-ink)' }}>Destination</Label>
             <Select value={destination} onValueChange={(value) => setDestination(value as Destination)}>
-              <SelectTrigger className="border" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
+              <SelectTrigger className="border" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}><SelectValue/></SelectTrigger>
               <SelectContent>
                 {DESTINATIONS.filter((item) => Object.prototype.hasOwnProperty.call(DISTANCES[origin] || {}, item)).map(k => (
                   <SelectItem key={k} value={k}>
@@ -115,7 +115,7 @@ export function SpaceshipFuelCalculator() {
 
         {/* Ship Selection */}
         <div className="space-y-3">
-          <Label style={{ color: '#ECEAE3' }}>Vessel Class</Label>
+          <Label style={{ color: 'var(--dk-ink)' }}>Vessel Class</Label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {Object.entries(SHIPS).map(([key, data]) => (
               <button
@@ -124,13 +124,13 @@ export function SpaceshipFuelCalculator() {
                 className="p-3 rounded-lg border text-left transition-all"
                 style={
                   ship === key
-                    ? { backgroundColor: '#241a52', borderColor: '#ff8a3c' }
-                    : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }
+                    ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-org-ink)' }
+                    : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }
                 }
               >
                 <div className="text-2xl mb-1">{data.icon}</div>
-                <div className="font-bold text-sm" style={{ color: '#ECEAE3' }}>{data.name}</div>
-                <div className="text-xs" style={{ color: '#b3aae0' }}>{data.type}</div>
+                <div className="font-bold text-sm" style={{ color: 'var(--dk-ink)' }}>{data.name}</div>
+                <div className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>{data.type}</div>
               </button>
             ))}
           </div>
@@ -138,29 +138,29 @@ export function SpaceshipFuelCalculator() {
 
         {/* Results */}
         <div className="space-y-4">
-           <div className="flex items-center justify-between text-sm px-2" style={{ color: '#b3aae0' }}>
+           <div className="flex items-center justify-between text-sm px-2" style={{ color: 'var(--dk-ink-soft)' }}>
              <span>Distance: {calculation.distLY} Light Years</span>
              <span>Total Energy: {calculation.energyRequired.toExponential(2)} MJ</span>
            </div>
 
-           <div className="rounded-xl overflow-hidden border" style={{ borderColor: '#4a3f7a' }}>
-             <div className="grid grid-cols-3 p-3 text-xs uppercase tracking-wider font-bold" style={{ backgroundColor: '#241a52', color: '#b3aae0' }}>
+           <div className="rounded-xl overflow-hidden border" style={{ borderColor: 'var(--dk-line)' }}>
+             <div className="grid grid-cols-3 p-3 text-xs uppercase tracking-wider font-bold" style={{ backgroundColor: 'var(--dk-raised)', color: 'var(--dk-ink-soft)' }}>
                <div className="col-span-1">Fuel Type</div>
                <div className="col-span-1 text-right">Mass Required</div>
                <div className="col-span-1 text-right">Volume</div>
              </div>
              {calculation.fuelNeeds.map((fuel) => (
-               <div key={fuel.name} className="grid grid-cols-3 p-2 sm:p-4 border-t transition-colors items-center" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
-                 <div className="col-span-1 flex items-center gap-2 font-bold min-w-0" style={{ color: '#ECEAE3' }}>
+               <div key={fuel.name} className="grid grid-cols-3 p-2 sm:p-4 border-t transition-colors items-center" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
+                 <div className="col-span-1 flex items-center gap-2 font-bold min-w-0" style={{ color: 'var(--dk-ink)' }}>
                    <div className="w-2 h-8 rounded-full shrink-0" style={{ backgroundColor: fuel.color }} />
                    <span className="min-w-0 truncate">{fuel.name}</span>
                  </div>
-                 <div className="col-span-1 text-right" style={{ fontFamily: 'var(--font-bungee), cursive', color: fuel.textColor }}>
+                 <div className="col-span-1 text-right" style={{ fontFamily: 'var(--font-fredoka), cursive', color: fuel.textColor }}>
                     {formatAmount(fuel.amount)} kg
                  </div>
-                 <div className="col-span-1 text-right text-sm" style={{ color: '#b3aae0' }}>
+                 <div className="col-span-1 text-right text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
                     {/* Just verifying generic density logic visual */}
-                    <div className="w-full h-1.5 rounded-full mt-1 overflow-hidden" style={{ backgroundColor: '#241a52' }}>
+                    <div className="w-full h-1.5 rounded-full mt-1 overflow-hidden" style={{ backgroundColor: 'var(--dk-raised)' }}>
                        <div className="h-full" style={{ width: `${Math.min(100, Math.max(1, 100 - (Math.log10(fuel.amount) * 5)))}%`, backgroundColor: fuel.color }} />
                     </div>
                  </div>

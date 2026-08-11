@@ -1,6 +1,7 @@
 import { FilteredCalculatorGrid } from "@/components/organisms/filtered-calculator-grid"
 import { calculators, CATEGORY_META, NOINDEX_CATEGORIES } from "@/data/calculators"
 import { categoryDescriptions } from "@/data/categoryDescriptions"
+import { accentFor } from "@/data/category-palette"
 import { Metadata } from "next"
 import Link from "next/link"
 
@@ -26,17 +27,6 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
     }
 }
 
-// Calm per-category accents for the Almanac theme (each keeps its own identity)
-const ACCENTS: Record<string, { a: string; a2: string; tint: string }> = {
-    bigkidmath: { a: "#29e0ff", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
-    cipherlab: { a: "#b388ff", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
-    geekgalaxy: { a: "#ff8a3c", a2: "#29e0ff", tint: "rgba(255,255,255,.06)" },
-    lifehacks: { a: "#b6ff3c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
-    mathmagik: { a: "#ff3ca6", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
-    otakuops: { a: "#ffd23c", a2: "#ff3ca6", tint: "rgba(255,255,255,.06)" },
-    brainmodes: { a: "#5bf0c0", a2: "#ffd23c", tint: "rgba(255,255,255,.06)" },
-}
-
 interface CategoryPageProps {
     params: Promise<{ category: string }>
 }
@@ -48,7 +38,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     const categoryCalculators = calculators.filter(c => c.category.toLowerCase() === key)
     const meta = CATEGORY_META.find(m => m.id.toLowerCase() === key)
     const about = categoryDescriptions[key]
-    const acc = ACCENTS[key] || ACCENTS.lifehacks
+    const acc = accentFor(key)
 
     const categoryName = meta?.name || category
         .split(/(?=[A-Z])|_/)
@@ -60,7 +50,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             className="almanac"
             style={{
                 // @ts-expect-error CSS custom properties
-                "--accent": acc.a, "--accent-2": acc.a2, "--accent-tint": acc.tint,
+                // --accent binds to the INK variant: the base Almanac layer uses it
+                // as a text and hairline colour, and the saturated fill fails
+                // contrast there (lime on the yellow ground was 1.34:1).
+                // Anything that needs the fill reads --dk-cat.
+                "--accent": acc.ink, "--accent-2": acc.ink, "--accent-tint": acc.tint,
+                "--dk-cat": acc.fill, "--dk-cat-ink": acc.ink, "--dk-cat-on": acc.on,
             }}
         >
             <div className="almanac-wrap">
@@ -88,7 +83,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 {about && (
                     <section className="almanac-about">
                         <h2>{about.title}</h2>
-                        <div className="almanac-body">{about.content}</div>
+                        <div className="almanac-body dk-read">{about.content}</div>
                     </section>
                 )}
 

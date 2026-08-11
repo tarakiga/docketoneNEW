@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch"
 import { ShareResult } from "@/components/molecules/share-result"
 import { Music, Pause, Play, Zap } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { token } from "@/lib/token"
 
 export function ChaosComposer() {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -125,7 +126,7 @@ export function ChaosComposer() {
         const lx = (historyRef.current.length - 1) * step
         const ly = h - (lastVal * h)
         
-        ctx.fillStyle = "#ECEAE3"
+        ctx.fillStyle = token("--dk-ink", canvas)
         ctx.beginPath()
         ctx.arc(lx, ly, 4, 0, Math.PI * 2)
         ctx.fill()
@@ -147,13 +148,13 @@ export function ChaosComposer() {
 
   return (
     <div className="space-y-6">
-      <Card className="border" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+      <Card className="border" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2" style={{ color: '#ff8a3c', fontFamily: 'var(--font-bungee), cursive' }}>
+          <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-org-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
             <Music className="w-6 h-6" />
             The Chaos Composer
           </CardTitle>
-          <CardDescription style={{ color: '#b3aae0' }}>
+          <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>
             Listen to the rhythm of math. Hear how simple Period Doubling turns into complex Orchestral Chaos.
           </CardDescription>
         </CardHeader>
@@ -161,7 +162,7 @@ export function ChaosComposer() {
           <div className="space-y-6">
             
             {/* Visualizer Canvas */}
-            <div className="rounded-lg p-4 border h-[150px] relative" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+            <div className="rounded-lg p-4 border h-[150px] relative" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                 <canvas
                     ref={canvasRef}
                     width={600}
@@ -170,7 +171,7 @@ export function ChaosComposer() {
                 />
                  {!isPlaying && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-sm px-3 py-1 rounded-full border" style={{ color: '#b3aae0', backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                        <span className="text-sm px-3 py-1 rounded-full border" style={{ color: 'var(--dk-ink-soft)', backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                             Press Play to start the simulation
                         </span>
                     </div>
@@ -183,8 +184,8 @@ export function ChaosComposer() {
                 {/* R Control */}
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                        <Label className="text-lg font-bold" style={{ color: '#ff8a3c', fontFamily: 'var(--font-bungee), cursive' }}>Growth Rate (r): {r.toFixed(2)}</Label>
-                        <span className="text-xs font-mono" style={{ color: '#b3aae0' }}>
+                        <Label className="text-lg font-bold" style={{ color: 'var(--dk-org-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>Growth Rate (r): {r.toFixed(2)}</Label>
+                        <span className="text-xs font-mono" style={{ color: 'var(--dk-ink-soft)' }}>
                             {r < 3.0 ? "Stable (Period 1)" :
                              r < 3.45 ? "Period 2" :
                              r < 3.56 ? "Period 4/8/16..." : "CHAOS"}
@@ -198,7 +199,7 @@ export function ChaosComposer() {
                         onValueChange={(v) => setR(v[0])}
                         className="py-4"
                     />
-                    <div className="flex justify-between text-xs px-1" style={{ color: '#b3aae0' }}>
+                    <div className="flex justify-between text-xs px-1" style={{ color: 'var(--dk-ink-soft)' }}>
                         <span>2.0 (Stable)</span>
                         <span>3.0 (Bifurcation)</span>
                         <span>3.57 (Chaos)</span>
@@ -213,28 +214,28 @@ export function ChaosComposer() {
                             <Button
                                 className="w-12 h-12 rounded-full"
                                 style={isPlaying
-                                    ? { backgroundColor: '#0c0824', border: '1px solid #4a3f7a', color: '#ff8a8a' }
-                                    : { backgroundColor: '#ff8a3c', color: '#160e33' }}
+                                    ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-neg-ink)' }
+                                    : { backgroundColor: 'var(--dk-org)', color: 'var(--dk-on-fill)' }}
                                 onClick={() => setIsPlaying(!isPlaying)}
                             >
                                 {isPlaying ? <Pause className="fill-current" /> : <Play className="fill-current pl-1" />}
                             </Button>
                              <div className="flex flex-col">
-                                <span className="text-sm font-semibold" style={{ color: '#ECEAE3' }}>{isPlaying ? "Playing" : "Paused"}</span>
-                                <span className="text-xs" style={{ color: '#b3aae0' }}>x = {xRef.current.toFixed(4)}</span>
+                                <span className="text-sm font-semibold" style={{ color: 'var(--dk-ink)' }}>{isPlaying ? "Playing" : "Paused"}</span>
+                                <span className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>x = {xRef.current.toFixed(4)}</span>
                              </div>
                          </div>
 
                          <div className="flex items-center gap-2">
-                            <Label htmlFor="scale-mode" className="text-xs" style={{ color: '#ECEAE3' }}>Musical Scale</Label>
+                            <Label htmlFor="scale-mode" className="text-xs" style={{ color: 'var(--dk-ink)' }}>Musical Scale</Label>
                             <Switch id="scale-mode" checked={useScale} onCheckedChange={setUseScale} />
                         </div>
                     </div>
 
                     <div className="space-y-2">
                         <div className="flex justify-between">
-                             <Label className="text-xs" style={{ color: '#ECEAE3' }}>Tempo ({speed}ms)</Label>
-                             <Zap className="w-3 h-3" style={{ color: '#ffd23c' }} />
+                             <Label className="text-xs" style={{ color: 'var(--dk-ink)' }}>Tempo ({speed}ms)</Label>
+                             <Zap className="w-3 h-3" style={{ color: 'var(--dk-yel-ink)' }} />
                         </div>
                          <Slider 
                             value={[1000 - speed]} 
@@ -247,9 +248,9 @@ export function ChaosComposer() {
                  </div>
             </div>
             
-             <div className="border p-4 rounded-lg text-sm" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#b3aae0' }}>
+             <div className="border p-4 rounded-lg text-sm" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink-soft)' }}>
                 <p>
-                    <strong style={{ color: '#ff8a3c' }}>How to use:</strong> Slide the Growth Rate ($r$) slowly from left to right.
+                    <strong style={{ color: 'var(--dk-org-ink)' }}>How to use:</strong> Slide the Growth Rate ($r$) slowly from left to right.
                 </p>
                 <ul className="list-disc pl-4 mt-2 space-y-1">
                     <li>At <strong>r=2.5</strong>, you will hear a single steady beat. The population is stable.</li>
@@ -262,7 +263,7 @@ export function ChaosComposer() {
             <div className="flex justify-center mt-6">
               <ShareResult
                 title="Chaos Composer"
-                text={`I generated music from pure chaos theory (Growth Rate r = ${r.toFixed(2)}) on Docket One. 🎶🦋`}
+                text={`I generated music from pure chaos theory (Growth Rate r = ${r.toFixed(2)}) on Docket One. ðŸŽ¶ðŸ¦‹`}
               />
             </div>
 

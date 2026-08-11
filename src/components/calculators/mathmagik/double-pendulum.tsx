@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { ShareResult } from "@/components/molecules/share-result"
 import { Button } from "@/components/ui/button"
@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Slider } from "@/components/ui/slider"
 import { Infinity } from "lucide-react"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { token } from "@/lib/token"
 
 export function DoublePendulum() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -90,7 +91,7 @@ export function DoublePendulum() {
 
     // Draw Rods
     ctx.beginPath()
-    ctx.strokeStyle = '#b3aae0'
+    ctx.strokeStyle = token("--dk-ink-soft", canvasRef.current)
     ctx.lineWidth = 4
     ctx.moveTo(cx, cy)
     ctx.lineTo(x1, y1)
@@ -99,7 +100,7 @@ export function DoublePendulum() {
 
     // Draw Pivot
     ctx.beginPath()
-    ctx.fillStyle = '#4a3f7a'
+    ctx.fillStyle = token("--dk-ink-soft", canvasRef.current)
     ctx.arc(cx, cy, 5, 0, 2 * Math.PI)
     ctx.fill()
 
@@ -147,17 +148,17 @@ export function DoublePendulum() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-[#1d1442] border-[#4a3f7a]">
+      <Card className="bg-[var(--dk-surface)] border-[var(--dk-line)]">
         <CardHeader>
-          <CardTitle className="text-3xl text-[#ff3ca6] flex items-center gap-2" style={{ fontFamily: 'var(--font-bungee), cursive' }}>
+          <CardTitle className="text-3xl text-[var(--dk-pnk-ink)] flex items-center gap-2" style={{ fontFamily: 'var(--font-fredoka), cursive' }}>
             <Infinity className="h-8 w-8" />
             Chaotic Double Pendulum
           </CardTitle>
-          <CardDescription className="text-[#b3aae0]">A physical demonstration of chaos theory. Small changes, big consequences.</CardDescription>
+          <CardDescription className="text-[var(--dk-ink-soft)]">A physical demonstration of chaos theory. Small changes, big consequences.</CardDescription>
         </CardHeader>
         <CardContent className="grid lg:grid-cols-12 gap-8">
 
-           <div className="lg:col-span-8 bg-[#0c0824] rounded-xl overflow-hidden border border-[#4a3f7a] relative">
+           <div className="lg:col-span-8 bg-[var(--dk-sunk)] rounded-xl overflow-hidden border border-[var(--dk-line)] relative">
               <canvas 
                 ref={canvasRef} 
                 width={800} 
@@ -165,8 +166,8 @@ export function DoublePendulum() {
                 className="w-full h-full object-contain"
               />
               {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center bg-[#0c0824]/60">
-                   <Button onClick={() => setIsPlaying(true)} className="bg-[#ff3ca6] hover:bg-[#ff3ca6]/90 text-[#160e33] text-lg py-6 px-8 rounded-full">
+                <div className="absolute inset-0 flex items-center justify-center bg-[var(--dk-sunk)]/60">
+                   <Button onClick={() => setIsPlaying(true)} className="bg-[var(--dk-pnk)] hover:bg-[var(--dk-pnk)]/90 text-[var(--dk-on-fill)] text-lg py-6 px-8 rounded-full">
                       Start Simulation
                    </Button>
                 </div>
@@ -174,17 +175,17 @@ export function DoublePendulum() {
            </div>
 
            <div className="lg:col-span-4 space-y-8">
-              <div className="space-y-6 bg-[#241a52] p-6 rounded-xl border border-[#4a3f7a]">
+              <div className="space-y-6 bg-[var(--dk-raised)] p-6 rounded-xl border border-[var(--dk-line)]">
                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm text-[#b3aae0]">
+                    <div className="flex justify-between text-sm text-[var(--dk-ink-soft)]">
                        <span>Tail Length</span>
                        <span>{trailLength}</span>
                     </div>
-                    <Slider value={[trailLength]} onValueChange={([v]) => setTrailLength(v)} min={10} max={500} step={10} className="[&_.range-thumb]:bg-[#ff3ca6]" />
+                    <Slider value={[trailLength]} onValueChange={([v]) => setTrailLength(v)} min={10} max={500} step={10} className="[&_.range-thumb]:bg-[var(--dk-pnk)]" />
                  </div>
 
                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm text-[#b3aae0]">
+                    <div className="flex justify-between text-sm text-[var(--dk-ink-soft)]">
                        <span>Mass 1 (Blue)</span>
                        <span>{mass1}kg</span>
                     </div>
@@ -192,7 +193,7 @@ export function DoublePendulum() {
                  </div>
 
                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm text-[#b3aae0]">
+                    <div className="flex justify-between text-sm text-[var(--dk-ink-soft)]">
                        <span>Mass 2 (Purple)</span>
                        <span>{mass2}kg</span>
                     </div>
@@ -201,17 +202,17 @@ export function DoublePendulum() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                 <Button variant="outline" onClick={() => setIsPlaying(!isPlaying)} className="bg-[#0c0824] border-[#4a3f7a] hover:bg-[#241a52] text-[#ECEAE3]">
+                 <Button variant="outline" onClick={() => setIsPlaying(!isPlaying)} className="bg-[var(--dk-sunk)] border-[var(--dk-line)] hover:bg-[var(--dk-raised)] text-[var(--dk-ink)]">
                     {isPlaying ? "Pause" : "Resume"}
                  </Button>
-                 <Button onClick={reset} className="bg-[#ff3ca6] hover:bg-[#ff3ca6]/90 text-[#160e33]">
+                 <Button onClick={reset} className="bg-[var(--dk-pnk)] hover:bg-[var(--dk-pnk)]/90 text-[var(--dk-on-fill)]">
                     Reset Chaos
                  </Button>
               </div>
 
               <ShareResult 
                  title="I created Chaos" 
-                 text="I'm simulating a double pendulum physics system. Seeing the butterfly effect in real-time! 🦋" 
+                 text="I'm simulating a double pendulum physics system. Seeing the butterfly effect in real-time! ðŸ¦‹" 
               />
            </div>
 

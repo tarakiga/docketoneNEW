@@ -183,23 +183,23 @@ export function GenerationalTimelineCalculator() {
     return (
         <div className="grid lg:grid-cols-3 gap-8">
             {/* Input Panel */}
-            <Card className="lg:col-span-1 h-fit" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+            <Card className="lg:col-span-1 h-fit" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                 <CardHeader>
-                    <CardTitle style={{ color: '#ECEAE3' }}>Find Your Place in History</CardTitle>
+                    <CardTitle style={{ color: 'var(--dk-ink)' }}>Find Your Place in History</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="space-y-2">
-                        <Label style={{ color: '#b3aae0' }}>Enter Birth Year</Label>
+                        <Label style={{ color: 'var(--dk-ink-soft)' }}>Enter Birth Year</Label>
                         <Input
                             type="number"
                             placeholder="e.g. 1990"
                             value={birthYear}
                             onChange={(e) => setBirthYear(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && calculate()}
-                            style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
+                            style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                     </div>
-                    <Button onClick={calculate} className="w-full hover:opacity-90 transition-opacity" style={{ backgroundColor: '#29e0ff', color: '#160e33' }}>
+                    <Button onClick={calculate} className="w-full hover:opacity-90 transition-opacity" style={{ backgroundColor: 'var(--dk-tea)', color: 'var(--dk-on-fill)' }}>
                         Reveal My Generation
                     </Button>
                 </CardContent>
@@ -215,17 +215,17 @@ export function GenerationalTimelineCalculator() {
                         className="space-y-6"
                     >
                          {/* Hero Result Card */}
-                        <Card className={`overflow-hidden border-0 relative shadow-xl`} style={{ backgroundColor: '#1d1442' }}>
+                        <Card className={`overflow-hidden border-0 relative shadow-xl`} style={{ backgroundColor: 'var(--dk-surface)' }}>
                             <div className={`absolute inset-0 bg-gradient-to-br ${result.color} opacity-10 dark:opacity-20`} />
                             <CardContent className="pt-8 relative z-10 text-center space-y-4">
                                 <div className="text-6xl mb-2">{result.icon}</div>
                                 <div className="space-y-1">
-                                    <h2 className="text-3xl font-bold tracking-tight mb-1" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#29e0ff' }}>
+                                    <h2 className="text-3xl font-bold tracking-tight mb-1" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-tea-ink)' }}>
                                         You are {result.name}
                                     </h2>
-                                    <p style={{ color: '#b3aae0' }}>Born {birthYear} • Approx {age} years old</p>
+                                    <p style={{ color: 'var(--dk-ink-soft)' }}>Born {birthYear} • Approx {age} years old</p>
                                 </div>
-                                <p className="text-lg max-w-lg mx-auto leading-relaxed" style={{ color: '#ECEAE3' }}>
+                                <p className="text-lg max-w-lg mx-auto leading-relaxed" style={{ color: 'var(--dk-ink)' }}>
                                     {result.description}
                                 </p>
                                 <div className="pt-6">
@@ -240,39 +240,39 @@ export function GenerationalTimelineCalculator() {
 
                         {/* Cultural Grid */}
                         <div className="grid sm:grid-cols-2 gap-4">
-                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                            <Card className="transition-colors" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
                                      <div className="p-2 rounded-lg bg-pink-500/20 text-pink-300"><Music className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Music</h4>
-                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.music}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: 'var(--dk-ink)' }}>Music</h4>
+                                         <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>{result.cultural.music}</p>
                                      </div>
                                 </CardContent>
                             </Card>
-                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                            <Card className="transition-colors" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
                                      <div className="p-2 rounded-lg bg-yellow-500/20 text-yellow-300"><Film className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Pop Culture</h4>
-                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.film}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: 'var(--dk-ink)' }}>Pop Culture</h4>
+                                         <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>{result.cultural.film}</p>
                                      </div>
                                 </CardContent>
                             </Card>
-                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                            <Card className="transition-colors" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
                                      <div className="p-2 rounded-lg bg-blue-500/20 text-blue-300"><Smartphone className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Tech</h4>
-                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.tech}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: 'var(--dk-ink)' }}>Tech</h4>
+                                         <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>{result.cultural.tech}</p>
                                      </div>
                                 </CardContent>
                             </Card>
-                            <Card className="transition-colors" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                            <Card className="transition-colors" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                                 <CardContent className="pt-6 flex items-start gap-4">
                                      <div className="p-2 rounded-lg bg-green-500/20 text-green-300"><Globe className="w-5 h-5" /></div>
                                      <div>
-                                         <h4 className="font-bold mb-1" style={{ color: '#ECEAE3' }}>Events</h4>
-                                         <p className="text-sm" style={{ color: '#b3aae0' }}>{result.cultural.events}</p>
+                                         <h4 className="font-bold mb-1" style={{ color: 'var(--dk-ink)' }}>Events</h4>
+                                         <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>{result.cultural.events}</p>
                                      </div>
                                 </CardContent>
                             </Card>
@@ -281,18 +281,18 @@ export function GenerationalTimelineCalculator() {
                          {/* Work & Finance */}
                         <div className="grid sm:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 font-medium" style={{ color: '#ECEAE3' }}>
-                                    <Briefcase className="w-4 h-4" style={{ color: '#29e0ff' }} /> Work Style
+                                <div className="flex items-center gap-2 font-medium" style={{ color: 'var(--dk-ink)' }}>
+                                    <Briefcase className="w-4 h-4" style={{ color: 'var(--dk-tea-ink)' }} /> Work Style
                                 </div>
-                                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ color: '#b3aae0', backgroundColor: '#0c0824', border: '1px solid #4a3f7a' }}>
+                                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ color: 'var(--dk-ink-soft)', backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
                                     {result.workStyle}
                                 </p>
                             </div>
                             <div className="space-y-2">
-                                <div className="flex items-center gap-2 font-medium" style={{ color: '#ECEAE3' }}>
-                                    <Wallet className="w-4 h-4" style={{ color: '#29e0ff' }} /> Financial Outlook
+                                <div className="flex items-center gap-2 font-medium" style={{ color: 'var(--dk-ink)' }}>
+                                    <Wallet className="w-4 h-4" style={{ color: 'var(--dk-tea-ink)' }} /> Financial Outlook
                                 </div>
-                                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ color: '#b3aae0', backgroundColor: '#0c0824', border: '1px solid #4a3f7a' }}>
+                                <p className="text-sm leading-relaxed p-4 rounded-lg" style={{ color: 'var(--dk-ink-soft)', backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}>
                                     {result.financial}
                                 </p>
                             </div>
@@ -300,10 +300,10 @@ export function GenerationalTimelineCalculator() {
 
                     </motion.div>
                 ) : (
-                    <div className="h-full min-h-[400px] flex flex-col items-center justify-center p-8 text-center border-2 border-dashed rounded-xl" style={{ borderColor: '#4a3f7a', backgroundColor: '#0c0824' }}>
+                    <div className="h-full min-h-[400px] flex flex-col items-center justify-center p-8 text-center border-2 border-dashed rounded-xl" style={{ borderColor: 'var(--dk-line)', backgroundColor: 'var(--dk-sunk)' }}>
                         <div className="text-4xl mb-4 opacity-50">{notice ? "🤔" : "🕰️"}</div>
-                        <h3 className="text-xl font-medium mb-2" style={{ color: '#ECEAE3' }}>{notice ? "Out of range" : "Waiting for input..."}</h3>
-                        <p className="max-w-md" style={{ color: '#b3aae0' }}>
+                        <h3 className="text-xl font-medium mb-2" style={{ color: 'var(--dk-ink)' }}>{notice ? "Out of range" : "Waiting for input..."}</h3>
+                        <p className="max-w-md" style={{ color: 'var(--dk-ink-soft)' }}>
                             {notice || "Enter your birth year to unlock a detailed breakdown of your generational identity and cultural touchstones."}
                         </p>
                     </div>

@@ -39,22 +39,22 @@ export function CaesarCipher() {
     return (
         <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-6 min-w-0">
-                <Card className="glass-card" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2" style={{ color: '#ECEAE3' }}>
-                            {mode === 'encode' ? <Lock className="w-5 h-5" style={{ color: '#b388ff' }} /> : <Unlock className="w-5 h-5" style={{ color: '#86efac' }} />}
+                        <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
+                            {mode === 'encode' ? <Lock className="w-5 h-5" style={{ color: 'var(--dk-pur-ink)' }} /> : <Unlock className="w-5 h-5" style={{ color: 'var(--dk-pos-ink)' }} />}
                             {mode === 'encode' ? 'Encrypt Message' : 'Decrypt Message'}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <div className="flex gap-2 p-1 rounded-lg" style={{ backgroundColor: '#0c0824' }}>
+                        <div className="flex gap-2 p-1 rounded-lg" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                             <Button
                                 variant={mode === 'encode' ? 'default' : 'ghost'}
                                 onClick={() => setMode('encode')}
                                 className="flex-1"
                                 style={mode === 'encode'
-                                    ? { backgroundColor: '#b388ff', color: '#160e33' }
-                                    : { backgroundColor: '#241a52', color: '#ECEAE3' }}
+                                    ? { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }
+                                    : { backgroundColor: 'var(--dk-raised)', color: 'var(--dk-ink)' }}
                             >
                                 Encrypt
                             </Button>
@@ -63,15 +63,15 @@ export function CaesarCipher() {
                                 onClick={() => setMode('decode')}
                                 className="flex-1"
                                 style={mode === 'decode'
-                                    ? { backgroundColor: '#b388ff', color: '#160e33' }
-                                    : { backgroundColor: '#241a52', color: '#ECEAE3' }}
+                                    ? { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }
+                                    : { backgroundColor: 'var(--dk-raised)', color: 'var(--dk-ink)' }}
                             >
                                 Decrypt
                             </Button>
                         </div>
 
                         <div className="space-y-4">
-                            <Label style={{ color: '#ECEAE3' }}>Shift Amount: {shift}</Label>
+                            <Label style={{ color: 'var(--dk-ink)' }}>Shift Amount: {shift}</Label>
                             <Slider
                                 value={[shift]}
                                 onValueChange={(v) => setShift(v[0])}
@@ -80,30 +80,30 @@ export function CaesarCipher() {
                                 step={1}
                                 className="py-2"
                             />
-                            <div className="text-xs text-center" style={{ color: '#b3aae0' }}>
+                            <div className="text-xs text-center" style={{ color: 'var(--dk-ink-soft)' }}>
                                 A {mode === 'encode' ? 'becomes' : 'was'} {String.fromCharCode(65 + ((mode === 'encode' ? shift : (26-shift)%26) % 26))}
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Label style={{ color: '#ECEAE3' }}>Message</Label>
+                            <Label style={{ color: 'var(--dk-ink)' }}>Message</Label>
                             <Textarea
                                 placeholder="Type your secret message..."
                                 value={text}
                                 onChange={(e) => setText(e.target.value)}
-                                className="min-h-[100px] font-mono focus-visible:ring-0 focus-visible:border-[#b388ff]"
-                                style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
+                                className="min-h-[100px] font-mono focus-visible:ring-0 focus-visible:border-[var(--dk-pur-ink)]"
+                                style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                             />
                         </div>
                     </CardContent>
                 </Card>
 
                  {/* Decoder Wheel Visual */}
-                 <Card className="glass-card overflow-hidden" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                 <Card className="glass-card overflow-hidden" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                     <CardContent className="pt-6 flex justify-center items-center py-12">
                         <div className="relative w-64 h-64">
                             {/* Outer Ring (Static) */}
-                            <div className="absolute inset-0 rounded-full border-4 flex items-center justify-center" style={{ borderColor: '#4a3f7a' }}>
+                            <div className="absolute inset-0 rounded-full border-4 flex items-center justify-center" style={{ borderColor: 'var(--dk-line)' }}>
                                 {Array.from({ length: 26 }).map((_, i) => {
                                     const angle = (i * 360) / 26;
                                     return (
@@ -111,7 +111,7 @@ export function CaesarCipher() {
                                             key={i}
                                             className="absolute text-xs font-bold"
                                             style={{
-                                                color: '#b3aae0',
+                                                color: 'var(--dk-ink-soft)',
                                                 transform: `rotate(${angle}deg) translateY(-110px) rotate(-${angle}deg)`
                                             }}
                                         >
@@ -124,7 +124,7 @@ export function CaesarCipher() {
                             {/* Inner Ring (Rotating) */}
                             <motion.div
                                 className="absolute inset-4 rounded-full border-4 flex items-center justify-center"
-                                style={{ borderColor: '#b388ff', backgroundColor: '#1d1442' }}
+                                style={{ borderColor: 'var(--dk-pur-ink)', backgroundColor: 'var(--dk-surface)' }}
                                 animate={{ rotate: -rotation }}
                                 transition={{ type: "spring", stiffness: 60 }}
                             >
@@ -135,7 +135,7 @@ export function CaesarCipher() {
                                             key={i}
                                             className="absolute text-xs font-bold"
                                             style={{
-                                                color: '#b388ff',
+                                                color: 'var(--dk-pur-ink)',
                                                 transform: `rotate(${angle}deg) translateY(-85px) rotate(-${angle}deg)`
                                             }}
                                         >
@@ -149,7 +149,7 @@ export function CaesarCipher() {
                             </motion.div>
 
                             {/* Indicator */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-2xl" style={{ color: '#b388ff' }}>
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-2xl" style={{ color: 'var(--dk-pur-ink)' }}>
                                 ▼
                             </div>
                         </div>
@@ -158,25 +158,25 @@ export function CaesarCipher() {
             </div>
 
             <div className="space-y-6 min-w-0">
-                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                        <CardTitle style={{ color: '#ECEAE3' }}>Result</CardTitle>
+                        <CardTitle style={{ color: 'var(--dk-ink)' }}>Result</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1 flex flex-col gap-4">
-                        <div className="flex items-baseline gap-2 text-sm" style={{ color: '#b3aae0' }}>
+                        <div className="flex items-baseline gap-2 text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
                             <span>Shift Key</span>
-                            <span style={{ fontFamily: 'var(--font-bungee), cursive', color: '#b388ff' }}>{shift}</span>
+                            <span style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-pur-ink)' }}>{shift}</span>
                         </div>
-                        <div className="relative flex-1 rounded-xl p-4 border" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                        <div className="relative flex-1 rounded-xl p-4 border" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                             {result ? (
-                                <p className="font-mono break-words text-lg" style={{ color: '#ECEAE3' }}>{result}</p>
+                                <p className="font-mono break-words text-lg" style={{ color: 'var(--dk-ink)' }}>{result}</p>
                             ) : (
-                                <p className="italic" style={{ color: '#b3aae0' }}>Result will appear here...</p>
+                                <p className="italic" style={{ color: 'var(--dk-ink-soft)' }}>Result will appear here...</p>
                             )}
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-3">
-                             <Button onClick={copyToClipboard} variant="outline" className="flex-1 gap-2" disabled={!result} style={{ backgroundColor: '#b388ff', borderColor: '#b388ff', color: '#160e33' }}>
+                             <Button onClick={copyToClipboard} variant="outline" className="flex-1 gap-2" disabled={!result} style={{ backgroundColor: 'var(--dk-pur)', borderColor: 'var(--dk-pur-ink)', color: 'var(--dk-on-fill)' }}>
                                 <Copy className="w-4 h-4" /> Copy
                             </Button>
                              <ShareResult 
@@ -192,12 +192,12 @@ export function CaesarCipher() {
                 </Card>
 
                 {/* Educational Bit */}
-                <Card className="glass-card" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                     <CardContent className="pt-6">
-                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--dk-pur-ink)' }}>
                              👑 History Check
                         </h4>
-                        <p className="text-sm" style={{ color: '#b3aae0' }}>
+                        <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
                             Julius Caesar actually used this! He typically used a shift of 3 to protect military messages.
                             It&apos;s one of the simplest forms of encryption, easily broken today by frequency analysis,
                             but was state-of-the-art in 50 BC!

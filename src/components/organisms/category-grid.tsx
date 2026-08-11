@@ -1,16 +1,6 @@
 import { CATEGORY_META } from "@/data/calculators"
+import { accentFor } from "@/data/category-palette"
 import Link from "next/link"
-
-// Per-collection tile palette (tint bg / border / text), echoing each category's accent.
-const TILE: Record<string, { bg: string; bd: string; tx: string }> = {
-    lifehacks: { bg: "#1d1442", bd: "#b6ff3c", tx: "#ECEAE3" },
-    mathmagik: { bg: "#1d1442", bd: "#ff3ca6", tx: "#ECEAE3" },
-    bigkidmath: { bg: "#1d1442", bd: "#29e0ff", tx: "#ECEAE3" },
-    cipherlab: { bg: "#1d1442", bd: "#b388ff", tx: "#ECEAE3" },
-    geekgalaxy: { bg: "#1d1442", bd: "#ff8a3c", tx: "#ECEAE3" },
-    otakuops: { bg: "#1d1442", bd: "#ffd23c", tx: "#ECEAE3" },
-    brainmodes: { bg: "#1d1442", bd: "#5bf0c0", tx: "#ECEAE3" },
-}
 
 export function CategoryGrid() {
     return (
@@ -22,13 +12,13 @@ export function CategoryGrid() {
             </div>
             <div className="home-tiles">
                 {CATEGORY_META.map(cat => {
-                    const c = TILE[cat.id] || TILE.lifehacks
+                    const c = accentFor(cat.id)
                     return (
                         <Link
                             key={cat.id}
                             href={`/calculators/${cat.id}/`}
                             className="home-tile"
-                            style={{ borderColor: c.bd }}
+                            style={{ background: c.fill, color: c.on, borderColor: "var(--dk-line)" }}
                         >
                             <span className="e">{cat.emoji}</span>
                             <h3>{cat.name}</h3>

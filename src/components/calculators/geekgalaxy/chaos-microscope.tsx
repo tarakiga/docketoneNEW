@@ -129,18 +129,18 @@ export function ChaosMicroscope() {
 
   return (
     <div className="space-y-6">
-      <Card style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+      <Card style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader>
-          <CardTitle style={{ color: '#ff8a3c', fontFamily: 'var(--font-bungee), cursive' }}>
+          <CardTitle style={{ color: 'var(--dk-org-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
             The Chaos Microscope
           </CardTitle>
-          <CardDescription style={{ color: '#b3aae0' }}>
+          <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>
             Click anywhere on the diagram to zoom in. Discover the fractal hidden within the chaos.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="relative rounded-lg overflow-hidden border" style={{ borderColor: '#4a3f7a', backgroundColor: '#0c0824' }}>
+            <div className="relative rounded-lg overflow-hidden border" style={{ borderColor: 'var(--dk-line)', backgroundColor: 'var(--dk-sunk)' }}>
                {/* Feigenbaum Ruler Overlay */}
                {showRuler && (
                 <div className="absolute inset-0 pointer-events-none z-10 opacity-70">
@@ -166,30 +166,30 @@ export function ChaosMicroscope() {
               />
               
               {isDrawing && (
-                <div className="absolute top-2 right-2 text-xs px-2 py-1 rounded-full animate-pulse" style={{ backgroundColor: '#241a52', color: '#ECEAE3' }}>
+                <div className="absolute top-2 right-2 text-xs px-2 py-1 rounded-full animate-pulse" style={{ backgroundColor: 'var(--dk-raised)', color: 'var(--dk-ink)' }}>
                   Rendering...
                 </div>
               )}
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 justify-between p-3 sm:p-4 rounded-lg" style={{ backgroundColor: '#0c0824' }}>
+            <div className="flex flex-wrap items-center gap-4 justify-between p-3 sm:p-4 rounded-lg" style={{ backgroundColor: 'var(--dk-sunk)' }}>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 min-w-0">
-                <Button variant="outline" size="sm" onClick={resetZoom} style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a', color: '#ECEAE3' }}>
+                <Button variant="outline" size="sm" onClick={resetZoom} style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}>
                   <Maximize className="w-4 h-4 mr-2" />
                   Reset Zoom
                 </Button>
 
                 <div className="flex items-center space-x-2 min-w-0">
-                    <Label htmlFor="ruler-mode" className="text-sm" style={{ color: '#ECEAE3' }}>Feigenbaum Ruler</Label>
-                    <Switch id="ruler-mode" checked={showRuler} onCheckedChange={setShowRuler} className="data-[state=checked]:bg-[#ff8a3c]" />
+                    <Label htmlFor="ruler-mode" className="text-sm" style={{ color: 'var(--dk-ink)' }}>Feigenbaum Ruler</Label>
+                    <Switch id="ruler-mode" checked={showRuler} onCheckedChange={setShowRuler} className="data-[state=checked]:bg-[var(--dk-org)]" />
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 flex-1 w-full min-w-0 sm:min-w-[200px]">
                 <div className="space-y-1 flex-1 min-w-0">
                   <div className="flex justify-between">
-                    <Label className="text-xs" style={{ color: '#b3aae0' }}>Detail (Iterations)</Label>
-                    <span className="text-xs" style={{ color: '#ECEAE3' }}>{resolution} pts</span>
+                    <Label className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>Detail (Iterations)</Label>
+                    <span className="text-xs" style={{ color: 'var(--dk-ink)' }}>{resolution} pts</span>
                   </div>
                   <Slider 
                     value={[resolution]} 
@@ -202,8 +202,8 @@ export function ChaosMicroscope() {
                 </div>
                  <div className="space-y-1 flex-1 min-w-0">
                   <div className="flex justify-between">
-                    <Label className="text-xs" style={{ color: '#b3aae0' }}>Settle Time (Transient)</Label>
-                    <span className="text-xs" style={{ color: '#ECEAE3' }}>{iterations} skips</span>
+                    <Label className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>Settle Time (Transient)</Label>
+                    <span className="text-xs" style={{ color: 'var(--dk-ink)' }}>{iterations} skips</span>
                   </div>
                   <Slider 
                     value={[iterations]} 
@@ -217,7 +217,7 @@ export function ChaosMicroscope() {
               </div>
             </div>
 
-            <div className="text-xs font-mono p-2 rounded border" style={{ color: '#b3aae0', backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+            <div className="text-xs font-mono p-2 rounded border" style={{ color: 'var(--dk-ink-soft)', backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
               <div>Viewport R: [{viewport.minR.toFixed(5)} ... {viewport.maxR.toFixed(5)}]</div>
               <div>Constant δ ≈ 4.6692016...</div>
             </div>
@@ -233,11 +233,11 @@ export function ChaosMicroscope() {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+        <Card style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
            <CardHeader>
-            <CardTitle className="text-lg" style={{ color: '#ECEAE3' }}>What am I looking at?</CardTitle>
+            <CardTitle className="text-lg" style={{ color: 'var(--dk-ink)' }}>What am I looking at?</CardTitle>
            </CardHeader>
-           <CardContent className="text-sm space-y-2" style={{ color: '#b3aae0' }}>
+           <CardContent className="text-sm space-y-2" style={{ color: 'var(--dk-ink-soft)' }}>
              <p>
                This is the <strong>Bifurcation Diagram</strong> of the Logistic Map. It shows how a population changes over time based on its growth rate ($r$).
              </p>
@@ -250,11 +250,11 @@ export function ChaosMicroscope() {
            </CardContent>
         </Card>
         
-        <Card style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+        <Card style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
            <CardHeader>
-            <CardTitle className="text-lg" style={{ color: '#ECEAE3' }}>The Feigenbaum Constant</CardTitle>
+            <CardTitle className="text-lg" style={{ color: 'var(--dk-ink)' }}>The Feigenbaum Constant</CardTitle>
            </CardHeader>
-           <CardContent className="text-sm space-y-2" style={{ color: '#b3aae0' }}>
+           <CardContent className="text-sm space-y-2" style={{ color: 'var(--dk-ink-soft)' }}>
              <p>
                 Mitchell Feigenbaum discovered that the <em>rate</em> at which these splits happen is universal.
              </p>

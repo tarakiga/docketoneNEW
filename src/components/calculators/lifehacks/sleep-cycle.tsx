@@ -72,39 +72,39 @@ export function SleepCycleCalculator() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card className="border-0 shadow-none" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a', borderWidth: '1px' }}>
+      <Card className="border-0 shadow-none" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)', borderWidth: '1px' }}>
         <CardHeader>
-          <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: '#b6ff3c' }}>
-            <Moon className="h-8 w-8" style={{ color: '#b6ff3c' }} />
+          <CardTitle className="text-3xl font-display flex items-center gap-2" style={{ color: 'var(--dk-lim-ink)' }}>
+            <Moon className="h-8 w-8" style={{ color: 'var(--dk-lim-ink)' }} />
             Sleep Cycle Optimizer
           </CardTitle>
-          <CardDescription style={{ color: '#b3aae0' }}>
+          <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>
             Master your REM cycles. Waking up in the middle of a sleep cycle leaves you groggy. 
             Aim for 5-6 cycles (7.5 - 9 hours).
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-8 p-8">
            
-           <div className="p-6 rounded-xl border space-y-6" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
-              <div className="flex gap-4 p-1 rounded-lg w-fit mx-auto border" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+           <div className="p-6 rounded-xl border space-y-6" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
+              <div className="flex gap-4 p-1 rounded-lg w-fit mx-auto border" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                  <button
                     onClick={() => setMode('wake')}
                     className="px-6 py-2 rounded-md font-bold text-sm transition-all"
-                    style={mode === 'wake' ? { backgroundColor: '#b6ff3c', color: '#160e33' } : { backgroundColor: 'transparent', color: '#b3aae0' }}
+                    style={mode === 'wake' ? { backgroundColor: 'var(--dk-lim)', color: 'var(--dk-on-fill)' } : { backgroundColor: 'transparent', color: 'var(--dk-ink-soft)' }}
                  >
                     I want to wake up at...
                  </button>
                  <button
                     onClick={() => setMode('sleep')}
                     className="px-6 py-2 rounded-md font-bold text-sm transition-all"
-                    style={mode === 'sleep' ? { backgroundColor: '#b6ff3c', color: '#160e33' } : { backgroundColor: 'transparent', color: '#b3aae0' }}
+                    style={mode === 'sleep' ? { backgroundColor: 'var(--dk-lim)', color: 'var(--dk-on-fill)' } : { backgroundColor: 'transparent', color: 'var(--dk-ink-soft)' }}
                  >
                     If I go to sleep at...
                  </button>
               </div>
 
               {mode === 'sleep' && (
-                 <div className="flex justify-center items-center gap-2 font-bold" style={{ color: '#b6ff3c' }}>
+                 <div className="flex justify-center items-center gap-2 font-bold" style={{ color: 'var(--dk-lim-ink)' }}>
                     <Switch checked={now} onCheckedChange={setNow} />
                     <Label>Sleep Right Now?</Label>
                  </div>
@@ -112,18 +112,18 @@ export function SleepCycleCalculator() {
 
               {(!now || mode === 'wake') && (
                 <div className="flex flex-wrap justify-center gap-2 items-center animate-in zoom-in duration-300">
-                   <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-lg border min-w-0" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                   <div className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-lg border min-w-0" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                       <Select value={hour} onValueChange={setHour}>
-                         <SelectTrigger className="w-[56px] sm:w-[70px] text-xl sm:text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
+                         <SelectTrigger className="w-[56px] sm:w-[70px] text-xl sm:text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: 'var(--dk-ink)' }}><SelectValue/></SelectTrigger>
                          <SelectContent className="max-h-[300px]">
                             {Array.from({length: 12}, (_, i) => i + 1).map(h => (
                                <SelectItem key={h} value={h.toString()}>{h}</SelectItem>
                             ))}
                          </SelectContent>
                       </Select>
-                      <span className="text-2xl font-black" style={{ color: '#b6ff3c' }}>:</span>
+                      <span className="text-2xl font-black" style={{ color: 'var(--dk-lim-ink)' }}>:</span>
                       <Select value={minute} onValueChange={setMinute}>
-                         <SelectTrigger className="w-[56px] sm:w-[70px] text-xl sm:text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: '#ECEAE3' }}><SelectValue/></SelectTrigger>
+                         <SelectTrigger className="w-[56px] sm:w-[70px] text-xl sm:text-2xl font-black bg-transparent border-none focus:ring-0" style={{ color: 'var(--dk-ink)' }}><SelectValue/></SelectTrigger>
                          <SelectContent className="max-h-[300px]">
                             {['00', '15', '30', '45'].map(m => (
                                <SelectItem key={m} value={m}>{m}</SelectItem>
@@ -131,7 +131,7 @@ export function SleepCycleCalculator() {
                          </SelectContent>
                       </Select>
                       <Select value={ampm} onValueChange={setAmpm}>
-                         <SelectTrigger className="w-[56px] sm:w-[70px] text-base sm:text-xl font-bold border-none focus:ring-0" style={{ backgroundColor: '#0c0824', color: '#b3aae0' }}><SelectValue/></SelectTrigger>
+                         <SelectTrigger className="w-[56px] sm:w-[70px] text-base sm:text-xl font-bold border-none focus:ring-0" style={{ backgroundColor: 'var(--dk-sunk)', color: 'var(--dk-ink-soft)' }}><SelectValue/></SelectTrigger>
                          <SelectContent>
                             <SelectItem value="AM">AM</SelectItem>
                             <SelectItem value="PM">PM</SelectItem>
@@ -143,20 +143,20 @@ export function SleepCycleCalculator() {
            </div>
 
            <div className="space-y-4">
-              <h3 className="text-center font-bold text-sm uppercase tracking-widest" style={{ color: '#b3aae0' }}>
+              <h3 className="text-center font-bold text-sm uppercase tracking-widest" style={{ color: 'var(--dk-ink-soft)' }}>
                  {mode === 'wake' ? "You should try to fall asleep at one of these times:" : "You should try to wake up at one of these times:"}
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                  {results.map((r, i) => (
-                    <div key={i} className="relative p-6 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all hover:scale-105" style={r.cycles >= 5 ? { backgroundColor: '#241a52', borderColor: '#b6ff3c' } : { backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                    <div key={i} className="relative p-6 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all hover:scale-105" style={r.cycles >= 5 ? { backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-lim-ink)' } : { backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                        {r.cycles >= 5 && (
-                          <div className="absolute -top-3 px-3 py-1 text-xs font-black uppercase tracking-wider rounded-full" style={{ backgroundColor: '#b6ff3c', color: '#160e33' }}>
+                          <div className="absolute -top-3 px-3 py-1 text-xs font-black uppercase tracking-wider rounded-full" style={{ backgroundColor: 'var(--dk-lim)', color: 'var(--dk-on-fill)' }}>
                              Recommended
                           </div>
                        )}
-                       <div className="text-3xl font-black" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#b6ff3c' }}>{formatTime(r.time)}</div>
-                       <div className="text-xs font-bold uppercase" style={r.cycles >= 5 ? { color: '#ECEAE3' } : { color: '#b3aae0' }}>
+                       <div className="text-3xl font-black" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-lim-ink)' }}>{formatTime(r.time)}</div>
+                       <div className="text-xs font-bold uppercase" style={r.cycles >= 5 ? { color: 'var(--dk-ink)' } : { color: 'var(--dk-ink-soft)' }}>
                           {r.cycles} Cycles ({r.cycles * 1.5} Hours)
                        </div>
                     </div>

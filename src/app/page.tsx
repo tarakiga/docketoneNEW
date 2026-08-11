@@ -8,6 +8,16 @@ import { getLatestPosts, sanitizeBlogText } from "@/lib/blog"
 import Image from "next/image"
 import Link from "next/link"
 
+// Deliberately mixed: two things you'd genuinely look up on a Tuesday, one
+// uncomfortable truth, one that is pure nonsense. The spread is the point —
+// it shows what kind of place this is faster than a paragraph could.
+const HERO_QUESTIONS = [
+  { q: "when does my 2pm coffee wear off?", href: "/calculators/bigkidmath/caffeine-half-life/" },
+  { q: "when should I sleep to wake at 6?", href: "/calculators/lifehacks/sleep-cycle/" },
+  { q: "how much life has Instagram had?", href: "/calculators/lifehacks/social-media-addiction/" },
+  { q: "how long to Proxima Centauri?", href: "/calculators/geekgalaxy/space-travel/" },
+]
+
 const TRENDING = [
   { href: "/calculators/bigkidmath/caffeine-half-life/", e: "☕", t: "Caffeine Half-Life" },
   { href: "/calculators/lifehacks/calorie-deficit/", e: "🔥", t: "Calorie Deficit" },
@@ -22,26 +32,40 @@ export default async function Home() {
 
   return (
     <div className="almanac">
-      <div className="almanac-wrap">
-        {/* Hero */}
-        <header className="home-hero">
-          <div className="home-conf" aria-hidden="true">
-            <span style={{ left: "8%", top: "18%" }}>✨</span>
-            <span style={{ right: "10%", top: "12%" }}>🔥</span>
-            <span style={{ left: "13%", bottom: "30%" }}>⚡</span>
-            <span style={{ right: "13%", bottom: "34%" }}>🧮</span>
-            <span style={{ left: "47%", top: "4%" }}>🚀</span>
-          </div>
-          <div className="home-pill">🎲 <b>65+</b> calculators · free · no sign-up</div>
-          <h1 className="home-h1">Pick your flavour<br />of <span className="w1">math</span> <span className="w2">magic</span>.</h1>
-          <p className="home-sub">Smart, silly, surprisingly useful tools for everything from Space travel time to the true cost of your coffee habit.</p>
-          <div className="home-cta">
-            <Link className="home-btn home-btn-clay" href="#categories">Explore the collections →</Link>
-            <SurpriseMeButton className="home-btn home-btn-ink" />
+      {/* Hero — full-bleed yellow band, so it sits outside the page wrap.
+          The Calculator of the Day is the card on the right rather than a
+          separate strip below, so the claim and the proof share one screen. */}
+      <header className="home-hero">
+        <div className="almanac-wrap">
+          <div className="home-hero-grid">
+          <div>
+            <div className="home-pill">🎲 <b>65+</b> calculators · free · no sign-up</div>
+            <h1 className="home-h1">Ask a<br />weird<br /><span className="w1">question</span>.</h1>
+            <p className="home-sub">Every calculator here shows its working and explains the formula. We&apos;re dead serious about deeply unserious questions.</p>
+            <div className="home-cta">
+              <Link className="home-btn home-btn-clay" href="#categories">Browse all 64 →</Link>
+              <SurpriseMeButton className="home-btn home-btn-ink" />
+            </div>
           </div>
           <CalculatorOfTheDay />
-        </header>
+          </div>
 
+          {/* Real questions, deliberately spanning practical to absurd, so the
+              range of the collection is legible before anyone clicks. Full width
+              under the grid so they lay out in one row instead of stacking, and
+              every one is a genuine route — navigation, not decoration. */}
+          <div className="home-asks">
+            <p className="home-asks-l">People come here asking</p>
+            <div className="home-ask-row">
+              {HERO_QUESTIONS.map(q => (
+                <Link key={q.href} className="home-ask" href={q.href}>{q.q}</Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="almanac-wrap">
         {/* Collections */}
         <CategoryGrid />
 
@@ -105,7 +129,7 @@ export default async function Home() {
 
         {/* SEO rich content */}
         <section className="almanac-section">
-          <div className="almanac-prose">
+          <div className="almanac-prose dk-read">
             <h2>Why Docket One is your ultimate calculation engine</h2>
             <p>
               Welcome to <strong>Docket One</strong>, one of the web&apos;s most comprehensive and genuinely useful

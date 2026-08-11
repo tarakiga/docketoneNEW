@@ -79,7 +79,7 @@ export function CaffeineCalculatorPremium() {
 
     return (
         <motion.div
-            className="w-full bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 rounded-3xl p-5 md:p-8 shadow-2xl border border-white/5 overflow-hidden relative"
+            className="w-full bg-gradient-to-br from-[var(--dk-sunk)] via-indigo-950 to-[var(--dk-raised)] rounded-3xl p-5 md:p-8 shadow-2xl border border-[var(--dk-line)] overflow-hidden relative"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -93,11 +93,11 @@ export function CaffeineCalculatorPremium() {
             <div className="relative z-10 space-y-7">
                 {/* Header */}
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                    <h2 className="text-2xl font-bold text-[var(--dk-ink)] flex items-center gap-3">
                         <span className="text-3xl">☕</span> Caffeine Half-Life
                     </h2>
-                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-cyan-400 flex items-center gap-2">
-                        <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" /> Live model
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--dk-tea-ink)] flex items-center gap-2">
+                        <span className="h-2 w-2 rounded-full bg-[var(--dk-tea)] animate-pulse" /> Live model
                     </span>
                 </div>
 
@@ -129,11 +129,11 @@ export function CaffeineCalculatorPremium() {
                 <div className={`rounded-2xl px-5 py-4 border-l-4 ${result.isSleepImpacted
                     ? "bg-red-500/10 border-l-red-500"
                     : "bg-emerald-500/10 border-l-emerald-500"}`}>
-                    <div className="font-bold text-white mb-1 flex items-center gap-2">
-                        {result.isSleepImpacted ? <AlertTriangle className="w-5 h-5 text-red-400" /> : <Moon className="w-5 h-5 text-emerald-400" />}
+                    <div className="font-bold text-[var(--dk-ink)] mb-1 flex items-center gap-2">
+                        {result.isSleepImpacted ? <AlertTriangle className="w-5 h-5 text-[var(--dk-neg-ink)]" /> : <Moon className="w-5 h-5 text-[var(--dk-pos-ink)]" />}
                         {result.isSleepImpacted ? "Sleep Warning" : "Sleep Safe"}
                     </div>
-                    <p className="text-sm text-slate-300 leading-relaxed">{recommendation}</p>
+                    <p className="text-sm text-[var(--dk-ink)] leading-relaxed">{recommendation}</p>
                 </div>
 
                 <div className="flex justify-end">

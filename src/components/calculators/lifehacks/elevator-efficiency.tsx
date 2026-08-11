@@ -52,13 +52,13 @@ export function ElevatorDilemmaCalculator() {
         let decisionColor: string
         if (totalStairsTime < totalElevatorTime - 15) {
             decision = "TAKE THE STAIRS"
-            decisionColor = "text-[#86efac]"
+            decisionColor = "text-[var(--dk-pos-ink)]"
         } else if (totalStairsTime <= totalElevatorTime + 15) {
             decision = "TOO CLOSE TO CALL"
-            decisionColor = "text-[#ffd23c]"
+            decisionColor = "text-[var(--dk-yel-ink)]"
         } else {
             decision = "WAIT FOR LIFT"
-            decisionColor = "text-[#b6ff3c]"
+            decisionColor = "text-[var(--dk-lim-ink)]"
         }
 
         return {
@@ -80,45 +80,45 @@ export function ElevatorDilemmaCalculator() {
 
     return (
         <div className="grid lg:grid-cols-3 gap-8">
-            <Card className="glass-card lg:col-span-1 h-fit bg-[#1d1442] border-[#4a3f7a]">
+            <Card className="glass-card lg:col-span-1 h-fit bg-[var(--dk-surface)] border-[var(--dk-line)]">
                 <CardHeader>
                     <div className="flex items-center justify-between mb-2">
-                        <div className="px-2 py-0.5 rounded-full bg-[#241a52] border border-[#b6ff3c] text-[10px] font-bold text-[#b6ff3c] uppercase tracking-widest">
+                        <div className="px-2 py-0.5 rounded-full bg-[var(--dk-raised)] border border-[var(--dk-lim-ink)] text-[10px] font-bold text-[var(--dk-lim-ink)] uppercase tracking-widest">
                             Optimization
                         </div>
                     </div>
-                    <CardTitle className="flex items-center gap-2 text-[#ECEAE3]">
-                        <ArrowUpFromLine className="w-5 h-5 text-[#b6ff3c]" />
+                    <CardTitle className="flex items-center gap-2 text-[var(--dk-ink)]">
+                        <ArrowUpFromLine className="w-5 h-5 text-[var(--dk-lim-ink)]" />
                         Variables
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase tracking-wider text-[#b3aae0]">Floors to Travel</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider text-[var(--dk-ink-soft)]">Floors to Travel</Label>
                         <Slider value={[floors]} onValueChange={(v) => setFloors(v[0])} min={1} max={50} step={1} className="py-4" />
-                        <div className="text-right text-xs font-mono text-[#b6ff3c] font-bold">{floors} Floors</div>
+                        <div className="text-right text-xs font-mono text-[var(--dk-lim-ink)] font-bold">{floors} Floors</div>
                     </div>
 
                     <div className="space-y-4">
-                        <Label className="text-xs font-bold uppercase tracking-wider text-[#b3aae0]">Elevator Traffic</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider text-[var(--dk-ink-soft)]">Elevator Traffic</Label>
                         <RadioGroup defaultValue="normal" onValueChange={(v) => setCrowdLevel(v as "empty" | "normal" | "busy")} className="grid grid-cols-3 gap-2">
                             <div>
                                 <RadioGroupItem value="empty" id="empty" className="peer sr-only" />
-                                <Label htmlFor="empty" className="flex flex-col items-center justify-between rounded-md border-2 border-[#4a3f7a] bg-[#0c0824] p-2 text-[#ECEAE3] hover:bg-[#241a52] peer-data-[state=checked]:border-[#b6ff3c] [&:has([data-state=checked])]:border-[#b6ff3c] cursor-pointer text-center h-full">
+                                <Label htmlFor="empty" className="flex flex-col items-center justify-between rounded-md border-2 border-[var(--dk-line)] bg-[var(--dk-sunk)] p-2 text-[var(--dk-ink)] hover:bg-[var(--dk-raised)] peer-data-[state=checked]:border-[var(--dk-lim-ink)] [&:has([data-state=checked])]:border-[var(--dk-lim-ink)] cursor-pointer text-center h-full">
                                     <span className="text-lg mb-1">👻</span>
                                     <span className="text-[10px] font-bold">Empty</span>
                                 </Label>
                             </div>
                             <div>
                                 <RadioGroupItem value="normal" id="normal" className="peer sr-only" />
-                                <Label htmlFor="normal" className="flex flex-col items-center justify-between rounded-md border-2 border-[#4a3f7a] bg-[#0c0824] p-2 text-[#ECEAE3] hover:bg-[#241a52] peer-data-[state=checked]:border-[#b6ff3c] [&:has([data-state=checked])]:border-[#b6ff3c] cursor-pointer text-center h-full">
+                                <Label htmlFor="normal" className="flex flex-col items-center justify-between rounded-md border-2 border-[var(--dk-line)] bg-[var(--dk-sunk)] p-2 text-[var(--dk-ink)] hover:bg-[var(--dk-raised)] peer-data-[state=checked]:border-[var(--dk-lim-ink)] [&:has([data-state=checked])]:border-[var(--dk-lim-ink)] cursor-pointer text-center h-full">
                                     <span className="text-lg mb-1">👥</span>
                                     <span className="text-[10px] font-bold">Normal</span>
                                 </Label>
                             </div>
                             <div>
                                 <RadioGroupItem value="busy" id="busy" className="peer sr-only" />
-                                <Label htmlFor="busy" className="flex flex-col items-center justify-between rounded-md border-2 border-[#4a3f7a] bg-[#0c0824] p-2 text-[#ECEAE3] hover:bg-[#241a52] peer-data-[state=checked]:border-[#b6ff3c] [&:has([data-state=checked])]:border-[#b6ff3c] cursor-pointer text-center h-full">
+                                <Label htmlFor="busy" className="flex flex-col items-center justify-between rounded-md border-2 border-[var(--dk-line)] bg-[var(--dk-sunk)] p-2 text-[var(--dk-ink)] hover:bg-[var(--dk-raised)] peer-data-[state=checked]:border-[var(--dk-lim-ink)] [&:has([data-state=checked])]:border-[var(--dk-lim-ink)] cursor-pointer text-center h-full">
                                     <span className="text-lg mb-1">🏢</span>
                                     <span className="text-[10px] font-bold">Packed</span>
                                 </Label>
@@ -127,9 +127,9 @@ export function ElevatorDilemmaCalculator() {
                     </div>
 
                     <div className="space-y-2">
-                         <Label className="text-xs font-bold uppercase tracking-wider text-[#b3aae0]">Your Stair Fitness</Label>
+                         <Label className="text-xs font-bold uppercase tracking-wider text-[var(--dk-ink-soft)]">Your Stair Fitness</Label>
                          <Slider value={[fitness]} onValueChange={(v) => setFitness(v[0])} min={1} max={10} step={1} className="py-4" />
-                         <div className="flex justify-between text-[10px] text-[#b3aae0] uppercase font-bold">
+                         <div className="flex justify-between text-[10px] text-[var(--dk-ink-soft)] uppercase font-bold">
                              <span>Winded Easily</span>
                              <span>Iron Legs</span>
                          </div>
@@ -138,44 +138,44 @@ export function ElevatorDilemmaCalculator() {
             </Card>
 
             <div className="lg:col-span-2 space-y-6">
-                <Card className="glass-card border-none bg-[#1d1442] p-1">
+                <Card className="glass-card border-none bg-[var(--dk-surface)] p-1">
                     <CardContent className="pt-12 pb-16 text-center">
-                        <div className="text-[10px] uppercase text-[#b3aae0] tracking-widest mb-2">Verdict</div>
+                        <div className="text-[10px] uppercase text-[var(--dk-ink-soft)] tracking-widest mb-2">Verdict</div>
                         <div
                             className={`text-3xl sm:text-4xl md:text-5xl font-black mb-6 px-2 break-words ${decisionColor}`}
-                            style={{ fontFamily: 'var(--font-bungee), cursive' }}
+                            style={{ fontFamily: 'var(--font-fredoka), cursive' }}
                         >
                             {decision}
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-                            <div className="p-6 bg-[#0c0824] rounded-2xl border border-[#4a3f7a] relative overflow-hidden group">
+                            <div className="p-6 bg-[var(--dk-sunk)] rounded-2xl border border-[var(--dk-line)] relative overflow-hidden group">
                                 <div className="relative">
-                                    <div className="text-xs font-bold uppercase tracking-wider text-[#b3aae0] mb-2 flex items-center justify-center gap-2">
+                                    <div className="text-xs font-bold uppercase tracking-wider text-[var(--dk-ink-soft)] mb-2 flex items-center justify-center gap-2">
                                         <Timer className="w-3 h-3" />
                                         Elevator Time
                                     </div>
-                                    <div className="text-2xl font-mono font-bold text-[#ECEAE3]">{formatTime(elevatorTime)}</div>
-                                    <div className="text-[10px] text-[#b3aae0] mt-1">Wait + {stops} stop{stops === 1 ? "" : "s"}</div>
+                                    <div className="text-2xl font-mono font-bold text-[var(--dk-ink)]">{formatTime(elevatorTime)}</div>
+                                    <div className="text-[10px] text-[var(--dk-ink-soft)] mt-1">Wait + {stops} stop{stops === 1 ? "" : "s"}</div>
                                 </div>
                             </div>
 
-                            <div className="p-6 bg-[#0c0824] rounded-2xl border border-[#4a3f7a] relative overflow-hidden group">
+                            <div className="p-6 bg-[var(--dk-sunk)] rounded-2xl border border-[var(--dk-line)] relative overflow-hidden group">
                                 <div className="relative">
-                                    <div className="text-xs font-bold uppercase tracking-wider text-[#b3aae0] mb-2 flex items-center justify-center gap-2">
+                                    <div className="text-xs font-bold uppercase tracking-wider text-[var(--dk-ink-soft)] mb-2 flex items-center justify-center gap-2">
                                         <Footprints className="w-3 h-3" />
                                         Stairs Time
                                     </div>
-                                    <div className="text-2xl font-mono font-bold text-[#ECEAE3]">{formatTime(stairsTime)}</div>
-                                    <div className="text-[10px] text-[#b3aae0] mt-1">Consistent pace</div>
+                                    <div className="text-2xl font-mono font-bold text-[var(--dk-ink)]">{formatTime(stairsTime)}</div>
+                                    <div className="text-[10px] text-[var(--dk-ink-soft)] mt-1">Consistent pace</div>
                                 </div>
                             </div>
                         </div>
 
                          <div className="mt-6 flex flex-col items-center">
-                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#241a52] border border-[#4a3f7a]">
-                                 <TrendingUp className="w-4 h-4 text-[#b6ff3c]" />
-                                 <span className="text-sm font-bold text-[#b6ff3c]">
+                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--dk-raised)] border border-[var(--dk-line)]">
+                                 <TrendingUp className="w-4 h-4 text-[var(--dk-lim-ink)]" />
+                                 <span className="text-sm font-bold text-[var(--dk-lim-ink)]">
                                      Burn {calories.toFixed(0)} calories taking the stairs
                                  </span>
                              </div>
@@ -187,7 +187,7 @@ export function ElevatorDilemmaCalculator() {
                     <ShareResult 
                         title="Elevator Dilemma"
                         text={`I save ${Math.abs(elevatorTime - stairsTime).toFixed(0)} seconds by ${stairsTime < elevatorTime ? 'taking the stairs' : 'waiting for the elevator'} for ${floors} floors (stairs ${formatTime(stairsTime)} vs elevator ${formatTime(elevatorTime)}). Decision: ${decision}.`}
-                        className="w-full py-6 text-lg font-black tracking-tight rounded-2xl bg-[#b6ff3c] text-[#160e33] hover:bg-[#a3e835] border-none"
+                        className="w-full py-6 text-lg font-black tracking-tight rounded-2xl bg-[var(--dk-lim)] text-[var(--dk-on-fill)] hover:bg-[#a3e835] border-none"
                     />
                 </div>
             </div>

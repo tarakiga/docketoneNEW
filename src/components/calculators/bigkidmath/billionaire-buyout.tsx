@@ -61,26 +61,26 @@ export function BillionaireBuyout() {
     return (
         <motion.div
             className="w-full rounded-3xl p-5 md:p-8 shadow-2xl relative overflow-hidden"
-            style={{ background: "#1d1442", border: "1px solid #4a3f7a" }}
+            style={{ background: "var(--dk-surface)", border: "1px solid var(--dk-line)" }}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
         >
             <div className="relative z-10">
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
-                    <h2 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: "#ECEAE3" }}><span className="text-3xl">💸</span> Billionaire Buyout</h2>
-                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "#29e0ff" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "#29e0ff" }} /> Live vault</span>
+                    <h2 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: "var(--dk-ink)" }}><span className="text-3xl">💸</span> Billionaire Buyout</h2>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "var(--dk-tea-ink)" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "var(--dk-tea)" }} /> Live vault</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-5">
                     {/* Vault rail */}
                     <div className="rounded-2xl p-6 flex flex-col gap-5 self-start"
-                        style={{ background: "#0c0824", border: "1px solid #4a3f7a" }}>
+                        style={{ background: "var(--dk-sunk)", border: "1px solid var(--dk-line)" }}>
                         <div>
-                            <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2" style={{ color: "#b3aae0" }}>Net-worth controller</div>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2" style={{ color: "var(--dk-ink-soft)" }}>Net-worth controller</div>
                             <Select value={personId} onValueChange={handlePersonChange}>
-                                <SelectTrigger className="font-bold text-base h-12" style={{ background: "#0c0824", border: "1px solid #4a3f7a", color: "#ECEAE3" }}>
+                                <SelectTrigger className="font-bold text-base h-12" style={{ background: "var(--dk-sunk)", border: "1px solid var(--dk-line)", color: "var(--dk-ink)" }}>
                                     <SelectValue />
                                 </SelectTrigger>
-                                <SelectContent style={{ background: "#0c0824", border: "1px solid #4a3f7a", color: "#ECEAE3" }}>
+                                <SelectContent style={{ background: "var(--dk-sunk)", border: "1px solid var(--dk-line)", color: "var(--dk-ink)" }}>
                                     {BILLIONAIRES.map(p => (
                                         <SelectItem key={p.id} value={p.id} className="font-semibold">{p.name} - {fmtPrice(p.wealth)}</SelectItem>
                                     ))}
@@ -89,29 +89,29 @@ export function BillionaireBuyout() {
                         </div>
 
                         <div>
-                            <div className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: "#29e0ff" }}>Active liquidity</div>
-                            <div className="text-4xl font-black tracking-tight leading-none mt-1.5 break-all" style={{ fontFamily: "var(--font-bungee), cursive", color: "#29e0ff" }}>${Math.floor(balance).toLocaleString()}</div>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: "var(--dk-tea-ink)" }}>Active liquidity</div>
+                            <div className="text-4xl font-black tracking-tight leading-none mt-1.5 break-all" style={{ fontFamily: "var(--font-fredoka), cursive", color: "var(--dk-tea-ink)" }}>${Math.floor(balance).toLocaleString()}</div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3">
-                            <div className="rounded-xl p-3" style={{ background: "#241a52", border: "1px solid #4a3f7a" }}>
-                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>↗ Interest · live</div>
-                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "#86efac" }}>+${Math.floor(interestEarned).toLocaleString()}</div>
+                            <div className="rounded-xl p-3" style={{ background: "var(--dk-raised)", border: "1px solid var(--dk-line)" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "var(--dk-ink-soft)" }}>↗ Interest · live</div>
+                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "var(--dk-pos-ink)" }}>+${Math.floor(interestEarned).toLocaleString()}</div>
                             </div>
-                            <div className="rounded-xl p-3" style={{ background: "#241a52", border: "1px solid #4a3f7a" }}>
-                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>$1M/day for</div>
-                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "#29e0ff" }}>{years.toLocaleString()} yrs</div>
+                            <div className="rounded-xl p-3" style={{ background: "var(--dk-raised)", border: "1px solid var(--dk-line)" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "var(--dk-ink-soft)" }}>$1M/day for</div>
+                                <div className="font-mono font-bold text-lg mt-0.5" style={{ color: "var(--dk-tea-ink)" }}>{years.toLocaleString()} yrs</div>
                             </div>
                         </div>
 
-                        <button onClick={reset} className="w-full rounded-xl font-bold text-sm py-3 transition-colors" style={{ background: "#241a52", border: "1px solid #4a3f7a", color: "#ECEAE3" }}>↺ Reset Vault</button>
+                        <button onClick={reset} className="w-full rounded-xl font-bold text-sm py-3 transition-colors" style={{ background: "var(--dk-raised)", border: "1px solid var(--dk-line)", color: "var(--dk-ink)" }}>↺ Reset Vault</button>
                     </div>
 
                     {/* Storefront */}
                     <div>
                         <div className="flex justify-between items-baseline mb-3">
-                            <div className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "#b3aae0" }}>The storefront</div>
-                            <div className="font-mono text-[12px]" style={{ color: "#b3aae0" }}>Spent so far: <b style={{ color: "#ff8a8a" }}>${spent.toLocaleString()}</b></div>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: "var(--dk-ink-soft)" }}>The storefront</div>
+                            <div className="font-mono text-[12px]" style={{ color: "var(--dk-ink-soft)" }}>Spent so far: <b style={{ color: "var(--dk-neg-ink)" }}>${spent.toLocaleString()}</b></div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {SHOP_ITEMS.map((item) => {
@@ -124,14 +124,14 @@ export function BillionaireBuyout() {
                                         onClick={() => buy(item.price)}
                                         disabled={tooPoor}
                                         className={`text-left flex items-center gap-3.5 rounded-2xl p-4 transition-colors ${tooPoor ? "opacity-40 cursor-not-allowed" : ""}`}
-                                        style={{ background: "#241a52", border: "1px solid #4a3f7a" }}
+                                        style={{ background: "var(--dk-raised)", border: "1px solid var(--dk-line)" }}
                                     >
-                                        <span className="w-11 h-11 rounded-xl grid place-items-center shrink-0" style={{ background: "#0c0824" }}><Icon className="h-5 w-5" style={{ color: "#29e0ff" }} /></span>
+                                        <span className="w-11 h-11 rounded-xl grid place-items-center shrink-0" style={{ background: "var(--dk-sunk)" }}><Icon className="h-5 w-5" style={{ color: "var(--dk-tea-ink)" }} /></span>
                                         <span className="flex-1 min-w-0">
-                                            <span className="block font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "#b3aae0" }}>{item.cat}</span>
-                                            <span className="block text-[13px] font-bold leading-tight" style={{ color: "#ECEAE3" }}>{item.label}</span>
+                                            <span className="block font-mono text-[9px] uppercase tracking-[0.1em]" style={{ color: "var(--dk-ink-soft)" }}>{item.cat}</span>
+                                            <span className="block text-[13px] font-bold leading-tight" style={{ color: "var(--dk-ink)" }}>{item.label}</span>
                                         </span>
-                                        <span className="font-mono text-sm font-bold text-right" style={{ color: "#29e0ff" }}>{fmtPrice(item.price)}</span>
+                                        <span className="font-mono text-sm font-bold text-right" style={{ color: "var(--dk-tea-ink)" }}>{fmtPrice(item.price)}</span>
                                     </motion.button>
                                 )
                             })}
@@ -143,7 +143,7 @@ export function BillionaireBuyout() {
                     <ShareResult
                         title="Billionaire Buy-Out Challenge"
                         text={`I tried to spend ${selectedPerson.name}'s fortune! After splurging $${spent.toLocaleString()}, I still have $${Math.floor(balance).toLocaleString()} left. The wealth scale is insane! #DocketOne`}
-                        className="border-none bg-[#29e0ff] hover:bg-[#29e0ff] text-[#160e33]"
+                        className="border-none bg-[var(--dk-tea)] hover:bg-[var(--dk-tea)] text-[var(--dk-on-fill)]"
                     />
                 </div>
             </div>

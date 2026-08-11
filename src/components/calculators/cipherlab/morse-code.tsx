@@ -151,9 +151,9 @@ export function MorseCode() {
             <div id="flashlight-overlay" className="fixed inset-0 bg-white pointer-events-none opacity-0 z-50 transition-opacity duration-75 mix-blend-difference" />
             
             <div className="space-y-6">
-                <Card className="glass-card" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                        <CardTitle style={{ color: '#ECEAE3' }}>Text Input</CardTitle>
+                        <CardTitle style={{ color: 'var(--dk-ink)' }}>Text Input</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <Textarea
@@ -161,7 +161,7 @@ export function MorseCode() {
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             className="min-h-[150px] text-lg uppercase font-mono"
-                            style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
+                            style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                         <div className="flex gap-2">
                              <Button
@@ -169,8 +169,8 @@ export function MorseCode() {
                                 className="flex-1 gap-2"
                                 disabled={!morse}
                                 style={isPlaying
-                                    ? { backgroundColor: '#0c0824', border: '1px solid #4a3f7a', color: '#ff8a8a' }
-                                    : { backgroundColor: '#b388ff', color: '#160e33' }}
+                                    ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-neg-ink)' }
+                                    : { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }}
                             >
                                 {isPlaying ? <Square className="w-4 h-4 fill-current"/> : <Play className="w-4 h-4 fill-current"/>}
                                 {isPlaying ? "Stop Signal" : "Play Signal"}
@@ -180,10 +180,10 @@ export function MorseCode() {
                                 className="flex-initial gap-2"
                                 title="Toggle Screen Flash"
                                 style={isFlashlight
-                                    ? { backgroundColor: '#b388ff', color: '#160e33' }
-                                    : { backgroundColor: '#241a52', border: '1px solid #4a3f7a', color: '#ECEAE3' }}
+                                    ? { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }
+                                    : { backgroundColor: 'var(--dk-raised)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink)' }}
                             >
-                                <Flashlight className="w-4 h-4" style={{ color: isFlashlight ? '#160e33' : '#b3aae0' }} />
+                                <Flashlight className="w-4 h-4" style={{ color: isFlashlight ? 'var(--dk-on-fill)' : 'var(--dk-ink-soft)' }} />
                             </Button>
                         </div>
                     </CardContent>
@@ -191,24 +191,24 @@ export function MorseCode() {
             </div>
 
             <div className="space-y-6">
-                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                        <CardTitle style={{ color: '#ECEAE3' }}>Morse Output</CardTitle>
+                        <CardTitle style={{ color: 'var(--dk-ink)' }}>Morse Output</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
-                        <div className="flex flex-wrap gap-1 content-start p-6 rounded-xl border min-h-[300px] font-mono text-2xl tracking-widest leading-loose" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                        <div className="flex flex-wrap gap-1 content-start p-6 rounded-xl border min-h-[300px] font-mono text-2xl tracking-widest leading-loose" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                             {morse.split('').map((char, i) => (
                                 <span
                                     key={i}
                                     className="transition-colors duration-100 ease-linear rounded px-0.5"
                                     style={activeChar === i
-                                        ? { backgroundColor: '#b388ff', color: '#160e33' }
-                                        : { color: '#b388ff' }}
+                                        ? { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }
+                                        : { color: 'var(--dk-pur-ink)' }}
                                 >
                                     {char}
                                 </span>
                             ))}
-                            {!morse && <span className="italic text-base" style={{ color: '#b3aae0' }}>... --- ...</span>}
+                            {!morse && <span className="italic text-base" style={{ color: 'var(--dk-ink-soft)' }}>... --- ...</span>}
                         </div>
                     </CardContent>
                      <div className="p-6 pt-0">

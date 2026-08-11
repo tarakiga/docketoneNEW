@@ -37,12 +37,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
         <div className="space-y-8 animate-in fade-in zoom-in duration-300">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <Label className="text-[#b3aae0]">AMOUNT</Label>
+                    <Label className="text-[var(--dk-ink-soft)]">AMOUNT</Label>
                     <Input
                         type="number"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
-                        className="bg-[#160e33] border-[#4a3f7a] text-[#ECEAE3] placeholder:text-[#8a83b0] focus-visible:ring-[#29e0ff] focus-visible:border-[#29e0ff]"
+                        className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] placeholder:text-[#8a83b0] focus-visible:ring-[var(--dk-tea-ink)] focus-visible:border-[var(--dk-tea-ink)]"
                     />
                 </div>
                 
@@ -51,12 +51,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div className="space-y-2">
-                    <Label className="text-[#b3aae0]">FROM CURRENCY</Label>
+                    <Label className="text-[var(--dk-ink-soft)]">FROM CURRENCY</Label>
                     <Select value={from} onValueChange={setFrom}>
-                        <SelectTrigger className="bg-[#160e33] border-[#4a3f7a] text-[#ECEAE3]">
+                        <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
+                        <SelectContent className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                             {units.map(u => (
                                 <SelectItem key={u} value={u}>{u}</SelectItem>
                             ))}
@@ -65,12 +65,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
                 </div>
                 
                 <div className="space-y-2">
-                    <Label className="text-[#b3aae0]">TO CURRENCY</Label>
+                    <Label className="text-[var(--dk-ink-soft)]">TO CURRENCY</Label>
                     <Select value={to} onValueChange={setTo}>
-                        <SelectTrigger className="bg-[#160e33] border-[#4a3f7a] text-[#ECEAE3]">
+                        <SelectTrigger className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                              <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-[#1d1442] border-[#4a3f7a] text-[#ECEAE3]">
+                        <SelectContent className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                             {units.map(u => (
                                 <SelectItem key={u} value={u}>{u}</SelectItem>
                             ))}
@@ -79,12 +79,12 @@ export function CurrencyConverterUI({ units }: { units: string[] }) {
                 </div>
             </div>
 
-            <div className="bg-[#160e33] border border-[#4a3f7a] rounded-xl p-8 text-center relative group">
-                <div className="text-[#b3aae0] mb-2 text-sm font-medium uppercase tracking-wider">Result</div>
-                <div className="text-5xl font-bold text-[#29e0ff] tracking-tight" style={{ fontFamily: "var(--font-bungee), cursive" }}>
-                    {result} <span className="text-2xl text-[#b3aae0] ml-2">{to}</span>
+            <div className="bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded-xl p-8 text-center relative group">
+                <div className="text-[var(--dk-ink-soft)] mb-2 text-sm font-medium uppercase tracking-wider">Result</div>
+                <div className="text-5xl font-bold text-[var(--dk-tea-ink)] tracking-tight" style={{ fontFamily: "var(--font-fredoka), cursive" }}>
+                    {result} <span className="text-2xl text-[var(--dk-ink-soft)] ml-2">{to}</span>
                 </div>
-                <div className="text-xs text-[#b3aae0] mt-4 pt-4 border-t border-dashed border-[#4a3f7a]">
+                <div className="text-xs text-[var(--dk-ink-soft)] mt-4 pt-4 border-t border-dashed border-[var(--dk-line)]">
                     Last updated: {lastUpdated ? lastUpdated.toLocaleString() : "Loading..."}
                 </div>
                 

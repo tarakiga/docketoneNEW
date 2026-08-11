@@ -17,7 +17,7 @@ const NOISE_SOURCES = [
     { id: "traffic", label: "Traffic Outside", db: 80, icon: "🚗" },
 ]
 
-const SEG_COLORS = ["#86efac", "#86efac", "#86efac", "#ffd23c", "#ffd23c", "#ffd23c", "#ff8a8a", "#ff8a8a"]
+const SEG_COLORS = ["var(--dk-pos-ink)", "var(--dk-pos-ink)", "var(--dk-pos-ink)", "var(--dk-yel-ink)", "var(--dk-yel-ink)", "var(--dk-yel-ink)", "var(--dk-neg-ink)", "#ff8a8a"]
 
 export function DecibelDetective() {
     const [activeSources, setActiveSources] = useState<string[]>([])
@@ -59,33 +59,33 @@ export function DecibelDetective() {
     return (
         <motion.div
             className="w-full rounded-3xl p-5 md:p-8 border shadow-2xl relative overflow-hidden"
-            style={{ background: "#1d1442", borderColor: "#4a3f7a" }}
+            style={{ background: "var(--dk-surface)", borderColor: "var(--dk-line)" }}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}
         >
             <div className="relative z-10">
                 <div className="flex items-center justify-between flex-wrap gap-2 mb-6">
-                    <h2 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: "#ECEAE3" }}><span className="text-3xl">🔊</span> Decibel Detective</h2>
-                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "#5bf0c0" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "#5bf0c0" }} /> Sensory load model</span>
+                    <h2 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: "var(--dk-ink)" }}><span className="text-3xl">🔊</span> Decibel Detective</h2>
+                    <span className="font-mono text-[11px] tracking-[0.14em] uppercase flex items-center gap-2" style={{ color: "var(--dk-tea-ink)" }}><span className="h-2 w-2 rounded-full animate-pulse" style={{ background: "var(--dk-tea)" }} /> Sensory load model</span>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-5">
                     {/* Left: source toggles + sensitivity */}
-                    <div className="border rounded-2xl p-4" style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
-                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-1 px-1" style={{ color: "#b3aae0" }}>Sounds in your space</div>
+                    <div className="border rounded-2xl p-4" style={{ background: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
+                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-1 px-1" style={{ color: "var(--dk-ink-soft)" }}>Sounds in your space</div>
                         {NOISE_SOURCES.map(s => (
-                            <label key={s.id} htmlFor={s.id} className="flex items-center gap-3 py-2.5 px-1 border-b last:border-0 cursor-pointer" style={{ borderColor: "#4a3f7a" }}>
-                                <span className="w-9 h-9 rounded-[10px] grid place-items-center text-[17px] shrink-0" style={{ background: "#241a52" }}>{s.icon}</span>
+                            <label key={s.id} htmlFor={s.id} className="flex items-center gap-3 py-2.5 px-1 border-b last:border-0 cursor-pointer" style={{ borderColor: "var(--dk-line)" }}>
+                                <span className="w-9 h-9 rounded-[10px] grid place-items-center text-[17px] shrink-0" style={{ background: "var(--dk-raised)" }}>{s.icon}</span>
                                 <span className="flex-1 min-w-0">
-                                    <span className="block text-[13px] font-semibold" style={{ color: "#ECEAE3" }}>{s.label}</span>
-                                    <span className="block font-mono text-[10px]" style={{ color: "#b3aae0" }}>{s.db} dB</span>
+                                    <span className="block text-[13px] font-semibold" style={{ color: "var(--dk-ink)" }}>{s.label}</span>
+                                    <span className="block font-mono text-[10px]" style={{ color: "var(--dk-ink-soft)" }}>{s.db} dB</span>
                                 </span>
-                                <Switch id={s.id} checked={activeSources.includes(s.id)} onCheckedChange={() => toggleSource(s.id)} className="data-[state=checked]:bg-[#5bf0c0]" />
+                                <Switch id={s.id} checked={activeSources.includes(s.id)} onCheckedChange={() => toggleSource(s.id)} className="data-[state=checked]:bg-[var(--dk-tea)]" />
                             </label>
                         ))}
-                        <div className="mt-3 pt-3 border-t border-dashed" style={{ borderColor: "#4a3f7a" }}>
-                            <div className="font-mono text-[10px] uppercase tracking-[0.12em] mb-3" style={{ color: "#b3aae0" }}>Sensory sensitivity (hyperacusis)</div>
+                        <div className="mt-3 pt-3 border-t border-dashed" style={{ borderColor: "var(--dk-line)" }}>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.12em] mb-3" style={{ color: "var(--dk-ink-soft)" }}>Sensory sensitivity (hyperacusis)</div>
                             <Slider value={[sensitivity]} onValueChange={(v) => setSensitivity(v[0])} min={1} max={10} step={1} className="py-1" />
-                            <div className="flex justify-between font-mono text-[9px] uppercase mt-2" style={{ color: "#b3aae0" }}>
+                            <div className="flex justify-between font-mono text-[9px] uppercase mt-2" style={{ color: "var(--dk-ink-soft)" }}>
                                 <span>Resilient</span><span>Normal</span><span>Hypersensitive</span>
                             </div>
                         </div>
@@ -93,50 +93,50 @@ export function DecibelDetective() {
 
                     {/* Right: readout */}
                     <div className="flex flex-col gap-4">
-                        <div className="border rounded-2xl p-6 text-center" style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
-                            <div className="font-mono text-[10px] uppercase tracking-[0.16em]" style={{ color: "#b3aae0" }}>Perceived acoustic load</div>
-                            <div className="text-6xl font-black tracking-tight leading-none mt-1.5 mb-4" style={{ color: bigColor, fontFamily: "var(--font-bungee), cursive" }}>
-                                {perceivedLoad.toFixed(1)} <span className="text-xl font-semibold" style={{ color: "#b3aae0" }}>dB(P)</span>
+                        <div className="border rounded-2xl p-6 text-center" style={{ background: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.16em]" style={{ color: "var(--dk-ink-soft)" }}>Perceived acoustic load</div>
+                            <div className="text-6xl font-black tracking-tight leading-none mt-1.5 mb-4" style={{ color: bigColor, fontFamily: "var(--font-fredoka), cursive" }}>
+                                {perceivedLoad.toFixed(1)} <span className="text-xl font-semibold" style={{ color: "var(--dk-ink-soft)" }}>dB(P)</span>
                             </div>
                             <div className="flex gap-1 h-6 mb-2">
                                 {SEG_COLORS.map((c, i) => (
-                                    <div key={i} className="flex-1 rounded-[3px]" style={{ background: i < litCount ? c : "#241a52" }} />
+                                    <div key={i} className="flex-1 rounded-[3px]" style={{ background: i < litCount ? c : "var(--dk-raised)" }} />
                                 ))}
                             </div>
-                            <div className="flex justify-between font-mono text-[10px] uppercase" style={{ color: "#b3aae0" }}>
+                            <div className="flex justify-between font-mono text-[10px] uppercase" style={{ color: "var(--dk-ink-soft)" }}>
                                 <span>Quiet</span><span>Busy</span><span>Painful</span>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-3">
-                            <div className="border rounded-2xl p-4" style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
-                                <div className="font-mono text-[9px] uppercase tracking-[0.12em]" style={{ color: "#b3aae0" }}>🧠 Actual SPL</div>
-                                <div className="font-mono font-bold text-2xl mt-1" style={{ color: "#ECEAE3" }}>{totalDB.toFixed(1)} <span className="text-sm" style={{ color: "#b3aae0" }}>dB</span></div>
-                                <div className="text-[10px] mt-1" style={{ color: "#b3aae0" }}>physical sound pressure</div>
+                            <div className="border rounded-2xl p-4" style={{ background: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.12em]" style={{ color: "var(--dk-ink-soft)" }}>🧠 Actual SPL</div>
+                                <div className="font-mono font-bold text-2xl mt-1" style={{ color: "var(--dk-ink)" }}>{totalDB.toFixed(1)} <span className="text-sm" style={{ color: "var(--dk-ink-soft)" }}>dB</span></div>
+                                <div className="text-[10px] mt-1" style={{ color: "var(--dk-ink-soft)" }}>physical sound pressure</div>
                             </div>
-                            <div className="border rounded-2xl p-4" style={{ background: "#0c0824", borderColor: "#4a3f7a" }}>
-                                <div className="font-mono text-[9px] uppercase tracking-[0.12em]" style={{ color: "#b3aae0" }}>🔋 Safe duration</div>
-                                <div className="font-bold text-lg mt-1" style={{ color: "#ffd23c" }}>{timeLimit}</div>
-                                <div className="text-[10px] mt-1" style={{ color: "#b3aae0" }}>before sensory fatigue</div>
+                            <div className="border rounded-2xl p-4" style={{ background: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
+                                <div className="font-mono text-[9px] uppercase tracking-[0.12em]" style={{ color: "var(--dk-ink-soft)" }}>🔋 Safe duration</div>
+                                <div className="font-bold text-lg mt-1" style={{ color: "var(--dk-yel-ink)" }}>{timeLimit}</div>
+                                <div className="text-[10px] mt-1" style={{ color: "var(--dk-ink-soft)" }}>before sensory fatigue</div>
                             </div>
                         </div>
 
                         {activeSources.length > 2 && (
-                            <div className="border-l-[3px] rounded-[10px] px-4 py-3.5 flex gap-3" style={{ background: "#241a52", borderColor: "#ffd23c" }}>
+                            <div className="border-l-[3px] rounded-[10px] px-4 py-3.5 flex gap-3" style={{ background: "var(--dk-raised)", borderColor: "var(--dk-yel-ink)" }}>
                                 <span className="text-lg">⚠️</span>
                                 <div>
-                                    <div className="font-bold text-sm mb-0.5" style={{ color: "#ffd23c" }}>Layering effect</div>
-                                    <p className="text-[12.5px] leading-relaxed" style={{ color: "#ECEAE3" }}>Multiple low-level sounds keep the brain filtering instead of resting, burning glucose fast.</p>
+                                    <div className="font-bold text-sm mb-0.5" style={{ color: "var(--dk-yel-ink)" }}>Layering effect</div>
+                                    <p className="text-[12.5px] leading-relaxed" style={{ color: "var(--dk-ink)" }}>Multiple low-level sounds keep the brain filtering instead of resting, burning glucose fast.</p>
                                 </div>
                             </div>
                         )}
 
-                        <p className="text-[11px] leading-relaxed" style={{ color: "#b3aae0" }}>An estimate of subjective sensory load (dB(P) is not a standard acoustic unit) - not a clinical or hearing-safety measure.</p>
+                        <p className="text-[11px] leading-relaxed" style={{ color: "var(--dk-ink-soft)" }}>An estimate of subjective sensory load (dB(P) is not a standard acoustic unit) - not a clinical or hearing-safety measure.</p>
 
                         <ShareResult
                             title="Sensory Load"
                             text={`My environment measures ${totalDB.toFixed(0)}dB, but with my sensitivity it feels like ${perceivedLoad.toFixed(0)}dB(P). Comfortable for: ${timeLimit}. #DecibelDetective #Neurodivergent`}
-                            className="border-none text-[#160e33] bg-[#5bf0c0] hover:bg-[#5bf0c0]"
+                            className="border-none text-[var(--dk-on-fill)] bg-[var(--dk-tea)] hover:bg-[var(--dk-tea)]"
                         />
                     </div>
                 </div>

@@ -92,10 +92,10 @@ export function NATOPhonetic() {
     return (
         <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-6">
-                <Card className="glass-card" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                         <CardTitle className="flex items-center gap-2" style={{ color: '#ECEAE3', fontFamily: 'var(--font-bungee), cursive' }}>
-                             <FileText className="w-5 h-5" style={{ color: '#b388ff' }} />
+                         <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
+                             <FileText className="w-5 h-5" style={{ color: 'var(--dk-pur-ink)' }} />
                             Input Message
                         </CardTitle>
                     </CardHeader>
@@ -104,8 +104,8 @@ export function NATOPhonetic() {
                             placeholder="Type text to convert (e.g., 'Hello Control')..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[150px] text-lg focus-visible:ring-[#b388ff]"
-                            style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
+                            className="min-h-[150px] text-lg focus-visible:ring-[var(--dk-pur-ink)]"
+                            style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                         <div className="flex gap-2">
                             <Button
@@ -113,8 +113,8 @@ export function NATOPhonetic() {
                                 className="w-full gap-2"
                                 disabled={phoneticWords.length === 0}
                                 style={isPlaying
-                                    ? { backgroundColor: '#0c0824', border: '1px solid #4a3f7a', color: '#ECEAE3' }
-                                    : { backgroundColor: '#b388ff', color: '#160e33' }}
+                                    ? { backgroundColor: 'var(--dk-sunk)', border: '1px solid var(--dk-line)', color: 'var(--dk-ink)' }
+                                    : { backgroundColor: 'var(--dk-pur)', color: 'var(--dk-on-fill)' }}
                             >
                                 {isPlaying ? <Square className="w-4 h-4 fill-current"/> : <Play className="w-4 h-4 fill-current"/>}
                                 {isPlaying ? "Stop Transmission" : "Transmit Audio"}
@@ -123,12 +123,12 @@ export function NATOPhonetic() {
                     </CardContent>
                 </Card>
 
-                <Card className="glass-card" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                <Card className="glass-card" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                      <CardContent className="pt-6">
-                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--dk-pur-ink)' }}>
                              ✈️ Pilot Protocol
                         </h4>
-                        <p className="text-sm" style={{ color: '#b3aae0' }}>
+                        <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
                             Used by NATO, aviation, and maritime professionals worldwide.
                             The words are chosen to be distinct and clear even over static-filled radio lines.
                             &quot;B&quot; and &quot;D&quot; sound alike, but &quot;Bravo&quot; and &quot;Delta&quot; are unmistakable.
@@ -138,17 +138,17 @@ export function NATOPhonetic() {
             </div>
 
             <div className="space-y-6">
-                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                 <Card className="glass-card h-full flex flex-col" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                     <CardHeader>
-                         <CardTitle className="flex items-center gap-2" style={{ color: '#ECEAE3', fontFamily: 'var(--font-bungee), cursive' }}>
-                             <Volume2 className="w-5 h-5" style={{ color: '#b388ff' }} />
+                         <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-ink)', fontFamily: 'var(--font-fredoka), cursive' }}>
+                             <Volume2 className="w-5 h-5" style={{ color: 'var(--dk-pur-ink)' }} />
                             Phonetic Output
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
-                        <div className="flex flex-wrap gap-2 content-start h-full p-4 rounded-xl border min-h-[300px]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
+                        <div className="flex flex-wrap gap-2 content-start h-full p-4 rounded-xl border min-h-[300px]" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
                             {phoneticWords.length === 0 && (
-                                <span className="italic w-full text-center mt-10" style={{ color: '#b3aae0' }}>Start typing to see NATO usage...</span>
+                                <span className="italic w-full text-center mt-10" style={{ color: 'var(--dk-ink-soft)' }}>Start typing to see NATO usage...</span>
                             )}
                             {phoneticWords.map((word, i) => (
                                 <motion.div
@@ -163,7 +163,7 @@ export function NATOPhonetic() {
                                         px-3 py-1.5 rounded-md font-mono font-bold text-sm border
                                         ${word === '[SPACE]' ? 'opacity-0 w-4' : ''}
                                     `}
-                                    style={word === '[SPACE]' ? undefined : { borderColor: '#4a3f7a', color: '#b388ff' }}
+                                    style={word === '[SPACE]' ? undefined : { borderColor: 'var(--dk-line)', color: 'var(--dk-pur-ink)' }}
                                 >
                                     {word !== '[SPACE]' && word}
                                 </motion.div>

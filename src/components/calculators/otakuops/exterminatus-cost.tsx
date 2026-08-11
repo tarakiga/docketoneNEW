@@ -48,9 +48,9 @@ export function ExterminatusCostCalculator() {
             torpedoes: torpedoCount,
             gdpYears: years,
             chartData: [
-                { name: "Munitions", value: totalCost * munitionsBase, color: "#ffd23c" },
-                { name: "Fuel & Logistics", value: totalCost * logisticsBase, color: "#b3aae0" },
-                { name: "Bureaucracy", value: totalCost * bureaucracy, color: "#4a3f7a" },
+                { name: "Munitions", value: totalCost * munitionsBase, color: "var(--dk-yel-ink)" },
+                { name: "Fuel & Logistics", value: totalCost * logisticsBase, color: "var(--dk-ink-soft)" },
+                { name: "Bureaucracy", value: totalCost * bureaucracy, color: "var(--dk-ink-soft)" },
             ]
         }
     }, [biome, method, population])
@@ -63,43 +63,43 @@ export function ExterminatusCostCalculator() {
 
     return (
         <div className="grid lg:grid-cols-3 gap-8">
-            <Card className="lg:col-span-1 h-fit" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+            <Card className="lg:col-span-1 h-fit" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                 <CardHeader>
                     <div className="flex items-center justify-between mb-2">
-                        <div className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a', borderWidth: '1px', color: '#ffd23c' }}>
+                        <div className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)', borderWidth: '1px', color: 'var(--dk-yel-ink)' }}>
                             Warhammer 40,000
                         </div>
                     </div>
-                    <CardTitle className="flex items-center gap-2" style={{ color: '#ECEAE3' }}>
-                        <Flame className="w-5 h-5" style={{ color: '#ffd23c' }} />
+                    <CardTitle className="flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
+                        <Flame className="w-5 h-5" style={{ color: 'var(--dk-yel-ink)' }} />
                         Purge Parameters
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: '#b3aae0' }}>Target Population</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--dk-ink-soft)' }}>Target Population</Label>
                         <Slider value={[population]} onValueChange={(v) => setPopulation(v[0])} min={1} max={100} step={1} className="py-4" />
-                        <div className="text-right text-xs font-mono font-bold" style={{ color: '#ffd23c' }}>{population} Billion Souls</div>
+                        <div className="text-right text-xs font-mono font-bold" style={{ color: 'var(--dk-yel-ink)' }}>{population} Billion Souls</div>
                     </div>
 
                     <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: '#b3aae0' }}>Classification</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--dk-ink-soft)' }}>Classification</Label>
                         <Tabs defaultValue="hive" onValueChange={(v) => setBiome(v as "hive" | "agri" | "forge")} className="w-full">
-                            <TabsList className="grid w-full grid-cols-3" style={{ backgroundColor: '#0c0824' }}>
-                                <TabsTrigger value="hive" className="text-[#b3aae0] bg-[#0c0824] border border-[#4a3f7a] data-[state=active]:bg-[#ffd23c] data-[state=active]:text-[#160e33]">Hive</TabsTrigger>
-                                <TabsTrigger value="agri" className="text-[#b3aae0] bg-[#0c0824] border border-[#4a3f7a] data-[state=active]:bg-[#ffd23c] data-[state=active]:text-[#160e33]">Agri</TabsTrigger>
-                                <TabsTrigger value="forge" className="text-[#b3aae0] bg-[#0c0824] border border-[#4a3f7a] data-[state=active]:bg-[#ffd23c] data-[state=active]:text-[#160e33]">Forge</TabsTrigger>
+                            <TabsList className="grid w-full grid-cols-3" style={{ backgroundColor: 'var(--dk-sunk)' }}>
+                                <TabsTrigger value="hive" className="text-[var(--dk-ink-soft)] bg-[var(--dk-sunk)] border border-[var(--dk-line)] data-[state=active]:bg-[var(--dk-yel)] data-[state=active]:text-[var(--dk-on-fill)]">Hive</TabsTrigger>
+                                <TabsTrigger value="agri" className="text-[var(--dk-ink-soft)] bg-[var(--dk-sunk)] border border-[var(--dk-line)] data-[state=active]:bg-[var(--dk-yel)] data-[state=active]:text-[var(--dk-on-fill)]">Agri</TabsTrigger>
+                                <TabsTrigger value="forge" className="text-[var(--dk-ink-soft)] bg-[var(--dk-sunk)] border border-[var(--dk-line)] data-[state=active]:bg-[var(--dk-yel)] data-[state=active]:text-[var(--dk-on-fill)]">Forge</TabsTrigger>
                             </TabsList>
                         </Tabs>
                     </div>
 
                     <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: '#b3aae0' }}>Method</Label>
+                        <Label className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--dk-ink-soft)' }}>Method</Label>
                         <Tabs defaultValue="cyclonic" onValueChange={(v) => setMethod(v as "cyclonic" | "virus" | "orbital")} className="w-full">
-                            <TabsList className="grid w-full grid-cols-3" style={{ backgroundColor: '#0c0824' }}>
-                                <TabsTrigger value="cyclonic" className="text-[#b3aae0] bg-[#0c0824] border border-[#4a3f7a] data-[state=active]:bg-[#ffd23c] data-[state=active]:text-[#160e33]">Cyclonic</TabsTrigger>
-                                <TabsTrigger value="virus" className="text-[#b3aae0] bg-[#0c0824] border border-[#4a3f7a] data-[state=active]:bg-[#ffd23c] data-[state=active]:text-[#160e33]">Virus</TabsTrigger>
-                                <TabsTrigger value="orbital" className="text-[#b3aae0] bg-[#0c0824] border border-[#4a3f7a] data-[state=active]:bg-[#ffd23c] data-[state=active]:text-[#160e33]">Orbital</TabsTrigger>
+                            <TabsList className="grid w-full grid-cols-3" style={{ backgroundColor: 'var(--dk-sunk)' }}>
+                                <TabsTrigger value="cyclonic" className="text-[var(--dk-ink-soft)] bg-[var(--dk-sunk)] border border-[var(--dk-line)] data-[state=active]:bg-[var(--dk-yel)] data-[state=active]:text-[var(--dk-on-fill)]">Cyclonic</TabsTrigger>
+                                <TabsTrigger value="virus" className="text-[var(--dk-ink-soft)] bg-[var(--dk-sunk)] border border-[var(--dk-line)] data-[state=active]:bg-[var(--dk-yel)] data-[state=active]:text-[var(--dk-on-fill)]">Virus</TabsTrigger>
+                                <TabsTrigger value="orbital" className="text-[var(--dk-ink-soft)] bg-[var(--dk-sunk)] border border-[var(--dk-line)] data-[state=active]:bg-[var(--dk-yel)] data-[state=active]:text-[var(--dk-on-fill)]">Orbital</TabsTrigger>
                             </TabsList>
                         </Tabs>
                     </div>
@@ -107,29 +107,29 @@ export function ExterminatusCostCalculator() {
             </Card>
 
             <div className="lg:col-span-2 space-y-6">
-                <Card className="relative overflow-hidden border-none p-1" style={{ backgroundColor: '#1d1442' }}>
+                <Card className="relative overflow-hidden border-none p-1" style={{ backgroundColor: 'var(--dk-surface)' }}>
                     <CardContent className="relative pt-8 pb-10">
                         <div className="flex flex-col md:flex-row justify-between items-center gap-8 px-4">
                             <div className="space-y-4 text-center md:text-left">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a', borderWidth: '1px', color: '#b3aae0' }}>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)', borderWidth: '1px', color: 'var(--dk-ink-soft)' }}>
                                     Total Expenditure
                                 </div>
                                 <div className="space-y-1">
-                                    <h3 className="text-4xl md:text-5xl font-black tracking-tighter" style={{ fontFamily: 'var(--font-bungee), cursive', color: '#ffd23c' }}>
+                                    <h3 className="text-4xl md:text-5xl font-black tracking-tighter" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-yel-ink)' }}>
                                         {formatCurrency(cost)}
                                     </h3>
-                                    <p className="font-medium italic" style={{ color: '#b3aae0' }}>
+                                    <p className="font-medium italic" style={{ color: 'var(--dk-ink-soft)' }}>
                                         The Emperor protects, but munitions cost money.
                                     </p>
-                                    <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider mt-2" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a', borderWidth: '1px', color: '#ffd23c' }}>
+                                    <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider mt-2" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)', borderWidth: '1px', color: 'var(--dk-yel-ink)' }}>
                                         From the Warhammer 40,000 Lore
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="text-center p-8 rounded-3xl min-w-[200px]" style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a', borderWidth: '1px' }}>
-                                <div className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: '#b3aae0' }}>GDP Equivalent</div>
-                                <div className="text-4xl font-black" style={{ color: '#ffd23c' }}>
+                            <div className="text-center p-8 rounded-3xl min-w-[200px]" style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', borderWidth: '1px' }}>
+                                <div className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: 'var(--dk-ink-soft)' }}>GDP Equivalent</div>
+                                <div className="text-4xl font-black" style={{ color: 'var(--dk-yel-ink)' }}>
                                     {gdpYears.toFixed(1)} Years
                                 </div>
                             </div>
@@ -139,17 +139,17 @@ export function ExterminatusCostCalculator() {
                             <ShareResult
                                 title="Exterminatus Cost"
                                 text={`Ordering an Exterminatus on this ${biome} world costs ${formatCurrency(cost)}! That's ${gdpYears.toFixed(1)} years of GDP.`}
-                                className="w-full py-6 text-lg font-black tracking-tight rounded-2xl border-none bg-[#ffd23c] hover:bg-[#ffd23c]/90 text-[#160e33]"
+                                className="w-full py-6 text-lg font-black tracking-tight rounded-2xl border-none bg-[var(--dk-yel)] hover:bg-[var(--dk-yel)]/90 text-[var(--dk-on-fill)]"
                             />
                         </div>
                     </CardContent>
                 </Card>
 
                 <div className="grid md:grid-cols-5 gap-6">
-                    <Card className="md:col-span-3 relative overflow-hidden" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+                    <Card className="md:col-span-3 relative overflow-hidden" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
                         <CardHeader>
-                             <CardTitle className="text-lg font-bold flex items-center gap-2" style={{ color: '#ECEAE3' }}>
-                                <TrendingUp className="w-4 h-4" style={{ color: '#ffd23c' }} />
+                             <CardTitle className="text-lg font-bold flex items-center gap-2" style={{ color: 'var(--dk-ink)' }}>
+                                <TrendingUp className="w-4 h-4" style={{ color: 'var(--dk-yel-ink)' }} />
                                 Budget Allocation
                             </CardTitle>
                         </CardHeader>
@@ -162,36 +162,36 @@ export function ExterminatusCostCalculator() {
                                         ))}
                                     </Pie>
                                     <RechartsTooltip
-                                        contentStyle={{ backgroundColor: '#0c0824', borderRadius: '12px', border: '1px solid #4a3f7a' }}
-                                        itemStyle={{ color: '#ECEAE3' }}
+                                        contentStyle={{ backgroundColor: 'var(--dk-sunk)', borderRadius: '12px', border: '1px solid var(--dk-line)' }}
+                                        itemStyle={{ color: 'var(--dk-ink)' }}
                                         formatter={(value) => formatCurrency(value as number)}
                                     />
-                                    <Legend formatter={(value) => <span style={{ color: '#b3aae0' }}>{value}</span>} />
+                                    <Legend formatter={(value) => <span style={{ color: 'var(--dk-ink-soft)' }}>{value}</span>} />
                                 </PieChart>
                             </ResponsiveContainer>
                         </CardContent>
                     </Card>
 
-                    <Card className="md:col-span-2" style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
-                        <CardHeader><CardTitle className="text-lg font-bold" style={{ color: '#ECEAE3' }}>Munitions Log</CardTitle></CardHeader>
+                    <Card className="md:col-span-2" style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
+                        <CardHeader><CardTitle className="text-lg font-bold" style={{ color: 'var(--dk-ink)' }}>Munitions Log</CardTitle></CardHeader>
                         <CardContent className="space-y-4">
-                             <div className="flex justify-between items-center p-4 rounded-xl" style={{ backgroundColor: '#0c0824' }}>
+                             <div className="flex justify-between items-center p-4 rounded-xl" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                                 <div className="flex flex-col">
-                                    <span className="text-xs uppercase" style={{ color: '#b3aae0' }}>Ordnance Type</span>
-                                    <span className="font-bold" style={{ color: '#ECEAE3' }}>{method === "cyclonic" ? "Cyclonic Torpedo" : method === "virus" ? "Life-Eater Virus" : "Macro-Cannon Battery"}</span>
+                                    <span className="text-xs uppercase" style={{ color: 'var(--dk-ink-soft)' }}>Ordnance Type</span>
+                                    <span className="font-bold" style={{ color: 'var(--dk-ink)' }}>{method === "cyclonic" ? "Cyclonic Torpedo" : method === "virus" ? "Life-Eater Virus" : "Macro-Cannon Battery"}</span>
                                 </div>
-                                <Skull className="w-8 h-8" style={{ color: '#4a3f7a' }} />
+                                <Skull className="w-8 h-8" style={{ color: 'var(--dk-ink-soft)' }} />
                             </div>
-                             <div className="flex justify-between items-center p-4 rounded-xl" style={{ backgroundColor: '#0c0824' }}>
+                             <div className="flex justify-between items-center p-4 rounded-xl" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                                 <div className="flex flex-col">
-                                    <span className="text-xs uppercase" style={{ color: '#b3aae0' }}>Required Units</span>
-                                    <span className="font-bold text-2xl" style={{ color: '#ffd23c' }}>{method === "orbital" ? "N/A" : torpedoes}</span>
+                                    <span className="text-xs uppercase" style={{ color: 'var(--dk-ink-soft)' }}>Required Units</span>
+                                    <span className="font-bold text-2xl" style={{ color: 'var(--dk-yel-ink)' }}>{method === "orbital" ? "N/A" : torpedoes}</span>
                                 </div>
                             </div>
-                            <Alert style={{ backgroundColor: '#0c0824', borderColor: '#4a3f7a' }}>
-                                <Info className="h-4 w-4" style={{ color: '#ffd23c' }} />
-                                <AlertTitle style={{ color: '#ECEAE3' }}>Inquisitorial Note</AlertTitle>
-                                    <AlertDescription className="text-xs" style={{ color: '#b3aae0' }}>
+                            <Alert style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)' }}>
+                                <Info className="h-4 w-4" style={{ color: 'var(--dk-yel-ink)' }} />
+                                <AlertTitle style={{ color: 'var(--dk-ink)' }}>Inquisitorial Note</AlertTitle>
+                                    <AlertDescription className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>
                                     {`“Innocence proves nothing.” - Ensure Form 27B/6 is filed in triplicate before firing.`}
                                     </AlertDescription>
                             </Alert>

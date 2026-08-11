@@ -82,19 +82,19 @@ export function SteganographyBrush() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in duration-700">
-      <Card className="bg-[#1d1442] border-[#4a3f7a] overflow-hidden">
-        <CardHeader className="border-b border-[#4a3f7a] flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-8">
+      <Card className="bg-[var(--dk-surface)] border-[var(--dk-line)] overflow-hidden">
+        <CardHeader className="border-b border-[var(--dk-line)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-8">
            <div className="space-y-1 min-w-0">
-             <CardTitle className="text-2xl sm:text-3xl font-display text-[#ECEAE3] flex items-center gap-3" style={{ fontFamily: 'var(--font-bungee), cursive' }}>
-               <ShieldAlert className="h-8 w-8" style={{ color: '#b388ff' }} />
+             <CardTitle className="text-2xl sm:text-3xl font-display text-[var(--dk-ink)] flex items-center gap-3" style={{ fontFamily: 'var(--font-fredoka), cursive' }}>
+               <ShieldAlert className="h-8 w-8" style={{ color: 'var(--dk-pur-ink)' }} />
                Quantum Steganography
              </CardTitle>
-             <CardDescription className="text-[#b3aae0] font-medium">Hide your intent within the digital noise.</CardDescription>
+             <CardDescription className="text-[var(--dk-ink-soft)] font-medium">Hide your intent within the digital noise.</CardDescription>
            </div>
            <Tabs value={mode} onValueChange={(v) => setMode(v as 'encode' | 'decode')} className="w-full sm:w-[200px] shrink-0">
-              <TabsList className="bg-[#0c0824] border-[#4a3f7a]">
-                 <TabsTrigger value="encode" className="text-xs font-black uppercase text-[#b3aae0] border border-[#4a3f7a] hover:bg-[#241a52] hover:text-[#ECEAE3] data-[state=active]:bg-[#b388ff] data-[state=active]:text-[#160e33] data-[state=active]:border-[#b388ff]">Obscure</TabsTrigger>
-                 <TabsTrigger value="decode" className="text-xs font-black uppercase text-[#b3aae0] border border-[#4a3f7a] hover:bg-[#241a52] hover:text-[#ECEAE3] data-[state=active]:bg-[#b388ff] data-[state=active]:text-[#160e33] data-[state=active]:border-[#b388ff]">Reveal</TabsTrigger>
+              <TabsList className="bg-[var(--dk-sunk)] border-[var(--dk-line)]">
+                 <TabsTrigger value="encode" className="text-xs font-black uppercase text-[var(--dk-ink-soft)] border border-[var(--dk-line)] hover:bg-[var(--dk-raised)] hover:text-[var(--dk-ink)] data-[state=active]:bg-[var(--dk-pur)] data-[state=active]:text-[var(--dk-on-fill)] data-[state=active]:border-[var(--dk-pur-ink)]">Obscure</TabsTrigger>
+                 <TabsTrigger value="decode" className="text-xs font-black uppercase text-[var(--dk-ink-soft)] border border-[var(--dk-line)] hover:bg-[var(--dk-raised)] hover:text-[var(--dk-ink)] data-[state=active]:bg-[var(--dk-pur)] data-[state=active]:text-[var(--dk-on-fill)] data-[state=active]:border-[var(--dk-pur-ink)]">Reveal</TabsTrigger>
               </TabsList>
            </Tabs>
         </CardHeader>
@@ -103,37 +103,37 @@ export function SteganographyBrush() {
            <div className="grid lg:grid-cols-2 lg:min-h-[500px]">
 
               {/* Input Section */}
-              <div className="p-4 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#4a3f7a] space-y-8 min-w-0">
+              <div className="p-4 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[var(--dk-line)] space-y-8 min-w-0">
                  <div className="space-y-4">
-                    <Label className="text-[10px] font-black uppercase tracking-[0.4em] text-[#b3aae0]">Master Sequence</Label>
+                    <Label className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--dk-ink-soft)]">Master Sequence</Label>
                     <div className="relative group">
                        <Input
                          placeholder="Enter your secret message..."
-                         className="bg-[#0c0824] border-[#4a3f7a] text-[#ECEAE3] h-14 rounded-2xl relative z-10 font-bold placeholder:text-[#b3aae0] focus:ring-[#b388ff]/50 focus:border-[#b388ff]"
+                         className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)] h-14 rounded-2xl relative z-10 font-bold placeholder:text-[var(--dk-ink-soft)] focus:ring-[var(--dk-pur-ink)]/50 focus:border-[var(--dk-pur-ink)]"
                          value={message}
                          onChange={(e) => setMessage(e.target.value.slice(0, 64))}
                        />
                     </div>
                     <div className="flex justify-between items-center px-1">
-                       <span className="text-[9px] font-bold text-[#b3aae0] uppercase tracking-widest leading-none">Limit: 64 Characters</span>
-                       <span className="text-[9px] font-bold text-[#b3aae0] uppercase tracking-widest leading-none">{message.length}/64</span>
+                       <span className="text-[9px] font-bold text-[var(--dk-ink-soft)] uppercase tracking-widest leading-none">Limit: 64 Characters</span>
+                       <span className="text-[9px] font-bold text-[var(--dk-ink-soft)] uppercase tracking-widest leading-none">{message.length}/64</span>
                     </div>
                  </div>
 
                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 rounded-2xl bg-[#0c0824] border border-[#4a3f7a] text-center space-y-2">
-                       <div className="text-[9px] font-black uppercase tracking-widest" style={{ color: '#b388ff' }}>Entropy Level</div>
-                       <div className="text-2xl font-black text-[#ECEAE3]">99.8%</div>
+                    <div className="p-4 rounded-2xl bg-[var(--dk-sunk)] border border-[var(--dk-line)] text-center space-y-2">
+                       <div className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'var(--dk-pur-ink)' }}>Entropy Level</div>
+                       <div className="text-2xl font-black text-[var(--dk-ink)]">99.8%</div>
                     </div>
-                    <div className="p-4 rounded-2xl bg-[#0c0824] border border-[#4a3f7a] text-center space-y-2">
-                       <div className="text-[9px] font-black uppercase tracking-widest" style={{ color: '#b388ff' }}>Key Depth</div>
-                       <div className="text-2xl font-black text-[#ECEAE3]">256-bit</div>
+                    <div className="p-4 rounded-2xl bg-[var(--dk-sunk)] border border-[var(--dk-line)] text-center space-y-2">
+                       <div className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'var(--dk-pur-ink)' }}>Key Depth</div>
+                       <div className="text-2xl font-black text-[var(--dk-ink)]">256-bit</div>
                     </div>
                  </div>
 
                  <div className="pt-4 space-y-4">
-                    <div className="text-[9px] font-black text-[#b3aae0] uppercase tracking-widest mb-2 border-l-2 border-[#b388ff] pl-3">Instruction</div>
-                    <p className="text-xs text-[#b3aae0] leading-relaxed font-medium">
+                    <div className="text-[9px] font-black text-[var(--dk-ink-soft)] uppercase tracking-widest mb-2 border-l-2 border-[var(--dk-pur-ink)] pl-3">Instruction</div>
+                    <p className="text-xs text-[var(--dk-ink-soft)] leading-relaxed font-medium">
                        Your message is decomposed into microscopic light-value adjustments. To reveal the sequence, move your &quot;Quantum Brush&quot; across the canvas on the right.
                     </p>
                  </div>
@@ -145,7 +145,7 @@ export function SteganographyBrush() {
                 onMouseMove={handleMouseMove}
                 onMouseEnter={() => setIsBrushing(true)}
                 onMouseLeave={() => setIsBrushing(false)}
-                className="relative bg-[#0c0824] cursor-none overflow-hidden select-none"
+                className="relative bg-[var(--dk-sunk)] cursor-none overflow-hidden select-none"
               >
                  {/* Noise Particles */}
                  {particles.map((p) => (
@@ -178,7 +178,7 @@ export function SteganographyBrush() {
                           opacity: isRevealed ? (mode === 'decode' ? 1 : 0.05) : (mode === 'decode' ? 0.02 : 0.1),
                           scale: isRevealed ? 1.2 : 0.9,
                           filter: isRevealed ? 'blur(0px)' : 'blur(2px)',
-                          color: isRevealed ? '#b388ff' : '#4a3f7a'
+                          color: isRevealed ? 'var(--dk-pur-ink)' : 'var(--dk-ink-soft)'
                         }}
                         className="absolute font-mono font-bold text-2xl transition-all duration-300 pointer-events-none"
                         style={{
@@ -200,11 +200,11 @@ export function SteganographyBrush() {
                      scale: isBrushing ? 1 : 0.5
                    }}
                    transition={{ type: "spring", damping: 20, stiffness: 300, mass: 0.5 }}
-                   className="absolute pointer-events-none z-50 rounded-full border border-[#4a3f7a] flex items-center justify-center"
+                   className="absolute pointer-events-none z-50 rounded-full border border-[var(--dk-line)] flex items-center justify-center"
                    style={{ width: 80, height: 80, backgroundColor: 'rgba(179,136,255,0.08)' }}
                  >
-                    <div className="absolute inset-0 rounded-full border-t rotate-12 animate-spin-slow opacity-50" style={{ borderTopColor: '#b388ff' }} />
-                    <Command className="h-4 w-4 opacity-40" style={{ color: '#b388ff' }} />
+                    <div className="absolute inset-0 rounded-full border-t rotate-12 animate-spin-slow opacity-50" style={{ borderTopColor: 'var(--dk-pur-ink)' }} />
+                    <Command className="h-4 w-4 opacity-40" style={{ color: 'var(--dk-pur-ink)' }} />
                  </motion.div>
 
                  {/* Scanline Effect */}
@@ -221,14 +221,14 @@ export function SteganographyBrush() {
 
       <div className="grid md:grid-cols-3 gap-6">
          {[
-           { title: "Entropy Mask", desc: "Intent is shattered across 400 unique coordinate vectors to ensure non-detection.", icon: Waves, color: "#b388ff" },
-           { title: "Visual Synthesis", desc: "Symbols are phase-shifted to remain invisible outside the quantum focal point.", icon: EyeOff, color: "#b388ff" },
-           { title: "Quantum Brush", desc: "A localized decryption field that reconstructs light data into readable intent.", icon: Paintbrush, color: "#b388ff" }
+           { title: "Entropy Mask", desc: "Intent is shattered across 400 unique coordinate vectors to ensure non-detection.", icon: Waves, color: "var(--dk-pur-ink)" },
+           { title: "Visual Synthesis", desc: "Symbols are phase-shifted to remain invisible outside the quantum focal point.", icon: EyeOff, color: "var(--dk-pur-ink)" },
+           { title: "Quantum Brush", desc: "A localized decryption field that reconstructs light data into readable intent.", icon: Paintbrush, color: "var(--dk-pur-ink)" }
          ].map((item, idx) => (
-           <Card key={idx} className="bg-[#241a52] border-[#4a3f7a] p-6 group hover:border-[#b388ff] transition-all">
+           <Card key={idx} className="bg-[var(--dk-raised)] border-[var(--dk-line)] p-6 group hover:border-[var(--dk-pur-ink)] transition-all">
               <item.icon className="h-6 w-6 mb-4 transition-transform group-hover:scale-110" style={{ color: item.color }} />
-              <h3 className="font-black text-[10px] uppercase tracking-widest text-[#ECEAE3] mb-2">{item.title}</h3>
-              <p className="text-[10px] text-[#b3aae0] leading-relaxed font-medium">{item.desc}</p>
+              <h3 className="font-black text-[10px] uppercase tracking-widest text-[var(--dk-ink)] mb-2">{item.title}</h3>
+              <p className="text-[10px] text-[var(--dk-ink-soft)] leading-relaxed font-medium">{item.desc}</p>
            </Card>
          ))}
       </div>

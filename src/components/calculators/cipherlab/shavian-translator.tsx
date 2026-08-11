@@ -51,30 +51,30 @@ export function ShavianTranslator() {
         <div
             className="almanac grid lg:grid-cols-2 gap-8"
             style={{
-                ['--card' as string]: '#1d1442',
-                ['--ink' as string]: '#ECEAE3',
-                ['--ink-soft' as string]: '#b3aae0',
-                ['--accent' as string]: '#b388ff',
-                ['--line' as string]: '#4a3f7a',
+                ['--card' as string]: 'var(--dk-surface)',
+                ['--ink' as string]: 'var(--dk-ink)',
+                ['--ink-soft' as string]: 'var(--dk-ink-soft)',
+                ['--accent' as string]: 'var(--dk-pur-ink)',
+                ['--line' as string]: 'var(--dk-line)',
             }}
         >
             <div className="space-y-6">
                 <Card
                     className="glass-card"
-                    style={{ background: '#1d1442', borderColor: '#4a3f7a' }}
+                    style={{ background: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}
                 >
                     <CardHeader>
-                        <CardTitle style={{ color: '#ECEAE3' }}>English Text</CardTitle>
+                        <CardTitle style={{ color: 'var(--dk-ink)' }}>English Text</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <Textarea
                             placeholder="Type English..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="min-h-[150px] text-lg focus-visible:ring-[#b388ff]"
-                            style={{ background: '#0c0824', borderColor: '#4a3f7a', color: '#ECEAE3' }}
+                            className="min-h-[150px] text-lg focus-visible:ring-[var(--dk-pur-ink)]"
+                            style={{ background: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
-                         <p className="mt-2 text-xs" style={{ color: '#b3aae0' }}>
+                         <p className="mt-2 text-xs" style={{ color: 'var(--dk-ink-soft)' }}>
                             Try words like &quot;the&quot;, &quot;and&quot;, &quot;church&quot;, &quot;measure&quot;, &quot;enough&quot;.
                         </p>
                     </CardContent>
@@ -82,13 +82,13 @@ export function ShavianTranslator() {
 
                 <Card
                     className="glass-card"
-                    style={{ background: '#241a52', borderColor: '#4a3f7a' }}
+                    style={{ background: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}
                 >
                      <CardContent className="pt-6">
-                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: '#b388ff' }}>
+                        <h4 className="font-bold mb-2 flex items-center gap-2" style={{ color: 'var(--dk-pur-ink)' }}>
                              🇬🇧 George Bernard Shaw&apos;s Dream
                         </h4>
-                        <p className="text-sm" style={{ color: '#b3aae0' }}>
+                        <p className="text-sm" style={{ color: 'var(--dk-ink-soft)' }}>
                             A constructed phonetic alphabet designed to replace the complex spelling of English.
                             Funded by the will of playwright George Bernard Shaw. It is phonetic, meaning one symbol = one sound.
                         </p>
@@ -99,22 +99,22 @@ export function ShavianTranslator() {
             <div className="space-y-6">
                  <Card
                     className="glass-card h-full flex flex-col"
-                    style={{ background: '#1d1442', borderColor: '#4a3f7a' }}
+                    style={{ background: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}
                  >
                     <CardHeader>
-                        <CardTitle style={{ color: '#ECEAE3' }}>Shavian Output</CardTitle>
+                        <CardTitle style={{ color: 'var(--dk-ink)' }}>Shavian Output</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
                         <div
                             className="p-8 rounded-xl min-h-[300px] flex items-center justify-center text-center"
-                            style={{ background: '#0c0824', border: '1px solid #4a3f7a' }}
+                            style={{ background: 'var(--dk-sunk)', border: '1px solid var(--dk-line)' }}
                         >
                             {shavian ? (
-                                <p className="text-4xl leading-relaxed font-serif" style={{ color: '#b388ff' }}>
+                                <p className="text-4xl leading-relaxed font-serif" style={{ color: 'var(--dk-pur-ink)' }}>
                                     {shavian}
                                 </p>
                             ) : (
-                                <p className="italic" style={{ color: '#b3aae0' }}>Translation will appear here...</p>
+                                <p className="italic" style={{ color: 'var(--dk-ink-soft)' }}>Translation will appear here...</p>
                             )}
                         </div>
                     </CardContent>

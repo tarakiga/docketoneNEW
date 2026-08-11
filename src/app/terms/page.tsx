@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 
 export const metadata = {
   title: "Terms of Service | Docket One",
@@ -8,9 +8,9 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <div className="almanac"><div className="almanac-page">
-      <div className="almanac-top"><Link className="almanac-back" href="/">← home</Link><span>Docket One</span></div>
+      <div className="almanac-top"><Link className="almanac-back" href="/">â† home</Link><span>Docket One</span></div>
       <header className="almanac-masthead"><div className="almanac-eyebrow">Legal</div><h1 className="almanac-h1 sm">Terms of Service</h1><p className="almanac-sub">Effective Date: December 15, 2024</p></header>
-      <div className="almanac-prose">
+      <div className="almanac-prose dk-read">
 
         <h2>Agreement to Terms</h2>
         <p>
@@ -31,7 +31,7 @@ export default function TermsPage() {
           <li>Results are generated in real-time based on your inputs</li>
         </ul>
 
-        <h3>⚠️ Important: What We Don&apos;t Provide</h3>
+        <h3>âš ï¸ Important: What We Don&apos;t Provide</h3>
         <ul>
           <li>Professional advice (financial, legal, medical, etc.)</li>
           <li>Guaranteed accuracy for real-world decision making</li>
@@ -39,14 +39,14 @@ export default function TermsPage() {
         </ul>
 
         <h2>Acceptable Use</h2>
-        <h4>✅ You May Use Our Service To:</h4>
+        <h4>âœ… You May Use Our Service To:</h4>
         <ul>
           <li>Calculate, explore, and learn</li>
           <li>Teaching or learning activities</li>
           <li>Inform business decisions (with disclaimers)</li>
           <li>Share results and links</li>
         </ul>
-        <h4>❌ You May NOT Use Our Service To:</h4>
+        <h4>âŒ You May NOT Use Our Service To:</h4>
         <ul>
           <li>Illegal Activities</li>
           <li>Create or promote offensive content</li>
@@ -67,7 +67,7 @@ export default function TermsPage() {
           <a href="mailto:legal@docket.one">legal@docket.one</a>
         </p>
       </div>
-      <div className="almanac-foot"><span>© 2026 Docket One</span><Link href="/">Home →</Link></div>
+      <div className="almanac-foot"><span>Â© 2026 Docket One</span><Link href="/">Home â†’</Link></div>
     </div></div>
   )
 }

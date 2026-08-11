@@ -24,8 +24,8 @@ const DRINK_PRESETS = [
     { name: "Dark choc", caffeine: 30, icon: "🍫" },
 ]
 
-const SEC = "text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 font-mono"
-const FIELD = "w-full bg-black/35 border border-white/10 rounded-xl px-3 py-2.5 text-slate-200 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:border-cyan-500/60"
+const SEC = "text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--dk-ink-soft)] font-mono"
+const FIELD = "w-full bg-[var(--dk-surface)] border border-[var(--dk-line)] rounded-xl px-3 py-2.5 text-[var(--dk-ink)] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/60 focus-visible:border-cyan-500/60"
 
 export function CaffeineControls({
     amount, setAmount, time, setTime, halfLife, setHalfLife, sleepGoal, setSleepGoal,
@@ -45,12 +45,12 @@ export function CaffeineControls({
                                 whileTap={{ scale: 0.96 }}
                                 onClick={() => setAmount(preset.caffeine)}
                                 className={`rounded-2xl border p-4 flex flex-col items-center gap-1.5 text-center transition-colors duration-300 ${on
-                                    ? "bg-cyan-400/10 border-cyan-400 shadow-[0_0_22px_-6px_rgba(34,211,238,0.5)]"
-                                    : "bg-white/[0.04] border-white/10 hover:border-cyan-400/40"}`}
+                                    ? "bg-[var(--dk-raised)] border-[var(--dk-tea-ink)] shadow-[0_0_22px_-6px_rgba(34,211,238,0.5)]"
+                                    : "bg-[var(--dk-sunk)] border-[var(--dk-line)] hover:border-[var(--dk-tea-ink)]"}`}
                             >
                                 <span className="text-3xl drop-shadow-lg">{preset.icon}</span>
-                                <span className={`text-[13px] font-semibold ${on ? "text-cyan-100" : "text-slate-200"}`}>{preset.name}</span>
-                                <span className="font-mono text-[11px] text-cyan-400">{preset.caffeine} mg</span>
+                                <span className={`text-[13px] font-semibold ${on ? "text-[var(--dk-tea-ink)]" : "text-[var(--dk-ink)]"}`}>{preset.name}</span>
+                                <span className="font-mono text-[11px] text-[var(--dk-tea-ink)]">{preset.caffeine} mg</span>
                             </motion.button>
                         )
                     })}
@@ -58,7 +58,7 @@ export function CaffeineControls({
             </div>
 
             {/* Control bar */}
-            <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-5 p-5 bg-black/25 rounded-2xl border border-white/5">
+            <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-5 p-5 bg-[var(--dk-sunk)] rounded-2xl border border-[var(--dk-line)]">
                 <div className="space-y-2">
                     <label className={SEC}>Caffeine amount</label>
                     <div className="flex items-center gap-3">
@@ -76,7 +76,7 @@ export function CaffeineControls({
                             value={amount}
                             onChange={(e) => setAmount(Math.max(0, Math.min(600, Number(e.target.value) || 0)))}
                             aria-label="Caffeine amount in milligrams"
-                            className="w-16 bg-black/35 border border-cyan-500/30 rounded-lg px-1 py-1.5 text-center font-mono text-lg font-bold text-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+                            className="w-16 bg-[var(--dk-surface)] border border-cyan-500/30 rounded-lg px-1 py-1.5 text-center font-mono text-lg font-bold text-[var(--dk-tea-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
                         />
                     </div>
                 </div>
@@ -89,10 +89,10 @@ export function CaffeineControls({
                 <div className="space-y-2">
                     <label className={SEC}>Metabolism</label>
                     <Select value={halfLife.toString()} onValueChange={(v) => setHalfLife(Number(v))}>
-                        <SelectTrigger className="bg-black/35 border-white/10 text-slate-200 h-[42px]">
+                        <SelectTrigger className="bg-[var(--dk-surface)] border-[var(--dk-line)] text-[var(--dk-ink)] h-[42px]">
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="bg-slate-900 border-white/10 text-slate-200">
+                        <SelectContent className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
                             <SelectItem value="3">Fast (3 hrs)</SelectItem>
                             <SelectItem value="5">Average (5 hrs)</SelectItem>
                             <SelectItem value="7">Slow (7 hrs)</SelectItem>

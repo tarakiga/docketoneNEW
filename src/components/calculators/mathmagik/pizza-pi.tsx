@@ -71,7 +71,7 @@ export function PizzaPiCalculator() {
   const updatePizza = (id: string, field: "name" | "size" | "price", value: string | number) =>
     setPizzas(pizzas.map((p) => (p.id === id ? { ...p, [field]: value } : p)))
 
-  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[#b3aae0]"
+  const MONO_K = "font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--dk-ink-soft)]"
   // Render rings largest-first so smaller pizzas paint on top and stay visible.
   const rings = [...stats].filter((s) => s.size > 0).sort((a, b) => b.size - a.size)
 
@@ -79,8 +79,8 @@ export function PizzaPiCalculator() {
     <motion.div
       className="w-full rounded-3xl p-5 md:p-8 border shadow-2xl relative overflow-hidden"
       style={{
-        background: "#1d1442",
-        borderColor: "#4a3f7a",
+        background: "var(--dk-surface)",
+        borderColor: "var(--dk-line)",
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -90,19 +90,19 @@ export function PizzaPiCalculator() {
         {/* header */}
         <div className="flex items-center justify-between flex-wrap gap-2 mb-1">
           <span className={MONO_K + " flex items-center gap-2"}>
-            <span className="h-2 w-2 rounded-full bg-[#ff3ca6] animate-pulse" /> Math Magik · Pizza Pi
+            <span className="h-2 w-2 rounded-full bg-[var(--dk-pnk)] animate-pulse" /> Math Magik · Pizza Pi
           </span>
         </div>
-        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[#ECEAE3] leading-tight">
-          How much pizza are you <em className="italic text-[#ff3ca6]">actually</em> buying?
+        <h2 className="font-serif text-3xl md:text-4xl font-semibold text-[var(--dk-ink)] leading-tight">
+          How much pizza are you <em className="italic text-[var(--dk-pnk-ink)]">actually</em> buying?
         </h2>
-        <p className="text-[#b3aae0] text-sm mt-1 mb-6 max-w-2xl">
+        <p className="text-[var(--dk-ink-soft)] text-sm mt-1 mb-6 max-w-2xl">
           Every pie drawn to true relative scale. Bigger diameters don&apos;t add area - they multiply it.
         </p>
 
         <div className="grid lg:grid-cols-[320px_1fr] gap-5 items-start">
           {/* ── control panel ───────────────────────── */}
-          <div className="min-w-0 rounded-2xl border border-[#4a3f7a] bg-[#0c0824] p-4">
+          <div className="min-w-0 rounded-2xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] p-4">
             <h3 className={MONO_K + " mb-3"}>Your options</h3>
             <div className="flex flex-col">
               {stats.map((p) => {
@@ -110,22 +110,22 @@ export function PizzaPiCalculator() {
                 return (
                   <div
                     key={p.id}
-                    className="py-3 border-b border-dashed border-[#4a3f7a] last:border-0"
-                    style={isBest ? { borderColor: "#ff3ca6" } : undefined}
+                    className="py-3 border-b border-dashed border-[var(--dk-line)] last:border-0"
+                    style={isBest ? { borderColor: "var(--dk-pnk-ink)" } : undefined}
                   >
                     <div className="flex items-center gap-2.5">
                       <span className="h-3.5 w-3.5 rounded-full flex-none" style={{ background: p.color }} />
                       <input
                         value={p.name}
                         onChange={(e) => updatePizza(p.id, "name", e.target.value)}
-                        className="font-serif text-[15px] font-semibold text-[#ECEAE3] bg-transparent border border-transparent hover:border-[#4a3f7a] focus:border-[#ff3ca6] rounded-md px-1.5 py-0.5 flex-1 min-w-0 outline-none"
+                        className="font-serif text-[15px] font-semibold text-[var(--dk-ink)] bg-transparent border border-transparent hover:border-[var(--dk-line)] focus:border-[var(--dk-pnk-ink)] rounded-md px-1.5 py-0.5 flex-1 min-w-0 outline-none"
                       />
                       {isBest && <span className="text-[11px]">🏆</span>}
                       {pizzas.length > 1 && (
                         <button
                           onClick={() => removePizza(p.id)}
                           aria-label={`Remove ${p.name}`}
-                          className="text-[#b3aae0] hover:text-[#ff3ca6] transition-colors text-sm leading-none px-1"
+                          className="text-[var(--dk-ink-soft)] hover:text-[var(--dk-pnk-ink)] transition-colors text-sm leading-none px-1"
                         >
                           ✕
                         </button>
@@ -133,31 +133,31 @@ export function PizzaPiCalculator() {
                     </div>
                     <div className="flex items-end gap-2 mt-2.5 flex-wrap">
                       <label className="flex flex-col gap-1 flex-1 min-w-[60px]">
-                        <span className="font-mono text-[9px] uppercase tracking-wide text-[#b3aae0]">Inches</span>
+                        <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--dk-ink-soft)]">Inches</span>
                         <input
                           type="number"
                           min={1}
                           value={p.size}
                           onChange={(e) => updatePizza(p.id, "size", Number(e.target.value))}
-                          className="w-full min-w-0 bg-[#0c0824] border border-[#4a3f7a] rounded-lg text-[#ECEAE3] font-mono text-sm px-2 py-1.5 text-center outline-none focus:border-[#ff3ca6]"
+                          className="w-full min-w-0 bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded-lg text-[var(--dk-ink)] font-mono text-sm px-2 py-1.5 text-center outline-none focus:border-[var(--dk-pnk-ink)]"
                         />
                       </label>
                       <label className="flex flex-col gap-1 flex-1 min-w-[60px]">
-                        <span className="font-mono text-[9px] uppercase tracking-wide text-[#b3aae0]">Price $</span>
+                        <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--dk-ink-soft)]">Price $</span>
                         <input
                           type="number"
                           min={0}
                           step="0.01"
                           value={p.price}
                           onChange={(e) => updatePizza(p.id, "price", Number(e.target.value))}
-                          className="w-full min-w-0 bg-[#0c0824] border border-[#4a3f7a] rounded-lg text-[#ECEAE3] font-mono text-sm px-2 py-1.5 text-center outline-none focus:border-[#ff3ca6]"
+                          className="w-full min-w-0 bg-[var(--dk-sunk)] border border-[var(--dk-line)] rounded-lg text-[var(--dk-ink)] font-mono text-sm px-2 py-1.5 text-center outline-none focus:border-[var(--dk-pnk-ink)]"
                         />
                       </label>
                       <div className="ml-auto text-right leading-tight shrink-0 self-end pb-1">
-                        <div className="font-mono text-[13px] font-bold" style={{ color: isBest ? "#ff3ca6" : "#ECEAE3" }}>
+                        <div className="font-mono text-[13px] font-bold" style={{ color: isBest ? "var(--dk-pnk-ink)" : "var(--dk-ink)" }}>
                           {p.ratio > 0 ? p.ratio.toFixed(2) : "-"}
                         </div>
-                        <div className="font-mono text-[8px] uppercase tracking-wide text-[#b3aae0]">in² / $</div>
+                        <div className="font-mono text-[8px] uppercase tracking-wide text-[var(--dk-ink-soft)]">in² / $</div>
                       </div>
                     </div>
                   </div>
@@ -167,7 +167,7 @@ export function PizzaPiCalculator() {
             {pizzas.length < 5 && (
               <button
                 onClick={addPizza}
-                className="mt-3 w-full border-2 border-dashed border-[#4a3f7a] hover:border-[#ff3ca6] text-[#b3aae0] hover:text-[#ECEAE3] rounded-xl py-2.5 text-sm font-semibold transition-colors"
+                className="mt-3 w-full border-2 border-dashed border-[var(--dk-line)] hover:border-[var(--dk-pnk-ink)] text-[var(--dk-ink-soft)] hover:text-[var(--dk-ink)] rounded-xl py-2.5 text-sm font-semibold transition-colors"
               >
                 + Add a pizza
               </button>
@@ -176,8 +176,8 @@ export function PizzaPiCalculator() {
 
           {/* ── stage ───────────────────────────────── */}
           <div
-            className="min-w-0 rounded-2xl border border-[#4a3f7a] p-4 flex flex-col"
-            style={{ background: "#0c0824" }}
+            className="min-w-0 rounded-2xl border border-[var(--dk-line)] p-4 flex flex-col"
+            style={{ background: "var(--dk-sunk)" }}
           >
             <div className={MONO_K + " text-center"}>Area, to scale</div>
             <div ref={arenaRef} className="relative flex-1 min-h-[300px] sm:min-h-[340px] my-2">
@@ -193,14 +193,14 @@ export function PizzaPiCalculator() {
                       height: px,
                       bottom: 24,
                       transform: "translateX(-50%)",
-                      border: isBest ? `2px solid #ff3ca6` : `2px solid ${p.color}`,
+                      border: isBest ? `2px solid var(--dk-pnk-ink)` : `2px solid ${p.color}`,
                       background: `${p.color}22`,
                       boxShadow: "none",
                     }}
                   >
                     <span
                       className="font-mono text-[11px] font-bold mt-1 px-1.5 py-0.5 rounded-md whitespace-nowrap"
-                      style={{ background: "#0c0824", color: p.color }}
+                      style={{ background: "var(--dk-sunk)", color: p.color }}
                     >
                       {p.size}″ · {Math.round(p.area)} in²
                     </span>
@@ -210,13 +210,13 @@ export function PizzaPiCalculator() {
             </div>
 
             {/* insight */}
-            <div className="rounded-xl border border-[#4a3f7a] bg-[#0c0824] px-4 py-3 text-[13px] text-[#b3aae0] leading-relaxed">
+            <div className="rounded-xl border border-[var(--dk-line)] bg-[var(--dk-sunk)] px-4 py-3 text-[13px] text-[var(--dk-ink-soft)] leading-relaxed">
               {hasSpread ? (
                 <>
-                  🍕 <b className="text-[#ff3ca6]">The pi trap:</b> going {small.size}″→{large.size}″ is only{" "}
-                  <span className="font-semibold text-[#ECEAE3]">+{Math.round(widthInc)}% wider</span>, but{" "}
-                  <span className="font-bold text-[#ff3ca6]">+{Math.round(areaInc)}% more pizza</span>. One {large.name} packs
-                  about <span className="font-bold text-[#ff3ca6]">{equivCount.toFixed(1)}× </span>
+                  🍕 <b className="text-[var(--dk-pnk-ink)]">The pi trap:</b> going {small.size}″→{large.size}″ is only{" "}
+                  <span className="font-semibold text-[var(--dk-ink)]">+{Math.round(widthInc)}% wider</span>, but{" "}
+                  <span className="font-bold text-[var(--dk-pnk-ink)]">+{Math.round(areaInc)}% more pizza</span>. One {large.name} packs
+                  about <span className="font-bold text-[var(--dk-pnk-ink)]">{equivCount.toFixed(1)}× </span>
                   the area of one {small.name}.
                 </>
               ) : (
@@ -227,20 +227,20 @@ export function PizzaPiCalculator() {
 
           {/* ── verdict ─────────────────────────────── */}
           <div
-            className="lg:col-span-2 rounded-2xl border border-[#4a3f7a] p-5 flex items-center gap-4 flex-wrap"
-            style={{ background: "#241a52" }}
+            className="lg:col-span-2 rounded-2xl border border-[var(--dk-line)] p-5 flex items-center gap-4 flex-wrap"
+            style={{ background: "var(--dk-raised)" }}
           >
             <div className="text-4xl">🏆</div>
             <div className="flex-1 min-w-[200px]">
               {best && valid.length > 1 ? (
                 <>
-                  <h3 className="font-serif text-xl md:text-2xl font-semibold text-[#ECEAE3]">
-                    Best value: the <em className="italic" style={{ fontFamily: "var(--font-bungee), cursive", color: "#ff3ca6" }}>{best.name}</em>
+                  <h3 className="font-serif text-xl md:text-2xl font-semibold text-[var(--dk-ink)]">
+                    Best value: the <em className="italic" style={{ fontFamily: "var(--font-fredoka), cursive", color: "var(--dk-pnk-ink)" }}>{best.name}</em>
                   </h3>
-                  <p className="text-[#b3aae0] text-[13px] mt-0.5">
+                  <p className="text-[var(--dk-ink-soft)] text-[13px] mt-0.5">
                     {pctMore > 0.5 ? (
                       <>
-                        <span className="text-[#ff3ca6] font-semibold">{Math.round(pctMore)}% more pizza per dollar</span> than the{" "}
+                        <span className="text-[var(--dk-pnk-ink)] font-semibold">{Math.round(pctMore)}% more pizza per dollar</span> than the{" "}
                         {worst?.name} · {Math.round(pctCheaper)}% cheaper per square inch
                       </>
                     ) : (
@@ -249,13 +249,13 @@ export function PizzaPiCalculator() {
                   </p>
                 </>
               ) : (
-                <h3 className="font-serif text-xl font-semibold text-[#ECEAE3]">Enter at least two pizzas to find the winner.</h3>
+                <h3 className="font-serif text-xl font-semibold text-[var(--dk-ink)]">Enter at least two pizzas to find the winner.</h3>
               )}
             </div>
             {best && (
               <div className="text-right font-mono">
-                <div className="text-3xl font-bold" style={{ fontFamily: "var(--font-bungee), cursive", color: "#ff3ca6" }}>{best.ratio.toFixed(2)}</div>
-                <div className="text-[10px] uppercase tracking-wide text-[#b3aae0]">in² / $</div>
+                <div className="text-3xl font-bold" style={{ fontFamily: "var(--font-fredoka), cursive", color: "var(--dk-pnk-ink)" }}>{best.ratio.toFixed(2)}</div>
+                <div className="text-[10px] uppercase tracking-wide text-[var(--dk-ink-soft)]">in² / $</div>
               </div>
             )}
             {best && valid.length > 1 && (

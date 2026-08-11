@@ -1,7 +1,11 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* The dark: utility variant was bound to a .dark class that nothing ever adds
+   — the site themes with data-theme on <html>. Every `dark:` utility in the
+   codebase was therefore dead, so things like .glass-card fell back to their
+   light branch (bg-white/50) underneath correct dark-mode token text. */
+@custom-variant dark (&:is(.dark *, [data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
   --color-background: var(--background);
@@ -68,7 +72,7 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.491 0.241 292.5);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.47 0 0); /* was .556 — 4.0:1 as the search placeholder */
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -90,7 +94,12 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
+/* The site switches themes with data-theme on <html>; nothing ever adds the
+   .dark class, so this whole shadcn token block was dead and every primitive
+   using bg-background / text-muted-foreground / border-border rendered its
+   LIGHT values in dark mode. Binding data-theme here activates them. */
+.dark,
+[data-theme="dark"] {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -463,7 +472,6 @@
 .home-news{background:var(--ink);color:var(--paper);border-radius:24px;padding:38px;text-align:center}
 .home-news h2{font-family:var(--font-fraunces),serif;font-weight:700;font-size:32px;color:#fff}
 .home-news p{color:#b9b1a3;margin:8px 0 18px}
-@media(max-width:640px){.home-cotd{flex-direction:column;text-align:center}.home-cotd-mid{text-align:center}}
 
 /* ===== Navigation progress: anime fireball head ===== */
 .np-fire{position:absolute;top:-8px;width:40px;height:20px;pointer-events:none;transform:translateX(-82%)}
@@ -481,363 +489,543 @@
 @media (prefers-reduced-motion: reduce){.np-flame,.np-trail{animation:none}.np-spark{display:none}}
 
 /* ============================================================================
-   ARCADE THEME - overrides the Almanac layer (single source of truth).
-   Re-skins the shared .almanac* / .home-* class system to the arcade look,
-   so home, header, footer and all calculator pages transform together.
-   Display = Bungee · pixel labels = Press Start 2P · body = Hanken · data = Space Mono
-   ============================================================================ */
-body{background:#160e33 !important}
+   SATURDAY MORNING â€” overrides the Almanac layer (single source of truth).
+   Re-skins the shared .almanac* / .home-* class system, so home, header,
+   footer and all calculator pages transform together.
 
+   Everything is a sticker: 3px ink outline, hard offset shadow, no blur,
+   a degree or two of tilt. Display = Fredoka Â· body = Hanken Â· data = Space Mono
+
+   TOKENS: widgets consume --dk-* directly (see the codemod in
+   scripts/migrate-palette.mjs). Both themes are defined explicitly because
+   the theme-init script always stamps data-theme on <html>.
+   ============================================================================ */
+
+:root,
+[data-theme="light"] {
+  /* surfaces — the ground is the hero yellow, so the band and the page are one
+     surface. Cards are white against it, which is what makes the outline-and-
+     offset sticker language read. */
+  --dk-page:#FFD93B;
+  --dk-surface:#FFFFFF;
+  --dk-sunk:#FFF7DE;
+  --dk-raised:#FFEFBC;
+  --dk-mute:#F3E1A2;
+  /* ink + structure */
+  --dk-ink:#17161A;
+  --dk-ink-soft:#4E4D56;
+  --dk-line:#17161A;
+  --dk-line-soft:#DCC166;
+  --dk-shadow:#17161A;
+  --dk-shadow-soft:#E6CE7A;
+  /* accent fills */
+  --dk-yel:#FFD93B; --dk-org:#FF5E3A; --dk-tea:#00C2B2;
+  --dk-lim:#7BD44F; --dk-pur:#A97BFF; --dk-pnk:#FF3E88; --dk-sky:#3FA9FF;
+  /* accent as text or hairline â€” darkened for AA on --dk-surface */
+  --dk-yel-ink:#6E5200; --dk-org-ink:#B02D0C; --dk-tea-ink:#00655C;
+  --dk-lim-ink:#3C6B21; --dk-pur-ink:#6231C9; --dk-pnk-ink:#C01356; --dk-sky-ink:#0A6BB0;
+  /* Amber exists because the ground is now yellow: an Otaku Ops tile filled
+     with --dk-yel would sit invisibly on it, so the seventh category accent
+     has to be deeper than the page. */
+  --dk-amb:#F09A1E; --dk-amb-ink:#8A5000; --dk-on-amb:#4A2A00;
+  /* Deep green for full-bleed feature bands. --dk-lim is far too light to
+     carry yellow text (about 1.25:1); this clears 5:1 against --dk-yel and
+     7:1 against white. */
+  --dk-forest:#14663D;
+  /* Dark slab for the footer. It cannot be --dk-ink: that token flips to cream
+     in dark mode, which turned the footer into a cream block still carrying its
+     light-on-dark text. This stays dark in both themes. */
+  --dk-slab:#17161A;
+  /* text sitting ON a filled accent */
+  --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
+  --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
+  /* semantic status — separate from the brand accents on purpose, so a
+     re-skin never accidentally makes "over budget" read as decoration */
+  --dk-pos:#7BD44F; --dk-pos-ink:#3C6B21; --dk-on-pos:#1D4009;
+  --dk-neg:#F0685C; --dk-neg-ink:#B02818; --dk-on-neg:#4A0D08;
+  --dk-warn:#FFB020; --dk-warn-ink:#8A5A00; --dk-on-warn:#4A3000;
+  /* Text on ANY bright accent chip, where the specific accent is not known at
+     the call site. Deliberately dark in BOTH themes: the accent fills stay
+     saturated in dark mode, so this must not flip to cream. */
+  --dk-on-fill:#17161A;
+}
+
+[data-theme="dark"] {
+  --dk-page:#171526;
+  --dk-surface:#221F35;
+  --dk-sunk:#1A1728;
+  --dk-raised:#2C2842;
+  --dk-mute:#332E4C;
+  --dk-ink:#FFF3D6;
+  --dk-ink-soft:#B0A8C8;
+  --dk-line:#FFF3D6;
+  --dk-line-soft:#423C5C;
+  --dk-shadow:#08070F;
+  --dk-shadow-soft:#100E1C;
+  --dk-yel:#FFD93B; --dk-org:#FF7A5C; --dk-tea:#2BD9CA;
+  --dk-lim:#8FE063; --dk-pur:#BC96FF; --dk-pnk:#FF5C9C; --dk-sky:#5CBAFF;
+  /* on dark, the bright accent IS the readable text colour */
+  --dk-yel-ink:#FFD93B; --dk-org-ink:#FF7A5C; --dk-tea-ink:#2BD9CA;
+  --dk-lim-ink:#8FE063; --dk-pur-ink:#BC96FF; --dk-pnk-ink:#FF5C9C; --dk-sky-ink:#5CBAFF;
+  --dk-amb:#FFB74D; --dk-amb-ink:#FFB74D; --dk-on-amb:#4A2A00;
+  --dk-forest:#17754C;
+  --dk-slab:#0F0D1A;
+  --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
+  --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#520B2B; --dk-on-sky:#04304F;
+  --dk-pos:#8FE063; --dk-pos-ink:#8FE063; --dk-on-pos:#1D4009;
+  --dk-neg:#FF8578; --dk-neg-ink:#FF8578; --dk-on-neg:#4A0D08;
+  --dk-warn:#FFC24D; --dk-warn-ink:#FFC24D; --dk-on-warn:#4A3000;
+  --dk-on-fill:#17161A;
+}
+
+body{background:var(--dk-page) !important}
+
+/* ---- page ground ------------------------------------------------------- */
 .almanac{
-  --paper:#160e33; --paper-2:#1d1442; --card:#1d1442;
-  --ink:#ECEAE3; --ink-soft:#b3aae0; --line:#4a3f7a;
-  --accent:#29e0ff; --accent-2:#ffd23c; --accent-tint:rgba(255,255,255,.06);
-  color:var(--ink);
+  --paper:var(--dk-page); --paper-2:var(--dk-sunk); --card:var(--dk-surface);
+  --ink:var(--dk-ink); --ink-soft:var(--dk-ink-soft); --line:var(--dk-line);
+  --accent:var(--dk-org); --accent-2:var(--dk-tea); --accent-tint:var(--dk-raised);
+  color:var(--dk-ink);
   font-family:var(--font-hanken),system-ui,sans-serif;
-  background-color:#160e33;
-  background-image:
-    repeating-linear-gradient(transparent 0 3px, rgba(0,0,0,.14) 3px 4px),
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size:auto, 30px 30px, 30px 30px;
+  background-color:var(--dk-page);
+  /* the base Almanac layer paints a dot matrix here — flat ground instead */
+  background-image:none;
   overflow-x:clip;
 }
-.almanac ::selection{background:var(--accent);color:#160e33}
-.almanac a:focus-visible,.almanac button:focus-visible,.almanac input:focus-visible,.almanac summary:focus-visible,
-.almanac-nav a:focus-visible,.almanac-nav button:focus-visible,.almanac-footer a:focus-visible{outline:3px solid #b6ff3c;outline-offset:3px}
+.almanac ::selection{background:var(--dk-yel);color:var(--dk-on-yel)}
+.almanac a:focus-visible,.almanac button:focus-visible,.almanac input:focus-visible,
+.almanac select:focus-visible,.almanac textarea:focus-visible,.almanac summary:focus-visible,
+.almanac-nav a:focus-visible,.almanac-nav button:focus-visible,
+.almanac-footer a:focus-visible{outline:3px solid var(--dk-tea-ink);outline-offset:3px}
 
-/* eyebrows */
-.almanac-eyebrow{font-family:var(--font-press),monospace;font-size:11px;letter-spacing:.04em;color:var(--accent)}
-.almanac-eyebrow::after{background:var(--accent);opacity:.4}
+/* Outlined display headings: solid + hard drop by default, stroked where supported. */
+.dk-outline{color:var(--dk-ink);text-shadow:4px 4px 0 var(--dk-org)}
+@supports ((-webkit-text-stroke: 3px #000)) {
+  .dk-outline{color:var(--dk-surface);-webkit-text-stroke:3px var(--dk-ink);paint-order:stroke fill}
+}
 
-/* nav */
-.almanac-nav{--ink:#ECEAE3;--ink-soft:#b3aae0;--line:#29e0ff;--accent:#29e0ff;background:#0c0824;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:3px solid #29e0ff}
-.almanac-brand{font-family:var(--font-bungee),cursive;color:#29e0ff;text-shadow:2px 2px 0 #ff3ca6;font-size:22px}
+/* ---- eyebrows ---------------------------------------------------------- */
+.almanac-eyebrow{font-family:var(--font-space-mono),monospace;font-weight:700;font-size:11px;
+  letter-spacing:.16em;color:var(--dk-org-ink)}
+.almanac-eyebrow::after{background:var(--dk-line-soft);opacity:1}
+
+/* ---- nav --------------------------------------------------------------- */
+.almanac-nav{--ink:var(--dk-ink);--ink-soft:var(--dk-ink-soft);--line:var(--dk-line);--accent:var(--dk-org);
+  background:var(--dk-page);backdrop-filter:none;-webkit-backdrop-filter:none;
+  border-bottom:3px solid var(--dk-line)}
+.almanac-brand{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:20px;
+  letter-spacing:-.02em;text-transform:lowercase;color:var(--dk-on-yel);
+  background:var(--dk-yel);border:3px solid var(--dk-line);border-radius:11px;
+  box-shadow:3px 3px 0 var(--dk-shadow);padding:.28rem .7rem;text-shadow:none;
+  transition:transform .12s}
+.almanac-brand:hover{transform:rotate(-2deg)}
 .almanac-brand svg{display:none}
-.almanac-navlink{font-family:var(--font-space-mono),monospace;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.04em;color:#c9c2f0;border-radius:0;border-bottom:3px solid transparent;padding:10px 10px}
-.almanac-navlink:hover{color:#b6ff3c;background:transparent;border-bottom-color:#b6ff3c}
-.almanac-navmenu{background:#1d1442;border:2px solid #4a3f7a;border-radius:0;box-shadow:6px 6px 0 #0c0824}
-.almanac-navmenu a,.almanac-navmenu-item a{color:#c9c2f0;border-radius:0}
-.almanac-navmenu a:hover,.almanac-navmenu-item[data-highlighted]{background:#241a52;color:#b6ff3c}
+.almanac-navlink{font-family:var(--font-hanken),sans-serif;font-weight:700;font-size:14px;
+  letter-spacing:.01em;text-transform:none;color:var(--dk-ink-soft);
+  border-radius:999px;border:2.5px solid transparent;padding:.36rem .85rem}
+.almanac-navlink:hover{color:var(--dk-on-tea);background:var(--dk-tea);border-color:var(--dk-line)}
+.almanac-navmenu{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:14px;
+  box-shadow:5px 5px 0 var(--dk-shadow);padding:8px}
+.almanac-navmenu a,.almanac-navmenu-item a{color:var(--dk-ink-soft);border-radius:9px;font-weight:600}
+.almanac-navmenu a:hover,.almanac-navmenu-item[data-highlighted]{background:var(--dk-yel);color:var(--dk-on-yel)}
 
-/* mobile sheet */
-.almanac-sheet{--paper:#160e33;--paper-2:#1d1442;--ink:#ECEAE3;--ink-soft:#b3aae0;--line:#4a3f7a;--accent:#29e0ff;background:#160e33 !important;border-left:3px solid #29e0ff !important}
-.almanac-sheet-brand{font-family:var(--font-bungee),cursive;color:#29e0ff}
+/* ---- mobile sheet ------------------------------------------------------ */
+.almanac-sheet{--paper:var(--dk-page);--paper-2:var(--dk-sunk);--ink:var(--dk-ink);
+  --ink-soft:var(--dk-ink-soft);--line:var(--dk-line);--accent:var(--dk-org);
+  background:var(--dk-page) !important;border-left:3px solid var(--dk-line) !important}
+.almanac-sheet-brand{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;color:var(--dk-ink)}
 .almanac-sheet-brand svg{display:none}
-.almanac-sheet-label{font-family:var(--font-press),monospace;font-size:10px;color:#b3aae0;opacity:1}
-.almanac-sheet-item{background:#1d1442;border:2px solid #4a3f7a;border-radius:0}
-.almanac-sheet-item:hover{border-color:#29e0ff;background:#241a52}
-.almanac-sheet-item .t{font-family:var(--font-space-mono),monospace;font-weight:700;color:#ECEAE3}
-.almanac-sheet-item .ic{background:#241a52;border:2px solid #4a3f7a;border-radius:0}
+.almanac-sheet-label{font-family:var(--font-space-mono),monospace;font-size:10px;
+  color:var(--dk-ink-soft);opacity:1}
+.almanac-sheet-item{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:13px;
+  box-shadow:4px 4px 0 var(--dk-shadow)}
+.almanac-sheet-item:hover{background:var(--dk-yel);transform:translate(2px,2px);box-shadow:2px 2px 0 var(--dk-shadow)}
+.almanac-sheet-item:hover .t{color:var(--dk-on-yel)}
+.almanac-sheet-item .t{font-family:var(--font-hanken),sans-serif;font-weight:700;color:var(--dk-ink)}
+.almanac-sheet-item .ic{background:var(--dk-sunk);border:2.5px solid var(--dk-line);border-radius:10px}
 
-/* footer */
-.almanac-footer{--bg:#0c0824;--cream:#ECEAE3;--cream-soft:#b3aae0;--line:rgba(255,255,255,.12);--accent:#b6ff3c;background:#0c0824;border-top:5px solid #ff3ca6;font-family:var(--font-space-mono),monospace}
-.almanac-footer-brand{font-family:var(--font-bungee),cursive;color:#ffd23c}
+/* ---- footer (ink slab) ------------------------------------------------- */
+.almanac-footer{--bg:var(--dk-slab);--cream:#FFF3D6;--cream-soft:#C9C2B4;
+  --line:rgba(255,255,255,.18);--accent:var(--dk-yel);
+  background:var(--dk-slab);border-top:3px solid var(--dk-line);
+  font-family:var(--font-hanken),sans-serif}
+.almanac-footer-brand{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;color:var(--dk-yel)}
 .almanac-footer-brand svg{display:none}
-.almanac-footer-tag{color:#b3aae0}
-.almanac-footer h4{font-family:var(--font-space-mono),monospace;color:#ff3ca6;opacity:1}
-.almanac-footer ul a{color:#b3aae0;text-decoration:underline;text-underline-offset:3px;text-decoration-color:transparent}
-.almanac-footer ul a:hover{color:#b6ff3c;text-decoration-color:#b6ff3c}
-.almanac-footer-copy{color:#b3aae0}
-.almanac-footer-social a{color:#b3aae0}
-.almanac-footer-social a:hover{color:#b6ff3c}
+.almanac-footer-tag{color:#C9C2B4}
+.almanac-footer h4{font-family:var(--font-space-mono),monospace;font-weight:700;
+  color:var(--dk-tea);opacity:1;letter-spacing:.14em}
+.almanac-footer ul a{color:#C9C2B4;text-decoration:none;font-weight:600}
+.almanac-footer ul a:hover{color:var(--dk-yel)}
+.almanac-footer-copy{color:#C9C2B4;font-family:var(--font-space-mono),monospace}
+.almanac-footer-social a{color:#C9C2B4}
+.almanac-footer-social a:hover{color:var(--dk-yel)}
+.almanac-footer-bottom{border-top:2.5px dashed rgba(255,255,255,.25)}
 
-/* home hero */
-.home-hero{border-top:none}
+/* ---- home hero ---------------------------------------------------------
+   A full-bleed yellow band. The Calculator of the Day is not a separate strip
+   below any more — it IS the card on the right, so the hero makes its claim
+   and immediately demonstrates it with a real tool. */
+.home-hero{
+  border-top:none;position:relative;
+  background:var(--dk-yel);
+  border-bottom:3px solid var(--dk-line);
+  padding:clamp(2.4rem,5vw,4rem) 0 clamp(2.8rem,5.5vw,4.4rem);
+  margin-bottom:0;
+  text-align:left;
+}
 .home-conf{display:none}
-.home-pill{background:#1d1442;border:2px solid #4a3f7a;border-radius:0;color:#c9c2f0;font-family:var(--font-space-mono),monospace}
-.home-pill b{color:#ffd23c}
-.home-h1{font-family:var(--font-bungee),cursive;color:#ffd23c;text-shadow:3px 3px 0 #ff3ca6;letter-spacing:0;line-height:.96;font-size:clamp(34px,8vw,84px)}
-.home-h1 .w1{color:#ff3ca6;text-shadow:3px 3px 0 #160e33}
-.home-h1 .w2{color:#29e0ff;text-shadow:3px 3px 0 #160e33}
-.home-sub{color:#c9c2f0;font-family:var(--font-hanken),sans-serif}
-.home-btn{font-family:var(--font-press),monospace;font-size:11px;border-radius:0;border:3px solid #fff;text-transform:uppercase}
-.home-btn-clay{background:#b6ff3c;color:#160e33;box-shadow:5px 5px 0 #29e0ff}
-.home-btn-ink{background:#ff3ca6;color:#160e33;box-shadow:5px 5px 0 #ffd23c}
-.home-btn:hover{filter:none;transform:translate(2px,2px)}
+.home-hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(1.8rem,4vw,3.4rem);align-items:center;
+}
+.home-pill{background:var(--dk-tea);border:3px solid var(--dk-line);border-radius:999px;
+  color:var(--dk-on-tea);font-family:var(--font-hanken),sans-serif;font-weight:700;
+  box-shadow:3px 3px 0 var(--dk-shadow);transform:rotate(-1.5deg)}
+.home-pill b{color:var(--dk-on-tea);text-decoration:underline;text-underline-offset:2px}
+.home-hero .home-sub{color:var(--dk-on-yel);max-width:36ch;margin-left:0;margin-right:0}
+.home-hero .home-cta{justify-content:flex-start}
 
-/* calculator of the day */
-.home-cotd{background:#0c0824;border:3px solid #29e0ff;border-radius:0;color:#ECEAE3}
-.home-cotd-ico{background:rgba(255,255,255,.06);border:2px solid #4a3f7a;border-radius:0}
-.home-cotd-k{font-family:var(--font-space-mono),monospace;color:#b6ff3c}
-.home-cotd-mid h3{font-family:var(--font-bungee),cursive;color:#fff}
-.home-cotd-mid p{color:#b3aae0}
-.home-cotd-btn{background:#b6ff3c;color:#160e33;font-family:var(--font-press),monospace;font-size:10px;border-radius:0}
+/* example questions — small enough to sit under the CTAs without competing
+   with them, but real links, so they earn the space twice */
+.home-asks{margin-top:clamp(1.6rem,3vw,2.4rem);padding-top:1.3rem;
+  border-top:2.5px dashed rgba(23,22,26,.28)}
+/* opacity was .62, which faded this to 3.19:1 on the yellow band */
+.home-asks-l{font-family:var(--font-space-mono),monospace;font-weight:700;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dk-on-yel);opacity:.85;margin-bottom:.55rem}
+.home-ask-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.home-ask{
+  background:var(--dk-surface);border:2.5px solid var(--dk-line);border-radius:999px;
+  padding:.36em .9em;font-family:var(--font-hanken),sans-serif;font-weight:700;
+  font-size:.83rem;line-height:1.35;color:var(--dk-ink);text-decoration:none;
+  box-shadow:2px 2px 0 var(--dk-shadow);transition:transform .12s,box-shadow .12s,background .12s;
+}
+.home-ask:nth-child(odd){transform:rotate(-1deg)}
+.home-ask:nth-child(even){transform:rotate(.8deg)}
+.home-ask:hover{background:var(--dk-tea);color:var(--dk-on-tea);
+  transform:rotate(0deg) translate(2px,2px);box-shadow:0 0 0 var(--dk-shadow)}
+/* On narrow screens the chips stack one per row, so give them a real tap
+   target rather than shrinking them. */
+@media(max-width:520px){
+  .home-ask{font-size:.8rem;padding:.62em .95em;min-height:42px;display:inline-flex;align-items:center}
+}
+@media(max-width:880px){
+  .home-hero-grid{grid-template-columns:minmax(0,1fr)}
+  .home-hero{text-align:left}
+}
+.home-h1{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.035em;line-height:.9;
+  font-size:clamp(44px,9vw,96px);color:var(--dk-ink);text-shadow:5px 5px 0 var(--dk-org)}
+@supports ((-webkit-text-stroke: 3px #000)) {
+  .home-h1{color:var(--dk-surface);-webkit-text-stroke:3px var(--dk-ink);paint-order:stroke fill}
+}
+.home-h1 .w1{color:var(--dk-pnk);-webkit-text-stroke:3px var(--dk-ink)}
+.home-h1 .w2{color:var(--dk-tea);-webkit-text-stroke:3px var(--dk-ink)}
+.home-sub{color:var(--dk-ink-soft);font-family:var(--font-hanken),sans-serif;font-weight:600}
+.home-btn{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:15px;
+  text-transform:lowercase;letter-spacing:-.01em;border-radius:12px;border:3px solid var(--dk-line)}
+.home-btn-clay{background:var(--dk-org);color:var(--dk-on-org);box-shadow:5px 5px 0 var(--dk-shadow)}
+.home-btn-ink{background:var(--dk-surface);color:var(--dk-ink);box-shadow:5px 5px 0 var(--dk-shadow)}
+.home-btn:hover{filter:none;transform:translate(2px,2px);box-shadow:3px 3px 0 var(--dk-shadow)}
+.home-btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--dk-shadow)}
 
-/* centered section heads + tiles */
-.home-centerhead h2{font-family:var(--font-bungee),cursive;color:#ECEAE3}
-.home-centerhead p{color:#b3aae0}
-.home-tile{border-width:3px;border-radius:0;box-shadow:6px 6px 0 #0c0824;background:#1d1442;color:#ECEAE3}
-.home-tile:hover{transform:translate(-2px,-2px)}
-.home-tile h3{font-family:var(--font-bungee),cursive}
-.home-tile .go{font-family:var(--font-space-mono),monospace;font-weight:700}
+/* ---- calculator of the day (the hero card) ------------------------------
+   Structure follows the concept: kicker, the tool as a big question, a filled
+   answer block, then the attribution line. */
+.home-cotd{
+  display:block;background:var(--dk-surface);border:3px solid var(--dk-line);
+  border-radius:18px;color:var(--dk-ink);box-shadow:9px 9px 0 var(--dk-shadow);
+  padding:1.4rem 1.5rem;margin-top:0;transform:rotate(1.6deg);
+  transition:transform .14s,box-shadow .14s;text-align:left;
+}
+.home-cotd:hover{transform:rotate(0deg) translate(3px,3px);box-shadow:6px 6px 0 var(--dk-shadow)}
+.home-cotd-k{font-family:var(--font-space-mono),monospace;font-weight:700;font-size:11px;
+  color:var(--dk-ink-soft);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem}
+.home-cotd-mid{min-width:0}
+.home-cotd-mid h3{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink);
+  font-size:clamp(1.25rem,2.4vw,1.7rem);line-height:1.1}
+.home-cotd-mid p{color:var(--dk-ink-soft);font-size:.92rem;line-height:1.5;margin-top:.4rem}
+/* the "answer" block — the loudest thing on the card, and the action */
+.home-cotd-answer{
+  display:flex;align-items:center;gap:.8rem;margin-top:1rem;
+  background:var(--dk-pnk);color:var(--dk-on-pnk);
+  border:3px solid var(--dk-line);border-radius:12px;padding:.7rem .9rem;
+}
+.home-cotd-ico{font-size:1.9rem;line-height:1;flex:0 0 auto;background:none;border:none;
+  width:auto;height:auto;display:block}
+.home-cotd-btn{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  font-size:1.05rem;text-transform:lowercase;letter-spacing:-.01em;color:var(--dk-on-pnk);
+  background:none;border:none;border-radius:0;box-shadow:none;padding:0;margin-left:auto}
+.home-cotd-by{font-family:var(--font-hanken),sans-serif;font-size:.78rem;font-weight:600;
+  color:var(--dk-ink-soft);margin-top:.7rem}
 
-/* trending chips */
-.home-chip{background:#1d1442;border:2px solid #4a3f7a;border-radius:0;color:#ECEAE3;font-family:var(--font-space-mono),monospace;font-weight:700}
-.home-chip:hover{border-color:#29e0ff;transform:translateY(-3px)}
+/* ---- section heads + category tiles ------------------------------------ */
+.home-centerhead h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.03em;color:var(--dk-ink)}
+.home-centerhead p{color:var(--dk-ink-soft);font-weight:600}
+.home-tile{border-width:3px;border-color:var(--dk-line);border-radius:18px;
+  box-shadow:6px 6px 0 var(--dk-shadow);background:var(--dk-surface);color:var(--dk-ink);
+  transition:transform .12s,box-shadow .12s}
+.home-tile:nth-child(3n+1){transform:rotate(-1.2deg)}
+.home-tile:nth-child(3n+2){transform:rotate(.9deg)}
+.home-tile:nth-child(3n){transform:rotate(-.5deg)}
+.home-tile:hover{transform:rotate(0deg) translate(3px,3px);box-shadow:3px 3px 0 var(--dk-shadow)}
+.home-tile h3{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.025em}
+/* full opacity: the tile text is already a muted dark tone on its accent, and
+   fading it dropped the darker accents (pink, purple) below 4.5:1 */
+.home-tile p{opacity:1;font-weight:600}
+.home-tile .go{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.01em;font-size:13px}
 
-/* boring department (desaturated on purpose) */
-.home-lead .eb{font-family:var(--font-press),monospace;font-size:11px;color:#b3aae0}
-.home-lead h2{font-family:var(--font-bungee),cursive;color:#b3aae0}
-.home-lead p{color:#b3aae0}
-.home-drawer{background:#1d1442;border:3px dashed #4a3f7a;border-radius:0;box-shadow:none}
-.home-tab{background:#4a3f7a;color:#ECEAE3;font-family:var(--font-press),monospace;font-size:9px;border-radius:0}
-.home-handle{background:#241a52;border:2px solid #4a3f7a;border-radius:0}
-.home-handle-bar{background:#b3aae0}
-.home-dl-f{color:#b3aae0;font-family:var(--font-space-mono),monospace}
-.home-dl-nm{font-family:var(--font-bungee),cursive;color:#ECEAE3}
-.home-pull{background:#29e0ff;color:#160e33;border-radius:0;font-family:var(--font-space-mono),monospace;font-weight:700}
+/* ---- trending chips ---------------------------------------------------- */
+.home-chip{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:999px;
+  color:var(--dk-ink);font-family:var(--font-hanken),sans-serif;font-weight:700;
+  box-shadow:3px 3px 0 var(--dk-shadow)}
+.home-chip:hover{background:var(--dk-yel);color:var(--dk-on-yel);transform:translate(2px,2px);
+  box-shadow:1px 1px 0 var(--dk-shadow)}
 
-/* sections */
-.almanac-section{border-top:1px solid #2f2a5a}
-.almanac-section-head h2{font-family:var(--font-bungee),cursive;color:#ECEAE3}
-.almanac-section-head p{color:#b3aae0}
+/* ---- boring department (deliberately the quiet corner) ------------------ */
+.home-lead .eb{font-family:var(--font-space-mono),monospace;font-weight:700;font-size:11px;
+  color:var(--dk-ink-soft);letter-spacing:.2em}
+.home-lead h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink-soft)}
+.home-lead p{color:var(--dk-ink-soft)}
+.home-drawer{background:var(--dk-sunk);border:3px dashed var(--dk-line-soft);border-radius:18px;
+  box-shadow:none}
+.home-tab{background:var(--dk-mute);color:var(--dk-ink);border:3px solid var(--dk-line-soft);
+  border-bottom:none;font-family:var(--font-space-mono),monospace;font-weight:700;font-size:10px;
+  border-radius:9px 9px 0 0}
+.home-handle{background:var(--dk-surface);border:3px solid var(--dk-line-soft);border-radius:13px}
+.home-handle-bar{background:var(--dk-ink-soft)}
+.home-dl-f{color:var(--dk-ink-soft);font-family:var(--font-space-mono),monospace}
+.home-dl-nm{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.02em;color:var(--dk-ink)}
+.home-pull{background:var(--dk-ink);color:var(--dk-page);border:3px solid var(--dk-line);
+  border-radius:12px;font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;font-size:15px}
+.home-pull:hover{filter:none;transform:translate(2px,2px)}
 
-/* blog / generic cards */
-.almanac-card{background:#1d1442;border:3px solid #4a3f7a;border-radius:6px;color:#ECEAE3}
-.almanac-card:hover{border-color:var(--accent);box-shadow:6px 6px 0 #0c0824;transform:translateY(-4px)}
-.almanac-card h3{font-family:var(--font-bungee),cursive;color:#ECEAE3}
-.almanac-card p{color:#b3aae0}
-.almanac-open{font-family:var(--font-space-mono),monospace;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
-.almanac-num{color:#4a3f7a}
-.almanac-ico{background:#241a52;border:2px solid #4a3f7a;border-radius:0}
-.almanac-card:hover .almanac-ico{background:#2f2466}
-.almanac-card-media{background:#0c0824;border-bottom:2px solid #4a3f7a}
+/* ---- sections ---------------------------------------------------------- */
+.almanac-section{border-top:3px solid var(--dk-line-soft)}
+.almanac-section-head h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.03em;color:var(--dk-ink)}
+.almanac-section-head p{color:var(--dk-ink-soft);font-weight:600}
 
-/* prose */
-.almanac-prose{color:#cfc9e6}
-.almanac-prose h2{font-family:var(--font-bungee),cursive;color:#ECEAE3;font-size:25px}
-.almanac-prose h3{font-family:var(--font-bungee),cursive;color:#ECEAE3;font-size:18px}
-.almanac-prose strong{color:#fff}
-.almanac-prose a{color:var(--accent)}
-.almanac-prose li::marker{color:var(--accent)}
-.almanac-prose blockquote{border-left:3px solid var(--accent);color:#ECEAE3}
+/* ---- cards ------------------------------------------------------------- */
+.almanac-card{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:16px;
+  color:var(--dk-ink);box-shadow:6px 6px 0 var(--dk-shadow);transition:transform .12s,box-shadow .12s}
+.almanac-card:hover{border-color:var(--dk-line);box-shadow:3px 3px 0 var(--dk-shadow);
+  transform:translate(3px,3px)}
+.almanac-card h3{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink)}
+.almanac-card p{color:var(--dk-ink-soft)}
+.almanac-open{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:13px;
+  text-transform:lowercase;letter-spacing:-.01em;color:var(--dk-org-ink);text-decoration:none}
+/* was --dk-line-soft: a hairline colour used as text, 1.55:1 in dark */
+.almanac-num{color:var(--dk-ink-soft);font-family:var(--font-space-mono),monospace}
+.almanac-ico{background:var(--dk-sunk);border:3px solid var(--dk-line);border-radius:12px}
+.almanac-card:hover .almanac-ico{background:var(--dk-yel)}
+/* The media box already spans the full card width — its negative margin
+   cancels the card padding, so it meets the outline on all three sides.
+   The aspect ratio is the thing worth changing: the blog's featured images
+   are 1024x1024 squares, and a 16/9 box with object-fit:cover threw away 44%
+   of each one. 4/3 keeps 75% and still reads as a card banner. */
+.almanac-card-media{background:var(--dk-sunk);border-bottom:3px solid var(--dk-line);
+  aspect-ratio:4/3}
 
-/* callout + quick links */
-.almanac-callout{background:#1d1442;border:2px solid #4a3f7a;border-radius:6px}
-.almanac-quick{background:#1d1442;border:2px solid #4a3f7a;border-radius:6px}
-.almanac-quick:hover{border-color:var(--accent)}
-.almanac-quick .qt{font-family:var(--font-bungee),cursive;color:#ECEAE3}
-.almanac-quick .qs{color:#b3aae0}
+/* ---- prose (the SEO surface â€” readability first) ----------------------- */
+/* Reading surface. Ink on the yellow ground clears AA comfortably (~11:1),
+   but several hundred words of body copy on a saturated field is tiring to
+   actually read. Long-form blocks get a white panel; short prose fragments
+   stay on the ground so the page keeps its colour. */
+.dk-read,
+.almanac-article{
+  background:var(--dk-surface);
+  border:3px solid var(--dk-line);
+  border-radius:18px;
+  box-shadow:7px 7px 0 var(--dk-shadow);
+  padding:clamp(1.4rem,3.5vw,2.6rem);
+}
+.dk-read > :first-child,.almanac-article > :first-child{margin-top:0}
+.dk-read > :last-child,.almanac-article > :last-child{margin-bottom:0}
 
-/* FAQ */
-.almanac-faq{border-top:1px solid #2f2a5a}
-.almanac-faq details{border-bottom:1px solid #2f2a5a}
-.almanac-faq summary{font-family:var(--font-bungee),cursive;color:#ECEAE3;font-size:16px}
-.almanac-faq summary::after{color:var(--accent)}
-.almanac-faq .ans{color:#b3aae0}
+.almanac-prose{color:var(--dk-ink);font-size:17px;line-height:1.75}
+.almanac-prose h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink);font-size:30px}
+.almanac-prose h3{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.02em;color:var(--dk-ink);font-size:21px}
+.almanac-prose strong{color:var(--dk-ink);font-weight:700}
+.almanac-prose a{color:var(--dk-org-ink);text-decoration-thickness:2px}
+.almanac-prose li::marker{color:var(--dk-org)}
+.almanac-prose blockquote{border-left:4px solid var(--dk-org);color:var(--dk-ink)}
 
-/* forms */
-.almanac-label{font-family:var(--font-space-mono),monospace;color:#b3aae0}
-.almanac-input,.almanac-textarea,.almanac-select{background:#0c0824;border:2px solid #4a3f7a;border-radius:0;color:#ECEAE3;font-family:var(--font-space-mono),monospace}
-.almanac-input:focus,.almanac-textarea:focus,.almanac-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(41,224,255,.25)}
-.almanac-input::placeholder,.almanac-textarea::placeholder{color:#b3aae0}
-.almanac-btn{font-family:var(--font-press),monospace;font-size:11px;background:var(--accent);color:#160e33;border-radius:0;box-shadow:4px 4px 0 #0c0824}
-.almanac-btn:hover{filter:none;transform:translate(2px,2px);box-shadow:2px 2px 0 #0c0824}
-.almanac-btn-ghost{background:transparent;color:var(--accent);border:2px solid #4a3f7a}
-.almanac-btn-ghost:hover{border-color:var(--accent);background:transparent}
+/* ---- callout + quick links --------------------------------------------- */
+.almanac-callout{background:var(--dk-sunk);border:3px solid var(--dk-line);border-radius:16px;
+  box-shadow:5px 5px 0 var(--dk-shadow)}
+.almanac-quick{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:14px;
+  box-shadow:4px 4px 0 var(--dk-shadow);transition:transform .12s,box-shadow .12s}
+.almanac-quick:hover{border-color:var(--dk-line);transform:translate(2px,2px);
+  box-shadow:2px 2px 0 var(--dk-shadow)}
+.almanac-quick .qt{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;color:var(--dk-ink)}
+.almanac-quick .qs{color:var(--dk-ink-soft)}
 
-/* category masthead + filters */
-.almanac-top{color:#b3aae0;font-family:var(--font-space-mono),monospace}
-.almanac-back{color:#b3aae0}.almanac-back:hover{color:var(--accent)}
-.almanac-h1{font-family:var(--font-bungee),cursive;color:#ffd23c;text-shadow:3px 3px 0 #ff3ca6;letter-spacing:0;font-size:clamp(30px,9vw,96px)}
-.almanac-tagline{font-family:var(--font-bungee),cursive;color:var(--accent-2)}
-.almanac-lede{color:#b3aae0}
-.almanac-masthead{border-top:1px solid #2f2a5a}
-.almanac-rule{color:#b3aae0;border-bottom:1px solid #2f2a5a}.almanac-rule b{color:#ECEAE3}
-.almanac-pill{background:#1d1442;border:2px solid #4a3f7a;border-radius:0;color:#b3aae0;font-family:var(--font-space-mono),monospace}
-.almanac-pill:hover{border-color:var(--accent);color:#ECEAE3}
-.almanac-pill[data-active="true"]{background:var(--accent);border-color:var(--accent);color:#160e33}
-.almanac-empty{border:2px dashed #4a3f7a;border-radius:0;color:#b3aae0}
-.almanac-stat{background:#1d1442;border:2px solid #4a3f7a;border-radius:6px}
-.almanac-stat .v{font-family:var(--font-bungee),cursive;color:#ECEAE3}
-.almanac-stat .l{font-family:var(--font-space-mono),monospace;color:#b3aae0}
+/* ---- FAQ --------------------------------------------------------------- */
+.almanac-faq{border-top:3px solid var(--dk-line-soft)}
+.almanac-faq details{border-bottom:3px solid var(--dk-line-soft)}
+.almanac-faq summary{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.02em;color:var(--dk-ink);font-size:19px}
+.almanac-faq summary::after{color:var(--dk-org-ink);font-family:var(--font-fredoka),system-ui,sans-serif}
+.almanac-faq .ans{color:var(--dk-ink-soft);font-size:16.5px}
 
-/* calculator page template */
-.almanac-calc-masthead h1{font-family:var(--font-bungee),cursive;color:#ffd23c;text-shadow:3px 3px 0 #ff3ca6;letter-spacing:0;line-height:1.04;font-size:clamp(26px,6vw,54px)}
-.almanac-sub{color:#b3aae0}
-.almanac-infocard{background:#1d1442;border:2px solid #4a3f7a;border-radius:6px}
-.almanac-infocard h2{font-family:var(--font-bungee),cursive;color:#ECEAE3;border-bottom:1px solid #2f2a5a;font-size:17px}
-.almanac-infocard p{color:#b3aae0}
-.almanac-tip{background:#1d1442;border:2px solid #4a3f7a;border-radius:6px}
-.almanac-tip .n{font-family:var(--font-press),monospace;color:var(--accent);font-size:13px}
-.almanac-tip .x{color:#b3aae0}
-.almanac-h2{font-family:var(--font-bungee),cursive;color:#ECEAE3}
+/* ---- forms ------------------------------------------------------------- */
+.almanac-label{font-family:var(--font-space-mono),monospace;font-weight:700;color:var(--dk-ink-soft)}
+.almanac-input,.almanac-textarea,.almanac-select{background:var(--dk-surface);
+  border:3px solid var(--dk-line);border-radius:11px;color:var(--dk-ink);
+  font-family:var(--font-hanken),sans-serif;font-weight:600}
+.almanac-input:focus,.almanac-textarea:focus,.almanac-select:focus{border-color:var(--dk-line);
+  box-shadow:4px 4px 0 var(--dk-tea)}
+.almanac-input::placeholder,.almanac-textarea::placeholder{color:var(--dk-ink-soft);opacity:.7}
+.almanac-btn{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:15px;
+  text-transform:lowercase;letter-spacing:-.01em;background:var(--dk-org);color:var(--dk-on-org);
+  border:3px solid var(--dk-line);border-radius:12px;box-shadow:5px 5px 0 var(--dk-shadow)}
+.almanac-btn:hover{filter:none;transform:translate(2px,2px);box-shadow:3px 3px 0 var(--dk-shadow)}
+.almanac-btn-ghost{background:var(--dk-surface);color:var(--dk-ink);border:3px solid var(--dk-line)}
+.almanac-btn-ghost:hover{background:var(--dk-yel);color:var(--dk-on-yel)}
 
-/* newsletter band */
-.home-news{background:#0c0824;color:#ECEAE3;border:3px solid #ff3ca6;border-radius:0}
-.home-news p{color:#b3aae0}
+/* ---- category masthead + filters --------------------------------------- */
+.almanac-top{color:var(--dk-ink-soft);font-family:var(--font-space-mono),monospace;font-weight:700}
+.almanac-back{color:var(--dk-ink-soft)}
+.almanac-back:hover{color:var(--dk-org-ink)}
+.almanac-h1{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,9vw,86px);
+  color:var(--dk-ink);text-shadow:5px 5px 0 var(--dk-org)}
+@supports ((-webkit-text-stroke: 3px #000)) {
+  .almanac-h1{color:var(--dk-surface);-webkit-text-stroke:3px var(--dk-ink);paint-order:stroke fill}
+}
+.almanac-tagline{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  font-style:normal;text-transform:lowercase;letter-spacing:-.02em;color:var(--dk-org-ink)}
+.almanac-lede{color:var(--dk-ink-soft);font-weight:600}
+.almanac-masthead{border-top:3px solid var(--dk-line-soft)}
+.almanac-rule{color:var(--dk-ink-soft);border-bottom:3px solid var(--dk-line-soft);font-weight:700}
+.almanac-rule b{color:var(--dk-ink)}
+.almanac-pill{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:999px;
+  color:var(--dk-ink);font-family:var(--font-hanken),sans-serif;font-weight:700;
+  box-shadow:3px 3px 0 var(--dk-shadow)}
+.almanac-pill:hover{border-color:var(--dk-line);background:var(--dk-yel);color:var(--dk-on-yel)}
+.almanac-pill[data-active="true"]{background:var(--dk-org);border-color:var(--dk-line);
+  color:var(--dk-on-org)}
+.almanac-empty{border:3px dashed var(--dk-line-soft);border-radius:16px;color:var(--dk-ink-soft)}
+.almanac-stat{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:13px;
+  box-shadow:4px 4px 0 var(--dk-shadow)}
+.almanac-stat .v{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  color:var(--dk-ink)}
+.almanac-stat .l{font-family:var(--font-space-mono),monospace;font-weight:700;color:var(--dk-ink-soft)}
 
-/* reduced motion */
-@media (prefers-reduced-motion: reduce){.almanac *,.almanac-nav *,.almanac-footer *{animation:none !important;transition:none !important}}
+/* ---- calculator page template ------------------------------------------ */
+.almanac-calc-masthead h1{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.035em;line-height:1;font-size:clamp(30px,6vw,58px);
+  color:var(--dk-ink);text-shadow:4px 4px 0 var(--dk-org)}
+@supports ((-webkit-text-stroke: 3px #000)) {
+  .almanac-calc-masthead h1{color:var(--dk-surface);-webkit-text-stroke:3px var(--dk-ink);
+    paint-order:stroke fill}
+}
+.almanac-sub{color:var(--dk-ink-soft);font-weight:600}
+.almanac-infocard{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:16px;
+  box-shadow:5px 5px 0 var(--dk-shadow)}
+.almanac-infocard h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.02em;color:var(--dk-ink);
+  border-bottom:3px solid var(--dk-line-soft);font-size:19px}
+.almanac-infocard p{color:var(--dk-ink-soft)}
+.almanac-tip{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:14px;
+  box-shadow:4px 4px 0 var(--dk-shadow)}
+.almanac-tip .n{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  color:var(--dk-org-ink);font-size:19px}
+.almanac-tip .x{color:var(--dk-ink-soft)}
+.almanac-h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink)}
 
-/* calculator widget zone - always a dark "screen", pins arcade tokens so
-   widgets that reference var(--ink)/var(--card)/etc. stay dark in BOTH themes */
+/* ---- newsletter band --------------------------------------------------- */
+.home-news{background:var(--dk-forest);color:#FFFFFF;border:3px solid var(--dk-line);
+  border-radius:20px;box-shadow:8px 8px 0 var(--dk-shadow)}
+.home-news h2{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-yel)}
+.home-news p{color:#FFFFFF;opacity:.92}
+.home-news .almanac-input{background:var(--dk-surface);border-color:var(--dk-line);color:var(--dk-ink)}
+.home-news .almanac-input::placeholder{color:var(--dk-ink-soft);opacity:.75}
+/* the submit button sits on deep green, so it takes the yellow it can carry */
+.home-news .almanac-btn{background:var(--dk-yel);color:var(--dk-on-yel)}
+
+/* ---- widget zone ------------------------------------------------------- */
+/* A sticker panel, not a dark screen. Tokens flow through so widgets follow
+   the active theme instead of being pinned dark in both. */
 .almanac-screen{
-  --paper:#160e33; --paper-2:#1d1442; --card:#1d1442;
-  --ink:#ECEAE3; --ink-soft:#b3aae0; --line:#4a3f7a;
-  background:#160e33; border-radius:14px;
+  --paper:var(--dk-page); --paper-2:var(--dk-sunk); --card:var(--dk-surface);
+  --ink:var(--dk-ink); --ink-soft:var(--dk-ink-soft); --line:var(--dk-line);
+  background:var(--dk-sunk);
+  border:3px solid var(--dk-line);
+  border-radius:18px;
+  box-shadow:7px 7px 0 var(--dk-shadow);
+  padding:clamp(14px,2.5vw,26px);
+  overflow:hidden;
+}
+/* form controls inside the widget zone inherit real ink, not a pinned white */
+.almanac-screen input,.almanac-screen textarea,.almanac-screen select,
+.almanac-screen [role="combobox"]{color:var(--dk-ink)}
+.almanac-screen input::placeholder,.almanac-screen textarea::placeholder{color:var(--dk-ink-soft);opacity:.7}
+
+/* Sticker treatment, applied once for all 64 widgets.
+   The widgets were built as shadcn Cards and bordered divs with a 1px hairline;
+   rather than hand-editing ~1,900 JSX sites, the outline + hard offset is
+   applied here and inherited. Nested borders stay hairline so a card inside a
+   card does not read as two stickers. */
+.almanac-screen [data-slot="card"],
+.almanac-screen > .border,
+.almanac-screen > * > .border,
+.almanac-screen > * > * > .border{
+  border-width:3px;
+  border-color:var(--dk-line);
+  box-shadow:4px 4px 0 var(--dk-shadow);
+}
+/* blur shadows fight the flat sticker language — flatten every Tailwind shadow */
+.almanac-screen [class*="shadow-"]{box-shadow:4px 4px 0 var(--dk-shadow)}
+.almanac-screen [class*="shadow-none"]{box-shadow:none}
+/* controls read as pressable stickers */
+.almanac-screen button:not([data-slot="card"]){border-radius:11px}
+.almanac-screen [role="combobox"],.almanac-screen select,.almanac-screen input[type="text"],
+.almanac-screen input[type="number"]{border-width:3px;border-color:var(--dk-line);border-radius:11px}
+
+/* ---- theme toggle ------------------------------------------------------ */
+.almanac-themetoggle{display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border:3px solid var(--dk-line);background:var(--dk-surface);
+  color:var(--dk-ink);border-radius:999px;cursor:pointer;flex:0 0 auto;
+  box-shadow:3px 3px 0 var(--dk-shadow);transition:transform .12s,box-shadow .12s,background .12s}
+.almanac-themetoggle:hover{background:var(--dk-pur);color:var(--dk-on-pur);
+  transform:translate(2px,2px);box-shadow:1px 1px 0 var(--dk-shadow)}
+.almanac-themetoggle:focus-visible{outline:3px solid var(--dk-tea-ink);outline-offset:3px}
+
+/* ---- reduced motion ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  .almanac *,.almanac-nav *,.almanac-footer *{animation:none !important;transition:none !important}
+  .home-tile,.almanac-card{transform:none !important}
 }
 
-/* theme toggle button (lives in nav) */
-.almanac-themetoggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:2px solid #4a3f7a;background:#1d1442;color:#ECEAE3;border-radius:0;cursor:pointer;flex:0 0 auto;transition:border-color .15s,color .15s}
-.almanac-themetoggle:hover{border-color:var(--accent,#29e0ff);color:var(--accent,#29e0ff)}
-.almanac-themetoggle:focus-visible{outline:3px solid #b6ff3c;outline-offset:3px}
-
-/* ============================================================================
-   LIGHT MODE - chrome + reading surfaces flip to a clean (non-beige) light
-   arcade palette. Calculator widgets keep their dark "screen" styling.
-   Neon accents are darkened via color-mix only where used as text/lines on light.
-   ============================================================================ */
-[data-theme="light"] body{background:#ebe9f6 !important}
-
-[data-theme="light"] .almanac{
-  --paper:#f3f2fb; --paper-2:#ffffff; --card:#ffffff;
-  --ink:#1a1430; --ink-soft:#544d7a; --line:#dcd9ee;
-  color:var(--ink);
-  background-color:#f3f2fb;
-  background-image:
-    repeating-linear-gradient(transparent 0 3px, rgba(20,16,48,.025) 3px 4px),
-    linear-gradient(rgba(20,16,48,.04) 1px,transparent 1px),
-    linear-gradient(90deg, rgba(20,16,48,.04) 1px, transparent 1px);
-}
-[data-theme="light"] .almanac ::selection{background:var(--accent);color:#1a1430}
-
-/* accent-as-text/line → darkened for AA on light */
-[data-theme="light"] .almanac-eyebrow,
-[data-theme="light"] .almanac-open,
-[data-theme="light"] .almanac-prose a,
-[data-theme="light"] .home-cotd-k,
-[data-theme="light"] .almanac-tip .n{color:color-mix(in srgb, var(--accent) 40%, #160e33)}
-[data-theme="light"] .almanac-eyebrow::after{background:color-mix(in srgb, var(--accent) 40%, #160e33);opacity:.5}
-[data-theme="light"] .almanac-prose li::marker{color:color-mix(in srgb, var(--accent) 40%, #160e33)}
-[data-theme="light"] .almanac-faq summary::after{color:color-mix(in srgb, var(--accent) 40%, #160e33)}
-[data-theme="light"] .almanac-prose blockquote{border-left-color:color-mix(in srgb, var(--accent) 40%, #160e33);color:#1a1430}
-
-/* headings → dark ink (hero/masthead keep a soft colored hard-shadow) */
-[data-theme="light"] .home-centerhead h2,
-[data-theme="light"] .almanac-section-head h2,
-[data-theme="light"] .almanac-card h3,
-[data-theme="light"] .almanac-quick .qt,
-[data-theme="light"] .almanac-faq summary,
-[data-theme="light"] .almanac-infocard h2,
-[data-theme="light"] .almanac-h2,
-[data-theme="light"] .home-tile h3,
-[data-theme="light"] .home-dl-nm,
-[data-theme="light"] .almanac-tagline,
-[data-theme="light"] .almanac-stat .v{color:#1a1430}
-[data-theme="light"] .home-h1{color:#1a1430;text-shadow:3px 3px 0 #ff8fcf}
-[data-theme="light"] .home-h1 .w1{color:#c2186e;text-shadow:none}
-[data-theme="light"] .home-h1 .w2{color:#0e7ea0;text-shadow:none}
-[data-theme="light"] .almanac-calc-masthead h1,
-[data-theme="light"] .almanac-h1{color:#1a1430;text-shadow:3px 3px 0 #ff8fcf}
-
-/* body / muted text */
-[data-theme="light"] .almanac-prose{color:#2f2a52}
-[data-theme="light"] .almanac-prose h2,
-[data-theme="light"] .almanac-prose h3{color:#1a1430}
-[data-theme="light"] .almanac-sub,
-[data-theme="light"] .home-sub,
-[data-theme="light"] .home-centerhead p,
-[data-theme="light"] .almanac-section-head p,
-[data-theme="light"] .almanac-card p,
-[data-theme="light"] .almanac-quick .qs,
-[data-theme="light"] .almanac-faq .ans,
-[data-theme="light"] .almanac-infocard p,
-[data-theme="light"] .almanac-tip .x,
-[data-theme="light"] .almanac-lede,
-[data-theme="light"] .almanac-top,
-[data-theme="light"] .almanac-back,
-[data-theme="light"] .home-lead .eb,
-[data-theme="light"] .home-lead h2,
-[data-theme="light"] .home-lead p,
-[data-theme="light"] .home-dl-f,
-[data-theme="light"] .almanac-rule,
-[data-theme="light"] .almanac-stat .l{color:#544d7a}
-[data-theme="light"] .almanac-prose strong,
-[data-theme="light"] .almanac-rule b{color:#1a1430}
-
-/* surfaces */
-[data-theme="light"] .almanac-card,
-[data-theme="light"] .almanac-infocard,
-[data-theme="light"] .almanac-tip,
-[data-theme="light"] .almanac-quick,
-[data-theme="light"] .almanac-callout,
-[data-theme="light"] .almanac-stat,
-[data-theme="light"] .almanac-pill,
-[data-theme="light"] .home-pill,
-[data-theme="light"] .home-chip,
-[data-theme="light"] .home-tile{background:#ffffff;border-color:#dcd9ee;color:#1a1430}
-[data-theme="light"] .home-pill,[data-theme="light"] .home-lead .eb{color:#544d7a}
-[data-theme="light"] .home-pill b{color:#1a1430}
-[data-theme="light"] .almanac-card-media,
-[data-theme="light"] .almanac-ico{background:#f3f2fb;border-color:#dcd9ee}
-[data-theme="light"] .almanac-num{color:#cbc6e6}
-[data-theme="light"] .almanac-card:hover{box-shadow:6px 6px 0 #cfcbe6}
-[data-theme="light"] .home-tile{box-shadow:6px 6px 0 #cfcbe6}
-[data-theme="light"] .almanac-section,
-[data-theme="light"] .almanac-masthead,
-[data-theme="light"] .almanac-faq,
-[data-theme="light"] .almanac-faq details,
-[data-theme="light"] .almanac-rule,
-[data-theme="light"] .almanac-infocard h2{border-color:#dcd9ee}
-
-/* calculator-of-the-day + boring drawer + newsletter (feature chrome) */
-[data-theme="light"] .home-cotd{background:#ffffff;border-color:color-mix(in srgb, var(--accent) 45%, #1a1430);color:#1a1430}
-[data-theme="light"] .home-cotd-ico{background:#f3f2fb;border-color:#dcd9ee}
-[data-theme="light"] .home-cotd-mid h3{color:#1a1430}
-[data-theme="light"] .home-cotd-mid p{color:#544d7a}
-[data-theme="light"] .home-drawer{background:#ffffff;border-color:#cfcbe6}
-[data-theme="light"] .home-tab{background:#cfcbe6;color:#1a1430}
-[data-theme="light"] .home-handle{background:#f3f2fb;border-color:#dcd9ee}
-[data-theme="light"] .home-handle-bar{background:#544d7a}
-[data-theme="light"] .home-news{background:#ffffff;border-color:#ff8fcf;color:#1a1430}
-[data-theme="light"] .home-news h2{color:#1a1430 !important}
-[data-theme="light"] .home-news p{color:#544d7a !important}
-[data-theme="light"] .home-news .almanac-input{background:#ffffff !important;border-color:#dcd9ee !important;color:#1a1430 !important}
-
-/* forms */
-[data-theme="light"] .almanac-input,
-[data-theme="light"] .almanac-textarea,
-[data-theme="light"] .almanac-select{background:#ffffff;border-color:#dcd9ee;color:#1a1430}
-[data-theme="light"] .almanac-input::placeholder,
-[data-theme="light"] .almanac-textarea::placeholder{color:#8a83b0}
-[data-theme="light"] .almanac-label{color:#544d7a}
-[data-theme="light"] .almanac-btn-ghost{color:color-mix(in srgb, var(--accent) 40%, #160e33);border-color:#dcd9ee}
-[data-theme="light"] .almanac-empty{border-color:#cfcbe6;color:#544d7a}
-[data-theme="light"] .home-btn{border-color:#1a1430}
-
-/* nav */
-[data-theme="light"] .almanac-nav{--accent:#29e0ff;background:#ffffff;border-bottom-color:#29e0ff}
-[data-theme="light"] .almanac-brand{color:#1a1430;text-shadow:2px 2px 0 #29e0ff}
-[data-theme="light"] .almanac-navlink{color:#3a3460}
-[data-theme="light"] .almanac-navlink:hover{color:#2f7d32;border-bottom-color:#2f7d32}
-[data-theme="light"] .almanac-navmenu{background:#ffffff;border-color:#dcd9ee;box-shadow:6px 6px 0 #cfcbe6}
-[data-theme="light"] .almanac-navmenu a,
-[data-theme="light"] .almanac-navmenu-item a{color:#3a3460}
-[data-theme="light"] .almanac-navmenu a:hover,
-[data-theme="light"] .almanac-navmenu-item[data-highlighted]{background:#f0eefa;color:#1a1430}
-[data-theme="light"] .almanac-themetoggle{border-color:#dcd9ee;background:#ffffff;color:#1a1430}
-[data-theme="light"] .almanac-themetoggle:hover{border-color:#29e0ff;color:#0e7ea0}
-
-/* footer */
-[data-theme="light"] .almanac-footer{--accent:#b6ff3c;background:#f3f2fb;border-top-color:#ff3ca6}
-[data-theme="light"] .almanac-footer-brand{color:#1a1430;text-shadow:2px 2px 0 #ffd23c}
-[data-theme="light"] .almanac-footer-tag,
-[data-theme="light"] .almanac-footer-copy,
-[data-theme="light"] .almanac-footer ul a,
-[data-theme="light"] .almanac-footer-social a{color:#544d7a}
-[data-theme="light"] .almanac-footer h4{color:#c2186e}
-[data-theme="light"] .almanac-footer ul a:hover,
-[data-theme="light"] .almanac-footer-social a:hover{color:#2f7d32}
-[data-theme="light"] .almanac-footer ul a:hover{text-decoration-color:#2f7d32}
-
-/* mobile sheet */
-[data-theme="light"] .almanac-sheet{--accent:#29e0ff;background:#ffffff !important;border-left-color:#29e0ff !important}
-[data-theme="light"] .almanac-sheet-brand{color:#1a1430}
-[data-theme="light"] .almanac-sheet-label{color:#544d7a}
-[data-theme="light"] .almanac-sheet-item{background:#f3f2fb;border-color:#dcd9ee}
-[data-theme="light"] .almanac-sheet-item:hover{background:#f0eefa;border-color:#29e0ff}
-[data-theme="light"] .almanac-sheet-item .t{color:#1a1430}
-[data-theme="light"] .almanac-sheet-item .ic{background:#ffffff;border-color:#dcd9ee}
-
+/* ---- form status modal (mounts outside .almanac, so tokens are read from :root) */
+.fsm-overlay{background:rgba(23,22,26,.55)}
+.fsm-card{background:var(--dk-surface);border:3px solid var(--dk-line);border-radius:20px;
+  box-shadow:8px 8px 0 var(--dk-shadow)}
+.fsm-icon{border:3px solid var(--dk-line)}
+.fsm-icon.ok{background:var(--dk-lim);color:var(--dk-on-lim)}
+.fsm-icon.err{background:var(--dk-org);color:var(--dk-on-org)}
+.fsm-icon.load{background:var(--dk-sunk)}
+.fsm-spinner{border:3px solid var(--dk-line-soft);border-top-color:var(--dk-org)}
+.fsm-title{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;
+  text-transform:lowercase;letter-spacing:-.02em;color:var(--dk-ink)}
+.fsm-msg{font-family:var(--font-hanken),sans-serif;color:var(--dk-ink-soft)}
+.fsm-btn{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:15px;
+  text-transform:lowercase;letter-spacing:-.01em;background:var(--dk-org);color:var(--dk-on-org);
+  border:3px solid var(--dk-line);border-radius:12px;box-shadow:4px 4px 0 var(--dk-shadow)}
+.fsm-btn:hover{filter:none;transform:translate(2px,2px);box-shadow:2px 2px 0 var(--dk-shadow)}

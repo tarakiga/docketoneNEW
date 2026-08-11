@@ -28,13 +28,13 @@ export function StressToIceCream() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      <Card style={{ backgroundColor: '#1d1442', borderColor: '#4a3f7a' }}>
+      <Card style={{ backgroundColor: 'var(--dk-surface)', borderColor: 'var(--dk-line)' }}>
         <CardHeader>
-           <CardTitle className="text-3xl font-display flex items-center gap-3" style={{ color: '#b6ff3c' }}>
+           <CardTitle className="text-3xl font-display flex items-center gap-3" style={{ color: 'var(--dk-lim-ink)' }}>
               <IceCream className="h-8 w-8" style={{ fill: '#fbcfe8' }} />
               Stress-to-Ice-Cream Ratio
            </CardTitle>
-           <CardDescription style={{ color: '#b3aae0' }}>
+           <CardDescription style={{ color: 'var(--dk-ink-soft)' }}>
               Scientific calculation of required dairy-based emotional support.
            </CardDescription>
         </CardHeader>
@@ -43,27 +43,27 @@ export function StressToIceCream() {
            <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="space-y-6">
                  <div className="space-y-2">
-                    <div className="flex justify-between font-bold uppercase text-sm" style={{ color: '#ECEAE3' }}>
+                    <div className="flex justify-between font-bold uppercase text-sm" style={{ color: 'var(--dk-ink)' }}>
                        <Label>Stress Level (1-10)</Label>
                        <span>{stress}</span>
                     </div>
-                    <Slider value={[stress]} onValueChange={([v]) => setStress(v)} min={1} max={10} step={1} className="[&_.range-thumb]:bg-[#b6ff3c] [&_[role=slider]]:bg-[#b6ff3c] [&_[role=slider]]:border-[#b6ff3c]" />
+                    <Slider value={[stress]} onValueChange={([v]) => setStress(v)} min={1} max={10} step={1} className="[&_.range-thumb]:bg-[var(--dk-lim)] [&_[role=slider]]:bg-[var(--dk-lim)] [&_[role=slider]]:border-[var(--dk-lim-ink)]" />
                  </div>
 
-                 <div className="flex items-center justify-between space-x-2 p-4 rounded-xl border shadow-sm" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                 <div className="flex items-center justify-between space-x-2 p-4 rounded-xl border shadow-sm" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                     <Label htmlFor="breakup" className="flex flex-col space-y-1">
-                       <span className="font-bold" style={{ color: '#ECEAE3' }}>Recent Breakup?</span>
-                       <span className="text-xs" style={{ color: '#b3aae0' }}>Adds an automatic +3 pints.</span>
+                       <span className="font-bold" style={{ color: 'var(--dk-ink)' }}>Recent Breakup?</span>
+                       <span className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>Adds an automatic +3 pints.</span>
                     </Label>
-                    <Switch id="breakup" checked={breakup} onCheckedChange={setBreakup} className="data-[state=checked]:bg-[#b6ff3c]" />
+                    <Switch id="breakup" checked={breakup} onCheckedChange={setBreakup} className="data-[state=checked]:bg-[var(--dk-lim)]" />
                  </div>
 
-                 <div className="flex items-center justify-between space-x-2 p-4 rounded-xl border shadow-sm" style={{ backgroundColor: '#241a52', borderColor: '#4a3f7a' }}>
+                 <div className="flex items-center justify-between space-x-2 p-4 rounded-xl border shadow-sm" style={{ backgroundColor: 'var(--dk-raised)', borderColor: 'var(--dk-line)' }}>
                     <Label htmlFor="deadline" className="flex flex-col space-y-1">
-                       <span className="font-bold" style={{ color: '#ECEAE3' }}>Work Deadline?</span>
-                       <span className="text-xs" style={{ color: '#b3aae0' }}>Adds +1 pint for late nights.</span>
+                       <span className="font-bold" style={{ color: 'var(--dk-ink)' }}>Work Deadline?</span>
+                       <span className="text-xs" style={{ color: 'var(--dk-ink-soft)' }}>Adds +1 pint for late nights.</span>
                     </Label>
-                    <Switch id="deadline" checked={workDeadline} onCheckedChange={setWorkDeadline} className="data-[state=checked]:bg-[#b6ff3c]" />
+                    <Switch id="deadline" checked={workDeadline} onCheckedChange={setWorkDeadline} className="data-[state=checked]:bg-[var(--dk-lim)]" />
                  </div>
               </div>
 
@@ -99,8 +99,8 @@ export function StressToIceCream() {
                  </div>
 
                  <div className="text-center space-y-2">
-                    <div className="text-xl font-bold" style={{ color: '#b6ff3c' }}>{result.pints} Pints Required</div>
-                    <div className="text-sm font-medium px-4 py-2 rounded-full inline-block" style={{ color: '#ECEAE3', backgroundColor: '#241a52' }}>
+                    <div className="text-xl font-bold" style={{ color: 'var(--dk-lim-ink)' }}>{result.pints} Pints Required</div>
+                    <div className="text-sm font-medium px-4 py-2 rounded-full inline-block" style={{ color: 'var(--dk-ink)', backgroundColor: 'var(--dk-raised)' }}>
                        Prescribed Flavor: {result.flavor}
                     </div>
                  </div>
