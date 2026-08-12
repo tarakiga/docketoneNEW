@@ -976,6 +976,13 @@ body{background:var(--dk-page) !important}
   padding:clamp(14px,2.5vw,26px);
   overflow:hidden;
 }
+/* NOTE: a blanket `.almanac-screen :is(.grid,.flex) > * { min-width:0 }` was
+   tried here and made things worse — 19 failing calculators became 27. Letting
+   every item shrink below its content just moves the overflow inward: elements
+   that previously fit start clipping their own contents instead. min-w-0 has
+   to be applied to the specific item whose track is too wide, not broadcast.
+   See e2e/mobile-overflow.spec.ts for the current list. */
+
 /* form controls inside the widget zone inherit real ink, not a pinned white */
 .almanac-screen input,.almanac-screen textarea,.almanac-screen select,
 .almanac-screen [role="combobox"]{color:var(--dk-ink)}

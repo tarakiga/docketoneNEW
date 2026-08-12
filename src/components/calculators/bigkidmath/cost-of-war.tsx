@@ -236,7 +236,11 @@ export function CostOfWar() {
                                    <div className="text-2xl md:text-4xl font-black tracking-tighter text-[var(--dk-tea-ink)]">
                                       {eq.val}x
                                    </div>
-                                   <div className="text-[10px] md:text-xs font-bold uppercase tracking-widest truncate" style={{ color: 'var(--ink-soft)' }}>
+                                   {/* was `truncate`, which cut labels like
+                                       "Teachers' annual salaries" mid-word on a
+                                       375px screen. The label carries the whole
+                                       point of the comparison, so it wraps. */}
+                                   <div className="text-[10px] md:text-xs font-bold uppercase tracking-widest leading-tight break-words" style={{ color: 'var(--ink-soft)' }}>
                                       {eq.label}
                                    </div>
                                 </div>

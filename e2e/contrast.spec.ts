@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { readdirSync, existsSync } from 'node:fs'
-import { join } from 'node:path'
 import { auditContrast, type Finding } from './audit'
+import { calculatorRoutes } from './routes'
 
 /**
  * Every calculator, both themes, checked for WCAG AA contrast.
@@ -13,24 +12,7 @@ import { auditContrast, type Finding } from './audit'
  * theme-init script. Setting it after load is what produced half-updated
  * computed styles in earlier attempts at this.
  */
-const OUT = join(__dirname, '..', 'out', 'calculators')
-
-function routes(): { category: string; slug: string; path: string }[] {
-  if (!existsSync(OUT)) return []
-  return readdirSync(OUT, { withFileTypes: true })
-    .filter(d => d.isDirectory())
-    .flatMap(cat =>
-      readdirSync(join(OUT, cat.name), { withFileTypes: true })
-        .filter(d => d.isDirectory() && !d.name.startsWith('__next'))
-        .map(slug => ({
-          category: cat.name,
-          slug: slug.name,
-          path: `/calculators/${cat.name}/${slug.name}/`,
-        })),
-    )
-}
-
-const CALCULATORS = routes()
+const CALCULATORS = calculatorRoutes()
 
 const PAGES = [
   { name: 'home', path: '/', scope: '.almanac' },
