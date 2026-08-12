@@ -39,6 +39,11 @@ export function auditOverflow(scope: string): Overflow[] {
     if (s.visibility === 'hidden' || s.display === 'none') return
     // deliberately scrollable regions are not defects
     if (s.overflowX === 'auto' || s.overflowX === 'scroll') return
+    // An element that declares its own overflow:hidden has opted into clipping
+    // — decorative blur meshes, masked art, deliberate crops. The defect this
+    // audit is after is the opposite: content overflowing an element that never
+    // asked to clip, which some *ancestor* then trims.
+    if (s.overflowX === 'hidden' || s.overflowX === 'clip') return
     // `truncate` clips on purpose and shows an ellipsis, so scrollWidth always
     // exceeds clientWidth. That is a design decision, not a layout failure —
     // whether the truncation is *appropriate* is a separate judgement.
