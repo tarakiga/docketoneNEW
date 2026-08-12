@@ -7,7 +7,8 @@
                     "build":  "next build",
                     "start":  "next start",
                     "lint":  "eslint",
-                    "test:contrast":  "playwright test"
+                    "test:contrast":  "playwright test",
+                    "brand:assets":  "node scripts/build-brand-assets.mjs"
                 },
     "dependencies":  {
                          "@hookform/resolvers":  "^5.2.2",
