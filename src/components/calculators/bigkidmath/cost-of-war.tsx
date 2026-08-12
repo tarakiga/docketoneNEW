@@ -123,10 +123,14 @@ export function CostOfWar() {
         </CardHeader>
         
         <CardContent className="p-0 relative z-10">
-           <div className="grid lg:grid-cols-2">
+           {/* min-w-0 on the grid and its children: grid items default to
+               min-width:auto, so a wide child (the cost figure, the weapon
+               labels) refuses to shrink and pushes the track past the card,
+               which then clips it. */}
+           <div className="grid lg:grid-cols-2 min-w-0">
               
               {/* Tactical Pane */}
-              <div className="p-4 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[var(--dk-line)] space-y-8 sm:space-y-10">
+              <div className="min-w-0 p-4 sm:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[var(--dk-line)] space-y-8 sm:space-y-10">
                  <div className="space-y-5 sm:space-y-6">
                     <Label className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em]" style={{ color: 'var(--ink-soft)' }}>Weapon Selection</Label>
                     <div className="grid grid-cols-1 gap-3">
@@ -189,7 +193,9 @@ export function CostOfWar() {
               </div>
 
               {/* Opportunity Pane */}
-              <div className="p-8 lg:p-12 flex flex-col justify-center gap-12 relative" style={{ backgroundColor: 'var(--card)' }}>
+              {/* p-8 was 32px of padding on a 375px screen; the result panel
+                  needs the width more than the breathing room */}
+              <div className="min-w-0 p-4 sm:p-8 lg:p-12 flex flex-col justify-center gap-8 sm:gap-12 relative" style={{ backgroundColor: 'var(--card)' }}>
                  <div className="text-center space-y-2 relative z-10">
                     <div className="text-[var(--dk-neg-ink)] font-black uppercase text-[10px] md:text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
                        <Flame className="h-4 w-4 animate-bounce" /> The Destruction

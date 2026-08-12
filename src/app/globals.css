@@ -720,8 +720,12 @@ body{background:var(--dk-page) !important}
 @supports ((-webkit-text-stroke: 3px #000)) {
   .home-h1{color:var(--dk-surface);-webkit-text-stroke:3px var(--dk-ink);paint-order:stroke fill}
 }
-.home-h1 .w1{color:var(--dk-pnk);-webkit-text-stroke:3px var(--dk-ink)}
-.home-h1 .w2{color:var(--dk-tea);-webkit-text-stroke:3px var(--dk-ink)}
+/* The accent word sits over the h1's orange drop shadow. Pink was too close to
+   that orange in hue — two warm tones muddying each other instead of reading
+   as text plus shadow. Teal is near-complementary to both the orange shadow
+   and the yellow ground, so all three layers separate cleanly. */
+.home-h1 .w1{color:var(--dk-tea);-webkit-text-stroke:3px var(--dk-ink)}
+.home-h1 .w2{color:var(--dk-pur);-webkit-text-stroke:3px var(--dk-ink)}
 .home-sub{color:var(--dk-ink-soft);font-family:var(--font-hanken),sans-serif;font-weight:600}
 .home-btn{font-family:var(--font-fredoka),system-ui,sans-serif;font-weight:600;font-size:15px;
   text-transform:lowercase;letter-spacing:-.01em;border-radius:12px;border:3px solid var(--dk-line)}
