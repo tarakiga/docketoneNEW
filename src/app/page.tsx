@@ -21,7 +21,6 @@ const HERO_QUESTIONS = [
 const TRENDING = [
   { href: "/calculators/bigkidmath/caffeine-half-life/", e: "☕", t: "Caffeine Half-Life" },
   { href: "/calculators/lifehacks/calorie-deficit/", e: "🔥", t: "Calorie Deficit" },
-  { href: "/calculators/bigkidmath/billionaire-buyout/", e: "💸", t: "Billionaire Buyout" },
   { href: "/calculators/lifehacks/sleep-cycle/", e: "🌙", t: "Sleep Cycle" },
   { href: "/calculators/bigkidmath/car-vs-uber/", e: "🚗", t: "Car vs Uber" },
   { href: "/calculators/bigkidmath/lightning-life/", e: "⚡", t: "Lightning Life" },

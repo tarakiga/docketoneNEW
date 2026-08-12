@@ -547,80 +547,7 @@ Used this way, the calculator is not a verdict. It is a lens. It takes numbers s
  { question: "Does the money just disappear?", answer: "Not entirely. The money goes to defense contractors and their employees. The real problem is 'opportunity cost', that high-end engineering talent could have been used to cure diseases or build clean energy instead of designing better explosives." },
  { question: "Why does a pilot helmet cost $400,000?", answer: "The F-35 helmet is essentially an augmented reality supercomputer custom-fitted to the pilot's skull. It connects to 6 exterior cameras, letting them quite literally see through the floor of the plane in real-time." }
  ],
- relatedCalculators: ["inflation-impact", "billionaire-buyout", "exterminatus-cost"]
- },
- {
- id: "billionaire-buyout",
- title: "Billionaire Buy-Out",
- description: "Experience the staggering scale of elite wealth.",
- category: "bigkidmath",
- slug: "billionaire-buyout",
- icon: "💰",
- origin: "Wealth at the billionaire level is difficult for the human brain to comprehend. This simulator lets you 'spend' that fortune to understand the true scale of concentrated liquidity.",
- howTo: "Select a billionaire and start 'buying' items. Watch how the real-time interest often outpaces your ability to spend the capital.",
- tips: ["Interest on $200B at 7% is over $440,000 every single hour.", "You could buy a Superyacht every few days just using the interest.", "Spending $1M a day would take over 500 years to empty the vault."],
- tags: ["Wealth", "Economics"],
- content: `
-## A Million and a Billion Are Completely Different Beasts
-We tend to lump millionaires and billionaires into the same mental folder, as if a billionaire were just a millionaire who got a slightly bigger bonus. They are not in the same league. The easiest way to truly feel that gap is to stop counting dollars and start counting seconds.
-
-A million seconds from now is about eleven and a half days away. A billion seconds from now is about thirty-one and a half years away. Same prefix family, wildly different reality. One means "see you in under two weeks," while the other means "see you when your newborn is finishing university." That single comparison is the entire point of the tool above, and it is worth sitting with for a moment before you read another sentence. The distance between a million and a billion is roughly the distance between a fortnight and a third of a human life.
-
-## What You Could Buy and Never Run Out
-The simulator lets you spend a fortune in real time, and the genuinely surprising part is how hard it is to make the number go down. That is not a trick of the interface. It reflects how very large, invested sums actually behave.
-
-Consider a hundred billion dollar fortune invested at a deliberately modest five percent annual return. Here is what that rate alone produces, before the owner even lifts a finger:
-- About five billion dollars a year in passive growth.
-- About thirteen and a half million dollars a day.
-- About 570,000 dollars an hour.
-- About 9,500 dollars a minute.
-
-To merely hold such a fortune flat, you would have to spend roughly the price of a used economy car every single second, around the clock, forever. Fall asleep for eight hours and you wake up several million dollars richer than when you closed your eyes. This is what people mean when they say large wealth is self-perpetuating. Above a certain size, the interest outruns almost any honest attempt to spend it.
-
-## Why a Number This Large Resists Intuition
-Human brains evolved to compare quantities we can actually encounter, like a handful of berries, a herd of animals, or the people in a village. We are excellent at understanding "more" versus "less" and completely hopeless at grasping "a thousand times more." Psychologists call this scope insensitivity. Past a certain magnitude, adding more zeros stops changing how the figure feels, even though it radically changes what the figure means.
-
-That is exactly why a calculator helps where a headline does not. Reading "two hundred billion dollars" produces a vague impression of "a lot." Watching a counter tick upward by hundreds of thousands of dollars per hour while you frantically buy mansions and still lose ground produces something the headline never can, which is an actual gut sense of scale. The tool is not making a political argument. It is doing the one thing prose struggles to do, which is converting an abstract number into a felt quantity.
-
-## Income Versus Net Worth: Why It Is Not a Vault of Cash
-A crucial honesty check, and one the simulator is careful about, is that this kind of wealth is almost never a swimming pool of spendable cash. The overwhelming majority of a typical billionaire's net worth is tied up in assets, most often shares of a company they founded or backed early.
-
-That distinction matters enormously:
-- Net worth is the paper value of everything owned, including stock, real estate, private companies, and art.
-- Income is cash that actually arrives, which for the very wealthy is frequently modest compared to their net worth.
-- A founder holding tens of billions in stock cannot simply withdraw it. Selling a large block at once tends to push the price down, so the headline figure is partly theoretical.
-
-This is why famous figures move so violently from week to week. A swing in one company's share price can add or erase billions on paper without a single dollar changing hands. It is also why the ultra-wealthy often borrow against their shares rather than sell them. A loan delivers spendable cash, leaves the asset intact, and is not taxed the way a sale or a salary would be. The fortune behaves less like a bank balance and more like a very large, slightly illiquid, constantly fluctuating engine.
-
-## A Worked Example: The Two Hundred Billion Dollar Afternoon
-Suppose you select a fortune of two hundred billion dollars and decide to go on the most aggressive shopping spree imaginable. You start buying superyachts at roughly 500 million dollars each.
-
-At a conservative five percent return, that fortune is generating interest of about:
-- 10 billion dollars a year, which is
-- 27.4 million dollars a day, which is
-- 1.14 million dollars an hour.
-
-Now play it out. A superyacht costs 500 million dollars. In the time it takes you to buy one, the interest barely notices. But buy one yacht and then wait. Across roughly eighteen days, the passive interest alone has quietly refilled the entire 500 million you just spent. You would have to purchase a top-tier superyacht every couple of weeks, indefinitely, just to break even against the interest. Spend a comparatively lavish one million dollars a day and the fortune still grows, because the interest is arriving more than twenty-seven times faster than you can hand it out. Draining the vault is not hard because you lack imagination. It is hard because the arithmetic is working against you.
-
-## How the Math Works
-The simulator runs a plain real-time compound-interest loop, and the engine is simpler than it looks.
-
-It starts with a selected fortune, which we will call the principal, and applies a conservative annual rate of five percent. To find how much the fortune earns each second, it spreads that yearly growth across the seconds in a year.
-
-Per second interest equals the principal multiplied by the rate, divided by 31,536,000.
-
-That divisor is just the number of seconds in a 365-day year. Every tick, the tool adds that second's interest back into the pool and subtracts whatever you chose to buy. Watching the two forces compete, your spending pulling the total down and the relentless per-second interest pushing it back up, is the entire lesson. For any realistically large fortune at any reasonable rate, the interest wins, which is precisely why concentrated wealth at this scale is so difficult to exhaust.
-
-Every figure here is a deliberately conservative, illustrative estimate. Real returns vary year to year, real fortunes swing with the market, and this tool is an educational model rather than financial advice.
-`,
- faq: [
- { question: "Is this liquid cash?", answer: "No. Most billionaire wealth is tied up in stock (Amazon, Tesla, etc.). If they tried to sell it all at once, the stock price would crash. But they can borrow heavily against it to live like kings." },
- { question: "Could this actually solve world hunger?", answer: "The UN estimated $6 billion could stave off famine for 42 million people. So yes, a billionaire could fund that effortlessly with just one year's passive interest." },
- { question: "Why don't they just give it away?", answer: "Many do (via the Giving Pledge), but money at this monumental scale is a proxy for global power and influence, which is psychologically much harder to let go of than luxury." },
- { question: "How do billionaires pay for things without cash?", answer: "They take out massive loans using their stock as collateral. These 'Securities-Backed Lines of Credit' have tiny interest rates, and loan money isn't taxed as income, allowing them to fund massive superyachts while legally avoiding income tax." },
- { question: "What is the wealth inequality gap?", answer: "Right now, the top 1% holds roughly 15 times more wealth than the entire bottom 50% of the population combined. It's a scale of divergence never before seen in modern history." }
- ],
- relatedCalculators: ["fire-number", "unspent-potential", "cost-of-war"]
+ relatedCalculators: ["inflation-impact", "exterminatus-cost"]
  },
  {
  id: "caesar-cipher",
@@ -1799,7 +1726,7 @@ Most policies have an exclusion for damage caused by "Registered Heroes" in the 
  { question: "What about Thanos?", answer: "The 'Blip' was classified as 'Force Majeure' (Act of God). Life insurance didn't pay out because technically nobody died, they just ceased to exist for 5 years." },
  { question: "Is Vigilante insurance cheaper?", answer: "No. Vigilantes have no oversight. Batman destroys a Batmobile on the highway every Tuesday. Your car insurance premiums in Gotham are astronomical." }
  ],
- relatedCalculators: ["cost-of-war", "zombie-survival", "billionaire-buyout"]
+ relatedCalculators: ["cost-of-war", "zombie-survival"]
  },
  // Otaku Ops
  {
@@ -2089,7 +2016,7 @@ This calculator is an educational estimate, not financial advice. The 4 percent 
  { question: "What if the market crashes?", answer: "The 4% rule was backtested against massive historical crashes (like the Great Depression). While a crash during your first year of retirement (Sequence of Returns Risk) is dangerous, over a 30-year horizon, the market's recovery typically outpaces the drawdowns." },
  { question: "Should I include my house in my net worth?", answer: "For FIRE calculations, you only include *income-producing* assets (like index funds or rental properties). Your primary residence reduces your living expenses, but it doesn't generate the liquid cash you need to buy groceries." }
  ],
- relatedCalculators: ["inflation-impact", "billionaire-buyout", "time-is-money"]
+ relatedCalculators: ["inflation-impact", "time-is-money"]
  },
  {
  id: "double-pendulum",
@@ -2295,7 +2222,7 @@ Use this as a thinking tool, not a crystal ball. It is an educational estimate b
  { question: "How do I beat it?", answer: "Don't hold cash. Invest in assets that rise with inflation (Stocks, Real Estate, Commodities)." },
  { question: "Why is housing so expensive?", answer: "Housing often outpaces general CPI inflation because land is finite. It's an asset class, not just a consumer good." }
  ],
- relatedCalculators: ["fire-number", "billionaire-buyout", "time-is-money"]
+ relatedCalculators: ["fire-number", "time-is-money"]
  },
  {
  id: "life-visualized",
@@ -2935,7 +2862,7 @@ The goal is not to make you feel guilty at every checkout. It is to put a real p
  { question: "What if it's an investment, like a laptop for work?", answer: "The calculator is best used for consumption, not investment. If a tool helps you increase your hourly rate later, the initial 'Time Cost' pays a dividend back over time." },
  { question: "Is my time literally money?", answer: "Yes and no. You can always earn more money, but you can never earn more time. That's why trading your money to buy back time (like paying for a direct flight instead of a layover) is often the optimal mathematically sound choice." }
  ],
- relatedCalculators: ["billionaire-buyout", "fire-number", "inflation-impact"]
+ relatedCalculators: [ "fire-number", "inflation-impact"]
  },
  {
  id: "pepper-scale",
@@ -3387,7 +3314,7 @@ This turned Spartans from "Toughs" into "Tanks."
  { question: "Can it survive a fall from space?", answer: "Yes. Master Chief locked his armor (Gel Layer rigid) and survived atmospheric reentry. Twice." },
  { question: "Does it recycle... waste?", answer: "Yes. The suit is fully self-contained. You do not want to know the details." }
  ],
- relatedCalculators: ["beskar-armor", "spartan-augmentation", "billionaire-buyout"]
+ relatedCalculators: ["beskar-armor", "spartan-augmentation"]
  },
  {
  id: "flood-infection",

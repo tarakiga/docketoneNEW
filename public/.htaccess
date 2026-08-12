@@ -10,6 +10,15 @@
     RewriteCond %{HTTP_HOST} ^www\.docket\.one [NC]
     RewriteRule ^(.*)$ https://docket.one/$1 [L,R=301]
 
+    # 2b. Retired calculators
+    # These were indexed and have inbound links, so they redirect to their
+    # category rather than 404. Must sit above the static-file rules below,
+    # which would otherwise match first.
+    #   billionaire-buyout - removed 2026-08-13: the figures need manual
+    #   updating to stay truthful, and stale wealth numbers are worse than
+    #   no calculator.
+    RewriteRule ^calculators/bigkidmath/billionaire-buyout/?$ https://docket.one/calculators/bigkidmath/ [L,R=301]
+
     # 3. Handle Trailing Slash for Directories
     # If the request matches a directory that exists, and there is no trailing slash, add it
     # This prevents Hostinger's default handling from doing separate hops or causing loops

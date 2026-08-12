@@ -1,6 +1,5 @@
 import { CaffeineCalculatorPremium } from "@/components/organisms/caffeine-calculator"
 
-import { BillionaireBuyout } from "./bigkidmath/billionaire-buyout"
 import { CarVsUberCalculator } from "./bigkidmath/car-vs-uber"
 import { CostOfWar } from "./bigkidmath/cost-of-war"
 import { GenerationalTimelineCalculator } from "./bigkidmath/generational-timeline"
@@ -84,7 +83,6 @@ export const CALCULATOR_COMPONENTS: Record<string, React.ComponentType> = {
   "caffeine-half-life": CaffeineCalculatorPremium,
   "car-vs-uber": CarVsUberCalculator,
   "cost-of-war": CostOfWar,
-  "billionaire-buyout": BillionaireBuyout,
   "generational-timeline": GenerationalTimelineCalculator,
   "lightning-life": LightningLifeCalculator,
   "power-footprint": PowerFootprintCalculator,
