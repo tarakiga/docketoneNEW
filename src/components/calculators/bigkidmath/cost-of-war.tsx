@@ -200,13 +200,19 @@ export function CostOfWar() {
                     <div className="text-[var(--dk-neg-ink)] font-black uppercase text-[10px] md:text-xs tracking-[0.5em] mb-4 flex items-center justify-center gap-3">
                        <Flame className="h-4 w-4 animate-bounce" /> The Destruction
                     </div>
-                    <div className="text-5xl md:text-7xl font-black tracking-tighter" style={{ color: 'var(--ink)' }}>
+                    {/* fluid, because the figure ranges from $200,000 to
+                        $82,500,000 — a fixed 48px would fit the short one and
+                        overflow the long one */}
+                    <div className="text-[clamp(1.9rem,8.5vw,4.5rem)] font-black tracking-tighter leading-none break-words" style={{ color: 'var(--ink)' }}>
                        ${(activeMunition.cost).toLocaleString()}
                     </div>
                     <div className="font-bold uppercase text-[9px] md:text-[10px] tracking-widest" style={{ color: 'var(--ink-soft)' }}>Per unit procurement cost</div>
                  </div>
 
-                 <div className="grid gap-4 relative z-10">
+                 {/* min-w-0 has to run the whole chain: the text wrapper below
+                     already had it, but these grids and the card row did not,
+                     so the constraint was broken before it reached there */}
+                 <div className="grid gap-4 relative z-10 min-w-0">
                     <div className="flex items-center gap-4 px-2">
                        <div className="h-px flex-1 bg-[var(--dk-mute)]" />
                        <div className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: 'var(--ink-soft)' }}>Socio-Economic Value</div>
@@ -219,10 +225,10 @@ export function CostOfWar() {
                          initial={{ opacity: 0, y: 20 }}
                          animate={{ opacity: 1, y: 0 }}
                          exit={{ opacity: 0, y: -20 }}
-                         className="grid gap-4"
+                         className="grid gap-4 min-w-0"
                        >
                           {activeMunition.equivalents.map((eq, i) => (
-                             <div key={i} className="flex items-center gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] border border-[var(--dk-line)] shadow-xl group hover:scale-[1.02] transition-transform" style={{ backgroundColor: 'var(--dk-sunk)' }}>
+                             <div key={i} className="flex items-center min-w-0 gap-3 md:gap-6 p-3 md:p-6 rounded-2xl md:rounded-[2.5rem] border border-[var(--dk-line)] shadow-xl group hover:scale-[1.02] transition-transform" style={{ backgroundColor: 'var(--dk-sunk)' }}>
                                 <div className="p-3 md:p-4 rounded-xl md:rounded-3xl transition-colors shrink-0" style={{ backgroundColor: 'var(--dk-raised)' }}>
                                    <eq.icon className="h-6 w-6 md:h-8 md:w-8 text-[var(--dk-pos-ink)]" />
                                 </div>
