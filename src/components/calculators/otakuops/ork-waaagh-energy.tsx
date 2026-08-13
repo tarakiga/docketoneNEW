@@ -15,7 +15,7 @@ export function OrkWAAAGHEnergyCalculator() {
     const [redPaint, setRedPaint] = useState(false)
 
     const { energy, speedBoost, chartData } = useMemo(() => {
-        // Super-linear crowd amplification, scaled so a real mob reaches the kJ–MJ range.
+        // Super-linear crowd amplification, scaled so a real mob reaches the kJ-MJ range.
         let waaghOutput = Math.pow(orks, 1.5) * (loudness / 10) * 100
         let speed = 0
 

@@ -20,7 +20,7 @@ const localTime = (d: Date) =>
     `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`
 
 /**
- * A clock time is always today — nobody logs yesterday's coffee — so the date
+ * A clock time is always today, nobody logs yesterday's coffee, so the date
  * picker was dead weight. The one case that needs care is after midnight: at
  * 00:30, a drink logged at 23:00 means last night, not 22.5 hours from now.
  * A time in the future is therefore read as yesterday.
@@ -94,7 +94,7 @@ export function CaffeineCalculatorPremium() {
         /**
          * With one dose this inverts to a log. With several overlapping curves
          * there is no closed form, so step forward until the sum crosses the
-         * threshold — 5-minute resolution over 48h, which is finer than the
+         * threshold, 5-minute resolution over 48h, which is finer than the
          * answer is meaningful to anyway.
          */
         const scanFrom = Math.max(now, lastMs)
@@ -142,12 +142,12 @@ export function CaffeineCalculatorPremium() {
         ? ""
         : result.isSleepImpacted
             ? `You'll still be above the ~${result.threshold} mg sleep-disruption mark at bedtime (≈${result.bedtimeLevel.toFixed(0)} mg). Consider a later bedtime, or cut caffeine off earlier next time.`
-            : `You should be under ~${result.threshold} mg by bedtime — caffeine is unlikely to keep you up.`
+            : `You should be under ~${result.threshold} mg by bedtime. Caffeine is unlikely to keep you up.`
 
     return (
         <motion.div
             /* On a phone this card sat inside .almanac-screen, which is already a
-               bordered, padded card — three nested boxes cost 102px of a 375px
+               bordered, padded card, three nested boxes cost 102px of a 375px
                screen before anything was drawn, squeezing the chart to 196px.
                The duplicate chrome is dropped below sm and restored above it. */
             className="w-full min-w-0 relative overflow-hidden p-0 sm:p-6 md:p-8 rounded-none sm:rounded-3xl border-0 sm:border sm:border-[var(--dk-line)] bg-transparent sm:bg-[var(--dk-sunk)]"
@@ -212,7 +212,7 @@ export function CaffeineCalculatorPremium() {
                         <div className="flex justify-end min-w-0">
                             <ShareResult
                                 title="Caffeine Status"
-                                text={`${result.drinkCount} ${result.drinkCount === 1 ? "drink" : "drinks"} and ${result.totalMg}mg later, I'm running on ${result.currentLevel.toFixed(0)}mg of caffeine. At bedtime I'll still have ~${result.bedtimeLevel.toFixed(0)}mg — sleep forecast: ${result.isSleepImpacted ? "Risky" : "Safe"}. Calculated via Docket One.`}
+                                text={`${result.drinkCount} ${result.drinkCount === 1 ? "drink" : "drinks"} and ${result.totalMg}mg later, I'm running on ${result.currentLevel.toFixed(0)}mg of caffeine. At bedtime I'll still have ~${result.bedtimeLevel.toFixed(0)}mg, sleep forecast: ${result.isSleepImpacted ? "Risky" : "Safe"}. Calculated via Docket One.`}
                             />
                         </div>
                     </>

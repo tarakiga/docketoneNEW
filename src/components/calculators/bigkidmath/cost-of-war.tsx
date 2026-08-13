@@ -201,7 +201,7 @@ export function CostOfWar() {
                        <Flame className="h-4 w-4 animate-bounce" /> The Destruction
                     </div>
                     {/* fluid, because the figure ranges from $200,000 to
-                        $82,500,000 — a fixed 48px would fit the short one and
+                        $82,500,000, a fixed 48px would fit the short one and
                         overflow the long one */}
                     <div className="text-[clamp(1.9rem,8.5vw,4.5rem)] font-black tracking-tighter leading-none break-words" style={{ color: 'var(--ink)' }}>
                        ${(activeMunition.cost).toLocaleString()}

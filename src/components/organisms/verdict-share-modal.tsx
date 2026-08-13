@@ -48,7 +48,7 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                     setShareFile(new File([blob], `docket-one-${Date.now()}.png`, { type: "image/png" }))
                 }
             } catch {
-                /* generation failed — Share will fall back to a link */
+                /* generation failed, Share will fall back to a link */
             }
         }, 450)
         return () => {
@@ -201,7 +201,7 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                         </div>
                     </div>
 
-                    {/* Primary action — native share (mobile) sends the card image + link */}
+                    {/* Primary action, native share (mobile) sends the card image + link */}
                     {canNativeShare && (
                         <button
                             type="button"
@@ -239,7 +239,7 @@ export function VerdictShareModal({ isOpen, onOpenChange, title, result, descrip
                         </button>
                     </div>
 
-                    {/* Social row — only where native share isn't available (desktop) */}
+                    {/* Social row, only where native share isn't available (desktop) */}
                     {!canNativeShare && (
                     <div className="flex items-center gap-2 mt-4">
                         <span style={{ fontFamily: pixel, fontSize: 8, letterSpacing: ".2em", color: "#6f67a0", whiteSpace: "nowrap" }}>OR POST TO</span>

@@ -1,15 +1,15 @@
 /**
  * One accent per category, for the whole site.
  *
- * This used to be three near-identical maps — ACCENTS in calculator-layout.tsx,
+ * This used to be three near-identical maps, ACCENTS in calculator-layout.tsx,
  * ACCENTS again in app/calculators/[category]/page.tsx, and TILE in
- * category-grid.tsx — which drifted apart. They all read from here now.
+ * category-grid.tsx, which drifted apart. They all read from here now.
  *
  * Values are --dk-* tokens rather than hex, so the palette flips with the theme
  * and a re-skin stays a single edit in globals.css.
  *
  *   fill  the saturated colour, for a filled chip or tile
- *   ink   the same hue darkened for AA contrast on a light surface — use for
+ *   ink   the same hue darkened for AA contrast on a light surface, use for
  *         accent-coloured TEXT or hairlines, never `fill`
  *   on    text that sits ON `fill`; stays dark in both themes because the
  *         accent fills stay bright in both

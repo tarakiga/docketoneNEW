@@ -2,7 +2,7 @@
  * Read a --dk-* design token at runtime.
  *
  * Canvas colour sinks (ctx.fillStyle, ctx.strokeStyle, gradient stops) are
- * plain strings handed to the 2D context, not CSS — `var(--dk-ink)` there is
+ * plain strings handed to the 2D context, not CSS, `var(--dk-ink)` there is
  * silently ignored and the shape renders transparent black. Anything drawn to a
  * canvas has to resolve the token itself, which is what this does.
  *

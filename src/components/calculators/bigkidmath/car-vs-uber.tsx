@@ -30,7 +30,7 @@ export function CarVsUberCalculator() {
 
     // Resale after the holding period. Depreciation is the largest single cost
     // of owning a car and the model ignored it entirely, which flattered
-    // ownership badly — a $32k car that is worth $13k in five years has cost
+    // ownership badly, a $32k car that is worth $13k in five years has cost
     // $19k in value nobody was counting.
     const [gasResalePct, setGasResalePct] = useState(40)
     const [evResalePct, setEvResalePct] = useState(35)
@@ -46,7 +46,7 @@ export function CarVsUberCalculator() {
     const [evEfficiency, setEvEfficiency] = useState(3.5)
     const [electricityCost, setElectricityCost] = useState(0.14)
     const [chargerInstall, setChargerInstall] = useState(1200)
-    // was hardcoded at 400 while the gas figure was an input — asymmetric, and
+    // was hardcoded at 400 while the gas figure was an input, asymmetric, and
     // invisible to anyone wondering why the EV looked cheap
     const [evMaintenance, setEvMaintenance] = useState(400)
 
@@ -74,7 +74,7 @@ export function CarVsUberCalculator() {
          * loan payment ran forever, then multiplied it by five for a "5-year
          * impact". Both are wrong in opposite directions: payments stop when
          * the loan ends, and the money sunk into depreciation was never counted
-         * at all. Doing it over an explicit horizon fixes both — and the
+         * at all. Doing it over an explicit horizon fixes both, and the
          * headline number stops being an extrapolation.
          */
         const ownCost = (price: number, extras: number, running: number, resalePct: number) => {
@@ -155,7 +155,7 @@ export function CarVsUberCalculator() {
                                 <div><label className={LBL}>Gas $/gal</label><input type="number" min={0} step={0.1} value={fuelCost} onChange={(e) => setFuelCost(clamp(Number(e.target.value)))} className={INP} /></div>
                                 <div><label className={LBL}>Maintenance / yr ($)</label><input type="number" min={0} value={maintenance} onChange={(e) => setMaintenance(clamp(Number(e.target.value)))} className={INP} /></div>
                                 <div><label className={LBL}>Resale after {results.years}y (%)</label><input type="number" min={0} max={100} value={gasResalePct} onChange={(e) => setGasResalePct(Math.min(100, clamp(Number(e.target.value))))} className={INP} /></div>
-                                <div className="col-span-2 text-[11px] text-[var(--dk-ink-soft)] leading-snug">Loses {fmt(results.depreciationCar)} in value — usually the biggest cost of owning.</div>
+                                <div className="col-span-2 text-[11px] text-[var(--dk-ink-soft)] leading-snug">Loses {fmt(results.depreciationCar)} in value, usually the biggest cost of owning.</div>
                             </div>
                         </div>
                         <div>
@@ -190,7 +190,7 @@ export function CarVsUberCalculator() {
                                 </button>
                                 <div className="text-[11px] text-[var(--dk-ink-soft)] leading-snug">
                                     ≈ {results.impliedMiles.toLocaleString()} mi/yr (at {AVG_RIDE_MILES} mi/ride) vs {milesDriven.toLocaleString()} for the cars.
-                                    {results.mileageGap < 0.75 && <span className="text-[var(--dk-warn-ink)] font-bold"> Rideshare is covering far less travel — not a like-for-like comparison.</span>}
+                                    {results.mileageGap < 0.75 && <span className="text-[var(--dk-warn-ink)] font-bold"> Rideshare is covering far less travel, not a like-for-like comparison.</span>}
                                     {results.mileageGap > 1.33 && <span className="text-[var(--dk-warn-ink)] font-bold"> Rideshare is covering far more travel than the cars.</span>}
                                 </div>
                             </div>
@@ -205,7 +205,7 @@ export function CarVsUberCalculator() {
                         <div className="text-3xl md:text-4xl font-extrabold tracking-tight" style={{ fontFamily: "var(--font-fredoka), cursive", color: "var(--dk-tea-ink)" }}>{winTitle}</div>
                         <div className={`mt-1 font-bold flex items-center gap-1.5 ${win.text}`}><TrendingDown className="w-4 h-4" /> Saves {fmt(results.savings)} over {results.years} years vs the next best</div>
                     </div>
-                    {/* was savings x 5 — a straight-line extrapolation of a figure
+                    {/* was savings x 5, a straight-line extrapolation of a figure
                         that is not straight: loan payments stop, resale lands once.
                         This is the modelled total over the horizon. */}
                     <div className="text-center bg-[var(--dk-raised)] border border-[var(--dk-line)] rounded-2xl px-6 py-4">

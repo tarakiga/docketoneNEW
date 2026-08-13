@@ -2374,7 +2374,7 @@ A final, honest caveat: 90 minutes and 14 minutes are population averages, not p
  origin: "Your weight is governed by one stubborn equation: energy in versus energy out. Eat less than you burn and you lose weight; eat more and you gain. This tool makes that invisible balance visible.",
  howTo: "Tap to add what you ate from the quick menu (or add a custom item), then enter a few body basics and your steps. We estimate the calories you burned and subtract them from what you ate to reveal your daily surplus or deficit.",
  tips: [
- "Your BMR, the energy you burn just existing, dwarfs a day of walking (roughly 1,500–1,800 kcal vs ~180 for 4,000 steps).",
+ "Your BMR, the energy you burn just existing, dwarfs a day of walking (roughly 1,500-1,800 kcal vs ~180 for 4,000 steps).",
  "About 3,500 kcal is often quoted as one pound of fat, but real-world loss is slower and non-linear.",
  "Small, consistent deficits are far easier to sustain than crash diets, and you keep the results."
  ],
@@ -2436,7 +2436,7 @@ Every number here is a well-informed estimate, not a lab measurement or medical 
  { question: "What is a calorie deficit?", answer: "It's when you consume fewer calories than your body burns in a day. Sustained over time, a deficit is what causes weight loss." },
  { question: "How accurate is this calculator?", answer: "It's a solid estimate, not a lab measurement. BMR formulas, food calorie values, and step-burn rates all vary between individuals, so treat the result as a well-informed ballpark rather than an exact figure." },
  { question: "Why is my BMR so much bigger than my steps?", answer: "Because simply staying alive is metabolically expensive. Your organs run 24/7, which costs far more energy than a walk. That's why tweaking food intake usually moves the needle more than adding steps." },
- { question: "How fast can I safely lose weight?", answer: "Most guidance points to about 0.5–1 lb per week, from a daily deficit of roughly 300–500 calories. Faster than that tends to cost muscle and rarely sticks." },
+ { question: "How fast can I safely lose weight?", answer: "Most guidance points to about 0.5-1 lb per week, from a daily deficit of roughly 300-500 calories. Faster than that tends to cost muscle and rarely sticks." },
  { question: "Is the 3,500-calories-per-pound rule real?", answer: "It's a useful rule of thumb, not a law. Real bodies adapt, metabolism shifts as you lose weight, so actual loss is slower and less linear than the simple math suggests." }
  ],
  relatedCalculators: ["sleep-cycle", "caffeine-half-life", "stress-ice-cream"]

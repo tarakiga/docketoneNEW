@@ -30,7 +30,7 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-// Saturday Morning display face — rounded, chunky, reads well lowercase
+// Saturday Morning display face, rounded, chunky, reads well lowercase
 const fredoka = Fredoka({
   variable: "--font-fredoka",
   subsets: ["latin"],

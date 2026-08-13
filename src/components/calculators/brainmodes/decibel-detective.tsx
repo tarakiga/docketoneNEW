@@ -42,8 +42,8 @@ export function DecibelDetective() {
 
         const timeLimit =
             perceived < 50 ? "Unlimited"
-                : perceived < 70 ? "4–6 hours"
-                    : perceived < 90 ? "45–90 min"
+                : perceived < 70 ? "4-6 hours"
+                    : perceived < 90 ? "45-90 min"
                         : "< 15 min (overload risk)"
 
         return { totalDB: realDB, perceivedLoad: perceived, timeLimit }

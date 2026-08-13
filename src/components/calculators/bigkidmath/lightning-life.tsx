@@ -5,27 +5,37 @@ import { Slider } from "@/components/ui/slider"
 import { motion } from "framer-motion"
 import { useMemo, useState } from "react"
 
-type Lifestyle = "low" | "average" | "high"
+type Lifestyle = "frugal" | "world" | "europe" | "namerica"
 
-const LIFESTYLES: { key: Lifestyle; emoji: string; label: string }[] = [
-    { key: "low", emoji: "🌱", label: "Eco" },
-    { key: "average", emoji: "🏠", label: "Average" },
-    { key: "high", emoji: "🚗", label: "High" },
+/**
+ * Real per-capita primary energy, not a vague multiplier.
+ *
+ * This was Eco / Average / High at 0.7x / 1.0x / 1.5x of the world average,
+ * a span of 56 to 120 GJ. Actual per-capita energy runs from about 10 GJ in
+ * low-income countries to about 290 GJ in North America, so "High" understated
+ * a US resident roughly threefold and the three options barely differed.
+ * Naming real places and showing the figure makes the choice answerable and
+ * the spread honest.
+ */
+const LIFESTYLES: { key: Lifestyle; emoji: string; label: string; gj: number; hint: string }[] = [
+    { key: "frugal", emoji: "🌱", label: "Frugal", gj: 25, hint: "Low-income countries" },
+    { key: "world", emoji: "🌍", label: "World avg", gj: 80, hint: "Everyone, averaged" },
+    { key: "europe", emoji: "🏠", label: "W. Europe", gj: 150, hint: "Typical UK / EU" },
+    { key: "namerica", emoji: "🚗", label: "N. America", gj: 290, hint: "US / Canada" },
 ]
 
 export function LightningLifeCalculator() {
     const [age, setAge] = useState(25)
-    const [lifestyle, setLifestyle] = useState<Lifestyle>("average")
+    const [lifestyle, setLifestyle] = useState<Lifestyle>("world")
 
     const results = useMemo(() => {
-        const lifestyleMultipliers = { low: 0.7, average: 1.0, high: 1.5 }
+        const profile = LIFESTYLES.find(l => l.key === lifestyle) ?? LIFESTYLES[1]
 
-        // Average total per-capita energy footprint (electricity + transport + heating + everything).
-        // World per-capita primary energy is ~80 GJ/year. (Previously this was 80 MJ - 1000x too low.)
-        const baseEnergyPerYear = 80_000_000_000 // 80 GJ
+        // Total per-capita primary energy: electricity, transport, heating, and
+        // the industry behind everything bought. Not just the household meter.
         const lightningBoltEnergy = 1_000_000_000 // ~1 GJ per bolt
 
-        const energyPerYear = baseEnergyPerYear * lifestyleMultipliers[lifestyle]
+        const energyPerYear = profile.gj * 1_000_000_000
         const totalEnergy = energyPerYear * age
         const lightningStrikes = totalEnergy / lightningBoltEnergy
 
@@ -75,20 +85,29 @@ export function LightningLifeCalculator() {
                         <Slider value={[age]} onValueChange={(v) => setAge(v[0])} min={1} max={100} step={1} className="py-2" />
                     </div>
                     <div>
-                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2" style={{ color: "var(--dk-ink-soft)" }}>Lifestyle energy usage</div>
-                        <div className="grid grid-cols-3 gap-2.5">
+                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] mb-2" style={{ color: "var(--dk-ink-soft)" }}>Where you live</div>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                             {LIFESTYLES.map((l) => {
                                 const on = lifestyle === l.key
                                 return (
                                     <button key={l.key} onClick={() => setLifestyle(l.key)}
-                                        className="rounded-xl border py-3 flex flex-col items-center gap-1 transition-colors"
-                                        style={on ? { background: "var(--dk-raised)", borderColor: "var(--dk-tea-ink)" } : { background: "var(--dk-raised)", borderColor: "var(--dk-line)" }}>
-                                        <span className="text-2xl">{l.emoji}</span>
-                                        <span className="text-xs font-semibold" style={{ color: on ? "var(--dk-tea-ink)" : "var(--dk-ink-soft)" }}>{l.label}</span>
+                                        title={l.hint}
+                                        className="min-w-0 rounded-xl border py-2.5 px-1 flex flex-col items-center gap-0.5 transition-colors"
+                                        /* selected and unselected shared a background before, so the
+                                           only cue was a border colour */
+                                        style={on
+                                            ? { background: "var(--dk-tea)", borderColor: "var(--dk-line)" }
+                                            : { background: "var(--dk-raised)", borderColor: "var(--dk-line)" }}>
+                                        <span className="text-xl leading-none">{l.emoji}</span>
+                                        <span className="text-[11px] font-semibold leading-tight text-center break-words" style={{ color: on ? "var(--dk-on-tea)" : "var(--dk-ink-soft)" }}>{l.label}</span>
+                                        <span className="font-mono text-[10px]" style={{ color: on ? "var(--dk-on-tea)" : "var(--dk-tea-ink)" }}>{l.gj} GJ</span>
                                     </button>
                                 )
                             })}
                         </div>
+                        <p className="text-[11px] leading-snug mt-2" style={{ color: "var(--dk-ink-soft)" }}>
+                            Per person per year, counting transport, heating and the industry behind everything you buy. A lightning bolt is taken as 1 GJ, which is the middle of a wide range.
+                        </p>
                     </div>
                 </div>
 

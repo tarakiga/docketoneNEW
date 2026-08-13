@@ -9,7 +9,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 // Deliberately mixed: two things you'd genuinely look up on a Tuesday, one
-// uncomfortable truth, one that is pure nonsense. The spread is the point —
+// uncomfortable truth, one that is pure nonsense. The spread is the point -
 // it shows what kind of place this is faster than a paragraph could.
 const HERO_QUESTIONS = [
   { q: "when does my 2pm coffee wear off?", href: "/calculators/bigkidmath/caffeine-half-life/" },
@@ -31,7 +31,7 @@ export default async function Home() {
 
   return (
     <div className="almanac">
-      {/* Hero — full-bleed yellow band, so it sits outside the page wrap.
+      {/* Hero, full-bleed yellow band, so it sits outside the page wrap.
           The Calculator of the Day is the card on the right rather than a
           separate strip below, so the claim and the proof share one screen. */}
       <header className="home-hero">
@@ -52,7 +52,7 @@ export default async function Home() {
           {/* Real questions, deliberately spanning practical to absurd, so the
               range of the collection is legible before anyone clicks. Full width
               under the grid so they lay out in one row instead of stacking, and
-              every one is a genuine route — navigation, not decoration. */}
+              every one is a genuine route, navigation, not decoration. */}
           <div className="home-asks">
             <p className="home-asks-l">People come here asking</p>
             <div className="home-ask-row">

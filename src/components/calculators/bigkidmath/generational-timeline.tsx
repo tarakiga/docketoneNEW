@@ -149,7 +149,7 @@ const GENERATIONS: Generation[] = [
 ]
 
 /** How close to a boundary counts as a cusp. The dividing years are a
- *  convention, not a fact — Pew starts Gen Z at 1997, others at 1995 — so
+ *  convention, not a fact, Pew starts Gen Z at 1997, others at 1995, so
  *  telling a 1996 baby they are definitively a Millennial overstates it. */
 const CUSP_YEARS = 2
 
@@ -209,7 +209,7 @@ export function GenerationalTimelineCalculator() {
                     </div>
 
                     {/* Jumping straight to a generation is the other way people
-                        arrive at this — "which one am I again?" runs both ways. */}
+                        arrive at this, "which one am I again?" runs both ways. */}
                     <div className="space-y-2">
                         <Label style={{ color: 'var(--dk-ink-soft)' }}>Or jump to a generation</Label>
                         <div className="flex flex-wrap gap-1.5">
@@ -255,7 +255,7 @@ export function GenerationalTimelineCalculator() {
                                         You are {result.name}
                                     </h2>
                                     {/* year-minus-year is the age you TURN this year,
-                                        not your age today — said plainly instead of
+                                        not your age today, said plainly instead of
                                         being labelled "approx" */}
                                     <p style={{ color: 'var(--dk-ink-soft)' }}>Born {birthYear} • Turns {age} this year</p>
                                 </div>
@@ -267,7 +267,7 @@ export function GenerationalTimelineCalculator() {
                                     >
                                         <strong style={{ color: 'var(--dk-ink)' }}>You&apos;re on the cusp.</strong>{" "}
                                         {birthYear} sits within a couple of years of {cusp.name}, and the dividing
-                                        lines are a convention rather than a fact — different researchers draw them
+                                        lines are a convention rather than a fact. Different researchers draw them
                                         in different places. Plenty of people born your year identify either way.
                                     </div>
                                 )}

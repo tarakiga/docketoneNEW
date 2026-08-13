@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 
 /* The dark: utility variant was bound to a .dark class that nothing ever adds
-   — the site themes with data-theme on <html>. Every `dark:` utility in the
+  , the site themes with data-theme on <html>. Every `dark:` utility in the
    codebase was therefore dead, so things like .glass-card fell back to their
    light branch (bg-white/50) underneath correct dark-mode token text. */
 @custom-variant dark (&:is(.dark *, [data-theme="dark"], [data-theme="dark"] *));
@@ -72,7 +72,7 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.491 0.241 292.5);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.47 0 0); /* was .556 — 4.0:1 as the search placeholder */
+  --muted-foreground: oklch(0.47 0 0); /* was .556, 4.0:1 as the search placeholder */
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -503,7 +503,7 @@
 
 :root,
 [data-theme="light"] {
-  /* surfaces — the ground is the hero yellow, so the band and the page are one
+  /* surfaces, the ground is the hero yellow, so the band and the page are one
      surface. Cards are white against it, which is what makes the outline-and-
      offset sticker language read. */
   --dk-page:#FFD93B;
@@ -539,7 +539,7 @@
   /* text sitting ON a filled accent */
   --dk-on-yel:#4A3A00; --dk-on-org:#4A1305; --dk-on-tea:#033F3A;
   --dk-on-lim:#1D4009; --dk-on-pur:#2E1259; --dk-on-pnk:#480922; --dk-on-sky:#04304F;
-  /* semantic status — separate from the brand accents on purpose, so a
+  /* semantic status, separate from the brand accents on purpose, so a
      re-skin never accidentally makes "over budget" read as decoration */
   --dk-pos:#7BD44F; --dk-pos-ink:#3C6B21; --dk-on-pos:#1D4009;
   --dk-neg:#F0685C; --dk-neg-ink:#B02818; --dk-on-neg:#4A0D08;
@@ -588,7 +588,7 @@ body{background:var(--dk-page) !important}
   color:var(--dk-ink);
   font-family:var(--font-hanken),system-ui,sans-serif;
   background-color:var(--dk-page);
-  /* the base Almanac layer paints a dot matrix here — flat ground instead */
+  /* the base Almanac layer paints a dot matrix here, flat ground instead */
   background-image:none;
   overflow-x:clip;
 }
@@ -665,7 +665,7 @@ body{background:var(--dk-page) !important}
 
 /* ---- home hero ---------------------------------------------------------
    A full-bleed yellow band. The Calculator of the Day is not a separate strip
-   below any more — it IS the card on the right, so the hero makes its claim
+   below any more, it IS the card on the right, so the hero makes its claim
    and immediately demonstrates it with a real tool. */
 .home-hero{
   border-top:none;position:relative;
@@ -687,7 +687,7 @@ body{background:var(--dk-page) !important}
 .home-hero .home-sub{color:var(--dk-on-yel);max-width:36ch;margin-left:0;margin-right:0}
 .home-hero .home-cta{justify-content:flex-start}
 
-/* example questions — small enough to sit under the CTAs without competing
+/* example questions, small enough to sit under the CTAs without competing
    with them, but real links, so they earn the space twice */
 .home-asks{margin-top:clamp(1.6rem,3vw,2.4rem);padding-top:1.3rem;
   border-top:2.5px dashed rgba(23,22,26,.28)}
@@ -721,7 +721,7 @@ body{background:var(--dk-page) !important}
   .home-h1{color:var(--dk-surface);-webkit-text-stroke:3px var(--dk-ink);paint-order:stroke fill}
 }
 /* The accent word sits over the h1's orange drop shadow. Pink was too close to
-   that orange in hue — two warm tones muddying each other instead of reading
+   that orange in hue, two warm tones muddying each other instead of reading
    as text plus shadow. Teal is near-complementary to both the orange shadow
    and the yellow ground, so all three layers separate cleanly. */
 .home-h1 .w1{color:var(--dk-tea);-webkit-text-stroke:3px var(--dk-ink)}
@@ -751,7 +751,7 @@ body{background:var(--dk-page) !important}
   text-transform:lowercase;letter-spacing:-.025em;color:var(--dk-ink);
   font-size:clamp(1.25rem,2.4vw,1.7rem);line-height:1.1}
 .home-cotd-mid p{color:var(--dk-ink-soft);font-size:.92rem;line-height:1.5;margin-top:.4rem}
-/* the "answer" block — the loudest thing on the card, and the action */
+/* the "answer" block, the loudest thing on the card, and the action */
 .home-cotd-answer{
   display:flex;align-items:center;gap:.8rem;margin-top:1rem;
   background:var(--dk-pnk);color:var(--dk-on-pnk);
@@ -832,7 +832,7 @@ body{background:var(--dk-page) !important}
 .almanac-num{color:var(--dk-ink-soft);font-family:var(--font-space-mono),monospace}
 .almanac-ico{background:var(--dk-sunk);border:3px solid var(--dk-line);border-radius:12px}
 .almanac-card:hover .almanac-ico{background:var(--dk-yel)}
-/* The media box already spans the full card width — its negative margin
+/* The media box already spans the full card width, its negative margin
    cancels the card padding, so it meets the outline on all three sides.
    The aspect ratio is the thing worth changing: the blog's featured images
    are 1024x1024 squares, and a 16/9 box with object-fit:cover threw away 44%
@@ -977,7 +977,7 @@ body{background:var(--dk-page) !important}
   overflow:hidden;
 }
 /* NOTE: a blanket `.almanac-screen :is(.grid,.flex) > * { min-width:0 }` was
-   tried here and made things worse — 19 failing calculators became 27. Letting
+   tried here and made things worse, 19 failing calculators became 27. Letting
    every item shrink below its content just moves the overflow inward: elements
    that previously fit start clipping their own contents instead. min-w-0 has
    to be applied to the specific item whose track is too wide, not broadcast.
@@ -1001,7 +1001,7 @@ body{background:var(--dk-page) !important}
   border-color:var(--dk-line);
   box-shadow:4px 4px 0 var(--dk-shadow);
 }
-/* blur shadows fight the flat sticker language — flatten every Tailwind shadow */
+/* blur shadows fight the flat sticker language, flatten every Tailwind shadow */
 .almanac-screen [class*="shadow-"]{box-shadow:4px 4px 0 var(--dk-shadow)}
 .almanac-screen [class*="shadow-none"]{box-shadow:none}
 /* controls read as pressable stickers */

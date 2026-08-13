@@ -21,7 +21,7 @@ const namedEntities: Record<string, string> = {
   lsquo: "‘",
   ldquo: "“",
   rdquo: "”",
-  ndash: "–",
+  ndash: "-",
   mdash: "-",
   hellip: "…",
 }

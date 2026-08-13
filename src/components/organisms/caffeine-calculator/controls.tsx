@@ -10,7 +10,7 @@ export type Dose = {
     icon: string
     mg: number
     qty: number
-    /** clock time, "HH:mm" — always today (see resolveTime in index.tsx) */
+    /** clock time, "HH:mm", always today (see resolveTime in index.tsx) */
     time: string
 }
 
@@ -57,7 +57,7 @@ export function CaffeineControls({
     return (
         <div className="space-y-6 min-w-0">
             {/* Add a drink. Tapping adds a dose rather than replacing the amount,
-                so "three coffees today" is expressible — which was the whole
+                so "three coffees today" is expressible, which was the whole
                 point of the rebuild. */}
             <div className="min-w-0">
                 <div className={`${SEC} mb-3`}>Tap what you drank</div>
@@ -90,7 +90,7 @@ export function CaffeineControls({
 
                 {doses.length === 0 ? (
                     <p className="rounded-2xl border border-dashed border-[var(--dk-line)] bg-[var(--dk-sunk)] px-4 py-6 text-center text-sm text-[var(--dk-ink-soft)]">
-                        Nothing yet — tap a drink above to start.
+                        Nothing yet. Tap a drink above to start.
                     </p>
                 ) : (
                     <div className="space-y-2 min-w-0">
@@ -115,7 +115,7 @@ export function CaffeineControls({
                                             </div>
                                         </div>
 
-                                        {/* quantity — 44px targets so it is usable on a phone */}
+                                        {/* quantity, 44px targets so it is usable on a phone */}
                                         <div className="flex items-center gap-1 shrink-0">
                                             <button
                                                 onClick={() => setQty(d.id, d.qty - 1)}
@@ -145,7 +145,7 @@ export function CaffeineControls({
                                         </button>
                                     </div>
 
-                                    {/* time only — the date is always today, so a
+                                    {/* time only, the date is always today, so a
                                         datetime picker just added a field to skip past */}
                                     <label className="mt-2 flex items-center gap-2 min-w-0">
                                         <span className={`${SEC} shrink-0`}>At</span>
@@ -173,16 +173,16 @@ export function CaffeineControls({
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-[var(--dk-sunk)] border-[var(--dk-line)] text-[var(--dk-ink)]">
-                            <SelectItem value="3">Fast — 3 hrs</SelectItem>
-                            <SelectItem value="5">Average — 5 hrs</SelectItem>
-                            <SelectItem value="7">Slow — 7 hrs</SelectItem>
-                            <SelectItem value="9">Very slow — 9 hrs</SelectItem>
+                            <SelectItem value="3">Fast (3 hrs)</SelectItem>
+                            <SelectItem value="5">Average (5 hrs)</SelectItem>
+                            <SelectItem value="7">Slow (7 hrs)</SelectItem>
+                            <SelectItem value="9">Very slow (9 hrs)</SelectItem>
                         </SelectContent>
                     </Select>
                     {/* the old version gave no way to answer this, so most people
                         left it on Average and the control earned nothing */}
                     <p className="text-[11px] leading-snug text-[var(--dk-ink-soft)]">
-                        Smoking speeds it up. Pregnancy and the combined pill slow it a lot — often past 9 hrs.
+                        Smoking speeds it up. Pregnancy and the combined pill slow it a lot, often past 9 hrs.
                         Otherwise it is mostly genetics; Average is the safe guess.
                     </p>
                 </div>
