@@ -1,13 +1,12 @@
 "use client"
 
 import { ShareResult } from "@/components/molecules/share-result"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { motion } from "framer-motion"
 import { Briefcase, Film, Globe, Music, Smartphone, Wallet } from "lucide-react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 type Generation = {
     name: string
@@ -149,36 +148,43 @@ const GENERATIONS: Generation[] = [
     }
 ]
 
-export function GenerationalTimelineCalculator() {
-    const [birthYear, setBirthYear] = useState<string>("")
-    const [result, setResult] = useState<Generation | null>(null)
-    const [age, setAge] = useState<number>(0)
-    const [notice, setNotice] = useState<string>("")
+/** How close to a boundary counts as a cusp. The dividing years are a
+ *  convention, not a fact — Pew starts Gen Z at 1997, others at 1995 — so
+ *  telling a 1996 baby they are definitively a Millennial overstates it. */
+const CUSP_YEARS = 2
 
-    const calculate = () => {
+export function GenerationalTimelineCalculator() {
+    // Starts on a worked example rather than blank. Most visitors arrive from
+    // search, and an empty panel reading "Waiting for input..." gives them
+    // nothing to react to.
+    const [birthYear, setBirthYear] = useState<string>("1990")
+
+    // Derived, not stored behind a submit button. The whole computation is a
+    // range lookup; gating it behind "Reveal My Generation" added a click to
+    // something that can just be true as you type.
+    const { result, age, notice, cusp } = useMemo(() => {
         const currentYear = new Date().getFullYear()
         const year = parseInt(birthYear, 10)
+        const none = { result: null as Generation | null, age: 0, cusp: null as Generation | null }
 
-        if (!year || Number.isNaN(year)) {
-            setResult(null); setNotice("Please enter a valid 4-digit birth year."); return
-        }
-        if (year < 1901) {
-            setResult(null); setNotice("Our timeline starts in 1901 (the Greatest Generation). Try a later year."); return
-        }
-        if (year > currentYear) {
-            setResult(null); setNotice(`That year is in the future. Try ${currentYear} or earlier.`); return
-        }
+        if (!birthYear.trim()) return { ...none, notice: "" }
+        if (!year || Number.isNaN(year)) return { ...none, notice: "Please enter a valid 4-digit birth year." }
+        if (year < 1901) return { ...none, notice: "Our timeline starts in 1901 (the Greatest Generation). Try a later year." }
+        if (year > currentYear) return { ...none, notice: `That year is in the future. Try ${currentYear} or earlier.` }
 
         const gen = GENERATIONS.find(g => year >= g.start && year <= g.end)
-        if (gen) {
-            setResult(gen)
-            setAge(currentYear - year)
-            setNotice("")
-        } else {
-            setResult(null)
-            setNotice("Hmm, we couldn't place that year. Double-check it and try again.")
-        }
-    }
+        if (!gen) return { ...none, notice: "Hmm, we couldn't place that year. Double-check it and try again." }
+
+        // Near a boundary? Name the generation on the other side of it.
+        const neighbour =
+            year - gen.start < CUSP_YEARS
+                ? GENERATIONS.find(g => g.end === gen.start - 1) ?? null
+                : gen.end - year < CUSP_YEARS && gen.end !== 9999
+                    ? GENERATIONS.find(g => g.start === gen.end + 1) ?? null
+                    : null
+
+        return { result: gen, age: currentYear - year, notice: "", cusp: neighbour }
+    }, [birthYear])
 
     return (
         <div className="grid lg:grid-cols-3 gap-8">
@@ -192,16 +198,41 @@ export function GenerationalTimelineCalculator() {
                         <Label style={{ color: 'var(--dk-ink-soft)' }}>Enter Birth Year</Label>
                         <Input
                             type="number"
+                            inputMode="numeric"
+                            min={1901}
+                            max={new Date().getFullYear()}
                             placeholder="e.g. 1990"
                             value={birthYear}
                             onChange={(e) => setBirthYear(e.target.value)}
-                            onKeyDown={(e) => e.key === 'Enter' && calculate()}
                             style={{ backgroundColor: 'var(--dk-sunk)', borderColor: 'var(--dk-line)', color: 'var(--dk-ink)' }}
                         />
                     </div>
-                    <Button onClick={calculate} className="w-full hover:opacity-90 transition-opacity" style={{ backgroundColor: 'var(--dk-tea)', color: 'var(--dk-on-fill)' }}>
-                        Reveal My Generation
-                    </Button>
+
+                    {/* Jumping straight to a generation is the other way people
+                        arrive at this — "which one am I again?" runs both ways. */}
+                    <div className="space-y-2">
+                        <Label style={{ color: 'var(--dk-ink-soft)' }}>Or jump to a generation</Label>
+                        <div className="flex flex-wrap gap-1.5">
+                            {GENERATIONS.map(g => {
+                                const on = result?.name === g.name
+                                return (
+                                    <button
+                                        key={g.name}
+                                        type="button"
+                                        onClick={() => setBirthYear(String(Math.min(new Date().getFullYear(), Math.round((g.start + Math.min(g.end, new Date().getFullYear())) / 2))))}
+                                        className="rounded-lg border px-2.5 py-1.5 text-[11px] font-bold transition-colors"
+                                        style={{
+                                            borderColor: on ? 'var(--dk-tea-ink)' : 'var(--dk-line)',
+                                            background: on ? 'var(--dk-raised)' : 'var(--dk-sunk)',
+                                            color: on ? 'var(--dk-tea-ink)' : 'var(--dk-ink-soft)',
+                                        }}
+                                    >
+                                        {g.icon} {g.name.replace("Generation ", "Gen ")}
+                                    </button>
+                                )
+                            })}
+                        </div>
+                    </div>
                 </CardContent>
             </Card>
 
@@ -223,8 +254,23 @@ export function GenerationalTimelineCalculator() {
                                     <h2 className="text-3xl font-bold tracking-tight mb-1" style={{ fontFamily: 'var(--font-fredoka), cursive', color: 'var(--dk-tea-ink)' }}>
                                         You are {result.name}
                                     </h2>
-                                    <p style={{ color: 'var(--dk-ink-soft)' }}>Born {birthYear} • Approx {age} years old</p>
+                                    {/* year-minus-year is the age you TURN this year,
+                                        not your age today — said plainly instead of
+                                        being labelled "approx" */}
+                                    <p style={{ color: 'var(--dk-ink-soft)' }}>Born {birthYear} • Turns {age} this year</p>
                                 </div>
+
+                                {cusp && (
+                                    <div
+                                        className="mx-auto max-w-lg rounded-xl border px-4 py-3 text-sm leading-snug"
+                                        style={{ borderColor: 'var(--dk-line)', background: 'var(--dk-sunk)', color: 'var(--dk-ink-soft)' }}
+                                    >
+                                        <strong style={{ color: 'var(--dk-ink)' }}>You&apos;re on the cusp.</strong>{" "}
+                                        {birthYear} sits within a couple of years of {cusp.name}, and the dividing
+                                        lines are a convention rather than a fact — different researchers draw them
+                                        in different places. Plenty of people born your year identify either way.
+                                    </div>
+                                )}
                                 <p className="text-lg max-w-lg mx-auto leading-relaxed" style={{ color: 'var(--dk-ink)' }}>
                                     {result.description}
                                 </p>
