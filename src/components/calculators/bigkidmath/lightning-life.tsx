@@ -137,12 +137,20 @@ export function LightningLifeCalculator() {
                     <div className="border rounded-2xl px-6" style={{ background: "var(--dk-sunk)", borderColor: "var(--dk-line)" }}>
                         <div className="font-mono text-[10px] uppercase tracking-[0.18em] pt-5 pb-1" style={{ color: "var(--dk-ink-soft)" }}>That energy is equivalent to…</div>
                         {equivalents.map((e, i) => (
-                            <div key={i} className="grid grid-cols-[44px_1fr_auto] items-center gap-2 sm:gap-4 py-4" style={i < equivalents.length - 1 ? { borderBottom: "1px solid var(--dk-line)" } : undefined}>
-                                <span className="w-11 h-11 rounded-xl grid place-items-center text-[22px]" style={{ background: "var(--dk-raised)" }}>{e.ic}</span>
-                                <span className="min-w-0 text-sm break-words" style={{ color: "var(--dk-ink-soft)" }}>{e.nm}</span>
-                                <span className="min-w-0 font-mono font-bold text-lg sm:text-xl text-right leading-tight break-words" style={{ color: "var(--dk-ink)" }}>
-                                    {e.v}{e.unit && <span className="block text-xs font-normal" style={{ color: "var(--dk-ink-soft)" }}>{e.unit}</span>}
-                                </span>
+                            /* Three columns on one row starved the label: the value
+                               column is `auto`, so a figure like 42 million iPhone
+                               charges took the width it needed and left the name
+                               nothing. Below sm the name and value get their own
+                               rows; `sm:contents` promotes them back to grid items
+                               so the desktop row is unchanged. */
+                            <div key={i} className="grid grid-cols-[44px_1fr] sm:grid-cols-[44px_1fr_auto] items-center gap-3 sm:gap-4 py-4" style={i < equivalents.length - 1 ? { borderBottom: "1px solid var(--dk-line)" } : undefined}>
+                                <span className="w-11 h-11 rounded-xl grid place-items-center text-[22px] shrink-0" style={{ background: "var(--dk-raised)" }}>{e.ic}</span>
+                                <div className="min-w-0 sm:contents">
+                                    <span className="block min-w-0 text-sm break-words" style={{ color: "var(--dk-ink-soft)" }}>{e.nm}</span>
+                                    <span className="block min-w-0 font-mono font-bold text-lg sm:text-xl text-left sm:text-right leading-tight break-words" style={{ color: "var(--dk-ink)" }}>
+                                        {e.v}{e.unit && <span className="inline sm:block text-xs font-normal" style={{ color: "var(--dk-ink-soft)" }}> {e.unit}</span>}
+                                    </span>
+                                </div>
                             </div>
                         ))}
                     </div>
