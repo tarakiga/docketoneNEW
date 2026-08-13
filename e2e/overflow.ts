@@ -32,6 +32,11 @@ export function auditOverflow(scope: string): Overflow[] {
   }
 
   document.querySelectorAll(`${scope} *`).forEach(el => {
+    // scrollWidth/clientWidth are not meaningful inside SVG — chart tick labels
+    // report scrollWidth === width and read as permanently clipped. The chart's
+    // own container is still checked, which is what actually matters.
+    if (el instanceof SVGElement) return
+
     const r = el.getBoundingClientRect()
     if (!r.width || !r.height) return
 

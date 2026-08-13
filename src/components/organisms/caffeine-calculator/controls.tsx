@@ -10,7 +10,7 @@ export type Dose = {
     icon: string
     mg: number
     qty: number
-    /** ISO datetime-local string */
+    /** clock time, "HH:mm" — always today (see resolveTime in index.tsx) */
     time: string
 }
 
@@ -39,8 +39,14 @@ const SEC = "text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--dk-in
 const FIELD =
     "w-full min-w-0 bg-[var(--dk-surface)] border border-[var(--dk-line)] rounded-xl px-3 py-2.5 text-[var(--dk-ink)] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--dk-tea-ink)]"
 
-const clockOf = (iso: string) =>
-    iso ? new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : ""
+/** "14:30" -> "2:30 PM" in the reader's locale */
+const clockOf = (hhmm: string) => {
+    const [h, m] = (hhmm || "").split(":").map(Number)
+    if (!Number.isFinite(h) || !Number.isFinite(m)) return ""
+    const d = new Date()
+    d.setHours(h, m, 0, 0)
+    return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+}
 
 export function CaffeineControls({
     doses, addDose, setQty, setDoseTime, removeDose,
@@ -139,10 +145,12 @@ export function CaffeineControls({
                                         </button>
                                     </div>
 
+                                    {/* time only — the date is always today, so a
+                                        datetime picker just added a field to skip past */}
                                     <label className="mt-2 flex items-center gap-2 min-w-0">
                                         <span className={`${SEC} shrink-0`}>At</span>
                                         <input
-                                            type="datetime-local"
+                                            type="time"
                                             value={d.time}
                                             onChange={e => setDoseTime(d.id, e.target.value)}
                                             aria-label={`Time you had the ${d.name}`}

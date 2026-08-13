@@ -15,22 +15,37 @@ const HOUR = 3_600_000
 const fmtClock = (ms: number) =>
     new Date(ms).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
 
-/** Date -> the "YYYY-MM-DDTHH:mm" shape a datetime-local input expects, in local time. */
-const localISO = (d: Date) =>
-    new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
+/** Date -> "HH:mm" for a time input. */
+const localTime = (d: Date) =>
+    `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`
+
+/**
+ * A clock time is always today — nobody logs yesterday's coffee — so the date
+ * picker was dead weight. The one case that needs care is after midnight: at
+ * 00:30, a drink logged at 23:00 means last night, not 22.5 hours from now.
+ * A time in the future is therefore read as yesterday.
+ */
+const resolveTime = (hhmm: string, now = new Date()) => {
+    const [h, m] = hhmm.split(":").map(Number)
+    if (!Number.isFinite(h) || !Number.isFinite(m)) return NaN
+    const d = new Date(now)
+    d.setHours(h, m, 0, 0)
+    if (d.getTime() > now.getTime() + 60_000) d.setDate(d.getDate() - 1)
+    return d.getTime()
+}
 
 let seq = 0
 const nextId = () => `dose-${++seq}`
 
 export function CaffeineCalculatorPremium() {
     const [doses, setDoses] = useState<Dose[]>(() => [
-        { id: nextId(), name: "Coffee", icon: "☕", mg: 95, qty: 1, time: localISO(new Date()) },
+        { id: nextId(), name: "Coffee", icon: "☕", mg: 95, qty: 1, time: localTime(new Date()) },
     ])
     const [halfLife, setHalfLife] = useState<number>(5)
     const [sleepGoal, setSleepGoal] = useState<string>("22:00")
 
     const addDose = (name: string, icon: string, mg: number) =>
-        setDoses(prev => [...prev, { id: nextId(), name, icon, mg, qty: 1, time: localISO(new Date()) }])
+        setDoses(prev => [...prev, { id: nextId(), name, icon, mg, qty: 1, time: localTime(new Date()) }])
 
     const setQty = (id: string, qty: number) =>
         setDoses(prev =>
@@ -46,7 +61,7 @@ export function CaffeineCalculatorPremium() {
 
     const result = useMemo(() => {
         const parsed = doses
-            .map(d => ({ ms: new Date(d.time).getTime(), mg: d.mg * d.qty }))
+            .map(d => ({ ms: resolveTime(d.time), mg: d.mg * d.qty }))
             .filter(d => Number.isFinite(d.ms) && d.mg > 0)
         if (!parsed.length) return null
 
@@ -131,7 +146,11 @@ export function CaffeineCalculatorPremium() {
 
     return (
         <motion.div
-            className="w-full min-w-0 bg-[var(--dk-sunk)] rounded-3xl p-4 sm:p-6 md:p-8 border border-[var(--dk-line)] overflow-hidden relative"
+            /* On a phone this card sat inside .almanac-screen, which is already a
+               bordered, padded card — three nested boxes cost 102px of a 375px
+               screen before anything was drawn, squeezing the chart to 196px.
+               The duplicate chrome is dropped below sm and restored above it. */
+            className="w-full min-w-0 relative overflow-hidden p-0 sm:p-6 md:p-8 rounded-none sm:rounded-3xl border-0 sm:border sm:border-[var(--dk-line)] bg-transparent sm:bg-[var(--dk-sunk)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
