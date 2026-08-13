@@ -43,8 +43,18 @@ export function PowerFootprintCalculator() {
     const efficiency = Math.round(r.landWind / r.landNuclear)
     const cityLabel = population > 8_000_000 ? "New York City" : population > 3_000_000 ? "Los Angeles" : population > 1_000_000 ? "Dallas" : "a small town"
 
-    // Square ratios are constant (areas ∝ 1/density), so sizes are fixed; only the km² labels change.
-    const SQ = { wind: 248, solar: 136, nuclear: 15 }
+    /**
+     * Square ratios are constant (area is proportional to 1/density), so only
+     * the km² labels change. The sizes used to be fixed pixels: 248 for wind,
+     * which plus an 18px offset ran past a roughly 250px panel on a phone and
+     * was silently cropped by the container's overflow:hidden.
+     *
+     * The base now shrinks to fit and the others are derived from it, so the
+     * side lengths stay in sqrt(density) proportion at any width.
+     */
+    const SQ_K = { wind: 1, solar: Math.sqrt(3 / 10), nuclear: Math.sqrt(3 / 800) }
+    const sq = (k: number) => `calc(var(--sq) * ${k.toFixed(4)})`
+    const sqOffset = (k: number, extra: number) => `calc(18px + var(--sq) * ${k.toFixed(4)} + ${extra}px)`
 
     const SLIDER_LBL = "font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--dk-ink-soft)]"
     const SLIDER_VAL = "font-mono text-[13px] text-[var(--dk-ink)] font-bold"
@@ -112,15 +122,21 @@ export function PowerFootprintCalculator() {
                         <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--dk-ink-soft)]">Footprint to scale</h3>
                         <p className="text-[11px] text-[var(--dk-ink-soft)] mb-3.5">Each square&apos;s area is proportional to the km² needed.</p>
                         <div
-                            className="relative h-[300px] w-full max-w-full overflow-hidden rounded-xl border"
-                            style={{ borderColor: "var(--dk-line)", backgroundImage: "linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px)", backgroundSize: "24px 24px" }}
+                            className="relative h-[280px] sm:h-[300px] w-full max-w-full overflow-hidden rounded-xl border"
+                            style={{
+                                borderColor: "var(--dk-line)",
+                                backgroundImage: "linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px)",
+                                backgroundSize: "24px 24px",
+                                // the biggest square, capped so it can never outgrow the panel
+                                ["--sq" as string]: "min(248px, calc(100% - 40px), calc(280px - 40px))",
+                            }}
                         >
-                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.wind, height: SQ.wind, background: "rgba(41,224,255,.18)", border: "2px solid var(--dk-tea-ink)" }} />
-                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.solar, height: SQ.solar, background: "rgba(255,210,60,.28)", border: "2px solid var(--dk-yel-ink)" }} />
-                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: SQ.nuclear, height: SQ.nuclear, background: "var(--dk-pos)", border: "2px solid var(--dk-pos-ink)" }} />
+                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: sq(SQ_K.wind), aspectRatio: "1", background: "rgba(41,224,255,.18)", border: "2px solid var(--dk-tea-ink)" }} />
+                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: sq(SQ_K.solar), aspectRatio: "1", background: "rgba(255,210,60,.28)", border: "2px solid var(--dk-yel-ink)" }} />
+                            <div className="absolute rounded-md" style={{ left: 18, bottom: 18, width: sq(SQ_K.nuclear), aspectRatio: "1", background: "var(--dk-pos)", border: "2px solid var(--dk-pos-ink)" }} />
                             <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-tea-ink)", right: 14, top: 14 }}>Wind {fmt(r.landWind)}<span className="block text-[9px] text-[var(--dk-ink-soft)] font-normal">km²</span></span>
-                            <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-yel-ink)", left: 18 + SQ.solar + 10, bottom: 18 + SQ.solar - 24 }}>Solar {fmt(r.landSolar)}<span className="block text-[9px] text-[var(--dk-ink-soft)] font-normal">km²</span></span>
-                            <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-pos-ink)", left: 18 + SQ.nuclear + 10, bottom: 14 }}>⚛ {fmt(r.landNuclear)}</span>
+                            <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-yel-ink)", left: sqOffset(SQ_K.solar, 10), bottom: `calc(18px + var(--sq) * ${SQ_K.solar.toFixed(4)} - 24px)` }}>Solar {fmt(r.landSolar)}<span className="block text-[9px] text-[var(--dk-ink-soft)] font-normal">km²</span></span>
+                            <span className="absolute font-mono text-[11px] font-bold" style={{ color: "var(--dk-pos-ink)", left: sqOffset(SQ_K.nuclear, 10), bottom: 14 }}>⚛ {fmt(r.landNuclear)}</span>
                         </div>
                     </div>
                 </div>
