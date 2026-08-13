@@ -23,7 +23,19 @@ export function PowerFootprintCalculator() {
         const landWind = km2(densityWind)
         const landNuclear = km2(densityNuclear)
 
-        return { avgPowerWatts, landSolar, landWind, landNuclear }
+        /**
+         * Wind's 3 W/m2 is the area a farm SPANS, not the area it consumes.
+         * Turbine pads, access roads and substations come to roughly 2 to 5
+         * percent of that; the rest stays farmland or grazing and carries on
+         * being used. Quoting the spanned figure against nuclear's plant
+         * footprint compares two different things, and this is a comparison
+         * people arrive at with a position already formed, so it is worth
+         * being exact about.
+         */
+        const WIND_DIRECT_USE = 0.03
+        const landWindDirect = landWind * WIND_DIRECT_USE
+
+        return { avgPowerWatts, landSolar, landWind, landNuclear, landWindDirect }
     }, [population, kwhPerCapita])
 
     const fmt = (n: number) => n.toLocaleString(undefined, { maximumFractionDigits: 1 })
@@ -88,7 +100,10 @@ export function PowerFootprintCalculator() {
                             <span className="ml-auto text-2xl font-extrabold" style={{ color: "var(--dk-pos-ink)" }}>{fmt(r.landNuclear)} <span className="text-sm">km²</span></span>
                         </div>
                         <div className="rounded-2xl p-4 border text-[12.5px] leading-relaxed text-[var(--dk-ink-soft)]" style={{ background: "var(--dk-raised)", borderColor: "var(--dk-line)" }}>
-                            Squares are sized by <b className="text-[var(--dk-ink)]">actual land area</b>. Nuclear&apos;s plot is the tiny green dot - about <b className="text-[var(--dk-ink)]">{efficiency.toLocaleString()}× less land</b> than wind.
+                            Squares are sized by <b className="text-[var(--dk-ink)]">actual land area</b>. Nuclear&apos;s plot is the tiny green dot, about <b className="text-[var(--dk-ink)]">{efficiency.toLocaleString()}× less land</b> than wind.
+                            <span className="block mt-2 pt-2" style={{ borderTop: "1px solid var(--dk-line)" }}>
+                                That wind figure is the area a farm <b className="text-[var(--dk-ink)]">spans</b>, not the area it uses up. Pads, roads and substations come to roughly <b className="text-[var(--dk-ink)]">{fmt(r.landWindDirect)} km²</b>; the rest stays farmland and keeps being farmed. Against that, nuclear needs about <b className="text-[var(--dk-ink)]">{Math.max(1, Math.round(r.landWindDirect / r.landNuclear)).toLocaleString()}× less</b>.
+                            </span>
                         </div>
                     </div>
 
